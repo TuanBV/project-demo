@@ -1,0 +1,39 @@
+// app global css in SCSS form
+ul {
+  list-style: disc !important;
+  margin: auto !important;
+  padding: revert !important;
+}
+
+ol {
+  list-style: auto !important;
+  margin: auto !important;
+  padding: revert !important;
+}
+
+.hidden-text {
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.border-aea7a7 {
+  border-top: 1px solid #aea7a7;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  top: -10%;
+  left: 20%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

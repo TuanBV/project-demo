@@ -1,0 +1,31 @@
+.btn_add {
+    background-color: limegreen;
+    color: white;
+}
+.btn_add:hover {
+    background-color: green;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.image_upload {
+    width: 60%;
+    max-width: 540px;
+    margin: 10px 0;
+}
+
+.button_upload {
+    border: 0;
+    text-transform: uppercase;
+    background-color: darkturquoise;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 4px;
+}
+.button_upload:hover {
+    background-color: darkcyan;
+}

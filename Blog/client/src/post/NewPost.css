@@ -1,0 +1,20 @@
+.newpost_content {
+    margin-bottom: 50px;
+}
+
+.newpost_content div {
+    margin-top: 10px;
+}
+.newpost_creator input, .newpost_title input {
+    width: 50%;
+}
+.newpost_text textarea {
+    width: 100%;
+}
+
+.newpost_button {
+    padding: 10px 30px;
+    background-color: yellowgreen;
+    border: 0;
+    border-radius: 5px;
+}

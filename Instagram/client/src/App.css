@@ -1,0 +1,103 @@
+body {
+  margin: auto;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #f1f1f1;
+}
+
+.app_post {
+  background-color: #f1f1f1;
+  padding-bottom: 50px;
+}
+
+.app_header {
+  background-color: white;
+  width: 100%;
+  box-shadow: 5px 0px 5px 5px lightgray;
+  justify-items: center;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.app_headerImage {
+  width: 70px;
+  height: 70px;
+}
+
+.app_headerButton {
+  display: flex;
+  align-items: center;
+}
+
+.app_headerButton button {
+  border: 0;
+  background-color: white;
+  color: grey;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.app_headerButton button:hover {
+  color: black;
+}
+
+.app_headerButton :not(:last-child) {
+  margin-right: 30px;
+}
+
+.modal_title {
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.modal_input {
+  width: 100%;
+  border: 1px solid grey;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.modal_input:focus-visible {
+  outline: lightgray auto 0px;
+}
+
+.modal_button {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal_button button {
+  margin: 0 20px;
+  padding: 12px 30px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.modal_buttonClose {
+  background-color:red;
+  color: white;
+}
+
+.modal_buttonClose:hover {
+  background-color: rgb(187, 40, 40) ;
+}
+
+.modal_buttonLogin {
+  background-color: #4CB4F8;
+  color: white;
+}
+
+.modal_label {
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+input[type="text" i], input[type="password" i] {
+  padding-left: 8px!important;
+}
