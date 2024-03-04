@@ -16,7 +16,7 @@ def get_cookie(name: str):
 
   return cookie
 
-# Get shop cookie function
-def get_shop_cookie():
-  return get_cookie(COOKIE_NAME.SHOP)
+# Get user cookie function
+def get_user_cookie():
+  return get_cookie(COOKIE_NAME.USER)
 

@@ -3,13 +3,15 @@
 Common function
 """
 
+import re
 import bcrypt as lib_bcrypt
 import platform
 import os
 import uuid
 from setting import settings
 from helpers import context
-from utils.date import get_current_time
+from utils.date import get_current_time, format_date_time
+from fastapi_mail import ConnectionConfig, FastMail, MessageSchema
 
 # Hash password with bcrypt
 # Params:
@@ -49,13 +51,11 @@ def get_request_id():
 # Output:
 #   return: Output log
 def generate_log(level="INFO", user_agent="", url="", request_id="", log_type="", method="", content=""):
-  user_id = ""
-  shopcode = ""
+  user_code = ""
   if context.user.value:
     # Get data user from context
     user = context.user.value
-    user_id = user["user"]["id"]
-    shopcode = user["user"]["shopcode"]
+    user_code = user["employee_code"]
   log = {
     "ec2_name": platform.node(),
     "process_id": os.getpid(),
@@ -67,10 +67,9 @@ def generate_log(level="INFO", user_agent="", url="", request_id="", log_type=""
     "method": method,
     "level": level,
     "message": content,
-    "user_id": user_id,
-    "shopcode": shopcode,
+    "user_code": user_code,
   }
-  time = get_current_time()
+  time = format_date_time(get_current_time(), "%Y/%m/%d %H:%M:%S")
   if log_type == "RESPONSE":
     log["response_time"] = time
   elif log_type == "REQUEST":
@@ -78,3 +77,27 @@ def generate_log(level="INFO", user_agent="", url="", request_id="", log_type=""
   else:
     log["time"] = time
   return log
+
+# Remove accented
+# Params:
+#   @candidate_name: Candidate name
+# Output:
+#   return: String with no accented
+def no_accent_vietnamese(candidate_name):
+  candidate_name = re.sub("[áàảãạăắằẳẵặâấầẩẫậ]", "a", candidate_name)
+  candidate_name = re.sub("[ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ]", "A", candidate_name)
+  candidate_name = re.sub("[éèẻẽẹêếềểễệ]", "e", candidate_name)
+  candidate_name = re.sub("[ÉÈẺẼẸÊẾỀỂỄỆ]", "E", candidate_name)
+  candidate_name = re.sub("[óòỏõọôốồổỗộơớờởỡợ]", "o", candidate_name)
+  candidate_name = re.sub("[ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ]", "O", candidate_name)
+  candidate_name = re.sub("[íìỉĩị]", "i", candidate_name)
+  candidate_name = re.sub("[ÍÌỈĨỊ]", "I", candidate_name)
+  candidate_name = re.sub("[úùủũụưứừửữự]", "u", candidate_name)
+  candidate_name = re.sub("[ÚÙỦŨỤƯỨỪỬỮỰ]", "U", candidate_name)
+  candidate_name = re.sub("[ýỳỷỹỵ]", "y", candidate_name)
+  candidate_name = re.sub("[ÝỲỶỸỴ]", "Y", candidate_name)
+  candidate_name = candidate_name.replace("đ", "d")
+  candidate_name = candidate_name.replace("Đ", "D")
+  candidate_name = candidate_name.replace(" ", "_")
+
+  return candidate_name

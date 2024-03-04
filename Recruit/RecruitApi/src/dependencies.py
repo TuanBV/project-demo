@@ -9,7 +9,7 @@ from fastapi import Security
 from fastapi.security import APIKeyCookie
 from core import UnauthorizedException, ERR_MESSAGE
 
-api_key_shop = APIKeyCookie(name="__SHOP", auto_error=False)
+api_key_user = APIKeyCookie(name="__USER", auto_error=False)
 
 # Authorization
 def authorized(oauth_header: Optional[str]):
@@ -27,7 +27,7 @@ def authorized(oauth_header: Optional[str]):
 
   raise UnauthorizedException(message=ERR_MESSAGE.UNAUTHENTICATION)
 
-async def authorized_shop(oauth_header: Optional[str] = Security(api_key_shop)):
+async def authorized_user(oauth_header: Optional[str] = Security(api_key_user)):
   user = authorized(oauth_header)
 
   return user

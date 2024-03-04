@@ -14,7 +14,7 @@ from helpers.common import get_request_id
 from helpers import context
 import helpers.jwt as jwt
 from helpers.response import (make_cookie, error, ng)
-from helpers.cookie import get_shop_cookie
+from helpers.cookie import get_user_cookie
 from utils.date import format_date_time, get_current_time
 from dependency_injector.wiring import inject, Provide
 from containers import Container
@@ -31,12 +31,10 @@ class SSVRoute(APIRoute):
   # Output:
   #   Return: Data cookie
   def __set_user_cookie(self):
-    cookie = get_shop_cookie()
-    shopcode = ""
+    cookie = get_user_cookie()
 
     return {
       "cookie": cookie,
-      "shopcode": shopcode
     }
 
 
@@ -44,23 +42,19 @@ class SSVRoute(APIRoute):
   # Params:
   #   @response: Data response
   # Output:
-  #   Return: Data user_id, shopcode, response
+  #   Return: Data employee_code, response
   def __set_response(self, response):
     # Get data user from context
-    user_id = ""
-    shopcode = ""
+    employee_code = ""
     if context.user.value:
       user = context.user.value
       # In case the response does not set cookies
       if "set-cookie" not in response.headers:
-        data_cookie = {
-          "user": user["user"],
-        }
-        user_id = user["user"]["id"]
+        data_cookie = user
+        employee_code = user["employee_code"]
 
         data_set_cookie = self.__set_user_cookie()
         cookie = data_set_cookie["cookie"]
-        shopcode = data_set_cookie["shopcode"]
 
         # Encrypt data user
         jwt_token_new = jwt.hash_token(data_cookie)
@@ -73,8 +67,7 @@ class SSVRoute(APIRoute):
         response.set_cookie(**cookie_config)
 
     return {
-      "user_id": user_id,
-      "shopcode": shopcode,
+      "employee_code": employee_code,
       "response": response
     }
 
