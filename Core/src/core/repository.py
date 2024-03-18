@@ -4,7 +4,7 @@ Common repository
 
 
 from copy import deepcopy
-from . import CrmException, ERR_MESSAGE
+from . import Exception, ERR_MESSAGE
 from models import Shops, ShopAccounts, ShopSettings, SiteConfigs, ActionTypes, Batches, Actions
 from helpers import kbn
 import helpers.const as env
@@ -87,7 +87,7 @@ class CommonRepository():
       return customer_no
     # Don't have data customerNo max will return error
     else:
-      raise CrmException(message=ERR_MESSAGE.ERRMSG0029)
+      raise Exception(message=ERR_MESSAGE.ERRMSG0029)
 
 
   # Check email exist

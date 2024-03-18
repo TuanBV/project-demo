@@ -1,11 +1,11 @@
-"""CrmException"""
+"""Exception"""
 
 
 from helpers.const import CODE
 
 
 class CrmException(Exception):
-  """Exception raised for CRM system errors.
+  """Exception raised for system errors.
 
   Attributes:
       code -- code which caused the error
@@ -21,8 +21,8 @@ class CrmException(Exception):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class CrmNoDataException(CrmException):
-  """Exception raised for CRM no data errors.
+class NoDataException(Exception):
+  """Exception raised for no data errors.
 
   Attributes:
       code -- code which caused the error
@@ -38,8 +38,8 @@ class CrmNoDataException(CrmException):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class CrmUnauthorizedException(CrmException):
-  """Exception raised for CRM unauthorized errors.
+class UnauthorizedException(Exception):
+  """Exception raised for unauthorized errors.
 
   Attributes:
       code -- code which caused the error
@@ -56,8 +56,8 @@ class CrmUnauthorizedException(CrmException):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class CrmPermissionException(CrmException):
-  """Exception raised for CRM permission errors.
+class PermissionException(Exception):
+  """Exception raised for permission errors.
 
   Attributes:
       code -- code which caused the error
@@ -73,8 +73,8 @@ class CrmPermissionException(CrmException):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class CrmSendMailException(CrmException):
-  """Exception raised for CRM send mail errors.
+class SendMailException(Exception):
+  """Exception raised for send mail errors.
 
   Attributes:
       code -- code which caused the error
@@ -90,8 +90,8 @@ class CrmSendMailException(CrmException):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class CrmAppVersionException(Exception):
-  """Exception raised for CRM app version invalid errors.
+class AppVersionException(Exception):
+  """Exception raised for app version invalid errors.
 
   Attributes:
       code -- code which caused the error

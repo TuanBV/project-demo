@@ -1,4 +1,4 @@
-"""CRM Logger"""
+"""Logger"""
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -20,17 +20,17 @@ def get_logger():
   formatter = jsonlogger.JsonFormatter()
   if not IS_PROD:
     logging.basicConfig(level=logging.INFO, filename="./logs/app.log", filemode="a")
-  name = "CRM"
+  name = "Product"
   global loggers
 
   if loggers.get(name):
     return loggers.get(name)
   else:
-    logger = logging.getLogger("CRM")
+    logger = logging.getLogger("Product")
     logger.setLevel(logging.INFO)
     logger.addFilter(RedactingFilter())
     logger.propagate = False
-    handler = watchtower.CloudWatchLogHandler(log_group_name=f"CRM-Najimi-{settings.ENVIRONMENT}", log_stream_name="CRM-API")
+    handler = watchtower.CloudWatchLogHandler(log_group_name=f"Product-{settings.ENVIRONMENT}", log_stream_name="Product-API")
     handler.setFormatter(formatter)
     if not IS_PROD:
       rotating_file_handler = RotatingFileHandler(filename="./logs/app.log", maxBytes=10485760, backupCount=50)
