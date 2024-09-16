@@ -12,7 +12,7 @@ from helpers.kbn import TYPE_DB
 
 
 Base = declarative_base()
-logger = get_logger()
+# logger = get_logger()
 
 
 class Database:
@@ -31,7 +31,7 @@ class Database:
     try:
       yield session
     except Exception as e:
-      logger.error(f"Session rollback because of exception: {e}")
+      # logger.error(f"Session rollback because of exception: {e}")
       session.rollback()
       raise
     finally:

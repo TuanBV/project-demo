@@ -26,3 +26,4 @@ python-json-logger
 celery==5.2.7
 eventlet==0.33.1
 charset-normalizer
+pydantic-settings

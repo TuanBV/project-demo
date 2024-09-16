@@ -4,7 +4,7 @@
 from helpers.const import CODE
 
 
-class CrmException(Exception):
+class CommonException(Exception):
   """Exception raised for system errors.
 
   Attributes:

@@ -1,5 +1,5 @@
 """
-CRM API
+Information API
 """
 from containers import Container
 from fastapi import FastAPI
@@ -18,14 +18,14 @@ tags_metadata = [
             "url": env.URL_DOC,
         },
     },
-    {
-        "name": "member",
-        "description": "Member",
-        "externalDocs": {
-            "description": "docs",
-            "url": env.URL_DOC,
-        },
-    },
+    # {
+    #     "name": "member",
+    #     "description": "Member",
+    #     "externalDocs": {
+    #         "description": "docs",
+    #         "url": env.URL_DOC,
+    #     },
+    # },
 ]
 
 
@@ -36,17 +36,17 @@ app.container = container
 
 # Include child routers
 app.include_router(routers.admin_routers)
-app.include_router(routers.member_routers)
+# app.include_router(routers.member_routers)
 
 origins = [
-  "http://localhost",
-  "http://localhost:8080",
+    "http://localhost",
+    "http://localhost:8080",
 ]
 
 app.add_middleware(
-  CORSMiddleware,
-  allow_origins=origins,
-  allow_credentials=True,
-  allow_methods=["*"],
-  allow_headers=["*"],
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )

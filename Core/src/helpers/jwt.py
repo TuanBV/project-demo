@@ -4,7 +4,7 @@ Authenticator
 import jwt
 import helpers.const as env
 import datetime
-from core.error import CrmUnauthorizedException
+from core.error import UnauthorizedException
 from utils.date import get_current_time_obj
 
 
@@ -20,6 +20,6 @@ def verify(token):
   try:
     return jwt.decode(token, env.JWT.SECRET.KEY, algorithms=[env.JWT.SECRET.ALGORITHM])
   except jwt.ExpiredSignatureError as ese:
-    raise CrmUnauthorizedException() from ese
+    raise UnauthorizedException() from ese
   except Exception as e:
-    raise CrmUnauthorizedException() from e
+    raise UnauthorizedException() from e

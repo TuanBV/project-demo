@@ -6,7 +6,7 @@ import re
 from typing import Optional
 from pydantic import BaseModel, Field, validator
 from containers import Container
-from core.error import CrmException
+from core.error import CommonException
 from core.message import ERR_MESSAGE
 from helpers.kbn import (LoginNotifyFlg, PaymentMethod,
 PaymentPlan, PwChangedNotifyFlg, TwoFaFlg, TwoFaType, UserRole)
@@ -40,7 +40,7 @@ class Shop(BaseModel):
   # Contract end date must greater than contract start date
   def end_date_gt_start_date(cls, contract_end_date, values):
     if (values["contract_start_date"] is not None and contract_end_date is not None and contract_end_date < values["contract_start_date"]):
-      raise CrmException(message = ERR_MESSAGE.ERRMSG0046)
+      raise CommonException(message = ERR_MESSAGE.ERRMSG0046)
     return contract_end_date
 
   payment_plan_kbn: PaymentPlan = Field(title="Payment plan")
@@ -65,7 +65,7 @@ class Account(BaseModel):
     pattern = r"^[~`!@#$%^&*()_+=\[\]\\{}|;':\",./<>?a-zA-Z0-9-]+$"
     # Check password not empty and validate password by pattern
     if password and not re.search(pattern, password):
-      raise CrmException(message=ERR_MESSAGE.ERRMSG0122)
+      raise CommonException(message=ERR_MESSAGE.ERRMSG0122)
 
     return password
 
@@ -90,7 +90,7 @@ class Account(BaseModel):
 
     # Check flag to raise error
     if flag_check:
-      raise CrmException(message = messages)
+      raise CommonException(message = messages)
 
     return email
 
@@ -108,16 +108,16 @@ class AddShopRequest(BaseModel):
   def email_not_duplicated(cls, owner, values):
     if values["manager"] and values["staff"]:
       if owner.email == values["manager"].email or values["manager"].email == values["staff"].email or values["staff"].email == owner.email:
-        raise CrmException(message=ERR_MESSAGE.ERRMSG0047)
+        raise CommonException(message=ERR_MESSAGE.ERRMSG0047)
 
     # Check 2 email not duplicate (owner, staff)
     elif not values["manager"] and values["staff"]:
       if owner.email == values["staff"].email:
-        raise CrmException(message=ERR_MESSAGE.ERRMSG0047)
+        raise CommonException(message=ERR_MESSAGE.ERRMSG0047)
 
     # Check 2 email not duplicate (owner, manager)
     elif values["manager"] and not values["staff"]:
       if owner.email == values["manager"].email:
-        raise CrmException(message=ERR_MESSAGE.ERRMSG0047)
+        raise CommonException(message=ERR_MESSAGE.ERRMSG0047)
 
     return owner

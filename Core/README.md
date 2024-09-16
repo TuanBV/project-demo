@@ -1,4 +1,4 @@
-# convert crm-api to fastapi
+# convert api to fastapi
 
 ## Project setup
 ```

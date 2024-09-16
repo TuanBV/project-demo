@@ -2,7 +2,7 @@
 Setting config
 """
 
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -20,7 +20,7 @@ class Settings(BaseSettings):
   DOMAIN_COOKIE: str
   MYSQL_POOL_SIZE: int
   MYSQL_MAX_OVERFLOW: int
-  APP_VERSION: int
+  # APP_VERSION: int
   class Config:
     env_file = ".env"
     env_file_encoding = "utf-8"

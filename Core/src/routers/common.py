@@ -7,7 +7,7 @@ import traceback
 from typing import Callable
 from fastapi import Request, Response, status
 from fastapi.routing import APIRoute
-from core.error import CrmException, CrmAppVersionException
+from core.error import CommonException, AppVersionException
 from core.logger import (get_logger)
 from core.message import ERR_MESSAGE
 from helpers.common import generate_log, get_request_id
@@ -20,7 +20,7 @@ from helpers.cookie import get_admin_cookie, get_member_cookie, get_shop_cookie
 from utils.date import format_date_time, get_current_time_obj
 from setting import settings
 
-logger = get_logger()
+# logger = get_logger()
 # Router common
 class SSVRoute(APIRoute):
   """
@@ -73,7 +73,7 @@ class SSVRoute(APIRoute):
         role = user["role"]
 
         if user["role"] not in [UserRole.ADMIN, UserRole.CUSTOMER, UserRole.SHOP_MANAGER, UserRole.SHOP_OWNER, UserRole.SHOP_STAFF]:
-          raise CrmException(CODE.API.ERROR)
+          raise CommonException(CODE.API.ERROR)
 
         data_set_cookie = self.__set_user_cookie(user)
         cookie = data_set_cookie["cookie"]
@@ -138,11 +138,11 @@ class SSVRoute(APIRoute):
 
         url_request = request.url.path
         # LOG REQUEST
-        logger.info(generate_log(user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
-                                log_type="REQUEST", method=request.method, content=request_data, time=before))
+        # logger.info(generate_log(user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
+        #                         log_type="REQUEST", method=request.method, content=request_data, time=before))
 
         if request.headers.get("app-version") != str(settings.APP_VERSION):
-          raise CrmAppVersionException
+          raise AppVersionException
 
         # process the request and get the response
         response: Response = await original_route_handler(request)
@@ -161,10 +161,10 @@ class SSVRoute(APIRoute):
 
       except Exception as ex:
         end = get_current_time_obj()
-        if isinstance(ex, CrmException):
+        if isinstance(ex, CommonException):
           error_msg = ex.message
           response = ng(ex.message, code=ex.code)
-        elif isinstance(ex, CrmAppVersionException):
+        elif isinstance(ex, AppVersionException):
           response = maintenace(ex.message)
           cookie = get_admin_cookie()
           cookie_admin_config = make_cookie(cookie, max_age=0)
@@ -187,16 +187,16 @@ class SSVRoute(APIRoute):
         shop_no = data_log["shop_no"]
 
         # LOG ERROR
-        logger.error(generate_log(level="ERROR", user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
-                                log_type="ERROR", method=request.method, content=error_msg, time=end, user_id=user_id, shop_no=shop_no, role=role))
+        # logger.error(generate_log(level="ERROR", user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
+        #                         log_type="ERROR", method=request.method, content=error_msg, time=end, user_id=user_id, shop_no=shop_no, role=role))
         return response
       finally:
         # LOG RESPONSE
         body_response = response.body.decode()
         if body_response:
           body_response = json.loads(body_response)
-        logger.info(generate_log(user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
-                                log_type="RESPONSE", method=request.method, content=body_response, time=end, user_id=user_id, shop_no=shop_no, role=role))
+        # logger.info(generate_log(user_agent=request.headers.get("user-agent"), url=url_request, request_id=request_id,
+        #                         log_type="RESPONSE", method=request.method, content=body_response, time=end, user_id=user_id, shop_no=shop_no, role=role))
 
 
     return custom_route_handler
