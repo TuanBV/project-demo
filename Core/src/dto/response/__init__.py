@@ -1,9 +1,7 @@
 """
 Initialization Package
 """
-from .address import AddressResponse
-from .common import CRMResponse
+from .common import CommonResponse
 __all__ = [
-    "AddressResponse",
-    "CRMResponse",
+    "CommonResponse"
 ]

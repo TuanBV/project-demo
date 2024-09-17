@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 from containers import Container
 from decorators import permission
 # from dto.request.admin import AdminLoginRequest, AddShopRequest, EditShopRequest, EditShopNotifyRequest
-from dto.response.admin import AdminLoginResponse, ListShopResponse, GetShopResponse, ExportShopCsvResponse, ShopNotifyResponse
+# from dto.response.admin import AdminLoginResponse, ListShopResponse, GetShopResponse, ExportShopCsvResponse, ShopNotifyResponse
 from dto.response import CRMResponse
 from core import CommonException, ERR_MESSAGE, SUCCESS_MESSAGE
 # from crm_service_owner.services import ServiceOwner

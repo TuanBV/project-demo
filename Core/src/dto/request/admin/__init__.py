@@ -2,14 +2,8 @@
 Initialization Package
 """
 
-# from .add_shop import AddShopRequest
-# from .edit_shop import EditShopRequest
-# from .login import AdminLoginRequest
-# from .edit_notify import EditShopNotifyRequest
+from .login import AdminLoginRequest
 
 __all__ = [
-  # "AddShopRequest",
-  # "EditShopRequest",
-  # "AdminLoginRequest",
-  # "EditShopNotifyRequest"
+  "AdminLoginRequest",
 ]

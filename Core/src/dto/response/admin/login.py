@@ -6,22 +6,11 @@ from pydantic import BaseModel
 
 
 class AdminData(BaseModel):
-  first_name: str
-  first_name_kana: str
-  avatar: str
-  role_kbn: int
   id: int
+  username: str
   email: str
-  last_name: str
-  last_name_kana: str
-  shop_notify_id: int
-
-class ActionType(BaseModel):
-  icon: str
-  name: str
-  color: str
+  role_kbn: int
 
 class AdminLoginResponse(BaseModel):
   user: AdminData
-  action_type: List[ActionType]
   role: int
