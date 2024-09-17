@@ -13,23 +13,23 @@ del_flg_off = kbn.DeleteFlag.OFF.value
 
 class UserRepository(CommonRepository):
   """
-  Repository of Service shop
+  Repository of Service user
   """
 
 
-  # # Get data shop account by id
-  # # Params:
-  # #   @shop_account_id: id of shop account
-  # # Output:
-  # #   return: Shop account item
-  # def get_shop_account(self, shop_account_id):
-  #   with self.session_factory_read() as session:
-  #     result = session.query(ShopAccounts).filter(
-  #       ShopAccounts.id == shop_account_id,
-  #       ShopAccounts.is_deleted == del_flg_off
-  #     ).first()
+  # Get data user by id
+  # Params:
+  #   @user_id: id of user
+  # Output:
+  #   return: user item
+  def get_user(self, user_id):
+    with self.session_factory_read() as session:
+      # result = session.query(ShopAccounts).filter(
+      #   ShopAccounts.id == shop_account_id,
+      #   ShopAccounts.is_deleted == del_flg_off
+      # ).first()
 
-  #     return result
+      return 1
 
 
   # # Get data shop account by email

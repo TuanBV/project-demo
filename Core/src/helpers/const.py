@@ -162,7 +162,7 @@ REGEXP = Box({
 })
 
 # Url doc
-URL_DOC = "https://docs.najimi.jp/"
+URL_DOC = "http://localhost:8081/api/v1/docs"
 
 # Header csv
 HEADER_CSV = Box({

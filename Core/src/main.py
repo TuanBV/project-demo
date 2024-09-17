@@ -11,21 +11,13 @@ import helpers.const as env
 
 tags_metadata = [
     {
-        "name": "admin",
-        "description": "Admin",
+        "name": "Project",
+        "description": "API for project",
         "externalDocs": {
             "description": "docs",
             "url": env.URL_DOC,
         },
     },
-    # {
-    #     "name": "member",
-    #     "description": "Member",
-    #     "externalDocs": {
-    #         "description": "docs",
-    #         "url": env.URL_DOC,
-    #     },
-    # },
 ]
 
 
@@ -35,7 +27,7 @@ app = FastAPI(openapi_tags=tags_metadata, docs_url="/api/v1/docs", redoc_url=Non
 app.container = container
 
 # Include child routers
-app.include_router(routers.admin_routers)
+app.include_router(routers.user_router)
 # app.include_router(routers.member_routers)
 
 origins = [

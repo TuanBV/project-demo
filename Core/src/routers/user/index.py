@@ -5,68 +5,70 @@ from fastapi import APIRouter, Depends
 from containers import Container
 from decorators import permission
 # from dto.request.admin import AdminLoginRequest, AddShopRequest, EditShopRequest, EditShopNotifyRequest
+from dto.request.admin import AdminLoginRequest
 # from dto.response.admin import AdminLoginResponse, ListShopResponse, GetShopResponse, ExportShopCsvResponse, ShopNotifyResponse
-from dto.response import CRMResponse
+from dto.response import CommonResponse
 from core import CommonException, ERR_MESSAGE, SUCCESS_MESSAGE
-# from crm_service_owner.services import ServiceOwner
+from user.services import UserService
 from helpers.cookie import get_admin_cookie
 from helpers.kbn import UserRole
 from helpers import context
 from helpers.response import (ok, make_cookie)
 from routers.common import SSVRoute
-from routers.admins.print import print_routers
+# from routers.user.print import print_routers
 from dependencies import authorized_admin
 from dependency_injector.wiring import inject, Provide
 
-
-
-admin_routers = APIRouter(
+user_router = APIRouter(
     route_class=SSVRoute,
-    tags=["service_owner"],
+    tags=["service_admin"],
     prefix="/api/v1/admin",
     responses={
       200: {
-        "model": CRMResponse
+        "model": CommonResponse[dict]
       },
       401: {
-        "model": CRMResponse[dict]
+        "model": CommonResponse[dict]
       },
       404: {
         "description": "No data",
-        "model": CRMResponse[dict]
+        "model": CommonResponse[dict]
       },
       400: {
         "description": "API ERROR",
-        "model": CRMResponse[dict]
+        "model": CommonResponse[dict]
       },
       500: {
         "description": "SYSTEM ERROR",
-        "model": CRMResponse[dict]
+        "model": CommonResponse[dict]
       },
     },
   )
 
-admin_routers.include_router(print_routers, tags=["service_owner"])
+# user_router.include_router(print_routers, tags=["service_owner"])
 
 
-# # Admin login function
-# # Param:
-# #   @body: Data request
-# #   @owner_service: Onwer service
-# # Output:
-# #   return: HTTP response
-# @admin_routers.post("/login", tags=["service_owner"], responses={200:{"model": CRMResponse[AdminLoginResponse]}})
-# @inject
-# async def login(body: AdminLoginRequest, owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
-#   payload = owner_service.admin_login(body.dict())
-#   token = payload["token"]
-#   del payload["token"]
-#   payload = AdminLoginResponse(**payload)
-#   response = ok(data=payload.dict())
+# Admin login function
+# Param:
+#   @body: Data request
+#   @owner_service: Onwer service
+# Output:
+#   return: HTTP response
+@user_router.post("/login", tags=["service_admin"], responses={200:{"model": CommonResponse[dict]}})
+@inject
+async def login(body: AdminLoginRequest, user_service: UserService = Depends(Provide[Container.user_service])):
+  print("----------------------------------------------------")
+  print(body)
+  # payload = owner_service.admin_login(body.dict())
+  payload = {}
+  token = payload["token"]
+  del payload["token"]
+  # payload = AdminLoginResponse(**payload)
+  response = ok(data=payload.dict())
 
-#   cookie_config = make_cookie(get_admin_cookie(), token)
-#   response.set_cookie(**cookie_config)
-#   return response
+  cookie_config = make_cookie(get_admin_cookie(), token)
+  response.set_cookie(**cookie_config)
+  return response
 
 
 # # Check data admin function
@@ -74,7 +76,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.get("/me", tags=["service_owner"], responses={200:{"model": CRMResponse[AdminLoginResponse]}}, dependencies=[Depends(authorized_admin)])
+# @user_router.get("/me", tags=["service_owner"], responses={200:{"model": CommonResponse[AdminLoginResponse]}}, dependencies=[Depends(authorized_admin)])
 # @inject
 # def get_me(owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
 #   user = context.user.value
@@ -94,7 +96,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # # Param: None
 # # Output:
 # #   return: HTTP response
-# @admin_routers.post("/logout", tags=["service_owner"], dependencies=[Depends(authorized_admin)])
+# @user_router.post("/logout", tags=["service_owner"], dependencies=[Depends(authorized_admin)])
 # @inject
 # async def logout():
 #   context.user.reset()
@@ -116,7 +118,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.get("/shop", tags=["service_owner"], responses={200: {"model": CRMResponse[ListShopResponse]}}, dependencies=[Depends(authorized_admin)])
+# @user_router.get("/shop", tags=["service_owner"], responses={200: {"model": CommonResponse[ListShopResponse]}}, dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def get_list_shop(search_key: str = "", limit: int = 20, offset: int = 1, sort_key: str = "", sort_type: str = "", extended_search: str = "",
@@ -142,7 +144,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.post("/shop", tags=["service_owner"], responses={200:{"model": CRMResponse[dict]}}, dependencies=[Depends(authorized_admin)])
+# @user_router.post("/shop", tags=["service_owner"], responses={200:{"model": CommonResponse[dict]}}, dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def add_shop(body: AddShopRequest, owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
@@ -176,7 +178,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.get("/shop/csv", tags=["service_owner"], responses={200:{"model": CRMResponse[ExportShopCsvResponse]}}, dependencies=[Depends(authorized_admin)])
+# @user_router.get("/shop/csv", tags=["service_owner"], responses={200:{"model": CommonResponse[ExportShopCsvResponse]}}, dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def export_csv(search_key: str = "", limit: int = 20, offset: int = 1, sort_key: str = "", sort_type: str = "", extended_search: str = "",
@@ -201,7 +203,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.get("/shop/{shop_no}",tags=["service_owner"],responses={200: { "model": CRMResponse[GetShopResponse] }},dependencies=[Depends(authorized_admin)])
+# @user_router.get("/shop/{shop_no}",tags=["service_owner"],responses={200: { "model": CommonResponse[GetShopResponse] }},dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def get_shop(shop_no: str, owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
@@ -223,7 +225,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.put("/shop/{shop_no}", tags=["service_owner"],responses={200: {"model": CRMResponse[dict]}},dependencies=[Depends(authorized_admin)])
+# @user_router.put("/shop/{shop_no}", tags=["service_owner"],responses={200: {"model": CommonResponse[dict]}},dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def edit_shop(shop_no: str, body: EditShopRequest, owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
@@ -255,7 +257,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.get("/setting/notify", tags=["service_owner"],responses={200: {"model": CRMResponse[ShopNotifyResponse]}},dependencies=[Depends(authorized_admin)])
+# @user_router.get("/setting/notify", tags=["service_owner"],responses={200: {"model": CommonResponse[ShopNotifyResponse]}},dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def get_shop_notify(owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):
@@ -274,7 +276,7 @@ admin_routers.include_router(print_routers, tags=["service_owner"])
 # #   @owner_service: Owner service
 # # Output:
 # #   return: HTTP response
-# @admin_routers.put("/setting/notify", tags=["service_owner"],responses={200: {"model": CRMResponse[dict]}},dependencies=[Depends(authorized_admin)])
+# @user_router.put("/setting/notify", tags=["service_owner"],responses={200: {"model": CommonResponse[dict]}},dependencies=[Depends(authorized_admin)])
 # @permission([UserRole.ADMIN])
 # @inject
 # async def edit_shop_notify(body: EditShopNotifyRequest, owner_service: ServiceOwner = Depends(Provide[Container.services_owner])):

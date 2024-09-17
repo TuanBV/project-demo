@@ -23,4 +23,4 @@ class Container(containers.DeclarativeContainer):
   user_repository = providers.Factory(UserRepository, session_factory=db.provided.session, session_factory_read=db_read.provided.session)
 
   # service
-  user_service = providers.Factory(UserService, shop_repository=user_repository)
+  user_service = providers.Factory(UserService, user_repository=user_repository)
