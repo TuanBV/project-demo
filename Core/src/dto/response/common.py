@@ -7,7 +7,7 @@ from pydantic.generics import GenericModel
 
 DataPayload = TypeVar("DataPayload")
 
-class CommonResponse(GenericModel, Generic[DataPayload]):
+class Response(GenericModel, Generic[DataPayload]):
   code: str
   message: str
   payload: DataPayload

@@ -2,17 +2,17 @@
 Common models
 """
 from sqlalchemy import Column, text
-from sqlalchemy.dialects.mysql import DATETIME, BIGINT, VARCHAR
+from sqlalchemy.dialects.mysql import VARCHAR, DATETIME, INTEGER
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from helpers.kbn import IntEnum, DeleteFlag
 import re
-from helpers.kbn import DeleteFlag, IntEnum
 
 @as_declarative()
 class EntityBase:
   """
   Base model
   """
-  id = Column(BIGINT, primary_key=True)
+  id = Column(INTEGER, primary_key=True)
   created_user = Column(VARCHAR)
   created_date = Column(DATETIME, server_default = text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
   updated_user = Column(VARCHAR)

@@ -2,10 +2,10 @@
 Initialization Package
 """
 
-from .user import User
+from .users import Users
 from .entity_base import EntityBase
 
 __all__ = [
-    "User",
+    "Users",
     "EntityBase",
 ]

@@ -6,14 +6,11 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-from core.logger import get_logger
 from setting import settings
 from helpers.kbn import TYPE_DB
 
 
 Base = declarative_base()
-# logger = get_logger()
-
 
 class Database:
   """
@@ -31,8 +28,7 @@ class Database:
     try:
       yield session
     except Exception as e:
-      # logger.error(f"Session rollback because of exception: {e}")
       session.rollback()
-      raise
+      raise e
     finally:
       session.close()

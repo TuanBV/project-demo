@@ -9,10 +9,7 @@ from fastapi import Security
 from fastapi.security import APIKeyCookie
 from core import UnauthorizedException, ERR_MESSAGE
 
-api_key_admin = APIKeyCookie(name="__Information_A", auto_error=False)
-# api_key_member = APIKeyCookie(name="__CRM_M", auto_error=False)
-# api_key_auth_two_step = APIKeyCookie(name="__CRM_S_TOKEN_TWO_AUTHEN", auto_error=False)
-
+api_key_user = APIKeyCookie(name="__USER", auto_error=False)
 
 # Authorization
 def authorized(oauth_header: Optional[str]):
@@ -28,20 +25,9 @@ def authorized(oauth_header: Optional[str]):
       # Return user data
       return user
 
-  raise UnauthorizedException(message=ERR_MESSAGE.ERRMSG0042)
+  raise UnauthorizedException(message=ERR_MESSAGE.UNAUTHENTICATION)
 
-async def authorized_admin(
-    oauth_header: Optional[str] = Security(api_key_admin)):
+async def authorized_user(oauth_header: Optional[str] = Security(api_key_user)):
   user = authorized(oauth_header)
 
   return user
-
-# async def authorized_member(
-#     oauth_header: Optional[str] = Security(api_key_member)):
-#   user = authorized(oauth_header)
-
-#   return user
-
-# async def get_cookies_auth_two_step(
-#     cookies: Optional[str] = Security(api_key_auth_two_step)):
-#   return cookies

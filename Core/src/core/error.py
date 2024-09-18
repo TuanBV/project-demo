@@ -21,7 +21,7 @@ class CommonException(Exception):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class NoDataException(Exception):
+class NoDataException(CommonException):
   """Exception raised for no data errors.
 
   Attributes:
@@ -38,7 +38,7 @@ class NoDataException(Exception):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class UnauthorizedException(Exception):
+class UnauthorizedException(CommonException):
   """Exception raised for unauthorized errors.
 
   Attributes:
@@ -56,7 +56,7 @@ class UnauthorizedException(Exception):
     return f"{type(self).__name__}: {self.code} -> {self.message}"
 
 
-class PermissionException(Exception):
+class PermissionException(CommonException):
   """Exception raised for permission errors.
 
   Attributes:
@@ -65,23 +65,6 @@ class PermissionException(Exception):
   """
 
   def __init__(self, code=CODE.API.INVALID_PERMISSION, message="アクセス権限がありません。"):
-    self.code = code
-    self.message = message
-    super().__init__(self.code, self.message)
-
-  def __str__(self):
-    return f"{type(self).__name__}: {self.code} -> {self.message}"
-
-
-class SendMailException(Exception):
-  """Exception raised for send mail errors.
-
-  Attributes:
-      code -- code which caused the error
-      message -- explanation of the error
-  """
-
-  def __init__(self, code=CODE.API.SEND_MAIL_FAILED, message="メール送信ができません。"):
     self.code = code
     self.message = message
     super().__init__(self.code, self.message)

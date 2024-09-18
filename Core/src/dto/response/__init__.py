@@ -1,7 +1,7 @@
 """
 Initialization Package
 """
-from .common import CommonResponse
+from .common import Response
 __all__ = [
-    "CommonResponse"
+    "Response",
 ]

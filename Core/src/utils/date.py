@@ -16,11 +16,11 @@ def format_date_time(day, type_format):
   return date_time_string
 
 
-# Get current time OBJECT
+# Get current time
 # Output:
 #  return: an object of current time
-def get_current_time_obj():
-  time_current = datetime.now(env.TIMEZONE)
+def get_current_time(timezone = env.TIMEZONE):
+  time_current = datetime.now(timezone)
   return time_current
 
 

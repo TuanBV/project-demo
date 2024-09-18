@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from helpers.const import (CODE, MAX_AGE)
 
 HEADERS = {
-    "Content-Type": "application/json"
+  "Content-Type": "application/json"
 }
 
 
