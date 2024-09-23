@@ -124,13 +124,13 @@ class UsersService:
   #   self.users_repo.edit(employee_code, data)
 
 
-  # # Register user new
-  # # Param:
-  # #   @data: Data request
-  # # Return: None
-  # def add(self, data):
-  #   # Add customer new
-  #   self.users_repo.add(data.dict())
+  # Register user new
+  # Param:
+  #   @data: Data request
+  # Return: None
+  def add(self, data):
+    # Add customer new
+    self.users_repo.add(data)
 
 
   # # Delete user

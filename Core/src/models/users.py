@@ -14,6 +14,7 @@ class Users(EntityBase):
   email = Column(VARCHAR)
   username = Column(VARCHAR)
   password = Column(VARCHAR)
-  token = Column(VARCHAR)
-  expire = Column(DATETIME)
+  role = Column(VARCHAR)
+  # token = Column(VARCHAR)
+  # expire = Column(DATETIME)
 

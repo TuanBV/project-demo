@@ -41,7 +41,7 @@ def err_response(self, url="", request_id="", method="", user_agent="", content=
 
   self.setLevel(logging.ERROR)
   self.error(common.generate_log("ERROR", user_agent, url, request_id,
-                                 "ERROR", method, content))
+                                "ERROR", method, content))
 
 
 def response(self, url="", request_id="", method="", user_agent="", content=""):

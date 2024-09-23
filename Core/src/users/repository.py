@@ -231,20 +231,20 @@ class UsersRepository(CommonRepository):
   #     return query.all()
 
 
-  # # Add user
-  # # Params:
-  # #   @data_user
-  # # Output:
-  # #   return: Data user
-  # def add(self, data_user):
-  #   with self.session_factory() as session:
-  #     # Add password default is "Test123@"
-  #     data_user["password"] = bcrypt(PASSWORD_DEFAULT)
-
-  #     # Add user
-  #     session.add(Users(**data_user))
-  #     session.commit()
-
+  # Add user
+  # Params:
+  #   @data_user
+  # Output:
+  #   return: Data user
+  def add(self, data_user):
+    with self.session_factory() as session:
+      # Add password default is "Test123@"
+      data_user["password"] = bcrypt(PASSWORD_DEFAULT)
+      # Add user
+      session.add(Users(**data_user))
+      print("mmmmmm")
+      session.commit()
+      print("-smsksks")
 
   # # Edit user
   # # Params:

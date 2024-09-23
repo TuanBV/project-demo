@@ -138,24 +138,6 @@ async def get_list(users_service: UsersService = Depends(Provide(Container.users
   return response
 
 
-# List user interviewer
-# Param:
-#   @users_service: User service
-# Output:
-#   return: HTTP response
-@router_user.get("/interviewer", tags=["user"], responses={200: {"model": Response[ListLeaderResponse]}}, dependencies=[Depends(authorized_user)])
-@permission([ROLE.ADMIN, ROLE.LEADER, ROLE.MANAGER])
-@inject
-async def get_list_interviewer(users_service: UsersService = Depends(Provide(Container.users_service))):
-  # Get list user
-  data_user = users_service.get_list_interviewer()
-  payload = ListLeaderResponse(**data_user)
-  response = ok(data=payload.dict())
-
-  return response
-
-
-
 # Get info of one user
 # Param:
 #   @users_service: User service
@@ -179,12 +161,13 @@ async def get_user(employee_code: str, users_service: UsersService = Depends(Pro
 #   @users_service: User service
 # Output:
 #   return: HTTP response
-@router_user.post("", tags=["user"], responses={200: {"model": Response[dict]}}, dependencies=[Depends(authorized_user)])
-@permission([ROLE.ADMIN, ROLE.LEADER, ROLE.MANAGER])
+# @router_user.post("", tags=["user"], responses={200: {"model": Response[dict]}}, dependencies=[Depends(authorized_user)])
+@router_user.post("", tags=["user"], responses={200: {"model": Response[dict]}})
+# @permission([ROLE.ADMIN, ROLE.LEADER, ROLE.MANAGER])
 @inject
 async def add(body: UserRegisterRequest, users_service: UsersService = Depends(Provide(Container.users_service))):
   # Add user new
-  users_service.add(body)
+  users_service.add(body.dict())
 
   return ok()
 
