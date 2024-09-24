@@ -22,36 +22,22 @@ class UsersService:
   # Handle login user
   # Param:
   #   @data: Data request
-  # Return: User information and token
+  # Return: User information
   def login(self, data):
-    payload = {}
-
     # Execute query
-    user_account = self.users_repo.get_user_data(email = data["email"].lower())
+    user_account = self.users_repo.get_user_data(data["email"].lower())
 
     # Check data user and password is correct or not
     if user_account:
-      if user_account.login_failed_count > 5:
-        # Contact admin
-        raise CommonException(message=ERR_MESSAGE.CONTACT_ADMIN)
-
       if checkpw(data["password"].strip(), user_account.password):
-        user_account = jsonable_encoder(user_account)
-
-        del user_account["password"]
-        del user_account["login_failed_count"]
-
-        # Reset login failed count
-        self.users_repo.update_login_failed_count(data["email"].lower(), 0)
-
-        payload["token"] = jwt.hash_token(user_account)
-
-        payload["user"] = user_account
-
-        return payload
-
-      # Update login failed count
-      self.users_repo.update_login_failed_count(data["email"].lower(), user_account.login_failed_count + 1)
+        return {
+          "token": jwt.hash_token({
+            "email": user_account.email,
+            "username": user_account.username,
+            "role": user_account.role
+          }),
+          "user": jsonable_encoder(user_account)
+        }
 
     # Invalid email or password
     raise CommonException(message=ERR_MESSAGE.INVALID_EMAIL_OR_PASSWORD)

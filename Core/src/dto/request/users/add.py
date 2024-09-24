@@ -1,9 +1,10 @@
 """
 User register request
 """
+import re
 from containers import Container
 from pydantic import BaseModel, Field, field_validator
-from core.error import NoDataException
+from core.error import NoDataException, CommonException
 from core.message import ERR_MESSAGE
 # from typing import Optional
 
@@ -19,7 +20,7 @@ class UserRegisterRequest(BaseModel):
   username: str = Field(..., title="Username", pattern=r"^\S+$", min_length=5, max_length=50)
   email: str = Field(..., title="Email", pattern="^[\\w.!#$%&’*+\\/=?^`{|}-]+@([\\w-]+\\.)+[\\w-]{2,}$", min_length=1, max_length=256)
   role: str = Field(..., title="Role", max_length=1, min_length=1, pattern=r"^(1|2|3)$")
-  # password: str = Field(..., title="Password", pattern=pattern_pw, min_length=8, max_length=64)
+  password: str = Field(..., title="Password", min_length=8, max_length=64)
 
   # @field_validator("employee_code")
   # def check_employee_code(cls, employee_code):
@@ -50,3 +51,10 @@ class UserRegisterRequest(BaseModel):
   #   if not user:
   #     raise NoDataException(message=ERR_MESSAGE.MSG_0003)
   #   return identification_number
+  @field_validator("password")
+  def check_password(cls, password):
+    if not re.match(r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password):
+      raise CommonException(
+        message=r"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+      )
+    return password

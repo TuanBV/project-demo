@@ -11,6 +11,7 @@ from helpers.common import bcrypt, checkpw
 from helpers import context
 from datetime import datetime
 from sqlalchemy import func, and_, or_
+from fastapi.encoders import jsonable_encoder
 
 class UsersRepository(CommonRepository):
   """
@@ -25,17 +26,10 @@ class UsersRepository(CommonRepository):
   #   return: Data user
   def get_user_data(self, email = ""):
     with self.session_factory_read() as session:
-      query_user_data = session.query(
-        Users.email, Users.fullname, Users.office_id, Users.employee_code, Users.password, Users.position_id, Users.login_failed_count, Users.office_id
-      ).filter(Users.is_deleted == kbn.DeleteFlag.OFF.value)
-
-      if email:
-        result = query_user_data.filter(Users.email == email).first()
-      else:
-        user = context.user.value
-        result = query_user_data.filter(Users.employee_code == user["employee_code"]).first()
-
-      return result
+      return session.query(Users).filter(
+        Users.email == email,
+        Users.is_deleted == kbn.DeleteFlag.OFF.value
+      ).first()
 
 
   # # Count record of page
@@ -239,12 +233,12 @@ class UsersRepository(CommonRepository):
   def add(self, data_user):
     with self.session_factory() as session:
       # Add password default is "Test123@"
+      # data_user["password"] = bcrypt(PASSWORD_DEFAULT)
       data_user["password"] = bcrypt(PASSWORD_DEFAULT)
+      print(data_user)
       # Add user
-      session.add(Users(**data_user))
-      print("mmmmmm")
-      session.commit()
-      print("-smsksks")
+      # session.add(Users(**data_user))
+      # session.commit()
 
   # # Edit user
   # # Params:

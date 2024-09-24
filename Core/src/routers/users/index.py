@@ -52,8 +52,7 @@ router_user = APIRouter(route_class=SSVRoute, tags=["user"], prefix="/api/v1/use
 @inject
 async def login_users(body: UsersLoginRequest, users_service: UsersService = Depends(Provide(Container.users_service))):
   # parse data json on body event
-  opt = body.dict()
-  result_login = users_service.login(opt)
+  result_login = users_service.login(body.dict())
 
   cookie_config = make_cookie(get_user_cookie(), result_login["token"])
 
