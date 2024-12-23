@@ -1,0 +1,28 @@
+So sánh giữa Vue 2 và Vue 3
+Cách viết
+Vue 2: Sử dụng Options API, dùng các thuộc tính như data, methods, computed, watch, … để định nghĩa tính năng của component.
+Vue 3: Sử dụng Composition API, dung ref, reactive, computed, watch, … có thể tái sử dụng, viết mã dễ dàng hơn.
+Hiệu suất: Vue 3 có hiệu suất tốt hơn vì sử dụng proxy giúp theo dõi thay đổi dữ liệu và sử dụng tree-shaking, loại bỏ mã không sử dụng giúp cho việc render, kích thước file nhẹ hơn
+Lifecycle hook: Vue 3 có đổi tên lifecycle hook để phù hợp với Composition API
+…
+-------------------------------------------------------------------------------------------------------------
+Lifecycle Hook
+// Hook: Trước khi khởi tạo
+beforeCreate() => Component đang được khởi tạo
+// Hook: Sau khi khởi tạo
+created() => Component đã được khởi tạo
+// Hook: Trước khi DOM được gắn
+beforeMount()=> Trước khi DOM được gắn
+// Hook: Khi DOM đã được gắn
+mounted() => DOM đã được gắn
+// Hook: Trước khi cập nhật
+beforeUpdate() => Trước khi DOM được cập nhật
+// Hook: Sau khi cập nhật
+updated() => DOM đã được cập nhật
+// Hook: Trước khi hủy 
+beforeUnmount() => Component đang bị loại bỏ
+// Hook: Sau khi hủy
+unmounted() => Component đã bị loại bỏ
+
+-------------------------------------------------------------------------------------------------------------
+Prop, Emit (defineProps, defineEmits, defineModel, ...)

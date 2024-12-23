@@ -11,13 +11,14 @@ const router = useRouter()
 // 2) ======= VARIABLE REF ========
 const data = ref({
   email: '',
-  password: ''
+  password: '',
+  role: 1
 })
 
 const login = async () => {
   const res = await userService.login(data.value)
   if (res) {
-    router.push('/') // Redirect to home page after successful login
+    router.push('/v1/admin') // Redirect to home page after successful login
   }
 }
 </script>

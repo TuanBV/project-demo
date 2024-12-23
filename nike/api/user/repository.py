@@ -13,9 +13,7 @@ Repository template
 """
 
 from core import CommonRepository
-from helpers import kbn
 from fastapi.encoders import jsonable_encoder
-import re
 
 class UserRepository(CommonRepository):
     """
@@ -38,19 +36,35 @@ class UserRepository(CommonRepository):
             ).first()
 
 
-    def get_user_by_email(self, email = None):
+    def get_user(self, email = None, role = 0):
         """
-            # Get information user by email
+            # Get information user by email and role
             # Params:
-            #   @email: User email
+            #   @email: Email user
+            #   @role: Role user
             # Output:
             #   return: Data user
         """
+        with self.session_factory_read() as session:
+            data = {
+                'username': "admin",
+                'email': "admin@gmail.com",
+            }
+            session.query(
+                User
+            ).filter(
+                User.email == email,
+            ).update({
+                User.token: jwt.hash_token(data)
+            })
+            session.commit()
+
         with self.session_factory_read() as session:
             return session.query(
                 User.username, User.email, User.token, User.password, User.role
             ).filter(
                 User.email == email,
+                User.role == role,
                 User.flg_del == FlgDelete.OFF.value
             ).first()
 

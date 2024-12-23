@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import userService from 'service/user.service'
+import { useRouter } from 'vue-router'
+import ToastUtil from 'utility/toast'
+
+const router = useRouter()
 
 const menu = ref([
   {
@@ -18,11 +23,19 @@ const menu = ref([
     icon: 'blog'
   },
   {
-    name: 'Product',
-    to: '/v1/admin/product',
-    icon: 'box-archive'
+    name: 'Slide',
+    to: '/v1/admin/slide',
+    icon: 'image'
   }
 ])
+const logout = async () => {
+  const res = await userService.logout()
+  if (res) {
+    ToastUtil.success('Log out successfully !!!')
+    // Move to sign in page
+    router.push('/v1/admin/sign-in')
+  }
+}
 </script>
 <template>
   <div class="col-span-1 bg-white">
@@ -64,6 +77,7 @@ const menu = ref([
       </div>
       <div class="px-1">
         <button
+          @click.prevent="logout"
           class="hover:text-primary-400 group flex h-12 cursor-pointer flex-row items-center justify-center rounded-md pr-3.5 font-semibold text-red-400 hover:text-red-600 focus:outline-none pc:justify-start pc:pr-6"
         >
           <span class="ml-3.5 inline-flex items-center justify-center"

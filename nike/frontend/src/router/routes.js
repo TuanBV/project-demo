@@ -42,6 +42,24 @@ const routes = [
         name: 'home-admin',
         component: () => import('views/admin/HomeView.vue'),
         meta: { role: 'admin' }
+      },
+      {
+        path: 'product',
+        name: 'admin-product',
+        component: () => import('views/admin/HomeView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
+        path: 'blog',
+        name: 'admin-blog',
+        component: () => import('views/admin/HomeView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
+        path: 'setting',
+        name: 'admin-setting',
+        component: () => import('views/admin/HomeView.vue'),
+        meta: { role: 'admin' }
       }
     ]
   },

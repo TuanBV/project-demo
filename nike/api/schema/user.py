@@ -7,6 +7,7 @@ class LoginRequest(BaseModel):
     """
     email: str = Field(..., title="The username", min_length=1, max_length=256)
     password: str = Field(..., title="The password", min_length=8, max_length=64)
+    role: Optional[int] = Field(title="The role", default=0)
 
 class UserRequest(BaseModel):
     """

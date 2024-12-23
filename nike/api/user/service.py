@@ -37,11 +37,11 @@ class UserService:
         """
             # Login
             # Params:
-            #   @data: email and password
+            #   @data: email and password, role
             # Output:
             #   return: Data user
         """
-        user_account = self.user_repo.get_user_by_email(data["email"])
+        user_account = self.user_repo.get_user(data["email"], data["role"])
         if user_account and checkpw(data["password"], user_account.password):
             data["user"] = {
                 "username": user_account.username,

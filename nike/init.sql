@@ -15,10 +15,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO nike.`user`
 (user_id, username, email, fullname, password, token, `role`, flg_del, created_user, updated_user, created_date, updated_date)
-VALUES('GryfqpgyoJEM7JEs42QN', 'demo', 'admin@gmail.com', 'Demo', '$2b$12$BWex6PXXyVItz17nWaDh8u0pvM/EYZRAq5wAz6cvaSLRKHRw2isue', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8iLCJlbWFpbCI6ImRlbW9AZ21haWwuY29tIiwiZXhwIjoxNzM1NTQ2ODMxLjI5MTgwOH0.T8oGFJnvsjHcujK7YEX-mGXwwi9YaCHThQB-oVl07Us', 1, 0, NULL, NULL, '2024-12-23 15:20:31.000', '2024-12-23 15:20:31.000');
+VALUES('GryfqpgyoJEM7JEs42QN', 'admin', 'admin@gmail.com', 'admin', '$2b$12$BWex6PXXyVItz17nWaDh8u0pvM/EYZRAq5wAz6cvaSLRKHRw2isue', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE3MzU1NzI0NzMuODUwNDIyfQ.Q2sLkECeOLQinNNp91ddsnF2Emx9WZWIppqGeal6p08', 1, 0, NULL, NULL, '2024-12-23 15:20:31.000', '2024-12-23 15:20:31.000');
 INSERT INTO nike.`user`
 (user_id, username, email, fullname, password, token, `role`, flg_del, created_user, updated_user, created_date, updated_date)
-VALUES('gWu8bXF7VMfAoBgLcIdj', 'demo', 'demo@gmail.com', 'Demo2', '$2b$12$nNCuavy2VNitM4H5LhTYRe7xYClvN9ormTR0gglG86WxNQiSy19qO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8iLCJlbWFpbCI6ImRlbW8yQGdtYWlsLmNvbSIsImV4cCI6MTczNTU0Njk3MS45NTkyNTN9.bEXA5WWZv1r__c0pMTx7d_eLxx9RY_zUtVh-2M1SUQM', 0, 0, NULL, NULL, '2024-12-23 15:22:51.000', '2024-12-23 15:22:51.000');
+VALUES('gWu8bXF7VMfAoBgLcIdj', 'demo', 'demo@gmail.com', 'demo', '$2b$12$nNCuavy2VNitM4H5LhTYRe7xYClvN9ormTR0gglG86WxNQiSy19qO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE3MzU1NzI0OTcuNDE0MTQ5fQ.y_Ds3NPw66pBgdUINFtRphfcm_hc77Bopd-cImIe7KQ', 0, 0, NULL, NULL, '2024-12-23 15:22:51.000', '2024-12-23 15:22:51.000');
 
 CREATE TABLE IF NOT EXISTS `cart` (
     cart_id VARCHAR(20) PRIMARY KEY,

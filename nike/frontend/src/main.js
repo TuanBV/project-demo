@@ -19,7 +19,8 @@ import {
   faBoxArchive,
   faBlog,
   faGear,
-  faRightToBracket
+  faRightToBracket,
+  faImage
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -34,7 +35,8 @@ library.add(
   faBoxArchive,
   faBlog,
   faGear,
-  faRightToBracket
+  faRightToBracket,
+  faImage
 )
 
 const app = createApp(App)

@@ -31,6 +31,13 @@ router.beforeEach(async (to) => {
     checkLogin = await checkUserLogin()
   }
 
+  // Check login to access admin routes
+  if (auth.getRole) {
+    if (to.meta?.role !== 'admin') {
+      return '/v1/admin'
+    }
+    return true
+  }
   // Check if the user has permission to access the route
   if (!auth.getRole) {
     if (to.path === '/v1/admin/sign-in') {

@@ -1,6 +1,6 @@
 <script setup>
 import userService from 'service/user.service'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 // 1) ======= INITIALIZATION ========
@@ -11,7 +11,8 @@ const router = useRouter()
 // 2) ======= VARIABLE REF ========
 const data = ref({
   email: '',
-  password: ''
+  password: '',
+  role: 0
 })
 
 const login = async () => {
