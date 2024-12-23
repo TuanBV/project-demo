@@ -1,0 +1,31 @@
+# use Python
+FROM python:3.11-slim
+
+# Install package
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libmariadb-dev \
+    python3-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Update pip
+RUN pip install --upgrade pip
+
+# Install package mysqlclient
+RUN pip install pymysql
+
+# Setup folder work in container
+WORKDIR /api
+
+# Copy requirements.txt to container
+COPY api/requirements.txt .
+
+# Install package in requirements
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source to container
+COPY api /api
+
+# Run uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

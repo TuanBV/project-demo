@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  # FastAPI
+  fastapi:
+    build: .
+    container_name: api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=nike
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=10051998
+    networks:
+      - backend
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: 10051998
+      MYSQL_DATABASE: nike
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+# Network and volume
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql-data:

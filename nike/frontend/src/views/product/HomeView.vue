@@ -1,0 +1,33 @@
+<script setup>
+import SliderView from 'components/slide/SliderView.vue'
+import PosterView from 'components/poster/PosterView.vue'
+</script>
+
+<template>
+  <main>
+    <SliderView />
+    <!-- Go to shop  -->
+    <div class="py-5 text-center">
+      <h1 class="text-8xl font-black tracking-widest">Give sport</h1>
+      <div class="mb-16 mt-3 tracking-[5px]">
+        Inspire them with gifts designed for championship athletes.
+      </div>
+      <div>
+        <router-link class="btn-hover mx-5 tracking-[3px]" to="/product"
+          >Shop <font-awesome-icon :icon="['fas', 'arrow-right']" class="icon ml-3"
+        /></router-link>
+        <router-link class="btn-hover mx-5 tracking-[3px]" to="/product/kids"
+          >Shop Kids <font-awesome-icon :icon="['fas', 'arrow-right']" class="icon ml-3"
+        /></router-link>
+      </div>
+    </div>
+
+    <PosterView />
+  </main>
+</template>
+<style scoped>
+.btn-hover:hover .icon {
+  transition: all 600ms ease;
+  margin-left: 15px;
+}
+</style>
