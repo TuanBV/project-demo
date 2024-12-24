@@ -46,20 +46,6 @@ class UserRepository(CommonRepository):
             #   return: Data user
         """
         with self.session_factory_read() as session:
-            data = {
-                'username': "admin",
-                'email': "admin@gmail.com",
-            }
-            session.query(
-                User
-            ).filter(
-                User.email == email,
-            ).update({
-                User.token: jwt.hash_token(data)
-            })
-            session.commit()
-
-        with self.session_factory_read() as session:
             return session.query(
                 User.username, User.email, User.token, User.password, User.role
             ).filter(

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import ProductDetailView from 'components/product/ProductDetailView.vue'
 import ItemProduct from 'components/product/ItemProduct.vue'
 
@@ -160,10 +160,6 @@ const productList = ref([
   }
 ])
 const product = ref()
-
-onMounted(() => {
-  console.log('aaa')
-})
 </script>
 
 <template>

@@ -26,7 +26,15 @@ const login = async () => {
   <section class="flex min-h-screen items-center justify-center border-red-500 bg-gray-200">
     <div class="flex max-w-3xl rounded-2xl bg-gray-100 p-5 shadow-lg">
       <div class="md:w-1/2 px-5">
-        <h2 class="text-2xl font-bold text-[#002D74]">Login</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-[#002D74]">Login</h2>
+          <router-link
+            to="/"
+            class="flex items-center hover:underline hover:underline-offset-1 hover:duration-500"
+            ><font-awesome-icon :icon="['fas', 'arrow-right']" class="mr-3 h-3 w-5 rotate-180" />Go
+            to home</router-link
+          >
+        </div>
         <p class="mt-4 text-sm text-[#002D74]">If you have an account, please login</p>
         <div class="mt-6">
           <div>

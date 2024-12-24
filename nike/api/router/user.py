@@ -72,7 +72,6 @@ def login(request: LoginRequest, user_service: UserService = Depends(Provide(Con
     data_user = user_service.login(request.__dict__)
     # Set cookie
     cookie_config = make_cookie(get_user_cookie(), data_user["token"])
-
     payload = UserResponse(**data_user["user"])
     response = ok(data=payload.dict())
 

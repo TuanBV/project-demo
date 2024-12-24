@@ -1,8 +1,12 @@
 <script setup>
 import { reactive } from 'vue'
 import { useAuthStore } from 'stores/auth-store'
+import { useRouter } from 'vue-router'
 import userService from 'service/user.service'
 import ToastUtil from 'utility/toast'
+
+const router = useRouter()
+
 const menu = reactive([
   {
     label: 'New & Featured',
@@ -181,6 +185,9 @@ const logout = async () => {
   const res = await userService.logout()
   if (res) {
     ToastUtil.success('Log out successfully !!!')
+    if (!router.currentRoute?.meta?.requiresAuth) {
+      router.push('/sign-in')
+    }
   }
 }
 </script>
@@ -250,11 +257,26 @@ const logout = async () => {
           </div>
         </div>
       </div>
-      <button v-if="auth.isLoggedIn" @click.prevent="logout">Log Out</button>
-      <router-link to="/sign-in" v-else>Sign In</router-link>
-      <label for="menu-btn" class="menu-btn block cursor-pointer text-xl pc:hidden"
-        ><font-awesome-icon :icon="['fas', 'bars']" class="mr-3"
-      /></label>
+      <div class="flex items-center gap-3 text-lg font-medium">
+        <router-link to="/cart" v-if="auth.isLoggedIn" class="flex items-center">
+          <font-awesome-icon :icon="['fas', 'cart-shopping']" class="w- h-5 hover:h-6 hover:w-6" />
+        </router-link>
+        <button
+          v-if="auth.isLoggedIn"
+          @click.prevent="logout"
+          class="flex items-center text-red-400 group-hover:text-red-600"
+        >
+          <span class="ml-3.5 items-center justify-center"
+            ><font-awesome-icon
+              :icon="['fas', 'right-to-bracket']"
+              class="h-4 w-4 rotate-180" /></span
+          ><span class="ml-2 hidden truncate capitalize pc:block">Logout</span>
+        </button>
+        <router-link to="/sign-in" v-else class="hover:text-[#025cbd]">Sign In</router-link>
+        <label for="menu-btn" class="menu-btn block cursor-pointer pc:hidden"
+          ><font-awesome-icon :icon="['fas', 'bars']" class="mr-3"
+        /></label>
+      </div>
     </div>
   </nav>
 </template>

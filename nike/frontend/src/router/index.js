@@ -26,34 +26,33 @@ const checkUserLogin = async () => {
  */
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
-  let checkLogin = true
-  if (!auth.isLoggedIn) {
-    checkLogin = await checkUserLogin()
-  }
+  let checkLogin = await checkUserLogin()
 
-  // Check login to access admin routes
+  // Check if the account login is admin
   if (auth.getRole) {
     if (to.meta?.role !== 'admin') {
       return '/v1/admin'
     }
+  } else {
+    // Access to the screen requires login: Cart
+    if (!checkLogin && ['cart'].includes(to.name)) {
+      return '/sign-in'
+    }
+    if (['sign-in', 'sign-up'].includes(to.name) && checkLogin) {
+      return '/'
+    }
+    // Access to admin screen then error
+    if (to.meta?.role === 'admin' && checkLogin) {
+      return '/404'
+    }
+  }
+  // Not log in and directory is '/v1/admin/sign-in'
+  if (!checkLogin && to.path === '/v1/admin/sign-in') {
     return true
   }
-  // Check if the user has permission to access the route
-  if (!auth.getRole) {
-    if (to.path === '/v1/admin/sign-in') {
-      return true
-    }
-    if (to.path.includes(['/v1/admin'])) {
-      return '/v1/admin/sign-in'
-    }
-  }
-
-  // Check login to access cart
-  if (!checkLogin && to.name.includes(['cart', 'sign-in', 'sign-up'])) {
-    return '/sing-in'
-  }
-  if (to.name.includes('sign-in') && checkLogin) {
-    return '/'
+  // Not log in and access to directory admin
+  if (!checkLogin && to.meta?.role === 'admin') {
+    return '/v1/admin/sign-in'
   }
   return true
 })
