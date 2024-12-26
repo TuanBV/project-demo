@@ -259,7 +259,10 @@ const logout = async () => {
       </div>
       <div class="flex items-center gap-3 text-lg font-medium">
         <router-link to="/cart" v-if="auth.isLoggedIn" class="flex items-center">
-          <font-awesome-icon :icon="['fas', 'cart-shopping']" class="w- h-5 hover:h-6 hover:w-6" />
+          <font-awesome-icon :icon="['fas', 'cart-shopping']" class="h-4 w-4" />
+        </router-link>
+        <router-link to="/profile" v-if="auth.isLoggedIn" class="flex items-center">
+          <font-awesome-icon :icon="['fas', 'user']" class="h-4te w-4" />
         </router-link>
         <button
           v-if="auth.isLoggedIn"

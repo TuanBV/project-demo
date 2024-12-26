@@ -1,13 +1,19 @@
 <script setup>
-import SliderView from 'components/slide/SliderView.vue'
-import PosterView from 'components/poster/PosterView.vue'
+import SliderView from 'components/user/slide/SliderView.vue'
+import PosterView from 'components/user/poster/PosterView.vue'
 </script>
 
 <template>
   <main>
     <SliderView />
     <!-- Go to shop  -->
-    <div class="py-5 text-center">
+    <div
+      class="py-5 text-center"
+      data-aos="fade-up"
+      data-aos-offset="200"
+      data-aos-delay="50"
+      data-aos-easing="ease-in-out"
+    >
       <h1 class="text-8xl font-black tracking-widest">Give sport</h1>
       <div class="mb-16 mt-3 tracking-[5px]">
         Inspire them with gifts designed for championship athletes.

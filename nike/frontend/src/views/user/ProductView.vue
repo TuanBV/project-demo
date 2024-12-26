@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import ProductDetailView from 'components/product/ProductDetailView.vue'
-import ItemProduct from 'components/product/ItemProduct.vue'
+import ProductDetailView from 'components/user/product/ProductDetailView.vue'
+import ItemProduct from 'components/user/product/ItemProduct.vue'
 
 const productList = ref([
   {

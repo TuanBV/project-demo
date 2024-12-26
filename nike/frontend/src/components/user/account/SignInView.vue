@@ -1,6 +1,6 @@
 <script setup>
 import userService from 'service/user.service'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 // 1) ======= INITIALIZATION ========

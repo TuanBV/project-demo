@@ -20,7 +20,11 @@ import {
   faBlog,
   faGear,
   faRightToBracket,
-  faImage
+  faImage,
+  faEdit,
+  faPowerOff,
+  faAdd,
+  faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -36,7 +40,11 @@ library.add(
   faBlog,
   faGear,
   faRightToBracket,
-  faImage
+  faImage,
+  faEdit,
+  faPowerOff,
+  faAdd,
+  faEnvelope
 )
 
 const app = createApp(App)

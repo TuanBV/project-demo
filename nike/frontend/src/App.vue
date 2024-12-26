@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useAppStore } from './stores/app-store'
-import LoadingView from 'components/loading/LoadingView.vue'
+import LoadingView from 'components/common/loading/LoadingView.vue'
 
 // 1) ======= INITIALIZATION ========
 // ==> 1.1) state and getters

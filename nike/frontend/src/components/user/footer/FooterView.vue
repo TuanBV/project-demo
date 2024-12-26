@@ -1,6 +1,6 @@
 <script setup>
-import AuthorView from 'components/footer/AuthorView.vue'
-import IconSocialMedia from 'components/footer/IconSocialMedia.vue'
+import AuthorView from 'components/user/footer/AuthorView.vue'
+import IconSocialMedia from 'components/user/footer/IconSocialMedia.vue'
 </script>
 <template>
   <footer class="bg-white text-base">

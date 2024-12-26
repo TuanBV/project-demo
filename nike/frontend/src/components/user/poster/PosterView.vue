@@ -35,7 +35,14 @@ const quoteList = ref([
 ])
 </script>
 <template>
-  <div class="container-customer">
+  <div
+    class="container-customer"
+    data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-easing="ease-in-out"
+    data-aos-anchor-placement="top-bottom"
+  >
     <router-link
       v-for="(item, index) in quoteList"
       class="item"
@@ -51,7 +58,7 @@ const quoteList = ref([
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 50vh;
   background: #111;
 
   @media (min-width: 1024px) {
@@ -100,26 +107,26 @@ const quoteList = ref([
 }
 
 .item:nth-child(1) {
-  background-position: 60% 8%;
+  background-position: 60% 50%;
 }
 
 .item:nth-child(2) {
-  background-position: 60% 8%;
+  background-position: 60% 50%;
 }
 
 .item:nth-child(3) {
-  background-position: 52% 8%;
+  background-position: 52% 50%;
 }
 .item:nth-child(4) {
-  background-position: 45% 8%;
+  background-position: 45% 50%;
 }
 
 .item:nth-child(5) {
-  background-position: 45% 25%;
+  background-position: 45% 50%;
 }
 
 .item:nth-child(6) {
-  background-position: 65% 2%;
+  background-position: 65% 50%;
 }
 
 .quote {

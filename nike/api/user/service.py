@@ -64,3 +64,29 @@ class UserService:
             #   return: Data user
         """
         return self.user_repo.create(data)
+
+
+    # Get list user
+    def get_list(self):
+        """
+            # Get list user
+            # Params:
+            # Output:
+            #   return: List data user
+        """
+        return {"item": jsonable_encoder(self.user_repo.get_all())}
+
+    # Change status user
+    def change_status(self, user_id, status):
+        """
+            # Change status user
+            # Params:
+            # Output:
+            #   return: Data user
+        """
+        user = self.user_repo.get_by_user_id(user_id)
+        # Check if the user has changed status
+        if user:
+            self.user_repo.change_status(user_id, status)
+            return True
+        raise CommonException(message="User not found")

@@ -1,5 +1,5 @@
+from typing import Optional, List
 from pydantic import BaseModel, Field
-from typing import Optional
 
 class LoginRequest(BaseModel):
     """
@@ -29,9 +29,6 @@ class UserResponse(BaseModel):
     email: str
     role: Optional[int] = Field(default=0, title="Role user")
 
-    class Config():
-        orm_mode = True
-
 class UserAuth(BaseModel):
     """
         Response of user
@@ -39,3 +36,18 @@ class UserAuth(BaseModel):
     user_id: int
     username: str
     email: str
+
+class ItemUser(BaseModel):
+    """
+        Model user of list user response
+    """
+    username: str
+    email: str
+    user_id: str
+    flg_del: int
+
+class ListUserResponse(BaseModel):
+    """
+        Response list user
+    """
+    item: List[Optional[ItemUser]]

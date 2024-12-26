@@ -56,8 +56,8 @@ class UserService extends BaseService {
    *
    * @returns object|null
    */
-  async get(employeeCode) {
-    const res = await this.dao.get(employeeCode)
+  async get(userId) {
+    const res = await this.dao.get(userId)
     if (STATUS_CODE.SUCCESS === res.code) {
       return res.payload
     }
@@ -72,7 +72,7 @@ class UserService extends BaseService {
   async add(dataUser) {
     const res = await this.dao.add(dataUser)
     if (res) {
-      ToastUtil.success('Tạo tài khoản thành công !!!')
+      // ToastUtil.success('Tạo tài khoản thành công !!!')
       return true
     }
     ToastUtil.error('Lỗi tạo tài khoản !!!')
@@ -100,8 +100,8 @@ class UserService extends BaseService {
    *
    * @returns object|null
    */
-  async delete(employeeCode) {
-    const res = await this.dao.delete(employeeCode)
+  async statusUser(userId, status) {
+    const res = await this.dao.statusUser(userId, status)
     if (STATUS_CODE.SUCCESS === res.code) {
       return true
     }

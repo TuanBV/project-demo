@@ -50,7 +50,13 @@ const slides = reactive([
       >
     </div>
     <!-- Slide -->
-    <div class="xl:h-[80vh] h-[60vh] max-w-[100vw] overflow-hidden">
+    <div
+      class="xl:h-[80vh] h-[60vh] max-w-[100vw] overflow-hidden"
+      data-aos="fade-up"
+      data-aos-offset="200"
+      data-aos-delay="50"
+      data-aos-easing="ease-in-out"
+    >
       <!-- :autoplay="{
         delay: 20000,
         disableOnInteraction: false

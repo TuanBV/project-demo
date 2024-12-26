@@ -34,8 +34,8 @@ router.beforeEach(async (to) => {
       return '/v1/admin'
     }
   } else {
-    // Access to the screen requires login: Cart
-    if (!checkLogin && ['cart'].includes(to.name)) {
+    // Access to the screen requires login: Cart, Profile
+    if (!checkLogin && ['cart', 'profile'].includes(to.name)) {
       return '/sign-in'
     }
     if (['sign-in', 'sign-up'].includes(to.name) && checkLogin) {

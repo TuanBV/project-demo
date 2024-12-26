@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from schema.user import UserRequest, UserResponse, LoginRequest
+from schema.user import UserRequest, UserResponse, LoginRequest, ListUserResponse
 from user import UserService
 from dependency_injector.wiring import inject, Provide
 from containers import Container
@@ -80,7 +80,6 @@ def login(request: LoginRequest, user_service: UserService = Depends(Provide(Con
     return response
 
 
-
 @user_router.post('', responses={200: {"model": Response[UserResponse]}})
 @inject
 def create(request: UserRequest, user_service: UserService = Depends(Provide(Container.user_service))):
@@ -96,3 +95,28 @@ def create(request: UserRequest, user_service: UserService = Depends(Provide(Con
     response.set_cookie(**cookie_config)
 
     return response
+
+
+@user_router.get('/all', responses={200:{"model": Response[ListUserResponse]}})
+@inject
+def get_list(user_service: UserService = Depends(Provide(Container.user_service))):
+    """
+        Get list user
+    """
+    # Get data user
+    data_user = user_service.get_list()
+    payload = ListUserResponse(**data_user)
+    response = ok(data=payload.dict())
+
+    return response
+
+
+@user_router.post('/{user_id}/{status}', responses={200: {"model": Response[UserResponse]}})
+@inject
+def status_user(user_id: str, status: int, user_service: UserService = Depends(Provide(Container.user_service))):
+    """
+        Change status user
+    """
+    user_service.change_status(user_id, status)
+
+    return ok()

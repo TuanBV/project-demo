@@ -54,16 +54,41 @@ class UserRepository(CommonRepository):
                 User.flg_del == FlgDelete.OFF.value
             ).first()
 
-    # # Get all user
-    # def get_all(db: Session):
-    #     return db.query(User.username, User.email).filter(User.flg_del == FlgDelete.OFF.value).all()
+    # Get list user
+    def get_all(self):
+        """
+            # Get information user by email and role
+            # Params:
+            #   @email: Email user
+            #   @role: Role user
+            # Output:
+            #   return: Data user
+        """
+        with self.session_factory_read() as session:
+            return session.query(User).all()
 
-    # # Get user by username
-    # def get_by_username(db: Session, username: str):
-    #     return db.query(User).filter(User.flg_del == FlgDelete.OFF.value, User.username == username).first()
+
+    # Get user by user_id
+    def get_by_user_id(self, user_id):
+        """
+            # Get user by user_id
+            # Params:
+            #   @user_id: User id
+            # Output:
+            #   return: Data user
+        """
+        with self.session_factory_read() as session:
+            return session.query(User).filter(User.user_id == user_id).first()
 
     # Create new user
     def create(self, data):
+        """
+            # Create new user
+            # Params:
+            #   @data: Information user: username, email, role, password
+            # Output:
+            #   return: Data user
+        """
         with self.session_factory() as session:
             data_token = {
                 'username': data['username'],
@@ -84,3 +109,18 @@ class UserRepository(CommonRepository):
             session.refresh(new_user)
 
             return jsonable_encoder(new_user)
+
+    def change_status(self, user_id, status):
+        """
+            # Change status of user
+            # Params:
+            #   @user_id: User id
+            #   @status: status
+            # Output:
+            #   return
+        """
+        with self.session_factory() as session:
+            session.query(User).filter(User.user_id == user_id).update({
+                "flg_del": status
+            })
+            session.commit()

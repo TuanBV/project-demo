@@ -1,4 +1,4 @@
-import addUserSchema from 'models/add-user.js'
+import addUserSchema from 'models/user.js'
 // import { ERROR } from '../../../shared/utilities/message'
 
 const userSchema = {

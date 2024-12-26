@@ -24,12 +24,12 @@ class UserRepository extends BaseRepository {
   }
 
   /**
-   * Handle login
+   * Handle information user by userId
    *
    * @returns object|null
    */
-  get(employeeCode) {
-    return this.client.get(`/${employeeCode}`)
+  get(userId) {
+    return this.client.get(`/${userId}`)
   }
 
   /**
@@ -46,17 +46,26 @@ class UserRepository extends BaseRepository {
    *
    * @returns object|null
    */
-  edit(dataUser) {
-    return this.client.put(`/${dataUser.employee_code}`, dataUser)
+  edit(userId, dataUser) {
+    return this.client.put(`/${userId}`, dataUser)
   }
 
   /**
-   * Handle add user new
+   * Handle status user
    *
    * @returns object|null
    */
-  delete(employeeCode) {
-    return this.client.delete(`/${employeeCode}`)
+  statusUser(userId, status) {
+    return this.client.post(`/${userId}/${status}`)
+  }
+
+  /**
+   * Handle inactive user
+   *
+   * @returns object|null
+   */
+  delete(userId) {
+    return this.client.delete(`/${userId}`)
   }
 
   /**

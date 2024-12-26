@@ -8,14 +8,14 @@ const router = useRouter()
 
 const menu = ref([
   {
+    name: 'User',
+    to: '/v1/admin/user',
+    icon: 'user'
+  },
+  {
     name: 'Product',
     to: '/v1/admin/product',
     icon: 'box-archive'
-  },
-  {
-    name: 'User',
-    to: '/v1/admin/product',
-    icon: 'user'
   },
   {
     name: 'Blog',
@@ -26,6 +26,11 @@ const menu = ref([
     name: 'Slide',
     to: '/v1/admin/slide',
     icon: 'image'
+  },
+  {
+    name: 'Email',
+    to: '/v1/admin/email',
+    icon: 'envelope'
   }
 ])
 const logout = async () => {
