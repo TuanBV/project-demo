@@ -26,10 +26,17 @@ class UserService:
         """
         data = self.user_repo.get_me()
         if data:
+            token = {
+                "username": data.username,
+                "email": data.email,
+                "role": data.role.value
+            }
+            # Save token
+            self.user_repo.update_token(data.email, jwt.hash_token(token))
             return {
                 "username": data.username,
                 "email": data.email,
-                "token": data.token,
+                "token": jwt.hash_token(token),
                 "role": data.role
             }
 
@@ -49,6 +56,8 @@ class UserService:
                 "role": user_account.role.value
             }
             data["token"] = jwt.hash_token(data["user"])
+            # Save token
+            self.user_repo.update_token(data["email"], data["token"])
             return data
 
         raise CommonException(message="Email or password invalid")

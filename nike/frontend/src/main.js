@@ -24,7 +24,9 @@ import {
   faEdit,
   faPowerOff,
   faAdd,
-  faEnvelope
+  faEnvelope,
+  faFileCirclePlus,
+  faEye
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -44,7 +46,9 @@ library.add(
   faEdit,
   faPowerOff,
   faAdd,
-  faEnvelope
+  faEnvelope,
+  faFileCirclePlus,
+  faEye
 )
 
 const app = createApp(App)

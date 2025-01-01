@@ -28,12 +28,14 @@ class UserRepository(CommonRepository):
             # Output:
             #   return: Data user
         """
-        with self.session_factory_read() as session:
+        with self.session_factory() as session:
             user = context.user.value
-            return session.query(User.username, User.email, User.token, User.role).filter(
+            data = session.query(User.username, User.email, User.token, User.role).filter(
                 User.email == user["email"],
                 User.flg_del == FlgDelete.OFF.value
             ).first()
+
+            return data
 
 
     def get_user(self, email = None, role = 0):
@@ -53,6 +55,25 @@ class UserRepository(CommonRepository):
                 User.role == role,
                 User.flg_del == FlgDelete.OFF.value
             ).first()
+
+
+    def update_token(self, email = None, token = None):
+        """
+            # Update token by email
+            # Params:
+            #   @email: Email user
+            #   @token: New token user
+            # Output:
+            #   return: 
+        """
+        with self.session_factory() as session:
+            session.query(User).filter(
+                User.email == email,
+                User.flg_del == FlgDelete.OFF.value
+            ).update({
+                "token": token
+            })
+            session.commit()
 
     # Get list user
     def get_all(self):

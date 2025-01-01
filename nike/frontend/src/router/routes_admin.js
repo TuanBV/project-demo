@@ -28,6 +28,13 @@ const routes_admin = [
         component: () => import('views/admin/HomeView.vue'),
         meta: { role: 'admin' }
       },
+
+      {
+        path: 'email',
+        name: 'admin-email',
+        component: () => import('views/admin/EmailView.vue'),
+        meta: { role: 'admin' }
+      },
       {
         path: 'setting',
         name: 'admin-setting',
