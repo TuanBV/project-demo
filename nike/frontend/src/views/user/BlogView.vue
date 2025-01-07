@@ -1,9 +1,9 @@
 <template>
   <!-- component -->
-  <div class="mx-auto max-w-screen-xl">
+  <div class="max-w-screen-xl mx-auto">
     <main class="mt-10">
-      <div class="block px-2 md:flex md:space-x-2 lg:p-0">
-        <a class="relative mb-4 inline-block w-full rounded md:mb-0" style="height: 24em" href="#">
+      <div class="md:flex md:space-x-2 lg:p-0 block px-2">
+        <a class="md:mb-0 relative mb-4 inline-block w-full rounded" style="height: 24em" href="#">
           <div
             class="absolute bottom-0 left-0 z-10 h-full w-full"
             style="background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7))"
@@ -34,12 +34,12 @@
         </a>
       </div>
 
-      <div class="mb-10 mt-10 block px-2 lg:flex lg:space-x-2 lg:p-0">
+      <div class="lg:flex lg:space-x-2 lg:p-0 mb-10 mt-10 block px-2">
         <!-- post cards -->
-        <div class="w-full lg:w-2/3">
-          <div class="mb-10 w-full rounded lg:flex">
+        <div class="lg:w-2/3 w-full">
+          <div class="lg:flex mb-10 w-full rounded">
             <div
-              class="h-48 flex-none overflow-hidden bg-cover text-center opacity-75 lg:w-48"
+              class="lg:w-48 h-48 flex-none overflow-hidden bg-cover text-center opacity-75"
               style="
                 background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
               "
@@ -47,7 +47,7 @@
             ></div>
             <div class="flex flex-col justify-between rounded bg-white px-4 leading-normal">
               <div>
-                <div class="mb-2 mt-3 text-2xl font-medium text-gray-700 md:mt-0">
+                <div class="md:mt-0 mb-2 mt-3 text-2xl font-medium text-gray-700">
                   Suspendisse varius justo eu risus laoreet fermentum non aliquam dolor
                 </div>
                 <p class="text-base text-gray-700">
@@ -68,9 +68,9 @@
             </div>
           </div>
 
-          <div class="mb-10 w-full rounded lg:flex">
+          <div class="lg:flex mb-10 w-full rounded">
             <div
-              class="h-48 flex-none overflow-hidden bg-cover text-center opacity-75 lg:w-48"
+              class="lg:w-48 h-48 flex-none overflow-hidden bg-cover text-center opacity-75"
               style="
                 background-image: url('https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
               "
@@ -78,7 +78,7 @@
             ></div>
             <div class="flex flex-col justify-between rounded bg-white px-4 leading-normal">
               <div>
-                <div class="mb-2 mt-3 text-2xl font-medium text-gray-700 md:mt-0">
+                <div class="md:mt-0 mb-2 mt-3 text-2xl font-medium text-gray-700">
                   Integer commodo, sapien ut vulputate viverra
                 </div>
                 <p class="text-base text-gray-700">
@@ -100,9 +100,9 @@
             </div>
           </div>
 
-          <div class="mb-10 w-full rounded lg:flex">
+          <div class="lg:flex mb-10 w-full rounded">
             <div
-              class="h-48 flex-none overflow-hidden bg-cover text-center opacity-75 lg:w-48"
+              class="lg:w-48 h-48 flex-none overflow-hidden bg-cover text-center opacity-75"
               style="
                 background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
               "
@@ -110,7 +110,7 @@
             ></div>
             <div class="flex flex-col justify-between rounded bg-white px-4 leading-normal">
               <div>
-                <div class="mb-2 mt-3 text-2xl font-medium text-gray-700 md:mt-0">
+                <div class="md:mt-0 mb-2 mt-3 text-2xl font-medium text-gray-700">
                   Suspendisse varius justo eu risus laoreet fermentum non aliquam dolor
                 </div>
                 <p class="text-base text-gray-700">
@@ -131,10 +131,10 @@
             </div>
           </div>
 
-          <div class="mt-10 w-full flex-col justify-between rounded lg:flex-row">
+          <div class="lg:flex-row mt-10 w-full flex-col justify-between rounded">
             <nav
               aria-label="Pagination"
-              class="mt-8 flex items-center justify-center text-gray-600 lg:mt-0"
+              class="lg:mt-0 mt-8 flex items-center justify-center text-gray-600"
             >
               <a href="#" class="mr-4 rounded p-2 hover:bg-gray-100">
                 <svg
@@ -183,8 +183,8 @@
         </div>
 
         <!-- right advertisement -->
-        <div class="w-full space-y-2 px-3 lg:w-1/3">
-          <img src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" />
+        <div class="lg:w-1/3 w-full space-y-2 px-3">
+          <!-- <img src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
           <!-- <img src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
         </div>
       </div>

@@ -53,7 +53,7 @@ onMounted(async () => {
         <thead>
           <tr class="bg-gray-100">
             <th class="w-1/12 px-6 py-4 text-left font-bold uppercase text-gray-600">STT</th>
-            <th class="w-8/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Subject</th>
+            <th class="w-8/12px-6 py-4 text-left font-bold uppercase text-gray-600">Subject</th>
             <th class="w-1/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Status</th>
             <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Action</th>
           </tr>

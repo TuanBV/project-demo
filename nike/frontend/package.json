@@ -17,16 +17,17 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@unhead/vue": "^1.9.1",
     "@vueuse/core": "^10.9.0",
-    "axios": "^1.6.2",
-    "pinia": "^2.1.7",
-    "swiper": "^11.1.14",
-    "vue": "^3.4.29",
-    "vue-router": "^4.3.3",
     "ajv": "^8.11.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "ajv-keywords": "^5.1.0",
-    "toastify-js": "1.12.0"
+    "axios": "^1.6.2",
+    "pinia": "^2.1.7",
+    "swiper": "^11.1.14",
+    "toastify-js": "1.12.0",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
