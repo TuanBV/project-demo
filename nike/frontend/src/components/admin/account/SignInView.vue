@@ -32,6 +32,7 @@ const login = async () => {
             <label for="email" class="block text-gray-700">Email Address</label>
             <input
               v-model="data.email"
+              @keyup.enter="login"
               type="email"
               name=""
               id=""
@@ -46,6 +47,7 @@ const login = async () => {
             <label for="password" class="block text-gray-700">Password</label>
             <input
               v-model="data.password"
+              @keyup.enter="login"
               type="password"
               name=""
               id=""

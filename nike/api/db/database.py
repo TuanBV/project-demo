@@ -26,8 +26,11 @@ class Database:
   """
   def __init__(self, db_kbn: int):
     # sql_host = settings.MYSQL_HOST_READ if db_kbn == TYPE_DB.READ else settings.MYSQL_HOST_WRITE
-    sql_host = 'database:3306'
-    self.db_url = f"mysql+pymysql://{settings.MYSQL_USER}:{settings.MYSQL_PASSWORD}@{sql_host}/{settings.MYSQL_DB}?charset=utf8mb4"
+    sql_localhost = 'database:3306'
+    # server
+    # self.db_url = f"mysql://{settings.MYSQL_USER}:{settings.MYSQL_PASSWORD}@{settings.DOMAIN_FILE}/{settings.MYSQL_DB}"
+    # local
+    self.db_url = f"mysql+pymysql://{settings.MYSQL_USER}:{settings.MYSQL_PASSWORD}@{sql_localhost}/{settings.MYSQL_DB}?charset=utf8mb4"
     self.engine = create_engine(self.db_url, pool_pre_ping=True, pool_size=settings.MYSQL_POOL_SIZE, max_overflow=settings.MYSQL_MAX_OVERFLOW)
     self.session_factory = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=self.engine))
 

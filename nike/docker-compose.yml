@@ -13,6 +13,7 @@ services:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=nike
       - MYSQL_USER=root
+      # - MYSQL_PASSWORD=Tuan10051998$
       - MYSQL_PASSWORD=10051998
     networks:
       - backend
