@@ -10,6 +10,23 @@ module.exports = {
     '@vue/eslint-config-prettier/skip-formatting',
     'plugin:vitest-globals/recommended'
   ],
+  // rules: {
+  //   'max-len': [
+  //     'warn',
+  //     {
+  //       code: 120,
+  //       tabWidth: 2,
+  //       comments: 120,
+  //       ignoreUrls: true
+  //     }
+  //   ],
+  //   'prettier/prettier': [
+  //     'error',
+  //     {
+  //       printWidth: 120
+  //     }
+  //   ]
+  // },
   parserOptions: {
     ecmaVersion: 'latest'
   },

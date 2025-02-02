@@ -79,11 +79,11 @@ const quoteList = ref([
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #ffffff00, #00000073);
+  /* background: linear-gradient(0deg, #ffffff00, #00000073); */
 }
 
 .item:not(:last-child) {
-  border-bottom: 1px solid white;
+  /* border-bottom: 1px solid white; */
   animation: borderPulse 5s infinite;
 
   @media (min-width: 1024px) {
@@ -149,14 +149,16 @@ const quoteList = ref([
 @keyframes borderPulse {
   0%,
   100% {
-    border-color: rgba(204, 204, 204, 1);
+    border-color: rgba(214, 214, 214, 0.6);
   }
   25%,
   75% {
-    border-color: rgba(204, 204, 255, 0.9);
+    /* border-color: rgba(204, 204, 255, 0.9); */
+    border-color: rgba(214, 214, 214, 0.6);
   }
   50% {
-    border-color: rgba(204, 204, 255, 0.5);
+    /* border-color: rgba(204, 204, 255, 0.5); */
+    border-color: rgba(214, 214, 214, 0.6);
   }
 }
 </style>

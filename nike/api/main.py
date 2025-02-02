@@ -24,6 +24,7 @@ app.mount("/upload", StaticFiles(directory="upload"), name="upload")
 app.container = container
 
 app.include_router(router.user_router)
+app.include_router(router.post_router)
 
 origins = [
     'https://localhost:5000',

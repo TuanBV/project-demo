@@ -186,7 +186,7 @@ const logout = async () => {
   if (res) {
     ToastUtil.success('Log out successfully !!!')
     if (!router.currentRoute?.meta?.requiresAuth) {
-      router.push('/sign-in')
+      router.push('/')
     }
   }
 }

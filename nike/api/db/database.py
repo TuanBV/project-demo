@@ -10,14 +10,6 @@ TYPE_DB = Box({
   "WRITE": 1
 })
 
-
-# Url of file database
-# DATABASE_URL = 'mysql+pymysql://root:10051998@database:3306/nike'
-
-# engine = create_engine(DATABASE_URL)
-
-# SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-
 Base = declarative_base()
 
 class Database:

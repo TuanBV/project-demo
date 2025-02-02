@@ -20,3 +20,4 @@ tesseract
 pytz
 python-json-logger
 simplejson
+requests

@@ -21,6 +21,12 @@ class UserRequest(BaseModel):
     role: Optional[int] = Field(default=0, title="Role user")
 
 
+class OfferRequest(BaseModel):
+    """
+        Model request user
+    """
+    email: str = Field(..., title="The email", min_length=1, max_length=256)
+
 class UserResponse(BaseModel):
     """
         Response user
@@ -28,6 +34,12 @@ class UserResponse(BaseModel):
     username: str
     email: str
     role: Optional[int] = Field(default=0, title="Role user")
+
+class OfferResponse(BaseModel):
+    """
+        Response offer
+    """
+    email: str
 
 class UserAuth(BaseModel):
     """

@@ -26,6 +26,9 @@ const checkUserLogin = async () => {
  */
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
+  if (to.fullPath.includes('v1/admin')) {
+    document.title = 'Page Admin'
+  }
   let checkLogin = await checkUserLogin()
 
   // Check if the account login is admin

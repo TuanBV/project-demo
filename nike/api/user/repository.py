@@ -1,5 +1,5 @@
 from schema.user import UserRequest
-from models.model import User
+from models.model import User, Offer
 from sqlalchemy.orm.session import Session
 from utils.hash import Hash
 from utils.kbn import FlgDelete
@@ -130,6 +130,23 @@ class UserRepository(CommonRepository):
             session.refresh(new_user)
 
             return jsonable_encoder(new_user)
+
+
+    # Create new user
+    def register_offer(self, email):
+        """
+            # Register offer
+            # Params:
+            #   @data: email
+            # Output:
+            #   return: Data user
+        """
+        with self.session_factory() as session:
+            mail = Offer(email=email, created_user=email)
+            session.add(mail)
+            session.commit()
+            session.refresh(mail)
+            return jsonable_encoder(mail)
 
     def change_status(self, user_id, status):
         """

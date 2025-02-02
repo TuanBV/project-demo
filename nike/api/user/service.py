@@ -99,3 +99,13 @@ class UserService:
             self.user_repo.change_status(user_id, status)
             return True
         raise CommonException(message="User not found")
+
+    # Register offer
+    def register_offer(self, req):
+        """
+            # Register offer
+            # Params: email
+            # Output:
+            #   return: 
+        """
+        return self.user_repo.register_offer(req["email"])

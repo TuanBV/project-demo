@@ -1,6 +1,6 @@
 from db.database import Base
 from utils.kbn import IntEnum, FlgDelete, ROLE
-from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy import Column, Integer, String, DateTime, func, Index
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -95,3 +95,19 @@ class Comment(Base):
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
+class Offer(Base):
+    """
+        Model offer
+    """
+    __tablename__ = 'offer'
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    email = Column(String(256), nullable=False, unique=True)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+    __table_args__ = (
+        Index('index_offer_email', 'email'),
+    )

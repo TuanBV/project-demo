@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from schema.user import UserRequest, UserResponse, LoginRequest, ListUserResponse
+from schema.user import UserRequest, UserResponse, LoginRequest, ListUserResponse, OfferRequest, OfferResponse
 from user import UserService
 from dependency_injector.wiring import inject, Provide
 from containers import Container
@@ -113,10 +113,23 @@ def get_list(user_service: UserService = Depends(Provide(Container.user_service)
 
 @user_router.post('/{user_id}/{status}', responses={200: {"model": Response[UserResponse]}})
 @inject
-def status_user(user_id: str, status: int, user_service: UserService = Depends(Provide(Container.user_service))):
+def status_user(user_id: str, status: int,
+                user_service: UserService = Depends(Provide(Container.user_service))):
     """
         Change status user
     """
     user_service.change_status(user_id, status)
 
     return ok()
+
+@user_router.post('/register-offer', responses={200: {"model": Response[OfferResponse]}})
+@inject
+def register_offer(request: OfferRequest, user_service: UserService = Depends(Provide(Container.user_service))):
+    """
+        Register offer
+    """
+    data = user_service.register_offer(request.dict())
+    payload = OfferResponse(**data)
+    response = ok(data=payload.dict())
+
+    return response

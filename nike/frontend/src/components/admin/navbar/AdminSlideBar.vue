@@ -31,6 +31,11 @@ const menu = ref([
     name: 'Email',
     to: '/v1/admin/email',
     icon: 'envelope'
+  },
+  {
+    name: 'Post',
+    to: '/v1/admin/post',
+    icon: 'clipboard'
   }
 ])
 const logout = async () => {

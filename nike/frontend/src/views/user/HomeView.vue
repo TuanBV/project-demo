@@ -1,6 +1,7 @@
 <script setup>
 import SliderView from 'components/user/slide/SliderView.vue'
 import PosterView from 'components/user/poster/PosterView.vue'
+import RegisterOfferEmailView from 'components/user/offer/RegisterOfferEmailView.vue'
 </script>
 
 <template>
@@ -29,6 +30,7 @@ import PosterView from 'components/user/poster/PosterView.vue'
     </div>
 
     <PosterView />
+    <RegisterOfferEmailView />
   </main>
 </template>
 <style scoped>
