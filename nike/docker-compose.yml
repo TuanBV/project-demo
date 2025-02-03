@@ -3,7 +3,9 @@ version: "3.8"
 services:
   # FastAPI
   fastapi:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.api
     container_name: api
     ports:
       - "8000:8000"
@@ -15,6 +17,17 @@ services:
       - MYSQL_USER=root
       # - MYSQL_PASSWORD=Tuan10051998$
       - MYSQL_PASSWORD=10051998
+    networks:
+      - backend
+
+  # Queue
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile.queue
+    container_name: queue
+    ports:
+      - "9000:9000"
     networks:
       - backend
 
