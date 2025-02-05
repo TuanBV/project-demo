@@ -21,3 +21,5 @@ pytz
 python-json-logger
 simplejson
 requests
+celery
+redis

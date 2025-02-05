@@ -11,25 +11,60 @@ services:
       - "8000:8000"
     depends_on:
       - mysql
+      - redis
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=nike
       - MYSQL_USER=root
-      # - MYSQL_PASSWORD=Tuan10051998$
       - MYSQL_PASSWORD=10051998
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_HOST=redis
     networks:
       - backend
 
+  # Redis
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
   # Queue
-  queue:
+  # queue:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.queue
+  #   container_name: queue
+  #   ports:
+  #     - "9000:9000"
+  #   networks:
+  #     - backend
+
+  # Worker
+  worker:
     build:
       context: .
-      dockerfile: Dockerfile.queue
-    container_name: queue
-    ports:
-      - "9000:9000"
-    networks:
-      - backend
+      dockerfile: Dockerfile.worker
+    container_name: worker
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+  # Celery_beat
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: celery_beat
+    restart: always
+    depends_on:
+      - worker
+    command: ["celery", "-A", "worker", "beat", "--loglevel=info"]
 
   # MySQL
   mysql:

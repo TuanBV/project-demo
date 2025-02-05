@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from containers import Container
 import router
+from task import add_task
+from pydantic import BaseModel
 
 tags_metadata = [
     {
@@ -26,6 +28,18 @@ app.container = container
 app.include_router(router.user_router)
 app.include_router(router.post_router)
 
+class TaskRequest(BaseModel):
+    x: int
+    y: int
+
+@app.post("/task")
+async def create_task(task: TaskRequest):
+    print("--------------------------------")
+    task_result = add_task.delay(task.x, task.y)
+    print("--------------------------------111111")
+
+    return {"task_id": task_result.id, "status": "Task added to queue"}
+
 origins = [
     'https://localhost:5000',
     'http://localhost:5000',
@@ -41,4 +55,3 @@ app.add_middleware(
 
 
 # model.Base.metadata.create_all(engine)
-app.mount('/images', StaticFiles(directory='images'), name='images')
