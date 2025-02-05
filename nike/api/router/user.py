@@ -133,3 +133,23 @@ def register_offer(request: OfferRequest, user_service: UserService = Depends(Pr
     response = ok(data=payload.dict())
 
     return response
+
+# from tasks import add_task
+from tasks import ping
+@user_router.post("/task", responses={200: {"model": Response[UserResponse]}})
+def create_task(user_service: UserService = Depends(Provide(Container.user_service))):
+    print("Add aaaaaaaaaaaaaaa")
+    try:
+        result = ping.delay()
+        print(result.get(timeout=10))  # Nếu thành công, sẽ in ra "Ping successful"
+
+        # task_result = add_task.delay({
+        #     'user': {'name': 'Alice', 'age': 30},
+        #     'items': [{'id': 1, 'name': 'item1'}, {'id': 2, 'name': 'item2'}]
+        # })
+        # print("--------------------------------111111")
+        # result = task_result.get(timeout=10)  # timeout là thời gian tối đa chờ kết quả (10 giây)
+        # print(result)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+    # return {"task_id": task_result.id, "status": "Task added to queue"}

@@ -3,7 +3,7 @@ import os
 import redis
 
 celery_app = Celery(
-    "task",
+    "tasks",
     broker=os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0"),
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0"),
 )
@@ -12,7 +12,6 @@ redis_client = redis.Redis.from_url(os.getenv("CELERY_BROKER_URL", "redis://redi
 
 @celery_app.task
 def check_queue():
-    print("----------------------------------------------------------------")
     queue_length = redis_client.llen("celery")
     print(f"Queue length: {queue_length}")
     if queue_length > 0:

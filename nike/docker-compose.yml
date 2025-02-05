@@ -30,6 +30,11 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   # Queue
   # queue:
@@ -50,7 +55,8 @@ services:
     container_name: worker
     restart: always
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -63,8 +69,12 @@ services:
     container_name: celery_beat
     restart: always
     depends_on:
-      - worker
-    command: ["celery", "-A", "worker", "beat", "--loglevel=info"]
+      worker:
+        condition: service_started
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    command: ["celery", "-A", "worker", "beat", "--loglevel=error"]
 
   # MySQL
   mysql:

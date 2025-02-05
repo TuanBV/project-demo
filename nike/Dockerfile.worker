@@ -28,4 +28,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY worker /worker
 
 # Run uvicorn
-CMD ["celery", "-A", "worker", "worker", "--loglevel=info"]
+CMD ["celery", "-A", "worker", "worker", "--loglevel=error"]

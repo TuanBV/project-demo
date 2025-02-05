@@ -1,0 +1,7 @@
+// Instal WSL by PowerShell
+wsl --install
+sudo apt-get update
+sudo apt-get install redis
+
+// Start Redis
+sudo service redis-server start
