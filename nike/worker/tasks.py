@@ -12,9 +12,14 @@ redis_client = redis.Redis.from_url(os.getenv("CELERY_BROKER_URL", "redis://redi
 
 @celery_app.task
 def check_queue():
+    """
+    Celery task to check the queue length and print a message.
+    """
+    print("------------------------")
     queue_length = redis_client.llen("celery")
     print(f"Queue length: {queue_length}")
     if queue_length > 0:
         print("Tasks are waiting in the queue!")
     else:
         print("Queue is empty!")
+

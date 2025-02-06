@@ -35,7 +35,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-
+    networks:
+      - backend
   # Queue
   # queue:
   #   build:
@@ -60,6 +61,8 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    networks:
+      - backend
 
   # Celery_beat
   celery_beat:
@@ -74,7 +77,9 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    command: ["celery", "-A", "worker", "beat", "--loglevel=error"]
+    command: ["celery", "-A", "worker", "beat", "--loglevel=info"]
+    networks:
+      - backend
 
   # MySQL
   mysql:
