@@ -1,4 +1,4 @@
-import addUserSchema from 'models/user.js'
+import userModel from 'models/user.js'
 // import { ERROR } from '../../../shared/utilities/message'
 
 const userSchema = {
@@ -6,7 +6,7 @@ const userSchema = {
   required: ['username', 'fullname', 'email', 'password'],
   properties: {
     username: {
-      ...addUserSchema.username,
+      ...userModel.username,
       errorMessage: {
         maxLength: 'Max length is 256.',
         minLength: 'Username is required to enter.',
@@ -14,7 +14,7 @@ const userSchema = {
       }
     },
     fullname: {
-      ...addUserSchema.fullname,
+      ...userModel.fullname,
       errorMessage: {
         maxLength: 'Max length is 256.',
         minLength: 'Fullname is required to enter.',
@@ -22,7 +22,7 @@ const userSchema = {
       }
     },
     email: {
-      ...addUserSchema.email,
+      ...userModel.email,
       errorMessage: {
         maxLength: 'Max length is 256.',
         minLength: 'Email is required to enter.',
@@ -31,7 +31,7 @@ const userSchema = {
       }
     },
     password: {
-      ...addUserSchema.password,
+      ...userModel.password,
       errorMessage: {
         minLength: 'Password is required to enter.',
         _: 'Invalid password'

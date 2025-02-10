@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from containers import Container
 import router
+import router.category
 
 
 tags_metadata = [
@@ -26,6 +27,7 @@ app.container = container
 
 app.include_router(router.user_router)
 app.include_router(router.post_router)
+app.include_router(router.category_router)
 
 origins = [
     'https://localhost:5000',

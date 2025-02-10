@@ -10,7 +10,7 @@ from dependencies import authorized_user
 from router.common import CommonRoute
 from tasks import add_task
 from helpers import context
-from typing import List
+# from typing import List
 
 
 user_router = APIRouter(route_class=CommonRoute, prefix='/user', tags=['user'],
@@ -138,10 +138,12 @@ def register_offer(request: OfferRequest, user_service: UserService = Depends(Pr
 @user_router.post("/task")
 def create_task(user_service: UserService = Depends(Provide(Container.user_service))):
     try:
-        task_result = add_task.delay({
-            'user': {'name': 'Alice', 'age': 30},
-            'items': [{'id': 1, 'name': 'item1'}, {'id': 2, 'name': 'item2'}]
-        })
+        task_result = add_task(
+            {
+                "status": "PENDING",
+                "listId": [1, 2, 3, 4],
+            }
+        )
     except Exception as e:
         print(f"Error occurred: {e}")
     return {"task_id": task_result.id, "status": "Task added to queue"}

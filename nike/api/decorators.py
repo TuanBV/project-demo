@@ -11,11 +11,14 @@ api_key_user = APIKeyCookie(name=kbn.COOKIE_NAME.USER, auto_error=False)
 
 
 def permission(roles: List = None):
+    """
+        Check role of account access for api
+    """
     def permission_decorator(func):
         @wraps(func)
-        async def wrapper(*args, **kwargs):
-            if (context.user.value and roles):
+        def wrapper(*args, **kwargs):
+            if context.user.value and int(context.user.value['role']) not in roles:
                 raise PermissionException(message=ERR_MESSAGE.ACCESS_DENIED)
-            return await func(*args, **kwargs)
+            return func(*args, **kwargs)
         return wrapper
     return permission_decorator

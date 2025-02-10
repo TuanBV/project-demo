@@ -7,10 +7,5 @@ celery_app = Celery(
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0"),
 )
 
-@celery_app.task
 def add_task(dataRequest):
-    print('----------------------API')
-    return {
-        "data": dataRequest,
-        "message": "Add task"
-    }
+    return celery_app.send_task("tasks.add_task", args=[dataRequest])

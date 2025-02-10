@@ -1,12 +1,20 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 const isModal = ref(false)
 const product = defineModel()
 const imageProduct = ref()
 
 watch(product, () => {
+  // Set flag open modal
   isModal.value = true
+  // Set image
   imageProduct.value = product.value.image[0]
+})
+onMounted(() => {
+  // Event keydown is ESC then close modal
+  // window.addEventListener('keydown', (event) => {
+  //   if (event.key == 'Escape') isModal.value = false
+  // })
 })
 </script>
 

@@ -46,6 +46,21 @@ class Cart(Base):
     user = relationship('User', back_populates='carts')
     products = relationship('Product', back_populates='cart')
 
+# Category
+class Category(Base):
+    """
+        Model category
+    """
+    __tablename__ = 'category'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(256), nullable=False)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+    products = relationship('Product', back_populates='category')
+
 # Class Product
 class Product(Base):
     """
@@ -63,6 +78,8 @@ class Product(Base):
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
     fk_cart_id = Column(String(20), ForeignKey('cart.cart_id'))
+    fk_category_id = Column(String(20), ForeignKey('category.id'))
+    category = relationship('Category', back_populates='products')
     cart = relationship('Cart', back_populates='products')
 
 class Post(Base):

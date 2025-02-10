@@ -14,7 +14,7 @@ celery_app = Celery(
 celery_app.conf.beat_schedule = {
     "check-queue-every-5-minutes": {
         "task": "tasks.check_queue",
-        "schedule": crontab(minute="*/1"),  # Mỗi 5 phút
+        "schedule": crontab(minute="*/5"),  # Mỗi 5 phút
     },
 }
 celery_app.conf.timezone = "UTC"

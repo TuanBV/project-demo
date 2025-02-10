@@ -1,4 +1,4 @@
-const addUserSchema = {
+const userModel = {
   username: {
     type: 'string',
     maxLength: 256,
@@ -43,4 +43,4 @@ const addUserSchema = {
   }
 }
 
-export default addUserSchema
+export default userModel

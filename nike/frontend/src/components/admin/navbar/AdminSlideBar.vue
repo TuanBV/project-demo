@@ -13,6 +13,12 @@ const menu = ref([
     icon: 'user'
   },
   {
+    name: 'Category',
+    to: '/v1/admin/category',
+    icon: 'list'
+  },
+
+  {
     name: 'Product',
     to: '/v1/admin/product',
     icon: 'box-archive'
@@ -49,9 +55,7 @@ const logout = async () => {
 </script>
 <template>
   <div class="col-span-1 bg-white">
-    <div
-      class="flex h-full w-full flex-col border-r border-r-gray-200 bg-white p-2 dark:bg-gray-900"
-    >
+    <div class="flex h-full w-full flex-col border-r bg-[#F9FBFF] p-2 dark:bg-gray-900">
       <!-- Logo -->
       <router-link to="/v1/admin" class="flex items-center justify-center">
         <img src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />

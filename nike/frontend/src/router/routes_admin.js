@@ -17,9 +17,15 @@ const routes_admin = [
         meta: { role: 'admin' }
       },
       {
+        path: 'category',
+        name: 'admin-category',
+        component: () => import('views/admin/CategoryView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
         path: 'product',
         name: 'admin-product',
-        component: () => import('views/admin/HomeView.vue'),
+        component: () => import('views/admin/ProductView.vue'),
         meta: { role: 'admin' }
       },
       {
