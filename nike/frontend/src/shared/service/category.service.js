@@ -27,7 +27,6 @@ class CategoryService extends BaseService {
    */
   async add(dataRequest) {
     const res = await this.dao.add(dataRequest)
-    console.log(res)
     if (STATUS_CODE.SUCCESS === res.code) {
       return true
     }

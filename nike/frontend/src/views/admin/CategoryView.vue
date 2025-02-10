@@ -1,9 +1,15 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import ConfirmPopup from 'components/ConfirmPopup.vue'
 import categoryService from 'service/category.service'
 import ToastUtil from 'utility/toast'
 
 const categories = ref([])
+const refConfirmPopup = ref({
+  isVisible: false,
+  message: '',
+  confirmAction: null
+})
 const childCategory = ref({
   isModalCategory: false,
   categoryId: ''
@@ -33,6 +39,12 @@ const activeCategory = async (categoryId) => {
     await getList()
     ToastUtil.success('Active category successfully')
   }
+}
+
+const confirmPopup = (title, methodAction) => {
+  refConfirmPopup.value.isVisible = true
+  refConfirmPopup.value.message = title
+  refConfirmPopup.value.confirmAction = methodAction
 }
 
 watch(childCategory.value, async () => {
@@ -88,7 +100,11 @@ onMounted(async () => {
               </button>
               <button
                 v-if="!item.flg_del"
-                @click.prevent="deleteCategory(item.id)"
+                @click.prevent="
+                  confirmPopup('Bạn muốn xóa danh mục ' + item.name + ' ?', () => {
+                    deleteCategory(item.id), (refConfirmPopup.isVisible = false)
+                  })
+                "
                 class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
               >
                 <font-awesome-icon
@@ -99,7 +115,11 @@ onMounted(async () => {
               </button>
               <button
                 v-else
-                @click.prevent="activeCategory(item.id)"
+                @click.prevent="
+                  confirmPopup('Bạn muốn thêm lại danh mục ' + item.name + ' ?', () => {
+                    activeCategory(item.id), (refConfirmPopup.isVisible = false)
+                  })
+                "
                 class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
               >
                 <font-awesome-icon
@@ -113,6 +133,14 @@ onMounted(async () => {
         </tbody>
       </table>
     </div>
+    <!-- Modal category -->
     <ModalCategory v-model="childCategory" />
+    <!-- Confirm popup -->
+    <ConfirmPopup
+      :isVisible="refConfirmPopup.isVisible"
+      :message="refConfirmPopup.message"
+      :accept="refConfirmPopup.confirmAction"
+      @cancel="() => (refConfirmPopup.isVisible = false)"
+    />
   </div>
 </template>

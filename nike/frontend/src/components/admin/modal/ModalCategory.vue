@@ -34,8 +34,6 @@ const updateCategory = async () => {
 
 watch(childCategory.value, async () => {
   category.value.name = ''
-  console.log(childCategory.value)
-
   if (childCategory.value.categoryId) {
     const res = await categoryService.getByCategoryId(childCategory.value.categoryId)
     if (res) {
@@ -43,7 +41,7 @@ watch(childCategory.value, async () => {
       // Populate form data with fetched data
     }
   }
-
+  if (!childCategory.value.isModalCategory) childCategory.value.categoryId = ''
   errors.value = []
 })
 </script>

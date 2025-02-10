@@ -2,7 +2,7 @@ from models.model import Category
 from utils.kbn import FlgDelete
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import asc
+from sqlalchemy import asc, desc
 
 class CategoryRepository(CommonRepository):
     """
@@ -18,7 +18,7 @@ class CategoryRepository(CommonRepository):
         """
         with self.session_factory_read() as session:
             return session.query(Category).order_by(
-                asc(Category.flg_del), asc(Category.created_date)
+                asc(Category.flg_del), desc(Category.created_date)
             ).all()
 
 

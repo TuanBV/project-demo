@@ -92,6 +92,6 @@ class CategoryService:
             #   return:
         """
         # Check if category already exists
-        if elf.category_repo.get_by_category_id(category_id):
+        if not self.category_repo.get_by_category_id(category_id):
             raise CommonException(message="Category not exists")
         self.category_repo.active(category_id, updated_user)
