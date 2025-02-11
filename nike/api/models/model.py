@@ -26,6 +26,7 @@ class User(Base):
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
     carts = relationship('Cart', back_populates='user')
 
 
@@ -44,7 +45,8 @@ class Cart(Base):
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
     fk_user_id = Column(String(20), ForeignKey('user.user_id'))
     user = relationship('User', back_populates='carts')
-    products = relationship('Product', back_populates='cart')
+
+    cart_products = relationship("CartProduct", back_populates="cart")
 
 # Category
 class Category(Base):
@@ -59,6 +61,7 @@ class Category(Base):
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
     products = relationship('Product', back_populates='category')
 
 # Class Product
@@ -77,10 +80,23 @@ class Product(Base):
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
-    fk_cart_id = Column(String(20), ForeignKey('cart.cart_id'))
     fk_category_id = Column(String(20), ForeignKey('category.id'))
     category = relationship('Category', back_populates='products')
-    cart = relationship('Cart', back_populates='products')
+
+    cart_products = relationship("CartProduct", back_populates="product")
+
+class CartProduct(Base):
+    """
+        Model cart_product
+    """
+    __tablename__ = 'cart_products'
+
+    cart_id = Column(Integer, ForeignKey('carts.cart_id'), primary_key=True)
+    product_id = Column(Integer, ForeignKey('products.product_id'), primary_key=True)
+    quantity = Column(Integer)
+
+    cart = relationship("Cart", back_populates="cart_products")
+    product = relationship("Product", back_populates="cart_products")
 
 class Post(Base):
     """

@@ -60,10 +60,18 @@ CREATE TABLE IF NOT EXISTS `product` (
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flg_del INTEGER DEFAULT 0,
     fk_category_id BIGINT,
-    fk_cart_id VARCHAR(20),
     CONSTRAINT fk_category FOREIGN KEY (fk_category_id) REFERENCES category(id),
-    CONSTRAINT fk_cart FOREIGN KEY (fk_cart_id) REFERENCES cart(cart_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `cart_products` (
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    PRIMARY KEY (cart_id, product_id),
+    FOREIGN KEY (cart_id) REFERENCES carts(cart_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
 
 CREATE TABLE IF NOT EXISTS `post` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
