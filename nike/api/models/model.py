@@ -1,6 +1,6 @@
 from db.database import Base
 from utils.kbn import IntEnum, FlgDelete, ROLE
-from sqlalchemy import Column, Integer, String, DateTime, func, Index
+from sqlalchemy import Column, Integer, String, DateTime, func, Index, Double
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -64,6 +64,24 @@ class Category(Base):
 
     products = relationship('Product', back_populates='category')
 
+class Sale(Base):
+    """
+        Model sale
+    """
+    __tablename__ = 'sale'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(256), nullable=False)
+    discount = Column(Integer, nullable=False)
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
+    products = relationship('Product', back_populates='sale')
+
 # Class Product
 class Product(Base):
     """
@@ -72,15 +90,19 @@ class Product(Base):
     __tablename__ = 'product'
     product_id = Column(String(20), primary_key=True)
     name = Column(String(256), nullable=False)
+    quantity = Column(Integer, default=0)
+    price = Column(Double, default=0)
     weight = Column(String(256))
     height = Column(String(256))
-    qr_code = Column(String(256), nullable=False)
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
-    fk_category_id = Column(String(20), ForeignKey('category.id'))
+    # Foreign key
+    fk_category_id = Column(Integer, ForeignKey('category.id'))
+    fk_sale_id = Column(Integer, ForeignKey('sale.id'))
+    sale = relationship('Sale', back_populates='products')
     category = relationship('Category', back_populates='products')
 
     cart_products = relationship("CartProduct", back_populates="product")
@@ -89,10 +111,10 @@ class CartProduct(Base):
     """
         Model cart_product
     """
-    __tablename__ = 'cart_products'
+    __tablename__ = 'cart_product'
 
-    cart_id = Column(Integer, ForeignKey('carts.cart_id'), primary_key=True)
-    product_id = Column(Integer, ForeignKey('products.product_id'), primary_key=True)
+    cart_id = Column(Integer, ForeignKey('cart.cart_id'), primary_key=True)
+    product_id = Column(Integer, ForeignKey('product.product_id'), primary_key=True)
     quantity = Column(Integer)
 
     cart = relationship("Cart", back_populates="cart_products")

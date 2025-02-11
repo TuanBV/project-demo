@@ -42,6 +42,11 @@ const menu = ref([
     name: 'Post',
     to: '/v1/admin/post',
     icon: 'clipboard'
+  },
+  {
+    name: 'Sale',
+    to: '/v1/admin/sale',
+    icon: 'percent'
   }
 ])
 const logout = async () => {

@@ -48,30 +48,45 @@ CREATE TABLE IF NOT EXISTS `category` (
     flg_del INTEGER DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `sale` (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(256),
+    discount INTEGER DEFAULT 0,
+    start_date TIMESTAMP,
+    end_date TIMESTAMP,
+    created_user VARCHAR(256),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_user VARCHAR(256),
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    flg_del INTEGER DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `product` (
     product_id VARCHAR(20) PRIMARY KEY,
     name VARCHAR(256) NOT NULL,
+    quantity INTEGER DEFAULT 0,
+    price DOUBLE DEFAULT 0,
     weight VARCHAR(256),
     height VARCHAR(256),
-    qr_code VARCHAR(256) NOT NULL,
     created_user VARCHAR(256),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(256),
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flg_del INTEGER DEFAULT 0,
     fk_category_id BIGINT,
+    fk_sale_id BIGINT,
     CONSTRAINT fk_category FOREIGN KEY (fk_category_id) REFERENCES category(id),
+    CONSTRAINT fk_sale FOREIGN KEY (fk_sale_id) REFERENCES sale(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `cart_products` (
-    cart_id INT NOT NULL,
-    product_id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `cart_product` (
+    cart_id VARCHAR(20) NOT NULL,
+    product_id VARCHAR(20) NOT NULL,
     quantity INT NOT NULL,
     PRIMARY KEY (cart_id, product_id),
-    FOREIGN KEY (cart_id) REFERENCES carts(cart_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
-
+    CONSTRAINT fk_cart FOREIGN KEY (cart_id) REFERENCES cart(cart_id),
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES product(product_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `post` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
