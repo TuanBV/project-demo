@@ -7,6 +7,7 @@ const emit = defineEmits(['update:itemProduct'])
   <!-- @click="product = props.itemProduct -->
   <div class="group block overflow-hidden" @click="emit('update:itemProduct', props.itemProduct)">
     <img
+      loading="lazy"
       :alt="props.itemProduct.name"
       :src="props.itemProduct.image[0]"
       class="mx-auto aspect-square object-cover transition duration-500 group-hover:scale-105"

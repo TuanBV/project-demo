@@ -45,6 +45,7 @@ def get_all(sale_service: SaleService = Depends(Provide(Container.sale_service))
     response = ok(data=payload.dict())
     return response
 
+
 @sale_router.post('', tags=["sale"], responses={200: {"model": Response}}, dependencies=[Depends(authorized_user)])
 @permission([ROLE.ADMIN])
 @inject
@@ -77,7 +78,7 @@ def update_sale(sale_id: int,
     """
         Update sale
     """
-    sale_service.update(sale_id, request.__dict__["name"], context.user.value["username"])
+    sale_service.update(sale_id, request.__dict__, context.user.value["username"])
     return ok()
 
 @sale_router.delete('/{sale_id}', responses={200:{"model": Response}}, dependencies=[Depends(authorized_user)])

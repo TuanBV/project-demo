@@ -8,7 +8,7 @@ import IconSocialMedia from 'components/user/footer/IconSocialMedia.vue'
       <div class="mx-auto grid max-w-[1300px] grid-cols-1 gap-8 pb-10 pc:grid-cols-3">
         <div class="grid grid-cols-1">
           <div class="text-teal-600">
-            <img src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
+            <img loading="lazy" src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
           </div>
 
           <p class="mt-4 text-gray-500">
@@ -26,7 +26,14 @@ import IconSocialMedia from 'components/user/footer/IconSocialMedia.vue'
                   class="text-gray-700 transition hover:opacity-75"
                 >
                   <span class="sr-only">{{ item.name }}</span>
-                  <img :src="item.icon" alt="" height="20px" width="20px" srcset="" />
+                  <img
+                    loading="lazy"
+                    :src="item.icon"
+                    alt=""
+                    height="20px"
+                    width="20px"
+                    srcset=""
+                  />
                 </a>
               </template>
             </IconSocialMedia>

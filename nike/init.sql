@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `cart` (
     updated_user VARCHAR(256),
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flg_del INTEGER DEFAULT 0,
-    fk_user_id VARCHAR(20),
-    CONSTRAINT fk_user FOREIGN KEY (fk_user_id) REFERENCES user(user_id)
+    user_id VARCHAR(20),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES user(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -52,8 +52,9 @@ CREATE TABLE IF NOT EXISTS `sale` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(256),
     discount INTEGER DEFAULT 0,
-    start_date TIMESTAMP,
-    end_date TIMESTAMP,
+    image VARCHAR(256),
+    start_date DATE,
+    end_date DATE,
     created_user VARCHAR(256),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(256),
@@ -61,6 +62,18 @@ CREATE TABLE IF NOT EXISTS `sale` (
     flg_del INTEGER DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO nike.sale
+(id, name, discount, image, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(1, 'Big Sale Month 1 !!!', 10, 'upload/sale/sale_1739775463.jpg', NULL, NULL, 'admin', '2025-02-17 06:57:43', NULL, '2025-02-17 06:58:44', 0);
+INSERT INTO nike.sale
+(id, name, discount, image, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(2, 'Big Sale Month 2 !!!', 20, 'upload/sale/sale_1739775478.jpg', NULL, NULL, 'admin', '2025-02-17 06:57:58', NULL, '2025-02-17 06:58:44', 0);
+INSERT INTO nike.sale
+(id, name, discount, image, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(3, 'Big Sale Month 3 !!!', 0, 'upload/sale/sale_1739775489.jpg', NULL, NULL, 'admin', '2025-02-17 06:58:09', NULL, '2025-02-17 06:58:44', 0);
+INSERT INTO nike.sale
+(id, name, discount, image, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(4, 'Big Sale Month 4 !!!', 0, 'upload/sale/sale_1739775509.jpg', NULL, NULL, 'admin', '2025-02-17 06:58:29', NULL, '2025-02-17 06:58:44', 0);
 CREATE TABLE IF NOT EXISTS `product` (
     product_id VARCHAR(20) PRIMARY KEY,
     name VARCHAR(256) NOT NULL,
@@ -73,10 +86,23 @@ CREATE TABLE IF NOT EXISTS `product` (
     updated_user VARCHAR(256),
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     flg_del INTEGER DEFAULT 0,
-    fk_category_id BIGINT,
-    fk_sale_id BIGINT,
-    CONSTRAINT fk_category FOREIGN KEY (fk_category_id) REFERENCES category(id),
-    CONSTRAINT fk_sale FOREIGN KEY (fk_sale_id) REFERENCES sale(id)
+    category_id BIGINT,
+    sale_id BIGINT,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES category(id),
+    CONSTRAINT fk_sale FOREIGN KEY (sale_id) REFERENCES sale(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `product_image` (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    image_url VARCHAR(255),
+    image_type VARCHAR(50),
+    created_user VARCHAR(256),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_user VARCHAR(256),
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    flg_del INTEGER DEFAULT 0,
+    product_id VARCHAR(20),
+    CONSTRAINT fk_product_image FOREIGN KEY (product_id) REFERENCES product(product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `cart_product` (
@@ -85,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `cart_product` (
     quantity INT NOT NULL,
     PRIMARY KEY (cart_id, product_id),
     CONSTRAINT fk_cart FOREIGN KEY (cart_id) REFERENCES cart(cart_id),
-    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES product(product_id)
+    CONSTRAINT fk_cart_product FOREIGN KEY (product_id) REFERENCES product(product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `post` (

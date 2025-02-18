@@ -47,17 +47,22 @@ class SaleRepository(CommonRepository):
             #   return: data sale
         """
         with self.session_factory() as session:
-            new_sale = Sale(
-                name=data_request['name'],
-                discount=data_request['discount'],
-                start_date=data_request['start_date'],
-                end_date=data_request['end_date'],
-                created_user=created_user
-            )
-            session.add(new_sale)
-            session.commit()
-            session.refresh(new_sale)
+            print(data_request)
+            try:
 
+                new_sale = Sale(
+                    name=data_request['name'],
+                    discount=data_request['discount'],
+                    image=data_request['image'] if data_request['image'] else None,
+                    start_date=data_request['start_date'] if data_request['start_date'] else None,
+                    end_date=data_request['end_date'] if data_request['end_date'] else None,
+                    created_user=created_user
+                )
+                session.add(new_sale)
+                session.commit()
+                session.refresh(new_sale)
+            except Exception as e:
+                print(e)
             return jsonable_encoder(new_sale)
 
     # Get the sale by name
@@ -76,12 +81,12 @@ class SaleRepository(CommonRepository):
             ).first()
 
     # Update sale
-    def update(self, sale_id, name, updated_user):
+    def update(self, sale_id, data_request, updated_user):
         """
             # Update sale
             # Params:
             #   @sale_id: id of the sale
-            #   @name: name of sale
+            #   @data_request: data_request
             #   @updated_user: name of user update
             # Output:
             #   return:
@@ -91,7 +96,10 @@ class SaleRepository(CommonRepository):
                 Sale.id == sale_id,
                 Sale.flg_del == FlgDelete.OFF.value
             ).update({
-                "name": name,
+                "name": data_request["name"],
+                "discount": data_request["discount"],
+                "start_date": data_request["start_date"] if data_request["start_date"] else None,
+                "end_date": data_request["end_date"] if data_request["end_date"] else None,
                 "updated_user": updated_user
             })
             session.commit()

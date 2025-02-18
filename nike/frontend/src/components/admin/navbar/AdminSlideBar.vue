@@ -63,7 +63,7 @@ const logout = async () => {
     <div class="flex h-full w-full flex-col border-r bg-[#F9FBFF] p-2 dark:bg-gray-900">
       <!-- Logo -->
       <router-link to="/v1/admin" class="flex items-center justify-center">
-        <img src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
+        <img loading="lazy" src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
       </router-link>
 
       <div
@@ -83,6 +83,12 @@ const logout = async () => {
           >
         </div>
         <div class="mx-1 flex flex-col space-y-1 pc:mt-1">
+          <select
+            class="mx-3 h-12 cursor-pointer flex-row items-center justify-center rounded-md border pr-3.5 font-semibold text-gray-500"
+          >
+            <option value="vn">VN</option>
+            <option value="en">EN</option>
+          </select>
           <router-link
             class="hover:text-primary-400 flex h-12 cursor-pointer flex-row items-center justify-center rounded-md pr-3.5 font-semibold text-gray-500 focus:outline-none pc:justify-start pc:pr-6"
             to="/v1/admin/setting"

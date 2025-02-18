@@ -24,6 +24,7 @@ const products = ref([
         >
           <div class="w-full sm:w-1/4 pc:w-4/12">
             <img
+              loading="lazy"
               src="assets/images/air_force_1.png"
               alt="Air Force 1"
               class="object-cover object-center"

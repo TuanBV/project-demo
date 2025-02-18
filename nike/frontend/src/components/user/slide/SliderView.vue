@@ -82,7 +82,7 @@ const slides = reactive([
       >
         <swiper-slide v-for="(item, index) in slides" :key="index">
           <div class="flex h-full w-full justify-center">
-            <img :src="item.image" alt="" width="100%" height="100%" />
+            <img loading="lazy" :src="item.image" alt="" width="100%" height="100%" />
             <div class="xl:w-[75%] absolute bottom-7">
               <router-link
                 to="/product"

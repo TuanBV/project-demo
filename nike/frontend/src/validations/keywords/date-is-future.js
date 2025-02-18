@@ -1,32 +1,34 @@
-import dayjs from 'utilities/day';
+import dayjs from 'utility/day'
 
 const dateIsFuture = {
   keyword: 'dateIsFuture',
   type: 'string',
   validate: function validate(_, data) {
     if (!data) {
-      return true;
+      return true
     }
 
     if (!dayjs(data).isValid()) {
-      return true;
+      return true
     }
 
-    const inputTimeStamp = dayjs(data).unix();
-    const currentTimeStamp = dayjs().unix();
-    if (currentTimeStamp < inputTimeStamp) {
-      return true;
+    const inputTimeStamp = dayjs(data).unix()
+    console.log(inputTimeStamp)
+
+    const currentTimeStamp = dayjs().startOf('day').unix()
+    if (currentTimeStamp <= inputTimeStamp) {
+      return true
     }
 
     this.errors = [
       {
         keyword: 'dateIsFuture',
-        params: { keyword: 'dateIsFuture' },
-      },
-    ];
-    return false;
+        params: { keyword: 'dateIsFuture' }
+      }
+    ]
+    return false
   },
-  errors: true,
-};
+  errors: true
+}
 
-export default dateIsFuture;
+export default dateIsFuture

@@ -9,6 +9,7 @@
             style="background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7))"
           ></div>
           <img
+            loading="lazy"
             src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
             class="absolute left-0 top-0 z-0 h-full w-full rounded object-cover"
           />
@@ -22,6 +23,7 @@
             </h2>
             <div class="mt-3 flex">
               <img
+                loading="lazy"
                 src="https://randomuser.me/api/portraits/men/97.jpg"
                 class="mr-2 h-10 w-10 rounded-full object-cover"
               />
@@ -57,6 +59,7 @@
               </div>
               <div class="mt-3 flex">
                 <img
+                  loading="lazy"
                   src="https://randomuser.me/api/portraits/men/86.jpg"
                   class="mr-2 h-10 w-10 rounded-full object-cover"
                 />
@@ -89,6 +92,7 @@
               </div>
               <div class="mt-3 flex">
                 <img
+                  loading="lazy"
                   src="https://randomuser.me/api/portraits/women/54.jpg"
                   class="mr-2 h-10 w-10 rounded-full object-cover"
                 />
@@ -120,6 +124,7 @@
               </div>
               <div class="mt-3 flex">
                 <img
+                  loading="lazy"
                   src="https://randomuser.me/api/portraits/men/86.jpg"
                   class="mr-2 h-10 w-10 rounded-full object-cover"
                 />
@@ -184,8 +189,8 @@
 
         <!-- right advertisement -->
         <div class="lg:w-1/3 w-full space-y-2 px-3">
-          <!-- <img src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
-          <!-- <img src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
+          <!-- <img loading="lazy" src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
+          <!-- <img loading="lazy" src="assets/images/banner_advertisement.jpg" alt="advertisement" srcset="" /> -->
         </div>
       </div>
     </main>

@@ -3,6 +3,7 @@ uvicorn
 sqlalchemy
 python-box
 dependency-injector
+pydantic
 pydantic-settings
 cryptography
 PyJWT

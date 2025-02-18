@@ -2,16 +2,17 @@
   <div class="absolute left-0 top-0 z-[999] h-[100vh] w-[100vw] bg-green-400">
     <div class="md:grid md:grid-cols-3 overflow-hidden rounded-lg shadow-2xl">
       <img
+        loading="lazy"
         alt=""
         src="https://images.unsplash.com/photo-1611510338559-2f463335092c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
         class="md:h-full h-32 w-full object-cover"
       />
 
-      <div class="sm:p-6 md:col-span-2 lg:p-8 p-4 text-center">
+      <div class="md:col-span-2 lg:p-8 p-4 text-center sm:p-6">
         <p class="text-sm font-semibold uppercase tracking-widest">Run with the pack</p>
 
         <h2 class="mt-6 font-black uppercase">
-          <span class="sm:text-5xl lg:text-6xl text-4xl font-black"> Get 20% off </span>
+          <span class="lg:text-6xl text-4xl font-black sm:text-5xl"> Get 20% off </span>
 
           <span class="mt-2 block text-sm">On your next order over $50</span>
         </h2>

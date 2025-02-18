@@ -1,5 +1,6 @@
 import UserRepository from 'service/repository/restful/user.repository'
 import CategoryRepository from 'service/repository/restful/category.repository'
+import SaleRepository from 'service/repository/restful/sale.repository'
 
 class RepositoryFactory {
   getRepository(serviceName) {
@@ -8,6 +9,8 @@ class RepositoryFactory {
         return UserRepository
       case 'category':
         return CategoryRepository
+      case 'sale':
+        return SaleRepository
       default:
         throw Error('Invalid param')
     }

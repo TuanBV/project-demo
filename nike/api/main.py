@@ -1,12 +1,8 @@
 from fastapi import FastAPI
-from models import model
-# from db.database import engine
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from containers import Container
 import router
-import router.category
-
 
 tags_metadata = [
     {
@@ -19,9 +15,25 @@ tags_metadata = [
     },
 ]
 
+
+LANGUAGES = {
+    "en": "English",
+    "vi": "Vietnamese"
+}
+
 container = Container()
 container.wire(packages=[router])
 app = FastAPI(openapi_tags=tags_metadata, docs_url="/docs", redoc_url=None, openapi_url="/openapi.json")
+
+
+@app.middleware("http")
+async def add_cache_control_header(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/upload"):
+        response.headers["Cache-Control"] = "no-store"  # Hoặc "no-cache" tùy nhu cầu
+    return response
+
+
 app.mount("/upload", StaticFiles(directory="upload"), name="upload")
 app.container = container
 
@@ -42,6 +54,3 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
-
-
-# model.Base.metadata.create_all(engine)

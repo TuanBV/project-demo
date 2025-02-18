@@ -17,6 +17,7 @@ const tab = ref([
           <div class="rounded-lg bg-white p-6 shadow">
             <div class="flex flex-col items-center">
               <img
+                loading="lazy"
                 src="https://randomuser.me/api/portraits/men/94.jpg"
                 class="mb-4 h-32 w-32 shrink-0 rounded-full bg-gray-300"
               />

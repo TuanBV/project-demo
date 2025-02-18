@@ -35,6 +35,7 @@ onMounted(() => {
           <!-- Product Images -->
           <div class="mb-8 w-full px-4 tablet:w-1/2">
             <img
+              loading="lazy"
               :src="imageProduct"
               alt="Product"
               class="mb-4 h-auto w-full rounded-lg shadow-md"
@@ -42,6 +43,7 @@ onMounted(() => {
             />
             <div class="flex gap-4 overflow-x-auto py-4">
               <img
+                loading="lazy"
                 v-for="(item, index) in product.image"
                 :key="index"
                 :src="item"

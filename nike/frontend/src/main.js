@@ -6,6 +6,11 @@ import App from './App.vue'
 import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { createI18n } from 'vue-i18n'
+
+const i18n = createI18n({
+  locale: 'vn'
+})
 import {
   faSearch,
   faSignOut,
@@ -61,5 +66,5 @@ const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(createPinia())
 app.use(router)
-
+app.use(i18n)
 app.mount('#app')

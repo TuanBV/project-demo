@@ -1,3 +1,6 @@
+import base64
+import os
+from datetime import datetime
 from sale import SaleRepository
 from fastapi.encoders import jsonable_encoder
 from core import CommonException
@@ -18,6 +21,8 @@ class SaleService:
             #   return: List of sale
         """
         data = self.sale_repo.get_all()
+        for item in data:
+            item.image = 'http://localhost:8000/' + item.image
         return {"item": jsonable_encoder(data)}
 
     def get_by_sale_id(self, sale_id):
@@ -30,6 +35,7 @@ class SaleService:
         """
         data = self.sale_repo.get_by_sale_id(sale_id)
         if data:
+            data.image = "http://localhost:8000/" + data.image
             return jsonable_encoder(data)
 
 
@@ -43,18 +49,26 @@ class SaleService:
             # Output:
             #   return: Data sale
         """
-        # # Check if sale already exists
-        # if self.sale_repo.get_by_name(name):
-        #     raise CommonException(message="Sale name already exists")
+        # Handle save image
+        folder = "upload/sale/"
+        timestamp = int(datetime.now().timestamp())
+        file_name = f'sale_{timestamp}.{data_request["file_ext"]}'
+        # Convert file data to base64
+        sale_image = base64.b64decode(data_request["file"])
+        file_location = os.path.join(folder, file_name)
+        with open(file_location, "wb") as file:
+            file.write(sale_image)
+        data_request["image"] = file_location
+
         return self.sale_repo.add(data_request, created_user)
 
     # Update sale
-    def update(self, sale_id, name, updated_user):
+    def update(self, sale_id, data_request, updated_user):
         """
             # Update sale
             # Params:
             #   @sale_id: id of the sale
-            #   @name: name of the sale
+            #   @data_request: data request
             #   @updated_user: name of the user
             # Output:
             #   return:
@@ -62,9 +76,8 @@ class SaleService:
         # Check if sale already exists
         if not self.sale_repo.get_by_sale_id(sale_id):
             raise CommonException(message="Sale not exists")
-        if self.sale_repo.get_by_name(name):
-            raise CommonException(message="Sale name exists")
-        self.sale_repo.update(sale_id, name, updated_user)
+
+        self.sale_repo.update(sale_id, data_request, updated_user)
 
     # Delete sale
     def delete(self, sale_id, updated_user):

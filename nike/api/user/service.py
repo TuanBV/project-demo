@@ -48,22 +48,16 @@ class UserService:
             # Output:
             #   return: Data user
         """
-        print("--------------------------------")
         user_account = self.user_repo.get_user(data["email"], data["role"])
-        print(user_account)
         if user_account and checkpw(data["password"], user_account.password):
-            print(user_account)
-
             data["user"] = {
                 "username": user_account.username,
                 "email": user_account.email,
                 "role": user_account.role.value
             }
-            print(data)
             data["token"] = jwt.hash_token(data["user"])
             # Save token
             self.user_repo.update_token(data["email"], data["token"])
-            print('aaa')
             return data
 
         raise CommonException(message="Email or password invalid")

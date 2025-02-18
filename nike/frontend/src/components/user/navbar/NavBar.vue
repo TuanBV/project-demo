@@ -198,7 +198,7 @@ const logout = async () => {
     >
       <div class="logo">
         <router-link to="/">
-          <img src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
+          <img loading="lazy" src="assets/logo.svg" alt="" srcset="" width="70px" height="70px" />
         </router-link>
       </div>
       <input type="radio" name="slider" id="menu-btn" class="hidden" />
