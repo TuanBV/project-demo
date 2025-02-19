@@ -27,14 +27,16 @@ services:
 
   # FastAPI
   # storage:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.storage
-  #   container_name: storage
-  #   ports:
-  #     - "9000:9000"
-  #   networks:
-  #     - backend
+  # build:
+  #   context: .
+  #   dockerfile: Dockerfile.storage
+  # container_name: storage
+  # volumes:
+  #   - ./images:/storage/images
+  # ports:
+  #   - "9000:9000"
+  # networks:
+  #   - backend
 
   # Redis
   redis:

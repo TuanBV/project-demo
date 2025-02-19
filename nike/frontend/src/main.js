@@ -34,7 +34,8 @@ import {
   faEye,
   faPercent,
   faClipboard,
-  faList
+  faList,
+  faArrowLeft
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -59,7 +60,8 @@ library.add(
   faEye,
   faPercent,
   faClipboard,
-  faList
+  faList,
+  faArrowLeft
 )
 
 const app = createApp(App)

@@ -15,46 +15,6 @@ const childSale = ref({
   isModalSale: false,
   saleId: ''
 })
-// const getList = async () => {
-//   const res = await saleService.getList()
-//   if (res) {
-//     categories.value = res.item
-//   }
-// }
-
-// const ModalSale = defineAsyncComponent(() => {
-//   return import('components/admin/modal/ModalSale.vue')
-// })
-
-// const deleteSale = async (saleId) => {
-//   const res = await saleService.delete(saleId)
-//   if (res) {
-//     await getList()
-//     ToastUtil.success('Delete sale successfully')
-//   }
-// }
-
-// const activeSale = async (saleId) => {
-//   const res = await saleService.active(saleId)
-//   if (res) {
-//     await getList()
-//     ToastUtil.success('Active sale successfully')
-//   }
-// }
-
-// const confirmPopup = (title, methodAction) => {
-//   refConfirmPopup.value.isVisible = true
-//   refConfirmPopup.value.message = title
-//   refConfirmPopup.value.confirmAction = methodAction
-// }
-
-// watch(childSale.value, async () => {
-//   if (!childSale.value.isModalSale) await getList()
-// })
-
-// onMounted(async () => {
-//   await getList()
-// })
 </script>
 <template>
   <div>

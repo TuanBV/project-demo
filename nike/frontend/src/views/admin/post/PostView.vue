@@ -5,35 +5,9 @@ import CreateMailView from 'components/admin/modal/ModalPost.vue'
 // import ToastUtil from 'utility/toast'
 
 const users = ref([])
-const isModal = ref(false)
-// const getList = async () => {
-//   const res = await userService.getList()
-//   if (res) {
-//     users.value = res.item
-//   }
-// }
-
 const edit = async (userId) => {
   console.log(userId)
 }
-
-// const statusUser = async (userId, nameUser, status) => {
-//   const res = await userService.statusUser(userId, status ? 1 : 0)
-//   if (res) {
-//     await getList()
-//     ToastUtil.success((status ? 'Inactive' : 'Active') + ' user successfully : ' + nameUser)
-//     return
-//   }
-//   ToastUtil.error('Change status error : ' + nameUser)
-// }
-
-// watch(isModal, async () => {
-//   await getList()
-// })
-
-// onMounted(async () => {
-//   await getList()
-// })
 </script>
 <template>
   <div>
@@ -41,13 +15,13 @@ const edit = async (userId) => {
 
     <div class="mb-2 mt-5 flex justify-between">
       <h1 class="text-xl tracking-wide">List Post</h1>
-      <button
-        @click.prevent="isModal = true"
+      <router-link
+        to="post-add"
         class="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-green-500 px-3 py-2 font-medium text-white duration-300 hover:scale-105"
       >
         <font-awesome-icon :icon="['fas', 'add']" class="group h-4 w-4" />
         <span>Create Post</span>
-      </button>
+      </router-link>
     </div>
     <div class="overflow-hidden rounded-xl shadow-xl">
       <table class="w-full table-fixed">
@@ -99,7 +73,5 @@ const edit = async (userId) => {
         </tbody>
       </table>
     </div>
-
-    <CreateMailView v-model="isModal" />
   </div>
 </template>

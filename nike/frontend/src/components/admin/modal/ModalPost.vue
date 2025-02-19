@@ -1,11 +1,16 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onUpdated } from 'vue'
 // import userService from 'service/user.service'
 // import useValidate from 'composables/validate'
 // import addUserSchema from 'schemas/admin/addUser'
 // import ToastUtil from 'utility/toast'
 // const { validate, errors } = useValidate()
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
+const content = ref('<p>Chào mừng đến với Vue 3!</p>')
+
+const quillInstance = ref(null) // Quản lý instance của Quill
 const isModal = defineModel()
 const selectedFile = ref()
 const post = ref({
@@ -19,6 +24,25 @@ const post = ref({
 watch(isModal, () => {
   // errors.value = []
   selectedFile.value = null
+})
+
+onUpdated(() => {
+  const toolbar = document.querySelector('.ql-toolbar')
+  const image = document.querySelector('.ql-image')
+  console.log(toolbar)
+  console.log(image)
+  if (toolbar) {
+    // Hide upload image
+    document.querySelector('.ql-toolbar .ql-image').style.display = 'none'
+
+    // Add button image upload custom
+
+    const button = document.createElement('button')
+    button.innerHTML = '<i class="fa-solid fa-image"></i>'
+    button.onclick = () => console.log('aaaaaa')
+    // button.onclick = () => handleImageInsert(quillInstance)
+    toolbar.appendChild(button)
+  }
 })
 </script>
 
@@ -50,6 +74,7 @@ watch(isModal, () => {
       <!-- Body -->
       <div class="mb-4">
         <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+        <quill-editor v-model:content="content" contentType="html" toolbar="full"></quill-editor>
       </div>
       <button
         type="submit"
@@ -61,3 +86,8 @@ watch(isModal, () => {
     </div>
   </div>
 </template>
+<style>
+.ql-toolbar button.ql-image {
+  display: none !important;
+}
+</style>

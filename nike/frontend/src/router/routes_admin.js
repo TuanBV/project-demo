@@ -49,7 +49,13 @@ const routes_admin = [
       {
         path: 'post',
         name: 'admin-post',
-        component: () => import('views/admin/PostView.vue'),
+        component: () => import('views/admin/post/PostView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
+        path: 'post-add',
+        name: 'admin-post-add',
+        component: () => import('views/admin/post/PostAddView.vue'),
         meta: { role: 'admin' }
       },
       {
