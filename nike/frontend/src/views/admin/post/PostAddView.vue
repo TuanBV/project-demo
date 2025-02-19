@@ -6,11 +6,9 @@ import { ref, onMounted, watch } from 'vue'
 // import ToastUtil from 'utility/toast'
 // const { validate, errors } = useValidate()
 import ImageList from 'components/admin/modal/ImageList.vue'
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 const content = ref()
-const quillInstance = ref()
+const quillInstance = ref(null)
 const isImageList = ref(false)
 
 // Handle event when click button 'Delete' or 'Backspace'
@@ -20,7 +18,6 @@ const handleKeyDown = (event) => {
   if (!range) return
   // Get cursor position
   const index = range.index
-  console.log(index)
 
   // Get element before cursor position
   const prevElement = quillInstance.value.getLeaf(index - 1)[0]?.domNode
@@ -31,7 +28,6 @@ const handleKeyDown = (event) => {
     (event.key === 'Backspace' && prevElement?.classList?.contains('img-add')) ||
     (event.key === 'Delete' && nextElement?.classList?.contains('img-add'))
   ) {
-    console.log('aaa')
     // quillInstance.value.deleteText(index - 1, 1) // Delete element
     quillInstance.value.root.querySelector('.img-add').remove()
     event.preventDefault()
@@ -40,14 +36,21 @@ const handleKeyDown = (event) => {
 
 // Insert element at cursor position
 const insertElementAtCursor = (text) => {
+  console.log(quillInstance.value)
+
   if (!quillInstance.value) return
   // Get cursor position
+  quillInstance.value.focus()
+  console.log(quillInstance.value)
+
   const range = quillInstance.value.getSelection()
   const index = range ? range.index : 0
 
   // Insert element at cursor position
   quillInstance.value.clipboard.dangerouslyPasteHTML(index, text)
-  quillInstance.value.setSelection(index + 1)
+  console.log(quillInstance.value.getLength())
+  // quillInstance.value.setSelection({ index: 4, length: 0 })
+
   setTimeout(() => {
     const imgs = document.querySelectorAll('.ql-editor img')
     imgs.forEach((img) => img.classList.add('img-add'))
@@ -55,16 +58,11 @@ const insertElementAtCursor = (text) => {
 }
 
 watch(isImageList, () => {
-  console.log(quillInstance.value)
-
   if (!isImageList.value) {
     insertElementAtCursor(
       '<img alt="File Icon" class="img-add" height="50px" width="50px" src="https://img.icons8.com/?size=256&id=wNxEqErpHetl&format=png"/>'
     )
   }
-})
-watch(content, () => {
-  console.log(quillInstance.value)
 })
 
 onMounted(() => {
@@ -78,8 +76,8 @@ onMounted(() => {
     toolbar.appendChild(button)
   }
 
-  // const editor = document.querySelector('.ql-editor')
-  // editor.addEventListener('keydown', handleKeyDown)
+  const editor = document.querySelector('.ql-editor')
+  editor.addEventListener('keydown', handleKeyDown)
 })
 </script>
 
