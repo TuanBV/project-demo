@@ -22,7 +22,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('news.urls')),
+    path('', include('news.urls')),
 ]
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),

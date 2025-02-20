@@ -7,20 +7,23 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
+from django.shortcuts import render, redirect
+from django.views import View
+
 
 
 # Create your views here.
 from rest_framework import generics
-from .models import News
-from .serializers import NewsSerializer
+from .models import New
+from .serializers import NewSerializer
 
-class NewsListView(generics.ListAPIView):
-    queryset = News.objects.all().order_by('-id')  # Hiển thị tin mới nhất trước
-    serializer_class = NewsSerializer
+class NewListView(generics.ListAPIView):
+    queryset = New.objects.all().order_by('-id')  # Hiển thị tin mới nhất trước
+    serializer_class = NewSerializer
 
-class NewsDetailView(generics.RetrieveAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
+class NewDetailView(generics.RetrieveAPIView):
+    queryset = New.objects.all()
+    serializer_class = NewSerializer
 
 class RegisterView(generics.CreateAPIView):
     permission_classes = [AllowAny]
@@ -51,9 +54,9 @@ class LoginView(generics.CreateAPIView):
             })
         return Response({"error": "Invalid credentials"}, status=401)
 
-class NewsCreateView(generics.CreateAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
+class NewCreateView(generics.CreateAPIView):
+    queryset = New.objects.all()
+    serializer_class = NewSerializer
     permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         data = request.data.copy()
@@ -65,12 +68,21 @@ class NewsCreateView(generics.CreateAPIView):
         serializer.save()
         return Response(serializer.data)
 
-class NewsUpdateView(generics.UpdateAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
+class NewUpdateView(generics.UpdateAPIView):
+    queryset = New.objects.all()
+    serializer_class = NewSerializer
     permission_classes = [IsAuthenticated]
 
-class NewsDeleteView(generics.DestroyAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
+class NewDeleteView(generics.DestroyAPIView):
+    queryset = New.objects.all()
+    serializer_class = NewSerializer
     permission_classes = [IsAuthenticated]
+
+
+class ProductView(View):
+    def get(self, request):
+        # topwears = Product.objects.filter(category='TW')
+        # laptops = Product.objects.filter(category='L')
+        # mobiles = Product.objects.filter(category='M')
+        return render(request, 'home.html')
+
