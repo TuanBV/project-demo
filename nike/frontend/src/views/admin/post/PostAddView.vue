@@ -56,6 +56,9 @@ const insertElementAtCursor = (text) => {
     imgs.forEach((img) => img.classList.add('img-add'))
   }, 50)
 }
+watch(content, () => {
+  console.log(quillInstance.value)
+})
 
 watch(isImageList, () => {
   if (!isImageList.value) {
@@ -75,9 +78,8 @@ onMounted(() => {
     button.onclick = () => (isImageList.value = true)
     toolbar.appendChild(button)
   }
-
-  const editor = document.querySelector('.ql-editor')
-  editor.addEventListener('keydown', handleKeyDown)
+  // const editor = document.querySelector('.ql-editor')
+  // editor.addEventListener('keydown', handleKeyDown)
 })
 </script>
 
