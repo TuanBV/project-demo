@@ -3,7 +3,9 @@ import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import ConfirmPopup from 'components/ConfirmPopup.vue'
 import saleService from 'service/sale.service'
 import ToastUtil from 'utility/toast'
+// 1) ======= INITIALIZATION ========
 
+// 2) ======= VARIABLE REF ========
 const categories = ref([])
 const refConfirmPopup = ref({
   isVisible: false,
@@ -14,6 +16,7 @@ const childSale = ref({
   isModalSale: false,
   saleId: ''
 })
+// 3) ======= METHOD/FUNCTION ========
 const getList = async () => {
   const res = await saleService.getList()
   if (res) {
@@ -46,7 +49,7 @@ const confirmPopup = (title, methodAction) => {
   refConfirmPopup.value.message = title
   refConfirmPopup.value.confirmAction = methodAction
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 watch(childSale.value, async () => {
   if (!childSale.value.isModalSale) await getList()
 })

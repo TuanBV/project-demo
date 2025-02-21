@@ -5,82 +5,52 @@ import { ref, onMounted, watch } from 'vue'
 // import addUserSchema from 'schemas/admin/addUser'
 // import ToastUtil from 'utility/toast'
 // const { validate, errors } = useValidate()
-import ImageList from 'components/admin/modal/ImageList.vue'
+import RichTextView from 'components/admin/modal/RichTextView.vue'
 
 const content = ref()
-const quillInstance = ref(null)
-const isImageList = ref(false)
+// // Handle event when click button 'Delete' or 'Backspace'
+// const handleKeyDown = (event) => {
+//   if (!quillInstance.value) return
+//   const range = quillInstance.value.getSelection()
+//   if (!range) return
+//   // Get cursor position
+//   const index = range.index
 
-// Handle event when click button 'Delete' or 'Backspace'
-const handleKeyDown = (event) => {
-  if (!quillInstance.value) return
-  const range = quillInstance.value.getSelection()
-  if (!range) return
-  // Get cursor position
-  const index = range.index
+//   // Get element before cursor position
+//   const prevElement = quillInstance.value.getLeaf(index - 1)[0]?.domNode
+//   const nextElement = quillInstance.value.getLeaf(index)[0]?.domNode
 
-  // Get element before cursor position
-  const prevElement = quillInstance.value.getLeaf(index - 1)[0]?.domNode
-  const nextElement = quillInstance.value.getLeaf(index)[0]?.domNode
+//   // Check if element is 'img-add' then delete
+//   if (
+//     (event.key === 'Backspace' && prevElement?.classList?.contains('img-add')) ||
+//     (event.key === 'Delete' && nextElement?.classList?.contains('img-add'))
+//   ) {
+//     // quillInstance.value.deleteText(index - 1, 1) // Delete element
+//     quillInstance.value.root.querySelector('.img-add').remove()
+//     event.preventDefault()
+//   }
+// }
 
-  // Check if element is 'img-add' then delete
-  if (
-    (event.key === 'Backspace' && prevElement?.classList?.contains('img-add')) ||
-    (event.key === 'Delete' && nextElement?.classList?.contains('img-add'))
-  ) {
-    // quillInstance.value.deleteText(index - 1, 1) // Delete element
-    quillInstance.value.root.querySelector('.img-add').remove()
-    event.preventDefault()
-  }
-}
+// watch(content, () => {
+//   console.log(quillInstance)
+// })
 
-// Insert element at cursor position
-const insertElementAtCursor = (text) => {
-  console.log(quillInstance.value)
+// onMounted(() => {
+//   quillInstance.value = Quill
+//   const toolbar = document.querySelector('.ql-toolbar')
+//   if (toolbar) {
+//     // Add button image upload custom
+//     const button = document.createElement('button')
+//     button.innerHTML = '<i class="fa-solid fa-image"></i>'
+//     button.onclick = () => console.log('aaaaaa')
+//     button.onclick = () => (isImageList.value = true)
+//     toolbar.appendChild(button)
+//   }
+//   // const editor = document.querySelector('.ql-editor')
+//   // editor.addEventListener('keydown', handleKeyDown)
+// })
 
-  if (!quillInstance.value) return
-  // Get cursor position
-  quillInstance.value.focus()
-  console.log(quillInstance.value)
-
-  const range = quillInstance.value.getSelection()
-  const index = range ? range.index : 0
-
-  // Insert element at cursor position
-  quillInstance.value.clipboard.dangerouslyPasteHTML(index, text)
-  console.log(quillInstance.value.getLength())
-  // quillInstance.value.setSelection({ index: 4, length: 0 })
-
-  setTimeout(() => {
-    const imgs = document.querySelectorAll('.ql-editor img')
-    imgs.forEach((img) => img.classList.add('img-add'))
-  }, 50)
-}
-watch(content, () => {
-  console.log(quillInstance.value)
-})
-
-watch(isImageList, () => {
-  if (!isImageList.value) {
-    insertElementAtCursor(
-      '<img alt="File Icon" class="img-add" height="50px" width="50px" src="https://img.icons8.com/?size=256&id=wNxEqErpHetl&format=png"/>'
-    )
-  }
-})
-
-onMounted(() => {
-  const toolbar = document.querySelector('.ql-toolbar')
-  if (toolbar) {
-    // Add button image upload custom
-    const button = document.createElement('button')
-    button.innerHTML = '<i class="fa-solid fa-image"></i>'
-    button.onclick = () => console.log('aaaaaa')
-    button.onclick = () => (isImageList.value = true)
-    toolbar.appendChild(button)
-  }
-  // const editor = document.querySelector('.ql-editor')
-  // editor.addEventListener('keydown', handleKeyDown)
-})
+// Tạo một reference cho editor
 </script>
 
 <template>
@@ -108,13 +78,8 @@ onMounted(() => {
     <!-- Body -->
     <div class="mb-4">
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-      <quill-editor
-        v-model:content="content"
-        contentType="html"
-        toolbar="full"
-        @ready="(quill) => (quillInstance = quill)"
-      ></quill-editor>
-      <div v-html="content"></div>
+      <div ref="editor"></div>
+      <RichTextView v-model="content" />
     </div>
     <div class="mb-4">
       <label for="StartDate" class="mb-2 block text-base font-medium">
@@ -133,13 +98,12 @@ onMounted(() => {
     >
       Create Post
     </button>
-    <ImageList v-model="isImageList" />
   </div>
 </template>
 <style>
-.ql-toolbar button.ql-image {
+/* .ql-toolbar button.ql-image {
   display: none !important;
-}
+} */
 .ql-editor {
   min-height: 400px !important;
 }

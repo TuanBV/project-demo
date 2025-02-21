@@ -16,7 +16,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@unhead/vue": "^1.9.1",
-    "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^10.9.0",
     "ajv": "^8.11.0",
     "ajv-errors": "^3.0.0",
