@@ -8,6 +8,32 @@ const quill = ref(null)
 const editor = ref(null)
 const content = defineModel()
 const isImageList = ref(false)
+// Handle event when click button 'Delete' or 'Backspace'
+const handleKeyDown = (event) => {
+  // if (!quill.value) return
+  // console.log(quill.value)
+  console.log(quill.value.root.innerHTML)
+  console.log(editor.value)
+  // const range = quill.value.getSelection()
+  // if (!range) return
+  // // Get cursor position
+
+  // const index = range.index
+
+  // // Get element before cursor position
+  // const prevElement = quill.value.getLeaf(index - 1)[0]?.domNode
+  // const nextElement = quill.value.getLeaf(index)[0]?.domNode
+
+  // // Check if element is 'img-add' then delete
+  // if (
+  //   (event.key === 'Backspace' && prevElement?.classList?.contains('img-add')) ||
+  //   (event.key === 'Delete' && nextElement?.classList?.contains('img-add'))
+  // ) {
+  //   // quill.value.deleteText(index - 1, 1) // Delete element
+  //   quill.value.root.querySelector('.img-add').remove()
+  //   event.preventDefault()
+  // }
+}
 
 // Insert element at cursor position
 const insertElementAtCursor = (text) => {
@@ -17,6 +43,7 @@ const insertElementAtCursor = (text) => {
   // const index = range ? range.index : 0
   // // Insert element at cursor position
   quill.value.insertEmbed(quill.value.getLength(), 'image', text)
+  quill.value.updateContents(new Quill.imports.delta())
   // quill.value.setSelection(1)
 
   // setTimeout(() => {
@@ -24,9 +51,6 @@ const insertElementAtCursor = (text) => {
   //   imgs.forEach((img) => img.classList.add('img-add'))
   // }, 50)
 }
-watch(content, () => {
-  console.log(quill.value)
-})
 
 onMounted(() => {
   quill.value = new Quill(editor.value, {
@@ -41,6 +65,7 @@ onMounted(() => {
         ['image']
       ]
     },
+    debug: false,
     passive: true
   })
   nextTick(() => {
@@ -63,6 +88,8 @@ onMounted(() => {
     quill.value.on('text-change', (delta, oldDelta, source) => {
       content.value = quill.value.root.innerHTML
     })
+    const editor = document.querySelector('.ql-editor')
+    editor.addEventListener('keydown', handleKeyDown)
   })
 })
 

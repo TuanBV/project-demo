@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import CreateMailView from 'components/admin/modal/ModalPost.vue'
+import { ref } from 'vue'
+// import CreateMailView from 'components/admin/modal/ModalPost.vue'
 // import userService from 'service/user.service'
 // import ToastUtil from 'utility/toast'
 

@@ -8,49 +8,6 @@ import { ref, onMounted, watch } from 'vue'
 import RichTextView from 'components/admin/modal/RichTextView.vue'
 
 const content = ref()
-// // Handle event when click button 'Delete' or 'Backspace'
-// const handleKeyDown = (event) => {
-//   if (!quillInstance.value) return
-//   const range = quillInstance.value.getSelection()
-//   if (!range) return
-//   // Get cursor position
-//   const index = range.index
-
-//   // Get element before cursor position
-//   const prevElement = quillInstance.value.getLeaf(index - 1)[0]?.domNode
-//   const nextElement = quillInstance.value.getLeaf(index)[0]?.domNode
-
-//   // Check if element is 'img-add' then delete
-//   if (
-//     (event.key === 'Backspace' && prevElement?.classList?.contains('img-add')) ||
-//     (event.key === 'Delete' && nextElement?.classList?.contains('img-add'))
-//   ) {
-//     // quillInstance.value.deleteText(index - 1, 1) // Delete element
-//     quillInstance.value.root.querySelector('.img-add').remove()
-//     event.preventDefault()
-//   }
-// }
-
-// watch(content, () => {
-//   console.log(quillInstance)
-// })
-
-// onMounted(() => {
-//   quillInstance.value = Quill
-//   const toolbar = document.querySelector('.ql-toolbar')
-//   if (toolbar) {
-//     // Add button image upload custom
-//     const button = document.createElement('button')
-//     button.innerHTML = '<i class="fa-solid fa-image"></i>'
-//     button.onclick = () => console.log('aaaaaa')
-//     button.onclick = () => (isImageList.value = true)
-//     toolbar.appendChild(button)
-//   }
-//   // const editor = document.querySelector('.ql-editor')
-//   // editor.addEventListener('keydown', handleKeyDown)
-// })
-
-// Tạo một reference cho editor
 </script>
 
 <template>
@@ -80,6 +37,7 @@ const content = ref()
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
       <div ref="editor"></div>
       <RichTextView v-model="content" />
+      <div v-html="content"></div>
     </div>
     <div class="mb-4">
       <label for="StartDate" class="mb-2 block text-base font-medium">
@@ -101,9 +59,6 @@ const content = ref()
   </div>
 </template>
 <style>
-/* .ql-toolbar button.ql-image {
-  display: none !important;
-} */
 .ql-editor {
   min-height: 400px !important;
 }
