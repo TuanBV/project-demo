@@ -38,21 +38,21 @@ class RegisterView(generics.CreateAPIView):
         user = User.objects.create_user(username=username, password=password)
         return Response({"message": "User registered successfully"}, status=201)
 
-class LoginView(generics.CreateAPIView):
-    permission_classes = [AllowAny]
+# class LoginView(generics.CreateAPIView):
+#     permission_classes = [AllowAny]
 
-    def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        user = authenticate(username=username, password=password)
+#     def post(self, request):
+#         username = request.data.get("username")
+#         password = request.data.get("password")
+#         user = authenticate(username=username, password=password)
 
-        if user:
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                "access": str(refresh.access_token),
-                "refresh": str(refresh)
-            })
-        return Response({"error": "Invalid credentials"}, status=401)
+#         if user:
+#             refresh = RefreshToken.for_user(user)
+#             return Response({
+#                 "access": str(refresh.access_token),
+#                 "refresh": str(refresh)
+#             })
+#         return Response({"error": "Invalid credentials"}, status=401)
 
 class NewCreateView(generics.CreateAPIView):
     queryset = New.objects.all()
@@ -86,3 +86,6 @@ class ProductView(View):
         # mobiles = Product.objects.filter(category='M')
         return render(request, 'home.html')
 
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html')

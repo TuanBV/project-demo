@@ -11,4 +11,5 @@ urlpatterns = [
     path('news/delete/<int:pk>/', NewDeleteView.as_view(), name='news-delete'),
 
     path('', views.ProductView.as_view(), name='home'),
+    path('/login', views.LoginView.as_view(), name='home'),
 ]

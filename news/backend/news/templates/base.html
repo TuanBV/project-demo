@@ -5,155 +5,363 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <!--Owl Carousel CSS-->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
     <!--FontAwesome CSS-->
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
     <!--Custom CSS-->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <title>ProTech | {% block title %} {% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand" href="/">ProTech</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle text-white"
-                href="#"
-                id="electronicsDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Electronics
-              </a>
-              {% comment %}
-              <ul class="dropdown-menu" aria-labelledby="electronicsDropdown">
-                <li>
-                  <a class="dropdown-item" href="{% url 'mobile' %}">Mobile</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'laptop' %}">Laptop</a>
-                </li>
-              </ul>
-              {% endcomment %}
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle text-white"
-                href="#"
-                id="fashionDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Fashion
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="fashionDropdown">
-                <li><a class="dropdown-item" href="#">Top Wear</a></li>
-                <li><a class="dropdown-item" href="#">Bottom Wear</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-warning" type="submit">S</button>
-          </form>
-          <div>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              {% if request.user.is_authenticated %}
-              <li class="nav-item dropdown mx-2">
-                <a
-                  class="nav-link dropdown-toggle text-white"
-                  href="#"
-                  id="profileDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="text-capitalize">{{ request.user }}</span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                  <li>
-                    <a class="dropdown-item" href="{% url 'profile' %}"
-                      >Profile</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'orders' %}"
-                      >Orders</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'passwordchange' %}"
-                      >Change Password</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'logout' %}"
-                      >Logout</a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item mx-2">
-                <a href="{% url 'showcart' %}" class="nav-link text-white"
-                  ><span class="badge bg-danger">4</span> Cart
-                </a>
-              </li>
-              {% else %}
-              <li class="nav-item mx-2">
-                <a href="{% url 'login' %}" class="nav-link text-white"
-                  >Login</a
-                >
-              </li>
-              {% comment %}
-              <li class="nav-item mx-2">
-                <a
-                  href="{% url 'customerregistration' %}"
-                  class="nav-link text-white"
-                  >Registration</a
-                >
-              </li>
-              {% endcomment %} {% endif %}
-            </ul>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav container">
+        <div class="nav__data">
+          <a href="#" class="nav__logo">
+            CodeBox
+          </a>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-line nav__toggle-menu"></i>
+            <i class="ri-close-line nav__toggle-close"></i>
           </div>
         </div>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li>
+              <a href="#" class="nav__link">Home</a>
+            </li>
+            <li class="dropdown__item">
+              <div class="nav__link dropdown__button">
+                Discover <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+              </div>
+              <div class="dropdown__container">
+                <div class="dropdown__content">
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Most viewed courses</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >HTML for beginners</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Advanced CSS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">JavaScript OOP</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Popular courses</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Development with Flutter</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Web development with React</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Backend development expert</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Careers</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">Web development</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Applications development</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">UI/UX design</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Informatic security</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Certifications</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Course certificates</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link"
+                          >Free certifications</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="dropdown__item">
+              <div class="nav__link dropdown__button">
+                Resources <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+              </div>
+              <div class="dropdown__container">
+                <div class="dropdown__content">
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Web templates</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">Free templates</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Premium templates</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Designs</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">Web designs</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">App designs</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Component design</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Others</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">Recent blogs</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Tutorial videos</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Webinar</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="#" class="nav__link">Pricing</a>
+            </li>
+            <li class="dropdown__item">
+              <div class="nav__link dropdown__button">
+                Company <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+              </div>
+              <div class="dropdown__container">
+                <div class="dropdown__content">
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">About us</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">About us</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Support</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Contact us</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dropdown__group">
+                    <span class="dropdown__title">Safety and quality</span>
+                    <ul class="dropdown__list">
+                      <li>
+                        <a href="#" class="dropdown__link">Cookie settings</a>
+                      </li>
+                      <li>
+                        <a href="#" class="dropdown__link">Privacy Policy</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- End Header -->
+
+    {% comment %} <section class="mt-[88px] py-6 sm:py-12 dark:bg-gray-100 dark:text-gray-800">
+      <div class="container p-6 mx-auto space-y-8">
+        <div class="space-y-2 text-center">
+          <h2 class="text-3xl font-bold">Partem reprimique an pro</h2>
+          <p class="font-serif text-sm dark:text-gray-600">
+            Qualisque erroribus usu at, duo te agam soluta mucius.
+          </p>
+        </div>
+        <div
+          class="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4"
+        >
+          <article class="flex flex-col dark:bg-gray-50">
+            <a
+              rel="noopener noreferrer"
+              href="#"
+              aria-label="Te nulla oportere reprimique his dolorum"
+            >
+              <img
+                alt=""
+                class="object-cover w-full h-52 dark:bg-gray-500"
+                src="https://source.unsplash.com/200x200/?fashion?1"
+              />
+            </a>
+            <div class="flex flex-col flex-1 p-6">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Te nulla oportere reprimique his dolorum"
+              ></a>
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                class="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >Convenire</a
+              >
+              <h3 class="flex-1 py-2 text-lg font-semibold leading-snug">
+                Te nulla oportere reprimique his dolorum
+              </h3>
+              <div
+                class="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600"
+              >
+                <span>June 1, 2020</span>
+                <span>2.1K views</span>
+              </div>
+            </div>
+          </article>
+          <article class="flex flex-col dark:bg-gray-50">
+            <a
+              rel="noopener noreferrer"
+              href="#"
+              aria-label="Te nulla oportere reprimique his dolorum"
+            >
+              <img
+                alt=""
+                class="object-cover w-full h-52 dark:bg-gray-500"
+                src="https://source.unsplash.com/200x200/?fashion?2"
+              />
+            </a>
+            <div class="flex flex-col flex-1 p-6">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Te nulla oportere reprimique his dolorum"
+              ></a>
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                class="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >Convenire</a
+              >
+              <h3 class="flex-1 py-2 text-lg font-semibold leading-snug">
+                Te nulla oportere reprimique his dolorum
+              </h3>
+              <div
+                class="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600"
+              >
+                <span>June 2, 2020</span>
+                <span>2.2K views</span>
+              </div>
+            </div>
+          </article>
+          <article class="flex flex-col dark:bg-gray-50">
+            <a
+              rel="noopener noreferrer"
+              href="#"
+              aria-label="Te nulla oportere reprimique his dolorum"
+            >
+              <img
+                alt=""
+                class="object-cover w-full h-52 dark:bg-gray-500"
+                src="https://source.unsplash.com/200x200/?fashion?3"
+              />
+            </a>
+            <div class="flex flex-col flex-1 p-6">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Te nulla oportere reprimique his dolorum"
+              ></a>
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                class="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >Convenire</a
+              >
+              <h3 class="flex-1 py-2 text-lg font-semibold leading-snug">
+                Te nulla oportere reprimique his dolorum
+              </h3>
+              <div
+                class="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600"
+              >
+                <span>June 3, 2020</span>
+                <span>2.3K views</span>
+              </div>
+            </div>
+          </article>
+          <article class="flex flex-col dark:bg-gray-50">
+            <a
+              rel="noopener noreferrer"
+              href="#"
+              aria-label="Te nulla oportere reprimique his dolorum"
+            >
+              <img
+                alt=""
+                class="object-cover w-full h-52 dark:bg-gray-500"
+                src="https://source.unsplash.com/200x200/?fashion?4"
+              />
+            </a>
+            <div class="flex flex-col flex-1 p-6">
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Te nulla oportere reprimique his dolorum"
+              ></a>
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                class="text-xs tracking-wider uppercase hover:underline dark:text-violet-600"
+                >Convenire</a
+              >
+              <h3 class="flex-1 py-2 text-lg font-semibold leading-snug">
+                Te nulla oportere reprimique his dolorum
+              </h3>
+              <div
+                class="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-600"
+              >
+                <span>June 4, 2020</span>
+                <span>2.4K views</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
-    </nav>
-    {% block banner_slider %} {% endblock banner_slider %}
-    {% block livesale %} {% endblock livesale %}
-    {% block main-content %} {% endblock main-content %}
+    </section> {% endcomment %}
+    {% block banner_slider %} {% endblock banner_slider %} {% block livesale %}
+    {% endblock livesale %} {% block main-content %} {% endblock main-content %}
     <!-- Start Footer -->
     {% block footer %} {% endblock footer %}
     <!-- End Footer -->
@@ -171,6 +379,6 @@
     ></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/all.min.js' %}"></script>
-    <script src="{% static 'js/myscript.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
