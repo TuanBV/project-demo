@@ -116,7 +116,8 @@ class ProductImage(Base):
     __tablename__ = 'product_image'
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(256), nullable=False)
+    url = Column(String(256))
+    name = Column(String(256))
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))
@@ -125,6 +126,21 @@ class ProductImage(Base):
 
     product_id = Column(String(20), ForeignKey("product.product_id"))
     products = relationship('Product', back_populates='product_image')
+
+class Image(Base):
+    """
+        Model image
+    """
+    __tablename__ = 'image'
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(256), nullable=False)
+    path = Column(String(256), nullable=False)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
 
 
 class CartProduct(Base):

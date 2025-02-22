@@ -1,141 +1,68 @@
 <script setup>
 import { ref, watch } from 'vue'
-import saleService from 'service/sale.service'
+import imageService from 'service/image.service'
 import useValidate from 'composables/validate'
-import SaleSchema from 'schemas/admin/sale'
+import ImageSchema from 'schemas/admin/image'
 import ToastUtil from 'utility/toast'
 
 const { validate, errors } = useValidate()
 const isImageList = defineModel()
-const imageList = ref([
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' },
-  { id: 1, file: '/src/assets/assets/images/air_force_1.png' }
-])
-const sale = ref({
-  name: '',
-  discount: 0,
+const imageList = ref([])
+const image = ref({
   file: '',
   file_ext: '',
-  file_size: 0,
-  start_date: '',
-  end_date: ''
+  file_size: 0
 })
-const image = ref()
+
+// Get list image
+const getList = async () => {
+  const res = await imageService.getList()
+  if (res) {
+    imageList.value = res.item
+  }
+}
+
+// Add image
+const addImage = async () => {
+  const isValid = validate(ImageSchema, image.value)
+  if (!isValid) return
+  const res = await imageService.add(image.value)
+  if (res) {
+    image.value.file = ''
+    image.value.file_ext = ''
+    image.value.file_size = 0
+    ToastUtil.success('Added image successfully !!!')
+    await getList()
+  }
+  ToastUtil.error('Added image failed !!!')
+}
+
 // Convert to base64
 const convertToBase64 = (file) => {
   const reader = new FileReader()
   reader.onloadend = () => {
-    image.value = reader.result
-    sale.value.file = reader.result.split(',')[1]
-    sale.value.file_ext = file.name.split('.').at(-1)
-    sale.value.file_size = file.size
+    image.value.file = reader.result.split(',')[1]
+    image.value.file_ext = file.name.split('.').at(-1)
+    image.value.file_size = file.size
   }
   reader.readAsDataURL(file)
 }
 
 // Read image file and convert to base64
 const handleFileChange = (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    convertToBase64(file)
+  const fileUpload = event.target.files[0]
+  if (fileUpload) {
+    convertToBase64(fileUpload)
   }
 }
 
-const addSale = async () => {
-  console.log(sale.value)
-
-  const isValid = validate(SaleSchema, sale.value)
-  if (!isValid) return
-  const res = await saleService.add(sale.value)
-  if (res) {
-    ToastUtil.success('Added sale successfully !!!')
-    isImageList.value.isModalSale = false
-    isImageList.value.saleId = ''
+watch(image.value, async () => {
+  if (image.value.file) {
+    await addImage()
   }
-}
-
-const updateSale = async () => {
-  const isValid = validate(SaleSchema, sale.value)
-  if (!isValid) return
-  const res = await saleService.update(isImageList.value.saleId, sale.value)
-  if (res) {
-    ToastUtil.success('Update sale successfully !!!')
-    isImageList.value.isModalSale = false
-    isImageList.value.saleId = ''
-  }
-}
-
-watch(isImageList.value, async () => {
-  image.value = ''
-  sale.value = {
-    name: '',
-    discount: 0,
-    file: '',
-    file_ext: '',
-    file_size: 0,
-    start_date: '',
-    end_date: ''
-  }
-  if (isImageList.value.saleId) {
-    const res = await saleService.getBySaleId(isImageList.value.saleId)
-    if (res) {
-      sale.value.name = res.name
-      sale.value.discount = res.discount
-      sale.value.start_date = res.start_date
-      sale.value.end_date = res.end_date
-      image.value = res.image
-      // Populate form data with fetched data
-    }
-  }
-  if (!isImageList.value.isModalSale) isImageList.value.saleId = ''
-  errors.value = []
+})
+watch(isImageList, async () => {
+  await getList()
 })
 </script>
 
@@ -178,20 +105,24 @@ watch(isImageList.value, async () => {
                 class="h-full w-full cursor-pointer opacity-0"
                 type="file"
                 accept=".jpg, .jpeg, .png"
+                @change.prevent="handleFileChange"
               />
             </div>
           </div>
+          <span v-if="errors.file || errors.file_ext || errors.file_size" class="text-red-500">{{
+            errors.file
+          }}</span>
         </div>
       </div>
       <div class="flex h-[500px] flex-wrap content-start gap-4 overflow-y-auto pb-20">
         <div v-for="(item, index) in imageList" :key="index">
           <div class="h-[150px] w-[150px] rounded-md border">
             <img
-              src="../../../assets/images/air_force_1.png"
-              :alt="item.id"
+              :src="item.path"
+              :alt="item.name"
               height="100%"
               width="100%"
-              class="rounded-md"
+              class="h-full w-full rounded-md object-contain"
             />
           </div>
           <div class="mt-1 flex justify-center gap-3">

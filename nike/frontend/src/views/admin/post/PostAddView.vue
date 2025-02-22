@@ -12,12 +12,15 @@ const content = ref()
 
 <template>
   <div class="h-full items-center justify-center">
-    <router-link to="post"
-      ><font-awesome-icon :icon="['fas', 'arrow-left']"></font-awesome-icon
-    ></router-link>
-    <h1 class="mb-5 flex items-center gap-2 border-b pb-3 text-2xl font-medium tracking-wider">
-      Create new post
-    </h1>
+    <div class="mb-5 flex items-center gap-2 border-b pb-3">
+      <router-link to="post"
+        ><font-awesome-icon
+          :icon="['fas', 'arrow-left']"
+          class="hover:scale-110"
+        ></font-awesome-icon
+      ></router-link>
+      <h1 class="text-2xl font-medium tracking-wider">Create new post</h1>
+    </div>
     <!-- Title -->
     <div class="mb-4">
       <div class="flex items-center justify-between">
@@ -37,11 +40,10 @@ const content = ref()
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
       <div ref="editor"></div>
       <RichTextView v-model="content" />
-      <div v-html="content"></div>
     </div>
     <div class="mb-4">
       <label for="StartDate" class="mb-2 block text-base font-medium">
-        Start name <span class="text-red-500"></span
+        Start date <span class="text-red-500"></span
       ></label>
       <input
         type="date"
@@ -61,5 +63,11 @@ const content = ref()
 <style>
 .ql-editor {
   min-height: 400px !important;
+}
+.ql-toolbar.ql-snow {
+  border-top-right-radius: 6px !important;
+  border-top-left-radius: 6px !important;
+  border-color: #e5e7eb;
+  border-bottom: 0px;
 }
 </style>

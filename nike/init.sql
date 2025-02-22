@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 CREATE TABLE IF NOT EXISTS `product_image` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    image_url VARCHAR(255),
-    image_type VARCHAR(50),
+    url VARCHAR(255),
+    name VARCHAR(256),
     created_user VARCHAR(256),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(256),
@@ -104,6 +104,18 @@ CREATE TABLE IF NOT EXISTS `product_image` (
     product_id VARCHAR(20),
     CONSTRAINT fk_product_image FOREIGN KEY (product_id) REFERENCES product(product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `image` (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    path VARCHAR(50),
+    created_user VARCHAR(256),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_user VARCHAR(256),
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    flg_del INTEGER DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE IF NOT EXISTS `cart_product` (
     cart_id VARCHAR(20) NOT NULL,
