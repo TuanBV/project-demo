@@ -116,6 +116,15 @@ CREATE TABLE IF NOT EXISTS `image` (
     flg_del INTEGER DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO nike.image
+(id, name, `path`, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(1, 'image_1740219078.jpg', 'upload/images/image_1740219078.jpg', 'admin', '2025-02-22 10:11:18', NULL, '2025-02-22 10:11:18', 0);
+INSERT INTO nike.image
+(id, name, `path`, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(2, 'image_1740219747.png', 'upload/images/image_1740219747.png', 'admin', '2025-02-22 10:22:27', NULL, '2025-02-22 10:22:27', 0);
+INSERT INTO nike.image
+(id, name, `path`, created_user, created_date, updated_user, updated_date, flg_del)
+VALUES(3, 'image_1740219997.jpg', 'upload/images/image_1740219997.jpg', 'admin', '2025-02-22 10:26:37', NULL, '2025-02-22 10:26:37', 0);
 
 CREATE TABLE IF NOT EXISTS `cart_product` (
     cart_id VARCHAR(20) NOT NULL,
