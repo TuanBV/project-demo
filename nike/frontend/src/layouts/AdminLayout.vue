@@ -6,7 +6,7 @@ import AdminSliderBar from 'components/admin/navbar/AdminSlideBar.vue'
     <!-- SideBar -->
     <AdminSliderBar />
     <!-- View Content -->
-    <div class="col-span-6 bg-white p-5">
+    <div class="col-span-6 overflow-auto bg-white p-5">
       <router-view></router-view>
     </div>
   </div>

@@ -7,8 +7,11 @@ from db.database import Database
 from helpers.kbn import TYPE_DB
 from user import UserRepository, UserService
 from category import CategoryRepository, CategoryService
+from product import ProductRepository, ProductService
 from sale import SaleRepository, SaleService
 from image import ImageRepository, ImageService
+from product import ProductRepository, ProductService
+from setting import SettingRepository, SettingService
 from core.logger import get_logger
 
 class Container(containers.DeclarativeContainer):
@@ -41,6 +44,16 @@ class Container(containers.DeclarativeContainer):
         session_factory=db.provided.session,
         session_factory_read=db_read.provided.session
     )
+    product_repository = providers.Factory(
+        ProductRepository,
+        session_factory=db.provided.session,
+        session_factory_read=db_read.provided.session
+    )
+    setting_repository = providers.Factory(
+        SettingRepository,
+        session_factory=db.provided.session,
+        session_factory_read=db_read.provided.session
+    )
 
     # service
     user_service = providers.Factory(
@@ -58,4 +71,15 @@ class Container(containers.DeclarativeContainer):
     image_service = providers.Factory(
         ImageService,
         image_repository=image_repository,
+    )
+    product_service = providers.Factory(
+        ProductService,
+        product_repository=product_repository,
+        sale_repository=sale_repository,
+        image_repository=image_repository,
+        category_repository=category_repository
+    )
+    setting_service = providers.Factory(
+        SettingService,
+        setting_repository=setting_repository,
     )

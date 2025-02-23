@@ -61,7 +61,7 @@ const routes_admin = [
       {
         path: 'setting',
         name: 'admin-setting',
-        component: () => import('views/admin/HomeView.vue'),
+        component: () => import('views/admin/SettingView.vue'),
         meta: { role: 'admin' }
       }
     ]

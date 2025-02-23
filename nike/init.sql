@@ -172,3 +172,21 @@ CREATE TABLE IF NOT EXISTS `offer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE INDEX ix_offer_email ON offer (email);
+
+
+CREATE TABLE IF NOT EXISTS `setting` (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255),
+    number_phone VARCHAR(255),
+    address VARCHAR(255),
+    info TEXT,
+    fb_link VARCHAR(255),
+    ig_link VARCHAR(255),
+    tt_link VARCHAR(255),
+    tw_link VARCHAR(255),
+    created_user VARCHAR(256),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_user VARCHAR(256),
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    flg_del INTEGER DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

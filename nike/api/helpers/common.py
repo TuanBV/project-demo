@@ -9,7 +9,7 @@ import platform
 import os
 import uuid
 from datetime import timedelta
-from setting import settings
+from settings import settings
 from helpers import context, kbn
 from helpers.const import TITLE_CALENDAR
 from utils.date import get_current_time, format_date_time, get_object_date

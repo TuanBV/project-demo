@@ -56,7 +56,6 @@ class UserRepository(CommonRepository):
                 User.flg_del == FlgDelete.OFF.value
             ).first()
 
-
     def update_token(self, email = None, token = None):
         """
             # Update token by email

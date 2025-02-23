@@ -56,6 +56,9 @@ def get_me(user_service: UserService = Depends(Provide(Container.user_service)))
 @user_router.post('/logout', dependencies=[Depends(authorized_user)])
 @inject
 def logout():
+    """
+        Logout
+    """
     context.user.reset()
     response = ok()
     cookie_config = make_cookie(get_user_cookie(), max_age=0)

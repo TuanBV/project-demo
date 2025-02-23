@@ -1,6 +1,6 @@
 from db.database import Base
 from utils.kbn import IntEnum, FlgDelete, ROLE
-from sqlalchemy import Column, Integer, String, DateTime, func, Index, Double, Date
+from sqlalchemy import Column, Integer, String, DateTime, func, Index, Double, Date, Text
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -202,3 +202,27 @@ class Offer(Base):
     __table_args__ = (
         Index('index_offer_email', 'email'),
     )
+
+
+
+class Setting(Base):
+    """
+        Model setting
+    """
+    __tablename__ = 'setting'
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(256))
+    number_phone = Column(String(256))
+    address = Column(String(256))
+    info = Column(Text)
+    fb_link = Column(String(256))
+    ig_link = Column(String(256))
+    tt_link = Column(String(256))
+    tw_link = Column(String(256))
+
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)

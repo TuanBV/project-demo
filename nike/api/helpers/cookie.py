@@ -3,7 +3,7 @@ Cookie function
 """
 from box import Box
 from helpers.kbn import COOKIE_NAME
-from setting import settings
+from settings import settings
 
 
 def get_cookie(name: str):

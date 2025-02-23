@@ -47,22 +47,17 @@ class SaleRepository(CommonRepository):
             #   return: data sale
         """
         with self.session_factory() as session:
-            print(data_request)
-            try:
-
-                new_sale = Sale(
-                    name=data_request['name'],
-                    discount=data_request['discount'],
-                    image=data_request['image'] if data_request['image'] else None,
-                    start_date=data_request['start_date'] if data_request['start_date'] else None,
-                    end_date=data_request['end_date'] if data_request['end_date'] else None,
-                    created_user=created_user
-                )
-                session.add(new_sale)
-                session.commit()
-                session.refresh(new_sale)
-            except Exception as e:
-                print(e)
+            new_sale = Sale(
+                name=data_request['name'],
+                discount=data_request['discount'],
+                image=data_request['image'] if data_request['image'] else None,
+                start_date=data_request['start_date'] if data_request['start_date'] else None,
+                end_date=data_request['end_date'] if data_request['end_date'] else None,
+                created_user=created_user
+            )
+            session.add(new_sale)
+            session.commit()
+            session.refresh(new_sale)
             return jsonable_encoder(new_sale)
 
     # Get the sale by name

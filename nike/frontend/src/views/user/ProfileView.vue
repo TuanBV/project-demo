@@ -5,6 +5,9 @@ const tab = ref([
     name: 'Information'
   },
   {
+    name: 'Order'
+  },
+  {
     name: 'History'
   }
 ])

@@ -5,7 +5,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 # import watchtower
 from pythonjsonlogger import jsonlogger
-from setting import settings
+from settings import settings
 from helpers import common, const
 
 masked_log_patterns = ["mail", "password", "token"]

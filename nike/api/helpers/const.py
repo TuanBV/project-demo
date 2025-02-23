@@ -2,7 +2,7 @@
 Const environment
 """
 from box import Box
-from setting import settings
+from settings import settings
 import pytz
 
 CODE = Box({

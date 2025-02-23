@@ -42,6 +42,8 @@ app.include_router(router.post_router)
 app.include_router(router.category_router)
 app.include_router(router.sale_router)
 app.include_router(router.image_router)
+app.include_router(router.product_router)
+app.include_router(router.setting_router)
 
 origins = [
     'https://localhost:5000',

@@ -2,7 +2,7 @@
 Mailer
 """
 from typing import List
-from setting import settings
+from settings import settings
 from pydantic import EmailStr
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema
 
