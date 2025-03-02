@@ -10,7 +10,6 @@ from dependencies import authorized_user
 from router.common import CommonRoute
 from utils.kbn import ROLE
 from decorators import permission
-# from fastapi.encoders import jsonable_encoder
 
 category_router = APIRouter(route_class=CommonRoute, prefix='/category', tags=['category'],
     responses={

@@ -41,21 +41,29 @@ class ProductService:
         if data:
             return jsonable_encoder(data)
 
-
     # Add product
-    def add(self, name, created_user):
+    def add(self, data_request, created_user):
         """
             # Add product
             # Params:
-            #   @name: name of the product
+            #   @data_request: data of request
             #   @created_user: name of the add user
             # Output:
             #   return: Data product
         """
-        # Check if product already exists
-        if self.product_repo.get_by_name(name):
-            raise CommonException(message="Product name already exists")
-        return self.product_repo.add(name, created_user)
+        # Check image of data request
+        if data_request["images"] \
+            and len(data_request["images"])!= self.product_repo.count(data_request["images"]):
+            raise CommonException(message="Image not exists")
+        # Check category and kind of product in ProductKind table
+        product_kind = self.product_repo.get_product_kind(
+            data_request["category_id"], data_request["kind_id"]
+        )
+        data_request["product_kind_id"] = self.product_repo.add_product_kind(
+                data_request["category_id"], data_request["kind_id"], created_user
+            ) if not product_kind else product_kind.id
+
+        self.product_repo.add(data_request, created_user)
 
     # Update product
     def update(self, product_id, name, updated_user):

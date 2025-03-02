@@ -54,13 +54,13 @@ onMounted(async () => {
 
     <div class="mb-3 flex items-center justify-between">
       <div class="text-base font-medium">Product List</div>
-      <button
-        @click.prevent="childCategory.isModalCategory = true"
+      <router-link
+        to="product-add"
         class="flex cursor-pointer items-center justify-center rounded-md bg-green-500 px-3 py-2 font-medium text-white duration-300 hover:scale-105"
       >
         <font-awesome-icon :icon="['fas', 'add']" class="group h-4 w-4" />
         <span>Add Product</span>
-      </button>
+      </router-link>
     </div>
     <div class="overflow-hidden rounded-xl shadow-xl">
       <table class="w-full table-fixed">

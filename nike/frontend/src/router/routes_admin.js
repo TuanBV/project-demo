@@ -25,7 +25,13 @@ const routes_admin = [
       {
         path: 'product',
         name: 'admin-product',
-        component: () => import('views/admin/ProductView.vue'),
+        component: () => import('views/admin/product/ProductView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
+        path: 'product-add',
+        name: 'admin-product-add',
+        component: () => import('views/admin/product/ProductAddView.vue'),
         meta: { role: 'admin' }
       },
       {

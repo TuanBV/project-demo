@@ -6,7 +6,10 @@ import 'quill/dist/quill.snow.css'
 const quill = ref(null)
 const editor = ref(null)
 const content = defineModel()
-const isImageList = ref(false)
+const imageList = ref({
+  flag: false,
+  images: []
+})
 
 const ImageList = defineAsyncComponent(() => {
   return import('components/admin/modal/ImageList.vue')
@@ -51,7 +54,7 @@ onMounted(() => {
     toolbar.container.appendChild(customImageButton)
 
     // Add event listeners
-    customImageButton.addEventListener('click', () => (isImageList.value = true))
+    customImageButton.addEventListener('click', () => (imageList.value.flag = true))
 
     quill.value.on('text-change', (delta, oldDelta, source) => {
       content.value = quill.value.root.innerHTML
@@ -59,8 +62,8 @@ onMounted(() => {
   })
 })
 
-watch(isImageList, () => {
-  if (!isImageList.value) {
+watch(imageList.value.flag, () => {
+  if (!imageList.value.flag) {
     insertElementAtCursor('https://img.icons8.com/?size=256&id=wNxEqErpHetl&format=png')
   }
 })
@@ -69,7 +72,7 @@ watch(isImageList, () => {
 <template>
   <div>
     <div ref="editor" class="rich-text"></div>
-    <ImageList v-model="isImageList" />
+    <ImageList v-model="imageList" />
   </div>
 </template>
 

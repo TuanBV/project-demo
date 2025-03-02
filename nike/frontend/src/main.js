@@ -35,7 +35,10 @@ import {
   faPercent,
   faClipboard,
   faList,
-  faArrowLeft
+  faArrowLeft,
+  faCloudArrowUp,
+  faFolderOpen,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -61,7 +64,10 @@ library.add(
   faPercent,
   faClipboard,
   faList,
-  faArrowLeft
+  faArrowLeft,
+  faCloudArrowUp,
+  faFolderOpen,
+  faCheckCircle
 )
 
 const app = createApp(App)

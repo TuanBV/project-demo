@@ -62,7 +62,42 @@ class Category(Base):
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
 
-    products = relationship('Product', back_populates='category')
+    product_category = relationship('ProductKind', back_populates='categories')
+
+# Kind
+class Kind(Base):
+    """
+        Model kind
+    """
+    __tablename__ = 'kind'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(256), nullable=False)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
+    product_kind = relationship('ProductKind', back_populates='kinds')
+
+# ProductKind
+class ProductKind(Base):
+    """
+        Model product kind
+    """
+    __tablename__ = 'product_kind'
+    id = Column(Integer, primary_key=True, index=True)
+    category_id = Column(Integer, ForeignKey('category.id'))
+    kind_id = Column(Integer, ForeignKey('kind.id'))
+
+    categories = relationship("Category", back_populates="product_category")
+    kinds = relationship("Kind", back_populates="product_kind")
+    products = relationship('Product', back_populates='product_kinds')
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
 
 class Sale(Base):
     """
@@ -89,25 +124,26 @@ class Product(Base):
         Model product
     """
     __tablename__ = 'product'
-    product_id = Column(String(20), primary_key=True)
+    product_id = Column(Integer, primary_key=True, index=True)
     name = Column(String(256), nullable=False)
+    info = Column(String(512), nullable=False)
     quantity = Column(Integer, default=0)
     price = Column(Double, default=0)
-    weight = Column(String(256))
-    height = Column(String(256))
+    weight = Column(Double)
+    height = Column(Double)
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
-    # Foreign key
-    category_id = Column(Integer, ForeignKey('category.id'))
-    sale_id = Column(Integer, ForeignKey('sale.id'))
-    sale = relationship('Sale', back_populates='products')
-    category = relationship('Category', back_populates='products')
-    product_image = relationship('ProductImage', back_populates='products')
 
+    # Foreign key
+    sale_id = Column(Integer, ForeignKey('sale.id'))
+    product_kind_id = Column(Integer, ForeignKey('product_kind.id'))
+    sale = relationship('Sale', back_populates='products')
+    product_image = relationship('ProductImage', back_populates='products')
     cart_products = relationship("CartProduct", back_populates="products")
+    product_kinds = relationship('ProductKind', back_populates='products')
 
 class ProductImage(Base):
     """
@@ -116,16 +152,17 @@ class ProductImage(Base):
     __tablename__ = 'product_image'
 
     id = Column(Integer, primary_key=True, index=True)
-    url = Column(String(256))
-    name = Column(String(256))
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
 
-    product_id = Column(String(20), ForeignKey("product.product_id"))
+    product_id = Column(Integer, ForeignKey("product.product_id"))
     products = relationship('Product', back_populates='product_image')
+
+    image_id = Column(Integer, ForeignKey("image.id"))
+    images = relationship('Image', back_populates='product_image')
 
 class Image(Base):
     """
@@ -141,6 +178,8 @@ class Image(Base):
     updated_user = Column(String(256))
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
+    product_image = relationship('ProductImage', back_populates='images')
 
 
 class CartProduct(Base):
@@ -163,7 +202,7 @@ class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True, index=True)
     image_url = Column(String(256))
-    image_url_type = Column(String(256))
+    image_url_kind = Column(String(256))
     caption = Column(String(1000))
     timestamp = Column(DateTime)
     created_user = Column(String(256))

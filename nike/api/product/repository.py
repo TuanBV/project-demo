@@ -1,4 +1,4 @@
-from models.model import Product
+from models.model import Product, ProductKind, ProductImage, Image
 from utils.kbn import FlgDelete
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
@@ -34,8 +34,40 @@ class ProductRepository(CommonRepository):
         with self.session_factory_read() as session:
             return session.query(Product).filter(Product.id == product_id).first()
 
+    # Count record
+    def count(self, list_img_id):
+        """
+            # Count record
+            # Params:
+            #   @list_img_id: list id of image
+            # Output: record number
+        """
+        with self.session_factory_read() as session:
+            return session.query(Image).filter(
+                Image.id.in_(list_img_id),
+                Image.flg_del == FlgDelete.OFF.value
+            ).count()
+
+    # Add record
+    def add_product_img(self, list_img_id, product_id, created_user, session):
+        """
+            # Add record
+            # Params:
+            #   @list_img_id: list id of image
+            #   @created_user: name of the created user
+            # Output: None
+        """
+        lst_record = list()
+        for img_id in list_img_id:
+            lst_record.append(ProductImage(
+                image_id=img_id,
+                product_id=product_id,
+                created_user=created_user
+            ))
+        session.add_all(lst_record)
+
     # Add product
-    def add(self, name, created_user):
+    def add(self, data_request, created_user):
         """
             # Add product
             # Params:
@@ -44,15 +76,26 @@ class ProductRepository(CommonRepository):
             #   return: data product
         """
         with self.session_factory() as session:
+            # Add product
             new_product = Product(
-                name=name,
+                name=data_request["name"],
+                quantity=int(data_request["quantity"]),
+                price=float(data_request["price"]),
+                info=data_request["info"],
+                weight=float(data_request["weight"]) if data_request["weight"] else 0,
+                height=float(data_request["height"]) if data_request["height"] else 0,
+                product_kind_id=int(data_request["product_kind_id"]),
+                sale_id=int(data_request["sale_id"]) if data_request["sale_id"] else None,
                 created_user=created_user
             )
             session.add(new_product)
+            session.flush()
+            # Add image to ProductImage table
+            self.add_product_img(data_request["images"],
+                new_product.product_id, created_user, session
+            )
+            # Commit to database
             session.commit()
-            session.refresh(new_product)
-
-            return jsonable_encoder(new_product)
 
     # Get the product by name
     def get_by_name(self, name):
@@ -68,6 +111,44 @@ class ProductRepository(CommonRepository):
                 Product.name == name,
                 Product.flg_del == FlgDelete.OFF.value
             ).first()
+
+    # Get product kind by category_id and kind_id
+    def get_product_kind(self, category_id, kind_id):
+        """
+            # Get product kind by category_id and kind_id
+            # Params:
+            #   @category_id: category_id
+            #   @kind_id: kind_id
+            # Output:
+            #   return: object|null
+        """
+        with self.session_factory_read() as session:
+            return session.query(ProductKind).filter(
+                ProductKind.category_id == int(category_id),
+                ProductKind.kind_id == int(kind_id),
+                
+            ).first()
+
+    # Add product kind by category_id and kind_id
+    def add_product_kind(self, category_id, kind_id, created_user):
+        """
+            # Get product kind by category_id and kind_id
+            # Params:
+            #   @category_id: category_id
+            #   @kind_id: kind_id
+            # Output:
+            #   return: object|null
+        """
+        with self.session_factory() as session:
+            product_kind = ProductKind(
+                category_id = int(category_id),
+                kind_id = int(kind_id),
+                created_user = created_user
+            )
+            session.add(product_kind)
+            session.commit()
+            session.refresh(product_kind)
+            return product_kind.id
 
     # Update product
     def update(self, product_id, name, updated_user):

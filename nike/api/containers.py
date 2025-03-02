@@ -7,7 +7,7 @@ from db.database import Database
 from helpers.kbn import TYPE_DB
 from user import UserRepository, UserService
 from category import CategoryRepository, CategoryService
-from product import ProductRepository, ProductService
+from kind import KindRepository, KindService
 from sale import SaleRepository, SaleService
 from image import ImageRepository, ImageService
 from product import ProductRepository, ProductService
@@ -31,6 +31,11 @@ class Container(containers.DeclarativeContainer):
     )
     category_repository = providers.Factory(
         CategoryRepository,
+        session_factory=db.provided.session,
+        session_factory_read=db_read.provided.session
+    )
+    kind_repository = providers.Factory(
+        KindRepository,
         session_factory=db.provided.session,
         session_factory_read=db_read.provided.session
     )
@@ -63,6 +68,10 @@ class Container(containers.DeclarativeContainer):
     category_service = providers.Factory(
         CategoryService,
         category_repository=category_repository,
+    )
+    kind_service = providers.Factory(
+        KindService,
+        kind_repository=kind_repository,
     )
     sale_service = providers.Factory(
         SaleService,

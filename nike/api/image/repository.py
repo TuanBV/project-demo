@@ -1,4 +1,4 @@
-from models.model import Image
+from models.model import Image, ProductImage
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
 from utils.kbn import FlgDelete

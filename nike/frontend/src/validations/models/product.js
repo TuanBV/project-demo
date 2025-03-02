@@ -5,16 +5,37 @@ const productModel = {
     minLength: 1
   },
   quantity: {
-    type: 'integer'
+    type: 'integer',
+    minimum: 0
   },
   price: {
-    type: 'number'
+    type: 'string',
+    minLength: 1,
+    checkNumber: true
   },
-  sale: {
-    type: 'number'
+  sale_id: {
+    type: 'string'
   },
   category_id: {
-    type: 'integer'
+    type: 'string',
+    minLength: 1
+  },
+  kind_id: {
+    type: 'string',
+    minLength: 1
+  },
+  info: {
+    type: 'string',
+    minLength: 1,
+    maxLength: 512
+  },
+  weight: {
+    type: 'string',
+    checkNumber: true
+  },
+  height: {
+    type: 'string',
+    checkNumber: true
   }
 }
 
