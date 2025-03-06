@@ -1,9 +1,9 @@
-from models.model import Sale
+from models.model import Sale, Image
 from utils.kbn import FlgDelete
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import asc, desc
-
+from sqlalchemy import asc, desc, outerjoin
+from helpers.const import IMAGE_FOLDER
 class SaleRepository(CommonRepository):
     """
     Repository of sale
@@ -17,12 +17,27 @@ class SaleRepository(CommonRepository):
             #   return: List of sale
         """
         with self.session_factory_read() as session:
-            return session.query(Sale).order_by(
+            results = session.query(Sale, Image).outerjoin(
+                Image, Image.id == Sale.image_id
+            ).order_by(
                 asc(Sale.flg_del), desc(Sale.end_date),
                 desc(Sale.start_date), desc(Sale.discount),
                 asc(Sale.name), desc(Sale.created_date)
             ).all()
 
+            # Format json to data
+            return [
+                {
+                    "id": sale.id,
+                    "name": sale.name,
+                    "discount": sale.discount,
+                    "image": image.path if image else None,
+                    "start_date": jsonable_encoder(sale.start_date),
+                    "end_date": jsonable_encoder(sale.end_date),
+                    "flg_del": jsonable_encoder(sale.flg_del),
+
+                } for sale, image in results
+            ]
 
     # Get user by user_id
     def get_by_sale_id(self, sale_id):
@@ -47,10 +62,19 @@ class SaleRepository(CommonRepository):
             #   return: data sale
         """
         with self.session_factory() as session:
+            # Add image
+            image = Image(
+                name=data_request['name'],
+                path=data_request['path'],
+                folder=IMAGE_FOLDER.SALE
+            )
+            session.add(image)
+            session.flush()
+            # Add sale
             new_sale = Sale(
                 name=data_request['name'],
                 discount=data_request['discount'],
-                image=data_request['image'] if data_request['image'] else None,
+                image_id=image.id,
                 start_date=data_request['start_date'] if data_request['start_date'] else None,
                 end_date=data_request['end_date'] if data_request['end_date'] else None,
                 created_user=created_user

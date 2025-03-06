@@ -52,9 +52,10 @@ def get_new_setting(setting_service: SettingService = Depends(Provide(Container.
         Get new setting
     """
     data = setting_service.get_new_setting()
-    payload = SettingResponse(**data)
-    response = ok(data=payload.dict())
-    return response
+    if data:
+        payload = SettingResponse(**data)
+        response = ok(data=payload.dict())
+        return response
 
 
 @setting_router.post('', tags=["setting"], responses={200: {"model": Response}}, dependencies=[Depends(authorized_user)])
@@ -65,6 +66,5 @@ def save(request: SettingRequest,
     """
         Save info about setting
     """
-    print(request.__dict__)
     setting_service.save(request.__dict__, context.user.value["username"])
     return ok()

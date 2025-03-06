@@ -5,6 +5,8 @@ import categoryService from 'service/category.service'
 import kindService from 'service/kind.service'
 import ToastUtil from 'utility/toast'
 
+// 1) ======= INITIALIZATION ========
+// 2) ======= VARIABLE REF ========
 const categories = ref([])
 const kinds = ref([])
 const refConfirmPopup = ref({
@@ -21,6 +23,7 @@ const childKind = ref({
   isModalCategory: false,
   kindId: ''
 })
+// 3) ======= METHOD/FUNCTION ========
 const getListCategory = async () => {
   const res = await categoryService.getList()
   if (res) {
@@ -33,15 +36,12 @@ const getListKind = async () => {
     kinds.value = res.item
   }
 }
-
 const ModalCategory = defineAsyncComponent(() => {
   return import('components/admin/modal/ModalCategory.vue')
 })
-
 const ModalKind = defineAsyncComponent(() => {
   return import('components/admin/modal/ModalKind.vue')
 })
-
 const deleteCategory = async (categoryId) => {
   const res = await categoryService.delete(categoryId)
   if (res) {
@@ -63,7 +63,6 @@ const activeCategory = async (categoryId) => {
     ToastUtil.success('Active category successfully')
   }
 }
-
 const activeKind = async (kindId) => {
   const res = await kindService.active(kindId)
   if (res) {
@@ -71,13 +70,12 @@ const activeKind = async (kindId) => {
     ToastUtil.success('Active kind successfully')
   }
 }
-
 const confirmPopup = (title, methodAction) => {
   refConfirmPopup.value.isVisible = true
   refConfirmPopup.value.message = title
   refConfirmPopup.value.confirmAction = methodAction
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 watch(childCategory.value, async () => {
   if (!childCategory.value.isModalCategory) await getListCategory()
 })
@@ -88,6 +86,7 @@ onMounted(async () => {
   await Promise.all([getListCategory(), getListKind()])
 })
 </script>
+
 <template>
   <div>
     <h1 class="mb-5 border-b pb-3 text-2xl font-medium tracking-wider">

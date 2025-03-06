@@ -4,19 +4,21 @@ import userService from 'service/user.service'
 import ToastUtil from 'utility/toast'
 import AddUserView from 'components/admin/modal/AddUserView.vue'
 
+// 1) ======= INITIALIZATION ========
+
+// 2) ======= VARIABLE REF ========
 const users = ref([])
 const isAddUser = ref(false)
+// 3) ======= METHOD/FUNCTION ========
 const getList = async () => {
   const res = await userService.getList()
   if (res) {
     users.value = res.item
   }
 }
-
 const edit = async (userId) => {
   console.log(userId)
 }
-
 const statusUser = async (userId, nameUser, status) => {
   const res = await userService.statusUser(userId, status ? 1 : 0)
   if (res) {
@@ -26,15 +28,15 @@ const statusUser = async (userId, nameUser, status) => {
   }
   ToastUtil.error('Change status error : ' + nameUser)
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 watch(isAddUser, async () => {
   await getList()
 })
-
 onMounted(async () => {
   await getList()
 })
 </script>
+
 <template>
   <div>
     <div class="flex justify-between">

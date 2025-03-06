@@ -10,8 +10,10 @@ import useValidate from 'composables/validate'
 import productSchema from 'validations/schemas/admin/product'
 import { useRouter } from 'vue-router'
 
+// 1) ======= INITIALIZATION ========
 const { validate, errors } = useValidate()
 const router = useRouter()
+// 2) ======= VARIABLE REF ========
 const flgImageList = ref(false)
 const imageList = ref([])
 const categories = ref()
@@ -29,7 +31,7 @@ const product = ref({
   height: '',
   images: []
 })
-
+// 3) ======= METHOD/FUNCTION ========
 const add = async () => {
   product.value.images = imageList.value.map((item) => item.id.toString())
   let valid = validate(productSchema, product.value)
@@ -43,7 +45,7 @@ const add = async () => {
     router.push({ name: 'admin-product' })
   }
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 onMounted(async () => {
   const [categoryRes, kindRes, saleRes] = await Promise.all([
     categoryService.getList(),
@@ -55,6 +57,7 @@ onMounted(async () => {
   sales.value = saleRes.item
 })
 </script>
+
 <template>
   <div class="grid grid-cols-1 items-center justify-center gap-y-4">
     <div class="mb-5 flex items-center gap-2 border-b pb-3">

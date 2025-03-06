@@ -45,7 +45,6 @@ def get_all(sale_service: SaleService = Depends(Provide(Container.sale_service))
     response = ok(data=payload.dict())
     return response
 
-
 @sale_router.post('', tags=["sale"], responses={200: {"model": Response}}, dependencies=[Depends(authorized_user)])
 @permission([ROLE.ADMIN])
 @inject

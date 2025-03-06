@@ -45,7 +45,6 @@ def get_all(product_service: ProductService = Depends(Provide(Container.product_
     data = product_service.get_all()
     payload = ListProductResponse(**data)
     response = ok(data=payload.dict())
-    return response
 
 @product_router.post('', tags=["product"], responses={200: {"model": Response}}, dependencies=[Depends(authorized_user)])
 @permission([ROLE.ADMIN])

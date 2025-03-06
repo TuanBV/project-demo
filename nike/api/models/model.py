@@ -29,6 +29,24 @@ class User(Base):
 
     carts = relationship('Cart', back_populates='user')
 
+class Image(Base):
+    """
+        Model image
+    """
+    __tablename__ = 'image'
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(256), nullable=False)
+    path = Column(String(256), nullable=False)
+    folder = Column(String(20), nullable=False)
+    created_user = Column(String(256))
+    created_date = Column(DateTime, default=func.now())
+    updated_user = Column(String(256))
+    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
+    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
+
+    product_image = relationship('ProductImage', back_populates='images')
+    sale_image = relationship('Sale', back_populates='sales')
 
 # Class Cart
 class Cart(Base):
@@ -107,7 +125,6 @@ class Sale(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(256), nullable=False)
     discount = Column(Integer, nullable=False)
-    image = Column(String(256))
     start_date = Column(Date)
     end_date = Column(Date)
     created_user = Column(String(256))
@@ -116,7 +133,8 @@ class Sale(Base):
     updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
     flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
 
-    products = relationship('Product', back_populates='sale')
+    image_id = Column(Integer, ForeignKey("image.id"))
+    sales = relationship('Image', back_populates='sale_image')
 
 # Class Product
 class Product(Base):
@@ -163,25 +181,6 @@ class ProductImage(Base):
 
     image_id = Column(Integer, ForeignKey("image.id"))
     images = relationship('Image', back_populates='product_image')
-
-class Image(Base):
-    """
-        Model image
-    """
-    __tablename__ = 'image'
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(256), nullable=False)
-    path = Column(String(256), nullable=False)
-    created_user = Column(String(256))
-    created_date = Column(DateTime, default=func.now())
-    updated_user = Column(String(256))
-    updated_date = Column(DateTime, default=func.now(), onupdate=func.now())
-    flg_del = Column(IntEnum(FlgDelete), default=FlgDelete.OFF)
-
-    product_image = relationship('ProductImage', back_populates='images')
-
-
 class CartProduct(Base):
     """
         Model cart_product

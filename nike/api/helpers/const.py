@@ -73,37 +73,6 @@ REGEX_PASSWORD = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?
 # Password default when create user
 PASSWORD_DEFAULT = "Test123@"
 
-INTERVIEW_STATUS = {
-  0: "Chuẩn bị PV",
-  1: "Pass",
-  2: "Trượt",
-  8: "Không đến làm bài test",
-  9: "Không đến PV",
-}
-
-TYPE_KBN = {
-  0: "Làm bài test",
-  1: "PV vòng 1",
-  2: "PV vòng 2",
-}
-
-TITLE_CALENDAR = {
-  0: "Lịch test ứng viên",
-  1: "Phỏng vấn ứng viên vòng 1",
-  2: "Phỏng vấn ứng viên vòng 2",
-}
-
-# Day of week
-DAY_OF_WEEK = {
-  0: "Thứ hai",
-  1: "Thứ ba",
-  2: "Thứ tư",
-  3: "Thứ năm",
-  4: "Thứ sáu",
-  5: "Thứ bảy",
-  6: "Chủ nhật",
-}
-
 # Max score
 MAX_SCORE = 10
 
@@ -115,3 +84,15 @@ NUMBER_EXPERIENCES = 2
 
 # Max file credentials Google calendar
 MAX_CREDENTIALS_FILE = 1024*1024
+
+# Image folder
+IMAGE_FOLDER = Box({
+  "BLOG": "blog",
+  "POST": "post",
+  "USER": "user",
+  "PRODUCT": "product",
+  "CATEGORY": "category",
+  "SETTING": "setting",
+  "SLIDE": "slide",
+  "SALE": "sale"
+})

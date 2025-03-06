@@ -1,0 +1,38 @@
+# Install Node
+FROM node:18-slim
+
+# Install package
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+
+# Set up work folder in container
+WORKDIR /frontend
+
+# Copy file package.json and package-lock.json to container
+COPY frontend/package.json ./
+
+# Delete package-lock.json file and Install dependencies
+RUN rm -f package-lock.json && npm install --force
+
+# Copy source code of frontend to container
+COPY frontend/ .
+
+# Build Vue.js
+# RUN npm run build
+# EXPOSE 8080
+
+CMD ["npm", "run", "dev"]
+
+# # Stage 2: Serve app with Nginx
+# FROM nginx:alpine AS production-stage
+
+# # Copy file build from stage to Nginx folder
+# COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# # Copy file Nginx config
+# # COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# # Expose port 80
+# EXPOSE 80
+
+# # Run Nginx
+# CMD ["nginx", "-g", "daemon off;"]

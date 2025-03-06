@@ -21,9 +21,7 @@ class SaleService:
             #   return: List of sale
         """
         data = self.sale_repo.get_all()
-        for item in data:
-            item.image = 'http://localhost:8000/' + item.image
-        return {"item": jsonable_encoder(data)}
+        return {"item": jsonable_encoder(data) if data else []}
 
     def get_by_sale_id(self, sale_id):
         """
@@ -34,10 +32,7 @@ class SaleService:
             #   return: data sale
         """
         data = self.sale_repo.get_by_sale_id(sale_id)
-        if data:
-            data.image = "http://localhost:8000/" + data.image
-            return jsonable_encoder(data)
-
+        return jsonable_encoder(data) if data else None
 
     # Add sale
     def add(self, data_request, created_user):
@@ -58,7 +53,8 @@ class SaleService:
         file_location = os.path.join(folder, file_name)
         with open(file_location, "wb") as file:
             file.write(sale_image)
-        data_request["image"] = file_location
+        data_request["path"] = file_location
+        data_request["name"] = file_name
 
         return self.sale_repo.add(data_request, created_user)
 

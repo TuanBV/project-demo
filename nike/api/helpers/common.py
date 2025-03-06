@@ -8,11 +8,9 @@ import bcrypt as lib_bcrypt
 import platform
 import os
 import uuid
-from datetime import timedelta
 from settings import settings
-from helpers import context, kbn
-from helpers.const import TITLE_CALENDAR
-from utils.date import get_current_time, format_date_time, get_object_date
+from helpers import context
+from utils.date import get_current_time, format_date_time
 
 # Hash password with bcrypt
 # Params:

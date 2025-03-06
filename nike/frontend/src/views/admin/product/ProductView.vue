@@ -1,31 +1,35 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import categoryService from 'service/category.service'
+import productService from 'service/product.service'
 // import userService from 'service/user.service'
 import ToastUtil from 'utility/toast'
+// 1) ======= INITIALIZATION ========
 
-const users = ref()
+// 2) ======= VARIABLE REF ========
+const products = ref()
 const categories = ref([])
 const childProduct = ref({
   isModalProduct: false,
   productId: ''
 })
 
+// 3) ======= METHOD/FUNCTION ========
 const getCategory = async () => {
   const res = await categoryService.getList()
   if (res) {
     categories.value = res.item
-    users.value = [
-      {
-        productId: '1',
-        name: 'User 1',
-        image: '',
-        categoryId: 1,
-        quantity: 20,
-        price: 10000,
-        sale: 500
-      }
-    ]
+    return
+  }
+  ToastUtil.error('Error!')
+}
+
+const getProduct = async () => {
+  const res = await productService.getList()
+  console.log(res)
+
+  if (res) {
+    products.value = res.item
     return
   }
   ToastUtil.error('Error!')
@@ -38,16 +42,15 @@ const edit = async (userId) => {
 const returnCategory = (categoryId) => {
   let letCategory = categories.value.find((item) => item.id == categoryId)
   console.log(typeof letCategory)
-  return letCategory.name
+  return ''
 }
+// 4) ======= VUE JS LIFECYCLE ========
 
 onMounted(async () => {
-  await Promise.all([
-    getCategory()
-    // getUserList()
-  ])
+  await Promise.all([getCategory(), getProduct()])
 })
 </script>
+
 <template>
   <div>
     <h1 class="mb-5 border-b pb-3 text-2xl font-medium tracking-wider">Product Management</h1>
@@ -70,6 +73,7 @@ onMounted(async () => {
             <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Name</th>
             <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Image</th>
             <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Category</th>
+            <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Kind</th>
             <th class="w-2/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Quantity</th>
             <th class="w-1/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Price</th>
             <th class="w-1/12 px-6 py-4 text-left font-bold uppercase text-gray-600">Sale</th>
@@ -77,14 +81,17 @@ onMounted(async () => {
           </tr>
         </thead>
         <tbody class="bg-white">
-          <tr class="border-b border-gray-300" v-for="(item, index) in users" :key="index">
+          <tr class="border-b border-gray-300" v-for="(item, index) in products" :key="index">
             <td class="truncate border-b border-gray-200 px-6 py-4">{{ index + 1 }}</td>
             <td class="border-b border-gray-200 px-6 py-4">{{ item.name }}</td>
             <td class="border-b border-gray-200 px-6 py-4">
-              {{ item.image }}
+              <img :src="'http://localhost:8000/' + item.images[0].path" alt="" srcset="" />
             </td>
             <td class="border-b border-gray-200 px-6 py-4">
-              {{ returnCategory(item.categoryId) }}
+              {{ item.category_name }}
+            </td>
+            <td class="border-b border-gray-200 px-6 py-4">
+              {{ item.kind_name }}
             </td>
             <td class="border-b border-gray-200 px-6 py-4">
               {{ item.quantity }}

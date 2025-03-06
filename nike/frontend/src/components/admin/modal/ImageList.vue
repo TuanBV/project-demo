@@ -76,8 +76,6 @@ watch(image.value, async () => {
 })
 
 watch(imageList.value, async () => {
-  console.log('â')
-
   if (!firstCallFunc.value) await getList()
   if (!imageList.value.flag) {
     chooses.value = []
@@ -146,7 +144,7 @@ watch(imageList.value, async () => {
             "
           >
             <img
-              :src="item.path"
+              :src="'http://localhost:8000/' + item.path"
               :alt="item.name"
               height="100%"
               width="100%"

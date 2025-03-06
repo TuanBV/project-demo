@@ -24,13 +24,31 @@ class ProductRequest(BaseModel):
         """
         return value
 
+class ItemImage(BaseModel):
+    """
+        Model item image
+    """
+    id: int
+    name: str
+    path: str
+
 class ProductResponse(BaseModel):
     """
         Response product
     """
-    id: int
+    product_id: int
+    quantity: int
+    price: float
+    height: float
+    weight: float
+    sale_id: Optional[int] = None
     name: str
-    flg_del: int
+    product_kind_id: int
+    info: str
+    kind_name: Optional[str] = None
+    category_name: Optional[str] = None
+    info: str
+    images: Optional[List[ItemImage]] = None
 
 class ListProductResponse(BaseModel):
     """

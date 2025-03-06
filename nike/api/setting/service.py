@@ -1,8 +1,8 @@
-import base64
-import os
+# import base64
+# import os
 from fastapi.encoders import jsonable_encoder
 from setting import SettingRepository
-# from core import CommonException
+from core import CommonException
 
 class SettingService:
     """

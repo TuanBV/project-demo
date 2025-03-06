@@ -1,8 +1,9 @@
-from models.model import Product, ProductKind, ProductImage, Image
-from utils.kbn import FlgDelete
+from models.model import Product, ProductKind, ProductImage, Image, Sale, Kind, Category
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import asc, desc
+from sqlalchemy import asc, desc, outerjoin
+from sqlalchemy.orm import joinedload
+from utils.kbn import FlgDelete
 
 class ProductRepository(CommonRepository):
     """
@@ -17,10 +18,45 @@ class ProductRepository(CommonRepository):
             #   return: List of product
         """
         with self.session_factory_read() as session:
-            return session.query(Product).order_by(
-                asc(Product.flg_del), desc(Product.created_date)
-            ).all()
-
+            results = session.query(
+                    Product
+                ).outerjoin(
+                    ProductImage, Product.product_id == ProductImage.product_id
+                ).outerjoin(
+                    Image, Image.id == ProductImage.image_id
+                ).outerjoin(
+                    ProductKind, ProductKind.kind_id == Product.product_kind_id
+                ).outerjoin(
+                    Kind, Kind.id == ProductKind.kind_id
+                ).outerjoin(
+                    Category, Category.id == ProductKind.category_id
+                ).options(
+                    joinedload(Product.product_image).joinedload(ProductImage.images),
+                    joinedload(Product.product_kinds).joinedload(ProductKind.kinds),
+                    joinedload(Product.product_kinds).joinedload(ProductKind.categories)
+                ).order_by(
+                    asc(Product.flg_del), desc(Product.created_date)
+                ).all()
+            return [
+                {
+                    'product_id': item.product_id,
+                    'quantity': item.quantity,
+                    'price': item.price,
+                    'height': item.height,
+                    'weight': item.weight,
+                    'sale_id': item.sale_id,
+                    'name': item.name,
+                    'product_kind_id': item.product_kind_id,
+                    'info': item.info,
+                    'images': [
+                        jsonable_encoder(item_image.images)
+                        for item_image in item.product_image
+                        if item.product_image
+                    ],
+                    'kind_name': item.product_kinds.kinds.name if item.product_kinds.kinds else None,
+                    'category_name': item.product_kinds.categories.name if item.product_kinds.categories else None
+                } for item in results
+            ]
 
     # Get user by user_id
     def get_by_product_id(self, product_id):

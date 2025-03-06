@@ -13,8 +13,6 @@ const dateIsFuture = {
     }
 
     const inputTimeStamp = dayjs(data).unix()
-    console.log(inputTimeStamp)
-
     const currentTimeStamp = dayjs().startOf('day').unix()
     if (currentTimeStamp <= inputTimeStamp) {
       return true

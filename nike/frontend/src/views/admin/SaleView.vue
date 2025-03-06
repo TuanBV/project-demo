@@ -4,7 +4,6 @@ import ConfirmPopup from 'components/ConfirmPopup.vue'
 import saleService from 'service/sale.service'
 import ToastUtil from 'utility/toast'
 // 1) ======= INITIALIZATION ========
-
 // 2) ======= VARIABLE REF ========
 const categories = ref([])
 const refConfirmPopup = ref({
@@ -23,11 +22,9 @@ const getList = async () => {
     categories.value = res.item
   }
 }
-
 const ModalSale = defineAsyncComponent(() => {
   return import('components/admin/modal/ModalSale.vue')
 })
-
 const deleteSale = async (saleId) => {
   const res = await saleService.delete(saleId)
   if (res) {
@@ -35,7 +32,6 @@ const deleteSale = async (saleId) => {
     ToastUtil.success('Delete sale successfully')
   }
 }
-
 const activeSale = async (saleId) => {
   const res = await saleService.active(saleId)
   if (res) {
@@ -43,7 +39,6 @@ const activeSale = async (saleId) => {
     ToastUtil.success('Active sale successfully')
   }
 }
-
 const confirmPopup = (title, methodAction) => {
   refConfirmPopup.value.isVisible = true
   refConfirmPopup.value.message = title
@@ -53,11 +48,11 @@ const confirmPopup = (title, methodAction) => {
 watch(childSale.value, async () => {
   if (!childSale.value.isModalSale) await getList()
 })
-
 onMounted(async () => {
   await getList()
 })
 </script>
+
 <template>
   <div>
     <h1 class="mb-5 flex items-center gap-2 border-b pb-3 text-2xl font-medium tracking-wider">
@@ -102,7 +97,7 @@ onMounted(async () => {
               <div class="max-h-[100px] w-auto overflow-hidden">
                 <img
                   loading="lazy"
-                  :src="item.image"
+                  :src="'http://localhost:8000/' + item.image"
                   alt="Banner sale"
                   height="100%"
                   class="max-h-[100px]"

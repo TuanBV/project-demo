@@ -4,7 +4,6 @@ import { onMounted, ref } from 'vue'
 import settingService from 'service/setting.service'
 import ToastUtil from 'utility/toast'
 // 1) ======= INITIALIZATION ========
-
 // 2) ======= VARIABLE REF ========
 const setting = ref({
   email: '',
@@ -23,7 +22,6 @@ const getNewSetting = async () => {
     setting.value = res
   }
 }
-
 const saveSetting = async () => {
   const res = await settingService.save(setting.value)
   if (res) {
@@ -32,12 +30,12 @@ const saveSetting = async () => {
   }
   ToastUtil.error('Save setting failed!')
 }
-
 // 4) ======= VUE JS LIFECYCLE ========
 onMounted(async () => {
   await getNewSetting()
 })
 </script>
+
 <template>
   <div>
     <h1 class="mb-5 flex items-center gap-2 border-b pb-3 text-2xl font-medium tracking-wider">

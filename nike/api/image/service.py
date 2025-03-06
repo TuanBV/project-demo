@@ -21,9 +21,7 @@ class ImageService:
             #   return: List of image
         """
         data = self.image_repo.get_all()
-        for item in data:
-            item.path = 'http://localhost:8000/' + item.path
-        return {"item": jsonable_encoder(data)}
+        return {"item": jsonable_encoder(data) if data else []}
 
     # Add image
     def add(self, data_request, created_user):
