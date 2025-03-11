@@ -2,7 +2,8 @@
 import { onMounted, ref, defineModel, defineAsyncComponent, watch, nextTick, markRaw } from 'vue'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
-
+// 1) ======= INITIALIZATION ========
+// 2) ======= VARIABLE REF ========
 const quill = ref(null)
 const editor = ref(null)
 const content = defineModel()
@@ -10,18 +11,37 @@ const imageList = ref({
   flag: false,
   images: []
 })
+const imgListOld = ref([])
 
+// 3) ======= METHOD/FUNCTION ========
+// Lazy loading
 const ImageList = defineAsyncComponent(() => {
   return import('components/admin/modal/ImageList.vue')
 })
+
+function arrayDifferenceWithCount(arr1, arr2) {
+  const freqMap = arr2.reduce((acc, num) => {
+    acc[num] = (acc[num] || 0) + 1
+    return acc
+  }, {})
+
+  return arr1.filter((num) => {
+    if (freqMap[num]) {
+      freqMap[num]--
+      return false
+    }
+    return true
+  })
+}
 
 // Insert element at cursor position
 const insertElementAtCursor = (text) => {
   if (!quill.value) return
   quill.value.insertEmbed(quill.value.getLength(), 'image', text)
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 onMounted(() => {
+  // Init quill
   quill.value = markRaw(
     new Quill(editor.value, {
       theme: 'snow',
@@ -39,6 +59,7 @@ onMounted(() => {
       passive: true
     })
   )
+  // Actions that occur after Vue re-renders the interface
   nextTick(() => {
     const toolbar = quill.value.getModule('toolbar')
     const imageButton = toolbar.container.querySelector('.ql-image')
@@ -57,14 +78,23 @@ onMounted(() => {
     customImageButton.addEventListener('click', () => (imageList.value.flag = true))
 
     quill.value.on('text-change', (delta, oldDelta, source) => {
+      // Event when change text then get new content
       content.value = quill.value.root.innerHTML
     })
   })
 })
 
-watch(imageList.value.flag, () => {
-  if (!imageList.value.flag) {
-    insertElementAtCursor('https://img.icons8.com/?size=256&id=wNxEqErpHetl&format=png')
+watch(imageList.value, () => {
+  if (
+    !imageList.value.flag &&
+    arrayDifferenceWithCount(imageList.value.images, imgListOld.value).length
+  ) {
+    arrayDifferenceWithCount(imageList.value.images, imgListOld.value).forEach((item) => {
+      insertElementAtCursor('http://localhost:8000/' + item.path)
+    })
+  }
+  if (imgListOld.value != imageList.value.images) {
+    imgListOld.value = [...imageList.value.images]
   }
 })
 </script>

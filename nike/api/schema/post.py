@@ -3,38 +3,33 @@ from datetime import datetime
 from typing import List, Optional
 
 class PostRequest(BaseModel):
-    image_url: str
-    image_url_type: str
-    caption: str
-    creator_id: int
-
-class PostUpdateRequest(BaseModel):
-    caption: str
-    image_url: Optional[str] = None
-
+    """
+        Model request of post
+    """
+    title: str
+    content: str
+    start_date: str
 
 class Comment(BaseModel):
     text: str
     username: str
     timestamp: datetime
 
-    class Config():
-        orm_mode = True
-
 class User(BaseModel):
     username: str
-    
-    class Config():
-        orm_mode = True
 
 class PostResponse(BaseModel):
+    """
+        Response post
+    """
     id: int
-    image_url: str
-    image_url_type: str
-    caption: str
-    timestamp: datetime
-    comment: List[Comment]
-    user: User
+    title: str
+    content: str
+    start_date: str
+    flg_del: int
 
-    class Config():
-        orm_mode = True
+class ListPostResponse(BaseModel):
+    """
+        Response post
+    """
+    item: Optional[List[PostResponse]] = None

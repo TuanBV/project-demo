@@ -140,7 +140,7 @@ onMounted(async () => {
             "
           >
             <img
-              :src="item.path"
+              :src="'http://localhost:8000/' + item.path"
               :alt="item.name"
               height="100%"
               width="100%"

@@ -135,6 +135,7 @@ class Sale(Base):
 
     image_id = Column(Integer, ForeignKey("image.id"))
     sales = relationship('Image', back_populates='sale_image')
+    products = relationship('Product', back_populates='sale')
 
 # Class Product
 class Product(Base):
@@ -200,10 +201,9 @@ class Post(Base):
     """
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True, index=True)
-    image_url = Column(String(256))
-    image_url_kind = Column(String(256))
-    caption = Column(String(1000))
-    timestamp = Column(DateTime)
+    title = Column(String(256))
+    content = Column(String(1000))
+    start_date = Column(DateTime)
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))

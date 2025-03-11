@@ -2,6 +2,7 @@ import UserRepository from 'service/repository/restful/user.repository'
 import CategoryRepository from 'service/repository/restful/category.repository'
 import KindRepository from 'service/repository/restful/kind.repository'
 import SaleRepository from 'service/repository/restful/sale.repository'
+import PostRepository from 'service/repository/restful/post.repository'
 import ImageRepository from 'service/repository/restful/image.repository'
 import ProductRepository from 'service/repository/restful/product.repository'
 import SettingRepository from 'service/repository/restful/setting.repository'
@@ -17,6 +18,8 @@ class RepositoryFactory {
         return KindRepository
       case 'sale':
         return SaleRepository
+      case 'post':
+        return PostRepository
       case 'image':
         return ImageRepository
       case 'product':

@@ -33,6 +33,7 @@ class Database:
             yield session
         except Exception as e:
             session.rollback()
+            print(e)
             raise e
         finally:
             session.close()

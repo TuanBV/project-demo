@@ -253,7 +253,7 @@ onMounted(async () => {
           <div v-for="(item, index) in imageList" :key="index">
             <div class="relative h-[150px] w-[150px] rounded-md border">
               <img
-                :src="item.path"
+                :src="'http://localhost:8000/' + item.path"
                 :alt="item.name"
                 height="100%"
                 width="100%"

@@ -133,10 +133,9 @@ CREATE TABLE IF NOT EXISTS `cart_product` (
 
 CREATE TABLE IF NOT EXISTS `post` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    image_url VARCHAR(256),
-    image_url_kind VARCHAR(256),
-    caption VARCHAR(1000),
-    timestamp TIMESTAMP,
+    title VARCHAR(256),
+    content VARCHAR(1000),
+    start_date TIMESTAMP,
     created_user VARCHAR(256),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(256),

@@ -27,6 +27,7 @@ class ProductService:
             #   return: List of product
         """
         data = self.product_repo.get_all()
+        print(data)
         return {"item": jsonable_encoder(data)}
 
     def get_by_product_id(self, product_id):

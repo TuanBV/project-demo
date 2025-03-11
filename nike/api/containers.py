@@ -9,6 +9,7 @@ from user import UserRepository, UserService
 from category import CategoryRepository, CategoryService
 from kind import KindRepository, KindService
 from sale import SaleRepository, SaleService
+from post import PostRepository, PostService
 from image import ImageRepository, ImageService
 from product import ProductRepository, ProductService
 from setting import SettingRepository, SettingService
@@ -36,6 +37,11 @@ class Container(containers.DeclarativeContainer):
     )
     kind_repository = providers.Factory(
         KindRepository,
+        session_factory=db.provided.session,
+        session_factory_read=db_read.provided.session
+    )
+    post_repository = providers.Factory(
+        PostRepository,
         session_factory=db.provided.session,
         session_factory_read=db_read.provided.session
     )
@@ -76,6 +82,10 @@ class Container(containers.DeclarativeContainer):
     sale_service = providers.Factory(
         SaleService,
         sale_repository=sale_repository,
+    )
+    post_service = providers.Factory(
+        PostService,
+        post_repository=post_repository,
     )
     image_service = providers.Factory(
         ImageService,

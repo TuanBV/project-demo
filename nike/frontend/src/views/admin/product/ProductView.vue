@@ -85,7 +85,9 @@ onMounted(async () => {
             <td class="truncate border-b border-gray-200 px-6 py-4">{{ index + 1 }}</td>
             <td class="border-b border-gray-200 px-6 py-4">{{ item.name }}</td>
             <td class="border-b border-gray-200 px-6 py-4">
-              <img :src="'http://localhost:8000/' + item.images[0].path" alt="" srcset="" />
+              <div class="flex h-[100px] w-[100px] items-center">
+                <img :src="'http://localhost:8000/' + item.images[0].path" alt="" srcset="" />
+              </div>
             </td>
             <td class="border-b border-gray-200 px-6 py-4">
               {{ item.category_name }}
@@ -102,23 +104,25 @@ onMounted(async () => {
             <td class="border-b border-gray-200 px-6 py-4">
               {{ item.sale }}
             </td>
-            <td class="flex items-center gap-4 border-gray-200 px-6 py-4">
-              <button
-                @click.prevent="edit(item.user_id)"
-                class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
-              >
-                <font-awesome-icon :icon="['fas', 'edit']" class="group h-4 w-4 text-green-500" />
-                <span class="text-sm font-semibold text-green-500">Edit</span>
-              </button>
-              <button
-                class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
-              >
-                <font-awesome-icon
-                  :icon="['fas', 'power-off']"
-                  class="group h-4 w-4 text-red-500"
-                />
-                <span class="text-sm font-semibold text-red-500">Delete</span>
-              </button>
+            <td>
+              <div class="flex items-center gap-4 border-gray-200 px-6 py-4">
+                <button
+                  @click.prevent="edit(item.user_id)"
+                  class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
+                >
+                  <font-awesome-icon :icon="['fas', 'edit']" class="group h-4 w-4 text-green-500" />
+                  <span class="text-sm font-semibold text-green-500">Edit</span>
+                </button>
+                <button
+                  class="flex gap-2 text-gray-600 duration-200 hover:scale-110 hover:cursor-pointer"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'power-off']"
+                    class="group h-4 w-4 text-red-500"
+                  />
+                  <span class="text-sm font-semibold text-red-500">Delete</span>
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
