@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('appStore', {
   state: () => ({
-    loading: false
+    loading: false,
+    info: {}
   }),
   getters: {
     isLoading: (state) => state.loading
@@ -10,6 +11,9 @@ export const useAppStore = defineStore('appStore', {
   actions: {
     setLoading(boolFlg) {
       this.loading = boolFlg
+    },
+    setInfo(info) {
+      this.info = info
     }
   }
 })

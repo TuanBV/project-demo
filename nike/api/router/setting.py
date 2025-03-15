@@ -34,7 +34,7 @@ setting_router = APIRouter(route_class=CommonRoute, prefix='/setting', tags=['se
     },
 )
 
-@setting_router.get('/all', tags=["setting"], responses={200:{"model": Response[ListSettingResponse]}}, dependencies=[Depends(authorized_user)])
+@setting_router.get('/all', tags=["setting"], responses={200:{"model": Response[ListSettingResponse]}})
 @inject
 def get_all(setting_service: SettingService = Depends(Provide(Container.setting_service))):
     """
@@ -45,7 +45,7 @@ def get_all(setting_service: SettingService = Depends(Provide(Container.setting_
     response = ok(data=payload.dict())
     return response
 
-@setting_router.get('', tags=["setting"], responses={200:{"model": Response[SettingResponse]}}, dependencies=[Depends(authorized_user)])
+@setting_router.get('', tags=["setting"], responses={200:{"model": Response[SettingResponse]}})
 @inject
 def get_new_setting(setting_service: SettingService = Depends(Provide(Container.setting_service))):
     """

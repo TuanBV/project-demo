@@ -1,4 +1,5 @@
 import 'assets/main.css'
+import 'aos/dist/aos.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -7,6 +8,7 @@ import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createI18n } from 'vue-i18n'
+import AOS from 'aos'
 
 const i18n = createI18n({
   locale: 'vn'
@@ -71,6 +73,7 @@ library.add(
 )
 
 const app = createApp(App)
+AOS.init()
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(createPinia())
 app.use(router)

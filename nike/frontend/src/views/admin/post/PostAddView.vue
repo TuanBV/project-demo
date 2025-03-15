@@ -73,6 +73,7 @@ const add = async () => {
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
       <RichTextView v-model="post.content" />
     </div>
+
     <div class="mb-4">
       <label for="StartDate" class="mb-2 block text-base font-medium">
         Start date <span class="text-red-500"></span

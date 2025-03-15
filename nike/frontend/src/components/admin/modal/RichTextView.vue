@@ -7,6 +7,7 @@ import 'quill/dist/quill.snow.css'
 const quill = ref(null)
 const editor = ref(null)
 const content = defineModel()
+const lengthContent = ref(0)
 const imageList = ref({
   flag: false,
   images: []
@@ -78,8 +79,11 @@ onMounted(() => {
     customImageButton.addEventListener('click', () => (imageList.value.flag = true))
 
     quill.value.on('text-change', (delta, oldDelta, source) => {
-      // Event when change text then get new content
-      content.value = quill.value.root.innerHTML
+      lengthContent.value = quill.value.getText().trim().split(/\s+/).length
+      if (lengthContent.value <= 1000) {
+        // Event when change text then get new content
+        content.value = quill.value.root.innerHTML
+      }
     })
   })
 })
@@ -101,8 +105,13 @@ watch(imageList.value, () => {
 
 <template>
   <div>
-    <div ref="editor" class="rich-text"></div>
-    <ImageList v-model="imageList" />
+    <div>
+      <div ref="editor" class="rich-text"></div>
+      <ImageList v-model="imageList" />
+    </div>
+    <p v-if="lengthContent > 1000" class="mt-1 text-xs leading-4 text-red-500">
+      Max length of content is 1000 wordsf.
+    </p>
   </div>
 </template>
 

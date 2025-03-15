@@ -53,18 +53,8 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h1 class="mb-5 border-b pb-3 text-2xl font-medium tracking-wider">Product Management</h1>
+    <h1 class="mb-5 border-b pb-3 text-2xl font-medium tracking-wider">Order Management</h1>
 
-    <div class="mb-3 flex items-center justify-between">
-      <div class="text-base font-medium">Product List</div>
-      <router-link
-        to="product/add"
-        class="flex cursor-pointer items-center justify-center rounded-md bg-green-500 px-3 py-2 font-medium text-white duration-300 hover:scale-105"
-      >
-        <font-awesome-icon :icon="['fas', 'add']" class="group h-4 w-4" />
-        <span>Add Product</span>
-      </router-link>
-    </div>
     <div class="overflow-hidden rounded-xl shadow-xl">
       <table class="w-full table-fixed">
         <thead>

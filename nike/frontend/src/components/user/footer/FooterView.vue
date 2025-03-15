@@ -20,15 +20,43 @@ import IconSocialMedia from 'components/user/footer/IconSocialMedia.vue'
             <IconSocialMedia>
               <template #default="{ item }">
                 <a
-                  :href="item.link"
+                  :href="item"
                   rel="noreferrer"
                   target="_blank"
                   class="text-gray-700 transition hover:opacity-75"
                 >
                   <span class="sr-only">{{ item.name }}</span>
                   <img
+                    v-if="item.includes('fb')"
                     loading="lazy"
-                    :src="item.icon"
+                    src="../../../assets/facebook.svg"
+                    alt=""
+                    height="20px"
+                    width="20px"
+                    srcset=""
+                  />
+                  <img
+                    v-if="item.includes('tt')"
+                    loading="lazy"
+                    src="../../../assets/tiktok.svg"
+                    alt=""
+                    height="20px"
+                    width="20px"
+                    srcset=""
+                  />
+                  <img
+                    v-if="item.includes('ig')"
+                    loading="lazy"
+                    src="../../../assets/instagram.svg"
+                    alt=""
+                    height="20px"
+                    width="20px"
+                    srcset=""
+                  />
+                  <img
+                    v-if="item.includes('tw')"
+                    loading="lazy"
+                    src="../../../assets/twitter.svg"
                     alt=""
                     height="20px"
                     width="20px"
@@ -44,87 +72,101 @@ import IconSocialMedia from 'components/user/footer/IconSocialMedia.vue'
           <div>
             <p class="font-medium text-gray-900">Services</p>
 
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> 1on1 Coaching </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Company Review </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> HR Consulting </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> SEO Optimisation </a>
-              </li>
-            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <router-link to="coaching" class="text-gray-700 transition hover:opacity-75">
+                  1on1 Coaching
+                </router-link>
+              </div>
+              <div>
+                <router-link to="company-review" class="text-gray-700 transition hover:opacity-75">
+                  Company Review
+                </router-link>
+              </div>
+              <div>
+                <router-link to="account-review" class="text-gray-700 transition hover:opacity-75">
+                  Accounts Review
+                </router-link>
+              </div>
+              <div>
+                <router-link to="hr" class="text-gray-700 transition hover:opacity-75">
+                  HR Consulting
+                </router-link>
+              </div>
+            </div>
           </div>
 
           <div>
             <p class="font-medium text-gray-900">Company</p>
-
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> About </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Meet the Team </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
-              </li>
-            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <router-link class="text-gray-700 transition hover:opacity-75" to="about"
+                  >About us</router-link
+                >
+              </div>
+              <div>
+                <router-link class="text-gray-700 transition hover:opacity-75" to="meet-team"
+                  >Meet the Team</router-link
+                >
+              </div>
+              <div>
+                <router-link class="text-gray-700 transition hover:opacity-75" to="account-review"
+                  >Accounts Review</router-link
+                >
+              </div>
+            </div>
           </div>
 
           <div>
             <p class="font-medium text-gray-900">Helpful Links</p>
 
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Contact </a>
-              </li>
+            <div class="mt-6 space-y-4">
+              <div>
+                <router-link to="contact-us" class="text-gray-700 transition hover:opacity-75">
+                  Contact
+                </router-link>
+              </div>
 
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> FAQs </a>
-              </li>
+              <div>
+                <router-link to="faqs" class="text-gray-700 transition hover:opacity-75">
+                  FAQs
+                </router-link>
+              </div>
 
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Live Chat </a>
-              </li>
-            </ul>
+              <div>
+                <router-link to="live-chat" class="text-gray-700 transition hover:opacity-75">
+                  Live Chat
+                </router-link>
+              </div>
+            </div>
           </div>
-
           <div>
             <p class="font-medium text-gray-900">Legal</p>
-
-            <ul class="mt-6 space-y-4">
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Accessibility </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Returns Policy </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
-              </li>
-
-              <li>
-                <a href="#" class="text-gray-700 transition hover:opacity-75">
+            <div class="mt-6 space-y-4">
+              <div>
+                <router-link to=" accessibility" class="text-gray-700 transition hover:opacity-75">
+                  Accessibility
+                </router-link>
+              </div>
+              <div>
+                <router-link to="return-policy" class="text-gray-700 transition hover:opacity-75">
+                  Returns Policy
+                </router-link>
+              </div>
+              <div>
+                <router-link to="refund-policy" class="text-gray-700 transition hover:opacity-75">
+                  Refund Policy
+                </router-link>
+              </div>
+              <div>
+                <router-link
+                  to="hiring-statistics"
+                  class="text-gray-700 transition hover:opacity-75"
+                >
                   Hiring Statistics
-                </a>
-              </li>
-            </ul>
+                </router-link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

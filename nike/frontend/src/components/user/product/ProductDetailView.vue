@@ -8,7 +8,7 @@ watch(product, () => {
   // Set flag open modal
   isModal.value = true
   // Set image
-  imageProduct.value = product.value.image[0]
+  imageProduct.value = 'http://localhost:8000/' + product.value.images[0].path
 })
 onMounted(() => {
   // Event keydown is ESC then close modal
@@ -41,12 +41,12 @@ onMounted(() => {
               class="mb-4 h-auto w-full rounded-lg shadow-md"
               id="mainImage"
             />
-            <div class="flex gap-4 overflow-x-auto py-4">
+            <div class="flex justify-center gap-4 overflow-x-auto py-4">
               <img
                 loading="lazy"
-                v-for="(item, index) in product.image"
+                v-for="(item, index) in product.images"
                 :key="index"
-                :src="item"
+                :src="'http://localhost:8000/' + item.path"
                 alt="Thumbnail 1"
                 class="size-16 cursor-pointer rounded-md object-cover opacity-60 transition duration-300 hover:opacity-100 sm:size-20"
                 @click.prevent="imageProduct = item"

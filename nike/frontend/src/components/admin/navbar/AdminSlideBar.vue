@@ -17,11 +17,15 @@ const menu = ref([
     to: '/v1/admin/category',
     icon: 'list'
   },
-
   {
     name: 'Product',
     to: '/v1/admin/product',
     icon: 'box-archive'
+  },
+  {
+    name: 'Order',
+    to: '/v1/admin/order',
+    icon: 'cart-shopping'
   },
   {
     name: 'Blog',

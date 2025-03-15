@@ -1,42 +1,30 @@
 <script setup>
-import { defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent, ref, onMounted } from 'vue'
+import productService from 'service/product.service'
+import ToastUtil from 'utility/toast'
 import ItemProduct from 'components/user/product/ItemProduct.vue'
 
-const productList = ref([
-  {
-    id: 1,
-    name: 'Basic Tee',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 0.99,
-    image: [
-      '/src/assets/images/air_force_1.png',
-      '/src/assets/images/air_jordan_1.png',
-      '/src/assets/images/dunks.png',
-      '/src/assets/images/killshot.png',
-      '/src/assets/images/pegasus_41.png',
-      '/src/assets/images/v2k.png'
-    ]
-  },
-  {
-    id: 2,
-    name: 'Basic Tee 2',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 9.99,
-    image: [
-      '/src/assets/images/air_force_1.png',
-      '/src/assets/images/air_jordan_1.png',
-      '/src/assets/images/dunks.png',
-      '/src/assets/images/killshot.png',
-      '/src/assets/images/pegasus_41.png',
-      '/src/assets/images/v2k.png'
-    ]
-  }
-])
+const productList = ref([])
 const product = ref()
 const currentPage = ref(1)
 const maxPage = ref(5)
 const ProductDetailView = defineAsyncComponent(() => {
   return import('components/user/product/ProductDetailView.vue')
+})
+
+// Get list product
+const getList = async () => {
+  const res = await productService.getList()
+  if (res) {
+    console.log(res)
+    productList.value = res.item
+    return
+  }
+  ToastUtil.error('Get list product failed')
+}
+
+onMounted(async () => {
+  await getList()
 })
 </script>
 

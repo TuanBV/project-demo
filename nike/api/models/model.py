@@ -182,6 +182,7 @@ class ProductImage(Base):
 
     image_id = Column(Integer, ForeignKey("image.id"))
     images = relationship('Image', back_populates='product_image')
+
 class CartProduct(Base):
     """
         Model cart_product
@@ -191,6 +192,7 @@ class CartProduct(Base):
     cart_id = Column(Integer, ForeignKey('cart.cart_id'), primary_key=True)
     product_id = Column(Integer, ForeignKey('product.product_id'), primary_key=True)
     quantity = Column(Integer)
+    status = Column(Integer, default=0)
 
     cart = relationship("Cart", back_populates="cart_products")
     products = relationship("Product", back_populates="cart_products")
@@ -240,8 +242,6 @@ class Offer(Base):
     __table_args__ = (
         Index('index_offer_email', 'email'),
     )
-
-
 
 class Setting(Base):
     """

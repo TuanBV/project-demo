@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `cart_product` (
     cart_id VARCHAR(20) NOT NULL,
     product_id BIGINT NOT NULL,
     quantity INT NOT NULL,
+    status INT DEFAULT 0,
     PRIMARY KEY (cart_id, product_id),
     CONSTRAINT fk_cart FOREIGN KEY (cart_id) REFERENCES cart(cart_id),
     CONSTRAINT fk_cart_product FOREIGN KEY (product_id) REFERENCES product(product_id)

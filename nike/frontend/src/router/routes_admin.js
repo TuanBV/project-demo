@@ -24,14 +24,24 @@ const routes_admin = [
       },
       {
         path: 'product',
-        name: 'admin-product',
-        component: () => import('views/admin/product/ProductView.vue'),
-        meta: { role: 'admin' }
+        meta: { role: 'admin' },
+        children: [
+          {
+            path: '',
+            name: 'admin-product',
+            component: () => import('views/admin/product/ProductView.vue')
+          },
+          {
+            path: 'add',
+            name: 'admin-product-add',
+            component: () => import('views/admin/product/ProductAddView.vue')
+          }
+        ]
       },
       {
-        path: 'product-add',
-        name: 'admin-product-add',
-        component: () => import('views/admin/product/ProductAddView.vue'),
+        path: 'order',
+        name: 'admin-order',
+        component: () => import('views/admin/order/OrderView.vue'),
         meta: { role: 'admin' }
       },
       {
