@@ -1,7 +1,0 @@
-/docs - document Swagger UI
-/redoc - document ReDoc
-
-
-
-
-
