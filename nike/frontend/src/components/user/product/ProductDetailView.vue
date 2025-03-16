@@ -1,15 +1,33 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
-const isModal = ref(false)
-const product = defineModel()
-const imageProduct = ref()
+import { useAuthStore } from 'stores/auth-store'
+import ToastUtil from 'utility/toast'
 
-watch(product, () => {
-  // Set flag open modal
-  isModal.value = true
-  // Set image
-  imageProduct.value = 'http://localhost:8000/' + product.value.images[0].path
+const authStore = useAuthStore()
+const productAdd = ref({
+  product_id: '',
+  quantity: 1,
+  name: '',
+  color: ''
 })
+const imageProduct = ref()
+const lstColor = ref(['red-500', 'blue-500', 'green-500', 'black'])
+const props = defineProps(['product', 'isModal'])
+const emit = defineEmits(['clearProduct', 'closeModal'])
+
+// Add product to cart
+const addProduct = (product) => {
+  authStore.addProduct(product)
+  ToastUtil.success('Add product to cart successfully')
+}
+watch(props, () => {
+  productAdd.value.product_id = props.product.product_id
+  productAdd.value.name = props.product.name
+
+  // Set image
+  imageProduct.value = 'http://localhost:8000/' + props.product.images[0].path
+})
+
 onMounted(() => {
   // Event keydown is ESC then close modal
   // window.addEventListener('keydown', (event) => {
@@ -20,14 +38,14 @@ onMounted(() => {
 
 <template>
   <div
-    v-if="isModal"
+    v-if="props.isModal"
     class="fixed left-0 top-0 z-[999] flex h-full w-[100vw] items-center justify-center bg-black bg-opacity-35"
-    @click.self="isModal = !isModal"
+    @click.self="emit('closeModal', false)"
   >
     <div
       class="h-[80%] w-[80%] overflow-y-auto overflow-x-hidden rounded-lg bg-white p-5 shadow-2xl pc:h-auto pc:w-[60%]"
     >
-      <button class="float-end" @click="isModal = false">
+      <button class="float-end" @click="emit('closeModal', false)">
         <font-awesome-icon :icon="['fas', 'close']" />
       </button>
       <div class="mx-auto h-full w-full px-4 py-8">
@@ -44,7 +62,7 @@ onMounted(() => {
             <div class="flex justify-center gap-4 overflow-x-auto py-4">
               <img
                 loading="lazy"
-                v-for="(item, index) in product.images"
+                v-for="(item, index) in props.product.images"
                 :key="index"
                 :src="'http://localhost:8000/' + item.path"
                 alt="Thumbnail 1"
@@ -134,13 +152,10 @@ onMounted(() => {
               <h3 class="mb-2 font-semibold">Color:</h3>
               <div class="flex space-x-2">
                 <button
-                  class="h-8 w-8 rounded-full bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                ></button>
-                <button
-                  class="h-8 w-8 rounded-full bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
-                ></button>
-                <button
-                  class="h-8 w-8 rounded-full bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  v-for="(item, index) in lstColor"
+                  :key="index"
+                  :class="'bg-' + item + ' focus:ring-' + item"
+                  class="h-8 w-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2"
                 ></button>
               </div>
             </div>
@@ -153,6 +168,7 @@ onMounted(() => {
                 type="number"
                 id="quantity"
                 name="quantity"
+                v-model="productAdd.quantity"
                 min="1"
                 value="1"
                 class="h-10 w-12 rounded-md border border-gray-300 text-center shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -161,6 +177,7 @@ onMounted(() => {
 
             <div class="mb-6 flex space-x-4">
               <button
+                @click.prevent="addProduct(productAdd)"
                 class="flex items-center gap-2 rounded-md bg-indigo-600 px-6 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <svg

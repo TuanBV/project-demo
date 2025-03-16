@@ -1,22 +1,20 @@
 <script setup>
-import { defineAsyncComponent, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import productService from 'service/product.service'
 import ToastUtil from 'utility/toast'
 import ItemProduct from 'components/user/product/ItemProduct.vue'
+import ProductDetailView from 'components/user/product/ProductDetailView.vue'
 
 const productList = ref([])
 const product = ref()
+const isModal = ref(false)
 const currentPage = ref(1)
 const maxPage = ref(5)
-const ProductDetailView = defineAsyncComponent(() => {
-  return import('components/user/product/ProductDetailView.vue')
-})
 
 // Get list product
 const getList = async () => {
   const res = await productService.getList()
   if (res) {
-    console.log(res)
     productList.value = res.item
     return
   }
@@ -48,7 +46,7 @@ onMounted(async () => {
         <div v-for="(item, index) in productList" :key="index">
           <ItemProduct
             :itemProduct="item"
-            @update:itemProduct="(newValue) => (product = newValue)"
+            @update:itemProduct="(newValue) => ((product = newValue), (isModal = true))"
           />
         </div>
       </div>
@@ -107,6 +105,11 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-    <ProductDetailView v-model="product" />
+    <ProductDetailView
+      :product="product"
+      :isModal="isModal"
+      @closeModal="(value) => (isModal = value)"
+      @clearProduct="() => console.log('aas')"
+    />
   </section>
 </template>

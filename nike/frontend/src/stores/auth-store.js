@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
-    user: {}
+    user: {},
+    cart: []
   }),
   getters: {
     isLoggedIn: (state) => state.user?.email,
@@ -14,6 +15,12 @@ export const useAuthStore = defineStore('authStore', {
     },
     signOut() {
       this.user = {}
+    },
+    addProduct(product) {
+      this.cart.push(product)
+    },
+    clearProduct() {
+      this.cart = []
     }
   }
 })
