@@ -47,7 +47,7 @@ const saleSchema = {
       errorMessage: {
         pattern: 'start_date',
         checkDate: 'Format of start date invalid!',
-        dateIsFuture: 'Start date must be greater than or equal to current date.',
+        // dateIsFuture: 'Start date must be greater than or equal to current date.',
         _: 'Invalid start date.'
       }
     },

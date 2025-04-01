@@ -72,6 +72,7 @@ class SaleService:
         # Check if sale already exists
         if not self.sale_repo.get_by_sale_id(sale_id):
             raise CommonException(message="Sale not exists")
+        # Check if image then update
 
         self.sale_repo.update(sale_id, data_request, updated_user)
 

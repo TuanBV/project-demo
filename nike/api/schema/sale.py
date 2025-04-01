@@ -40,11 +40,11 @@ class SaleRequest(BaseModel):
         if self.end_date and not bool(re.match(pattern_date, self.end_date)):
             message_list.append("End date is invalid")
 
-        time_current = datetime.today().date()
+        # time_current = datetime.today().date()
         if bool(re.match(pattern_date, self.start_date)):
             start_date = datetime.strptime(self.start_date, '%Y-%m-%d').date()
-            if start_date < time_current:
-                message_list.append("Start date is greater than current date")
+        #     if start_date < time_current:
+        #         message_list.append("Start date is greater than current date")
         if bool(re.match(pattern_date, self.end_date)):
             end_date = datetime.strptime(self.end_date, '%Y-%m-%d').date()
             if end_date < start_date:
