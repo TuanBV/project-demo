@@ -40,7 +40,8 @@ import {
   faArrowLeft,
   faCloudArrowUp,
   faFolderOpen,
-  faCheckCircle
+  faCheckCircle,
+  faComments
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -69,7 +70,8 @@ library.add(
   faArrowLeft,
   faCloudArrowUp,
   faFolderOpen,
-  faCheckCircle
+  faCheckCircle,
+  faComments
 )
 
 const app = createApp(App)

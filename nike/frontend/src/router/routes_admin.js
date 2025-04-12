@@ -39,6 +39,22 @@ const routes_admin = [
         ]
       },
       {
+        path: 'slide',
+        meta: { role: 'admin' },
+        children: [
+          {
+            path: '',
+            name: 'admin-slide',
+            component: () => import('views/admin/slide/SlideView.vue')
+          },
+          {
+            path: 'add',
+            name: 'admin-slide-add',
+            component: () => import('views/admin/slide/SlideAddView.vue')
+          }
+        ]
+      },
+      {
         path: 'order',
         name: 'admin-order',
         component: () => import('views/admin/order/OrderView.vue'),
@@ -72,6 +88,12 @@ const routes_admin = [
         path: 'post-add',
         name: 'admin-post-add',
         component: () => import('views/admin/post/PostAddView.vue'),
+        meta: { role: 'admin' }
+      },
+      {
+        path: 'chat',
+        name: 'admin-chat',
+        component: () => import('views/admin/ChatView.vue'),
         meta: { role: 'admin' }
       },
       {
