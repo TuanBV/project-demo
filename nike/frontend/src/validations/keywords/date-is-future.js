@@ -21,12 +21,12 @@ const dateIsFuture = {
     this.errors = [
       {
         keyword: 'dateIsFuture',
-        params: { keyword: 'dateIsFuture' }
-      }
+        params: { keyword: 'dateIsFuture' },
+      },
     ]
     return false
   },
-  errors: true
+  errors: true,
 }
 
 export default dateIsFuture

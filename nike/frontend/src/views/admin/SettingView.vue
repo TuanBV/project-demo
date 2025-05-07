@@ -13,7 +13,7 @@ const setting = ref({
   fb_link: '',
   ig_link: '',
   tt_link: '',
-  tw_link: ''
+  tw_link: '',
 })
 // 3) ======= METHOD/FUNCTION ========
 const getNewSetting = async () => {

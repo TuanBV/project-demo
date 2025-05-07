@@ -3,10 +3,10 @@ import { defineStore } from 'pinia'
 export const useAppStore = defineStore('appStore', {
   state: () => ({
     loading: false,
-    info: {}
+    info: {},
   }),
   getters: {
-    isLoading: (state) => state.loading
+    isLoading: state => state.loading,
   },
   actions: {
     setLoading(boolFlg) {
@@ -14,6 +14,6 @@ export const useAppStore = defineStore('appStore', {
     },
     setInfo(info) {
       this.info = info
-    }
-  }
+    },
+  },
 })

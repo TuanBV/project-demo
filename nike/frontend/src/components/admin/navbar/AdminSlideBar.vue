@@ -1,63 +1,69 @@
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import userService from 'service/user.service'
 import { useRouter } from 'vue-router'
 import ToastUtil from 'utility/toast'
 
 const router = useRouter()
-
+const { locale } = useI18n()
 const menu = ref([
   {
-    name: 'User',
+    name: 'nav.user',
     to: '/v1/admin/user',
-    icon: 'user'
+    icon: 'user',
   },
   {
-    name: 'Category',
+    name: 'nav.category',
     to: '/v1/admin/category',
-    icon: 'list'
+    icon: 'list',
   },
   {
-    name: 'Product',
+    name: 'nav.product',
     to: '/v1/admin/product',
-    icon: 'box-archive'
+    icon: 'box-archive',
   },
   {
-    name: 'Order',
+    name: 'nav.order',
     to: '/v1/admin/order',
-    icon: 'cart-shopping'
+    icon: 'cart-shopping',
   },
   {
-    name: 'Blog',
+    name: 'nav.blog',
     to: '/v1/admin/blog',
-    icon: 'blog'
+    icon: 'blog',
   },
   {
-    name: 'Slide',
+    name: 'nav.slide',
     to: '/v1/admin/slide',
-    icon: 'image'
+    icon: 'image',
   },
   {
-    name: 'Email',
+    name: 'nav.email',
     to: '/v1/admin/email',
-    icon: 'envelope'
+    icon: 'envelope',
   },
   {
-    name: 'Post',
+    name: 'nav.post',
     to: '/v1/admin/post',
-    icon: 'clipboard'
+    icon: 'clipboard',
   },
   {
-    name: 'Sale',
+    name: 'nav.sale',
     to: '/v1/admin/sale',
-    icon: 'percent'
+    icon: 'percent',
   },
   {
-    name: 'Chat',
+    name: 'nav.chat',
     to: '/v1/admin/chat',
-    icon: 'comments'
-  }
+    icon: 'comments',
+  },
 ])
+
+const changeLanguage = () => {
+  locale.value = locale.value === 'vi' ? 'en' : 'vi'
+}
+
 const logout = async () => {
   const res = await userService.logout()
   if (res) {
@@ -87,13 +93,14 @@ const logout = async () => {
             ><span class="ml-3.5 inline-flex items-center justify-center"
               ><font-awesome-icon :icon="['fas', item.icon]" class="h-4 w-4" /></span
             ><span class="ml-2 hidden truncate text-base font-normal capitalize pc:ml-2 pc:block">{{
-              item.name
+              $t(item.name)
             }}</span></router-link
           >
         </div>
         <div class="mx-1 flex flex-col space-y-1 pc:mt-1">
           <select
-            class="mx-3 h-12 cursor-pointer flex-row items-center justify-center rounded-md border pr-3.5 font-semibold text-gray-500"
+            @change.prevent="changeLanguage"
+            class="mx-3 h-12 cursor-pointer flex-row items-center justify-center rounded-md border px-3 font-semibold text-gray-500"
           >
             <option value="vn">VN</option>
             <option value="en">EN</option>
@@ -103,9 +110,9 @@ const logout = async () => {
             to="/v1/admin/setting"
             ><span class="ml-3.5 inline-flex items-center justify-center"
               ><font-awesome-icon :icon="['fas', 'gear']" class="h-4 w-4 rotate-180" /></span
-            ><span class="ml-2 hidden truncate text-base font-normal capitalize pc:ml-2 pc:block"
-              >Settings</span
-            ></router-link
+            ><span class="ml-2 hidden truncate text-base font-normal capitalize pc:ml-2 pc:block">{{
+              $t('nav.setting')
+            }}</span></router-link
           >
         </div>
       </div>
@@ -118,9 +125,9 @@ const logout = async () => {
             ><font-awesome-icon
               :icon="['fas', 'right-to-bracket']"
               class="h-4 w-4 rotate-180 text-red-400 group-hover:text-red-600" /></span
-          ><span class="ml-2 hidden truncate text-base font-normal capitalize pc:block"
-            >Logout</span
-          >
+          ><span class="ml-2 hidden truncate text-base font-normal capitalize pc:block">
+            {{ $t('nav.logout') }}
+          </span>
         </button>
       </div>
     </div>

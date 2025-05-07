@@ -1,12 +1,11 @@
-import { cleanup } from '@testing-library/vue';
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { expect, afterEach } from 'vitest';
+import { cleanup } from '@testing-library/vue'
+import * as matchers from '@testing-library/jest-dom/matchers'
+import { expect, afterEach } from 'vitest'
 
-console.log(matchers);
+console.log(matchers)
 
-
-expect.extend(matchers);
+expect.extend(matchers)
 
 afterEach(() => {
-  cleanup();
-});
+  cleanup()
+})

@@ -1,9 +1,7 @@
 from models.model import Post
-from utils.kbn import FlgDelete
+from utils.kbn import FlgDelete, StatusPost
 from core import CommonRepository
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy import asc, desc
-import datetime
+from sqlalchemy import asc
 class PostRepository(CommonRepository):
     """
     Repository of post
@@ -18,7 +16,7 @@ class PostRepository(CommonRepository):
         """
         with self.session_factory_read() as session:
             return session.query(Post).order_by(
-                asc(Post.flg_del), asc(Post.start_date), asc(Post.title),
+                asc(Post.flg_del), asc(Post.title),
             ).all()
 
 
@@ -49,7 +47,7 @@ class PostRepository(CommonRepository):
             new_post = Post(
                 title=data_request['title'],
                 content=data_request['content'],
-                start_date=data_request['start_date'] if data_request['start_date'] else None,
+                status=data_request['status'],
                 created_user=created_user
             )
             session.add(new_post)
@@ -83,14 +81,19 @@ class PostRepository(CommonRepository):
             #   return:
         """
         with self.session_factory() as session:
+            # Get flg of record
+            record = session.query(Post.status).filter(
+                Post.id == post_id
+            ).first()
+            # Update
             session.query(Post).filter(
-                Post.id == post_id,
-                Post.flg_del == FlgDelete.OFF.value
+                Post.id == post_id
             ).update({
-                "name": data_request["name"],
-                "discount": data_request["discount"],
-                "start_date": data_request["start_date"] if data_request["start_date"] else None,
-                "end_date": data_request["end_date"] if data_request["end_date"] else None,
+                "title": data_request["title"],
+                "content": data_request["content"],
+                "status": StatusPost.POST
+                        if record.status == StatusPost.POST
+                        else data_request["status"],
                 "updated_user": updated_user
             })
             session.commit()
@@ -106,30 +109,17 @@ class PostRepository(CommonRepository):
             #   return:
         """
         with self.session_factory() as session:
-            session.query(Post).filter(
-                Post.id == post_id,
-                Post.flg_del == FlgDelete.OFF.value
-            ).update({
-                "flg_del": FlgDelete.ON.value,
-                "updated_user": updated_user
-            })
-            session.commit()
-
-    # Active post
-    def active(self, post_id, updated_user):
-        """
-            # Active post
-            # Params:
-            #   @post_id: id of the post
-            #   @updated_user: name of user update
-            # Output:
-            #   return:
-        """
-        with self.session_factory() as session:
+            # Get flg of record
+            record = session.query(Post.flg_del).filter(
+                Post.id == post_id
+            ).first()
+            # Update
             session.query(Post).filter(
                 Post.id == post_id
             ).update({
-                "flg_del": FlgDelete.OFF.value,
+                "flg_del": FlgDelete.OFF
+                            if record.flg_del == FlgDelete.ON
+                            else FlgDelete.ON,
                 "updated_user": updated_user
             })
             session.commit()

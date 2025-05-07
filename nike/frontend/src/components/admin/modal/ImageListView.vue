@@ -16,7 +16,7 @@ const chooses = ref([])
 const image = ref({
   file: '',
   file_ext: '',
-  file_size: 0
+  file_size: 0,
 })
 
 // Get list image
@@ -45,7 +45,7 @@ const addImage = async () => {
 }
 
 // Convert to base64
-const convertToBase64 = (file) => {
+const convertToBase64 = file => {
   const reader = new FileReader()
   reader.onloadend = () => {
     image.value.file = reader.result.split(',')[1]
@@ -56,14 +56,14 @@ const convertToBase64 = (file) => {
 }
 
 // Read image file and convert to base64
-const handleFileChange = (event) => {
+const handleFileChange = event => {
   const fileUpload = event.target.files[0]
   if (fileUpload) {
     convertToBase64(fileUpload)
   }
 }
 // Return the image to the calling source
-const returnImage = (item) => {
+const returnImage = item => {
   if (chooses.value.length) {
     emit('update:imageList', chooses.value)
   } else {
@@ -136,7 +136,7 @@ onMounted(async () => {
             @click.prevent="
               !chooses.includes(item)
                 ? chooses.push(item)
-                : (chooses = chooses.filter((i) => i !== item))
+                : (chooses = chooses.filter(i => i !== item))
             "
           >
             <img

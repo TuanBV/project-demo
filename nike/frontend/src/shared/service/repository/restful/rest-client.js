@@ -8,7 +8,7 @@ import ToastUtil from 'utility/toast'
 // merge params to axios config
 function mergeAxiosConfig(data, config) {
   const axiosConfig = Object.assign(config || {}, {
-    params: data
+    params: data,
   })
   return axiosConfig
 }
@@ -23,9 +23,9 @@ export default class RestClient {
     const axiosInstance = Axios.create({
       baseURL: 'http://localhost:8000',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
-      withCredentials: true
+      withCredentials: true,
     })
 
     axiosInstance.interceptors.request.use(this.onRequest, this.onRequestError)
@@ -33,7 +33,7 @@ export default class RestClient {
     return axiosInstance
   }
 
-  onRequest = async (config) => config
+  onRequest = async config => config
 
   onRequestError(error) {
     return Promise.reject(error)
@@ -53,11 +53,11 @@ export default class RestClient {
         url: `${this.version}${url}`,
         method,
         data,
-        timeout: 0
+        timeout: 0,
       })
       this.client
         .request(axiosConfig)
-        .then((response) => {
+        .then(response => {
           const result = response.data
           if (result.code === STATUS_CODE.INVALID_REQUEST) {
             const auth = useAuthStore()
@@ -66,7 +66,7 @@ export default class RestClient {
 
           resolve(result)
         })
-        .catch((error) => {
+        .catch(error => {
           if (Axios.isAxiosError(error)) {
             if (error.response) {
               // The request was made and the server responded with a status code

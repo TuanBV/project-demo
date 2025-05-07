@@ -14,7 +14,7 @@ const sendMessage = () => {
   messages.value.push({ text: newMessage.value, isUser: true })
   messages.value.push({
     text: 'Mình đang xử lý yêu cầu của bạn...',
-    isUser: false
+    isUser: false,
   })
 
   newMessage.value = ''
@@ -79,7 +79,7 @@ watch(isChatOpen, () => {
             'my-2 max-w-[80%] rounded-lg p-3',
             message.isUser
               ? 'ml-auto bg-[#51A7BF] text-right text-[#DAF4FF]'
-              : 'mr-auto bg-gray-200 text-left text-black'
+              : 'mr-auto bg-gray-200 text-left text-black',
           ]"
         >
           {{ message.text }}

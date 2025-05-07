@@ -1,28 +1,40 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onBeforeMount, defineAsyncComponent, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { StatusPost } from 'utility/const'
+import useValidate from 'composables/validate'
+import postSchema from 'schemas/admin/post'
 import postService from 'service/post.service'
-// import useValidate from 'composables/validate'
-// import addUserSchema from 'schemas/admin/addUser'
 import ToastUtil from 'utility/toast'
 import PostPreview from 'components/admin/modal/PostPreview.vue'
 
-// const { validate, errors } = useValidate()
-import RichTextView from 'components/admin/modal/RichTextView.vue'
-
+const RichTextEditor = defineAsyncComponent(
+  () => import('components/admin/modal/RichTextCustom.vue')
+)
 const router = useRouter()
-
+const route = useRoute()
+const { validate, errors } = useValidate()
+const keyRenderComponent = ref('')
 const post = ref({
+  id: null,
   title: '',
   content: '',
-  start_date: ''
-})
-const preview = ref({
-  isModal: false,
-  post: ''
+  status: 1,
 })
 
-const add = async () => {
+const errorContent = ref(false)
+
+const preview = ref({
+  isModal: false,
+  post: '',
+})
+
+const handlePost = async status => {
+  post.value.status = status
+  // Check valid data
+  const isValid = validate(postSchema, post.value)
+  if (!isValid) return
+  // Call api
   const res = await postService.add(post.value)
   if (res) {
     ToastUtil.success('Post added successfully!')
@@ -31,6 +43,26 @@ const add = async () => {
   }
   ToastUtil.error('Post add failed!')
 }
+// Call api
+const getPost = async idPost => {
+  const res = await postService.getByPostId(idPost)
+  if (res) {
+    post.value.id = res.id
+    post.value.title = res.title
+    post.value.content = res.content
+    return
+  }
+  ToastUtil.error('Error get info post')
+}
+
+onBeforeMount(async () => {
+  if (route.params.idPost) {
+    await getPost(route.params.idPost)
+    keyRenderComponent.value = btoa(route.params.id)
+  } else {
+    keyRenderComponent.value = btoa(new Date().toString())
+  }
+})
 </script>
 
 <template>
@@ -66,38 +98,41 @@ const add = async () => {
         required
         v-model="post.title"
       />
+      <p v-if="errors.title" class="mt-1 text-xs leading-4 text-red-500">
+        {{ errors.title }}
+      </p>
     </div>
-
-    <!-- Body -->
+    <!-- Content -->
     <div class="mb-4">
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-      <RichTextView v-model="post.content" />
-    </div>
-
-    <div class="mb-4">
-      <label for="StartDate" class="mb-2 block text-base font-medium">
-        Start date <span class="text-red-500"></span
-      ></label>
-      <input
-        type="date"
-        v-model="post.start_date"
-        name="start_date"
-        placeholder="YYYY-MM-DD"
-        class="w-full rounded-md border border-[#e0e0e0] bg-white px-3 py-2 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+      <RichTextEditor
+        :key="keyRenderComponent"
+        v-model="post.content"
+        :errorContent="errorContent"
+        @update="value => (errorContent = value)"
       />
     </div>
-    <button
-      class="rounded-md bg-blue-500 px-5 py-3 font-semibold text-white transition duration-200 hover:bg-blue-600"
-      @click.prevent="add"
-    >
-      Create Post
-    </button>
+    <!-- Button -->
+    <div class="flex gap-3">
+      <button
+        class="rounded-md bg-yellow-500 px-5 py-3 font-semibold text-white transition duration-200 hover:bg-yellow-600"
+        @click.prevent="handlePost(StatusPost.SAVE)"
+      >
+        Save
+      </button>
+      <button
+        class="rounded-md bg-blue-500 px-5 py-3 font-semibold text-white transition duration-200 hover:bg-blue-600"
+        @click.prevent="handlePost(StatusPost.ADD)"
+      >
+        Post
+      </button>
+    </div>
     <PostPreview v-model="preview" />
   </div>
 </template>
 <style>
 .ql-editor {
-  min-height: 400px !important;
+  min-height: 500px !important;
 }
 .ql-toolbar.ql-snow {
   border-top-right-radius: 6px !important;

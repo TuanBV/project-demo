@@ -75,22 +75,6 @@ class PostService extends BaseService {
     }
     return null
   }
-
-  /**
-   * Handle update post
-   *
-   * @param postId: id of the post
-   * @param dataRequest: data request
-   * @returns object|null
-   */
-  async update(postId, dataRequest) {
-    const res = await this.dao.update(postId, dataRequest)
-    if (STATUS_CODE.SUCCESS === res.code) {
-      return true
-    }
-    ToastUtil.error(res.message)
-    return null
-  }
 }
 
 export default new PostService('post')

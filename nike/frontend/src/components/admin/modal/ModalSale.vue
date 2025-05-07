@@ -14,11 +14,11 @@ const sale = ref({
   file_ext: '',
   file_size: 0,
   start_date: '',
-  end_date: ''
+  end_date: '',
 })
 const image = ref()
 // Convert to base64
-const convertToBase64 = (file) => {
+const convertToBase64 = file => {
   const reader = new FileReader()
   reader.onloadend = () => {
     image.value = reader.result
@@ -30,7 +30,7 @@ const convertToBase64 = (file) => {
 }
 
 // Read image file and convert to base64
-const handleFileChange = (event) => {
+const handleFileChange = event => {
   const file = event.target.files[0]
   if (file) {
     convertToBase64(file)
@@ -70,7 +70,7 @@ watch(childSale.value, async () => {
     file_ext: '',
     file_size: 0,
     start_date: '',
-    end_date: ''
+    end_date: '',
   }
   if (childSale.value.saleId) {
     const res = await saleService.getBySaleId(childSale.value.saleId)

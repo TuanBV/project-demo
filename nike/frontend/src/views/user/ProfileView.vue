@@ -2,14 +2,14 @@
 import { ref } from 'vue'
 const tab = ref([
   {
-    name: 'Information'
+    name: 'Information',
   },
   {
-    name: 'Order'
+    name: 'Order',
   },
   {
-    name: 'History'
-  }
+    name: 'History',
+  },
 ])
 </script>
 <template>

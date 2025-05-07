@@ -1,5 +1,5 @@
-import userSchema from 'models/user';
-import { ERROR } from 'utilities/message';
+import userSchema from 'models/user'
+import { ERROR } from 'utilities/message'
 
 const forgotPasswordSchema = {
   type: 'object',
@@ -15,6 +15,6 @@ const forgotPasswordSchema = {
     },
   },
   additionalProperties: false,
-};
+}
 
-export default forgotPasswordSchema;
+export default forgotPasswordSchema

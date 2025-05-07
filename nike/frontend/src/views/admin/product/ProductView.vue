@@ -11,7 +11,7 @@ const products = ref()
 const categories = ref([])
 const childProduct = ref({
   isModalProduct: false,
-  productId: ''
+  productId: '',
 })
 
 // 3) ======= METHOD/FUNCTION ========
@@ -35,12 +35,12 @@ const getProduct = async () => {
   ToastUtil.error('Error!')
 }
 
-const edit = async (userId) => {
+const edit = async userId => {
   console.log(userId)
 }
 
-const returnCategory = (categoryId) => {
-  let letCategory = categories.value.find((item) => item.id == categoryId)
+const returnCategory = categoryId => {
+  const letCategory = categories.value.find(item => item.id == categoryId)
   console.log(typeof letCategory)
   return ''
 }
@@ -85,8 +85,15 @@ onMounted(async () => {
             <td class="truncate border-b border-gray-200 px-6 py-4">{{ index + 1 }}</td>
             <td class="border-b border-gray-200 px-6 py-4">{{ item.name }}</td>
             <td class="border-b border-gray-200 px-6 py-4">
-              <div class="flex h-[100px] w-[100px] items-center">
-                <img :src="'http://localhost:8000/' + item.images[0].path" alt="" srcset="" />
+              <div class="flex h-[100px] w-[100px] items-center overflow-hidden">
+                <img
+                  :src="'http://localhost:8000/' + item.images[0].path"
+                  alt=""
+                  class="object-cover"
+                  width="100%"
+                  height="100%"
+                  srcset=""
+                />
               </div>
             </td>
             <td class="border-b border-gray-200 px-6 py-4">
@@ -120,7 +127,7 @@ onMounted(async () => {
                     :icon="['fas', 'power-off']"
                     class="group h-4 w-4 text-red-500"
                   />
-                  <span class="text-sm font-semibold text-red-500">Delete</span>
+                  <span class="text-sm font-semibold text-red-500"> Delete</span>
                 </button>
               </div>
             </td>

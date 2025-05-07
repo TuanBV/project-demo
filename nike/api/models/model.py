@@ -1,5 +1,5 @@
 from db.database import Base
-from utils.kbn import IntEnum, FlgDelete, ROLE
+from utils.kbn import IntEnum, FlgDelete, StatusPost, ROLE
 from sqlalchemy import Column, Integer, String, DateTime, func, Index, Double, Date, Text
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
@@ -204,8 +204,8 @@ class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(256))
-    content = Column(String(1000))
-    start_date = Column(DateTime)
+    content = Column(Text)
+    status = Column(IntEnum(StatusPost), default=StatusPost.SAVE)
     created_user = Column(String(256))
     created_date = Column(DateTime, default=func.now())
     updated_user = Column(String(256))

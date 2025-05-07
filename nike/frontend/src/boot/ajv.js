@@ -9,7 +9,7 @@ const $ajv = new Ajv({
   removeAdditional: true,
   useDefaults: true,
   coerceTypes: true,
-  $data: true
+  $data: true,
 })
 // enhance the ajv instance
 ajvErrors($ajv)
@@ -17,7 +17,7 @@ ajvKeywords($ajv)
 addFormats($ajv)
 
 // Add keywords
-keywords.forEach((keyword) => {
+keywords.forEach(keyword => {
   $ajv.addKeyword(keyword)
 })
 

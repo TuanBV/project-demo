@@ -8,7 +8,9 @@ module.exports = {
     // 'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-prettier/skip-formatting',
-    'plugin:vitest-globals/recommended'
+    'plugin:vitest-globals/recommended',
+    'plugin:vue/vue3-recommended',
+    '@vue/eslint-config-prettier'
   ],
   // rules: {
   //   'max-len': [

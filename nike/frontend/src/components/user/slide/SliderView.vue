@@ -14,29 +14,29 @@ const modules = [EffectFade, Navigation, Pagination, Autoplay]
 const sale = ref({
   text: 'New Style On Sale: Up to 40% Off',
   toText: 'Shop All Our New Markdowns',
-  to: '/product/sale'
+  to: '/product/sale',
 })
 const slides = reactive([
   {
     title: 'Slide 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: 'src/assets/images/slider_1.jpg'
+    image: 'src/assets/images/slider_1.jpg',
   },
   {
     title: 'Slide 2',
     description: 'Curabitur eget velit vel nulla faucibus vulputate.',
-    image: 'src/assets/images/slider_2.jpg'
+    image: 'src/assets/images/slider_2.jpg',
   },
   {
     title: 'Slide 3',
     description: 'Proin tincidunt neque vel libero faucibus, at semper arcu fermentum.',
-    image: 'src/assets/images/slider_3.jpg'
+    image: 'src/assets/images/slider_3.jpg',
   },
   {
     title: 'Slide 4',
     description: 'Sed vel elit vel neque pellentesque ultricies vitae quis felis.',
-    image: 'src/assets/images/slider_4.jpg'
-  }
+    image: 'src/assets/images/slider_4.jpg',
+  },
 ])
 </script>
 
@@ -64,19 +64,19 @@ const slides = reactive([
       <swiper
         :style="{
           '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff'
+          '--swiper-pagination-color': '#fff',
         }"
         :spaceBetween="30"
         :effect="'fade'"
         :navigation="true"
         :pagination="{
-          clickable: true
+          clickable: true,
         }"
         :loop="true"
         :modules="modules"
         :autoplay="{
           delay: 2000,
-          disableOnInteraction: false
+          disableOnInteraction: false,
         }"
         class="mySwiper"
       >

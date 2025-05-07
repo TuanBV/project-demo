@@ -5,33 +5,33 @@ const quoteList = ref([
   {
     quote: 'I am Groot.',
     author: 'Groot',
-    image: 'src/assets/images/air_force_1.png'
+    image: 'src/assets/images/air_force_1.png',
   },
   {
     quote: "You'r the head of security and your password is 'password'&nbsp;?",
     author: 'Peter Parker',
-    image: 'src/assets/images/air_jordan_1.png'
+    image: 'src/assets/images/air_jordan_1.png',
   },
   {
     quote: "That really is America's ass.",
     author: 'Captain America',
-    image: 'src/assets/images/dunks.png'
+    image: 'src/assets/images/dunks.png',
   },
   {
     quote: 'The hardest choices require the strongest wills.',
     author: 'Thanos',
-    image: 'src/assets/images/killshot.png'
+    image: 'src/assets/images/killshot.png',
   },
   {
     quote: 'Genius, billionaire, playboy, philanthropist.',
     author: 'Tony Stark',
-    image: 'src/assets/images/pegasus_41.png'
+    image: 'src/assets/images/pegasus_41.png',
   },
   {
     quote: 'We never lose our demons. We only learn to live above them.',
     author: 'Ancient One',
-    image: 'src/assets/images/v2k.png'
-  }
+    image: 'src/assets/images/v2k.png',
+  },
 ])
 </script>
 <template>

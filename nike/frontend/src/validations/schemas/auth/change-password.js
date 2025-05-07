@@ -1,5 +1,5 @@
-import userSchema from 'models/user';
-import { ERROR } from 'utilities/message';
+import userSchema from 'models/user'
+import { ERROR } from 'utilities/message'
 
 const passwordResetSchema = {
   type: 'object',
@@ -29,6 +29,6 @@ const passwordResetSchema = {
     },
   },
   additionalProperties: false,
-};
+}
 
-export default passwordResetSchema;
+export default passwordResetSchema

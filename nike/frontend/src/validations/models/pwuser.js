@@ -3,7 +3,7 @@ const userSchema = {
     type: 'string',
     maxLength: 256,
     minLength: 1,
-    pattern: '^[A-Za-z0-9_!#$%&*+/=?`\'{|}~^.-]+@[A-Za-z0-9.-]+$',
+    pattern: "^[A-Za-z0-9_!#$%&*+/=?`'{|}~^.-]+@[A-Za-z0-9.-]+$",
   },
   password: {
     type: 'string',
@@ -29,6 +29,6 @@ const userSchema = {
       $data: '1/new_password',
     },
   },
-};
+}
 
-export default userSchema;
+export default userSchema

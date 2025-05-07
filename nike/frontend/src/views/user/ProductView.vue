@@ -46,7 +46,7 @@ onMounted(async () => {
         <div v-for="(item, index) in productList" :key="index">
           <ItemProduct
             :itemProduct="item"
-            @update:itemProduct="(newValue) => ((product = newValue), (isModal = true))"
+            @update:itemProduct="newValue => ((product = newValue), (isModal = true))"
           />
         </div>
       </div>
@@ -77,7 +77,7 @@ onMounted(async () => {
           :key="index"
           :class="{
             'border-gray-100 text-gray-600': currentPage !== item,
-            'border-black bg-black text-white': currentPage === item
+            'border-black bg-black text-white': currentPage === item,
           }"
           @click.prevent="currentPage = item"
           class="block size-8 cursor-pointer rounded border border-gray-100 text-center leading-8"
@@ -108,7 +108,7 @@ onMounted(async () => {
     <ProductDetailView
       :product="product"
       :isModal="isModal"
-      @closeModal="(value) => (isModal = value)"
+      @closeModal="value => (isModal = value)"
       @clearProduct="() => console.log('aas')"
     />
   </section>

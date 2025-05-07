@@ -16,7 +16,7 @@ const getList = async () => {
     users.value = res.item
   }
 }
-const edit = async (userId) => {
+const edit = async userId => {
   console.log(userId)
 }
 const statusUser = async (userId, nameUser, status) => {

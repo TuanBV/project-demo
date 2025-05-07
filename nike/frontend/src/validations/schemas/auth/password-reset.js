@@ -1,9 +1,9 @@
-import userSchema from 'models/user';
-import { ERROR } from 'utilities/message';
-import { cloneDeep } from 'lodash';
+import userSchema from 'models/user'
+import { ERROR } from 'utilities/message'
+import { cloneDeep } from 'lodash'
 
-const newUserChema = cloneDeep(userSchema);
-delete newUserChema.new_password.not;
+const newUserChema = cloneDeep(userSchema)
+delete newUserChema.new_password.not
 const passwordResetSchema = {
   type: 'object',
   required: ['new_password', 'confirm_password'],
@@ -24,6 +24,6 @@ const passwordResetSchema = {
     },
   },
   additionalProperties: false,
-};
+}
 
-export default passwordResetSchema;
+export default passwordResetSchema

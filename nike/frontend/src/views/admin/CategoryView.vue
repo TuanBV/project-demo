@@ -12,16 +12,16 @@ const kinds = ref([])
 const refConfirmPopup = ref({
   isVisible: false,
   message: '',
-  confirmAction: null
+  confirmAction: null,
 })
 const childCategory = ref({
   isModalKind: false,
-  categoryId: ''
+  categoryId: '',
 })
 
 const childKind = ref({
   isModalCategory: false,
-  kindId: ''
+  kindId: '',
 })
 // 3) ======= METHOD/FUNCTION ========
 const getListCategory = async () => {
@@ -42,28 +42,28 @@ const ModalCategory = defineAsyncComponent(() => {
 const ModalKind = defineAsyncComponent(() => {
   return import('components/admin/modal/ModalKind.vue')
 })
-const deleteCategory = async (categoryId) => {
+const deleteCategory = async categoryId => {
   const res = await categoryService.delete(categoryId)
   if (res) {
     await getListCategory()
     ToastUtil.success('Delete category successfully')
   }
 }
-const deleteKind = async (kindId) => {
+const deleteKind = async kindId => {
   const res = await kindService.delete(kindId)
   if (res) {
     await getListKind()
     ToastUtil.success('Delete kind successfully')
   }
 }
-const activeCategory = async (categoryId) => {
+const activeCategory = async categoryId => {
   const res = await categoryService.active(categoryId)
   if (res) {
     await getListCategory()
     ToastUtil.success('Active category successfully')
   }
 }
-const activeKind = async (kindId) => {
+const activeKind = async kindId => {
   const res = await kindService.active(kindId)
   if (res) {
     await getListKind()

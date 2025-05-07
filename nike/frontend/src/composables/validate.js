@@ -9,7 +9,7 @@ export default function useValidate() {
     const valid = validateFn(data)
     if (validateFn.errors) {
       const lst = {}
-      validateFn.errors.forEach((obj) => {
+      validateFn.errors.forEach(obj => {
         const dataPath = obj.instancePath.slice(1, obj.instancePath.length)
         if (!lst[dataPath]) {
           lst[dataPath] = obj.message
@@ -24,6 +24,6 @@ export default function useValidate() {
   return {
     errors,
     // methods
-    validate
+    validate,
   }
 }

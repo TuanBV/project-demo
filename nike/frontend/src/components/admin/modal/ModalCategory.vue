@@ -8,7 +8,7 @@ import ToastUtil from 'utility/toast'
 const { validate, errors } = useValidate()
 const childCategory = defineModel()
 const category = ref({
-  name: ''
+  name: '',
 })
 
 const addCategory = async () => {

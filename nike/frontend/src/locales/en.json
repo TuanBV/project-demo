@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "user": "User",
+    "category": "Category",
+    "product": "Product",
+    "order": "Order",
+    "blog": "Blog",
+    "slide": "Slide",
+    "email": "Email",
+    "post": "Post",
+    "sale": "Sale",
+    "chat": "Chat",
+    "setting": "Settings",
+    "logout": "Logout"
+  }
+}

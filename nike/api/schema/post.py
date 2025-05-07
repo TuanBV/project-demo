@@ -6,9 +6,10 @@ class PostRequest(BaseModel):
     """
         Model request of post
     """
+    id: Optional[int] = None
     title: str
     content: str
-    start_date: str
+    status: int
 
 class Comment(BaseModel):
     text: str
@@ -25,7 +26,7 @@ class PostResponse(BaseModel):
     id: int
     title: str
     content: str
-    start_date: str
+    status: int
     flg_del: int
 
 class ListPostResponse(BaseModel):

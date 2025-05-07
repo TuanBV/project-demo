@@ -5,12 +5,12 @@ const quoteList = ref([
   { quote: 'I am Groot.', author: 'Groot' },
   {
     quote: "You'r the head of security and your password is 'password'&nbsp;?",
-    author: 'Peter Parker'
+    author: 'Peter Parker',
   },
   { quote: "That really is America's ass.", author: 'Captain America' },
   { quote: 'The hardest choices require the strongest wills.', author: 'Thanos' },
   { quote: 'Genius, billionaire, playboy, philanthropist.', author: 'Tony Stark' },
-  { quote: 'We never lose our demons. We only learn to live above them.', author: 'Ancient One' }
+  { quote: 'We never lose our demons. We only learn to live above them.', author: 'Ancient One' },
 ])
 </script>
 <template>

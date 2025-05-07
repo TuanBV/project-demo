@@ -3,17 +3,17 @@ const checkRequired = {
   type: 'string',
   validate: function validate(schema, data) {
     if (!data) {
-      return false;
+      return false
     }
     this.errors = [
       {
         keyword: 'checkRequired',
         params: { keyword: 'checkRequired' },
       },
-    ];
-    return true;
+    ]
+    return true
   },
   errors: true,
-};
+}
 
-export default checkRequired;
+export default checkRequired

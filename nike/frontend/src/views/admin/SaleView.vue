@@ -9,11 +9,11 @@ const categories = ref([])
 const refConfirmPopup = ref({
   isVisible: false,
   message: '',
-  confirmAction: null
+  confirmAction: null,
 })
 const childSale = ref({
   isModalSale: false,
-  saleId: ''
+  saleId: '',
 })
 // 3) ======= METHOD/FUNCTION ========
 const getList = async () => {
@@ -25,14 +25,14 @@ const getList = async () => {
 const ModalSale = defineAsyncComponent(() => {
   return import('components/admin/modal/ModalSale.vue')
 })
-const deleteSale = async (saleId) => {
+const deleteSale = async saleId => {
   const res = await saleService.delete(saleId)
   if (res) {
     await getList()
     ToastUtil.success('Delete sale successfully')
   }
 }
-const activeSale = async (saleId) => {
+const activeSale = async saleId => {
   const res = await saleService.active(saleId)
   if (res) {
     await getList()

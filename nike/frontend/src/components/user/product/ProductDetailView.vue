@@ -8,7 +8,7 @@ const productAdd = ref({
   product_id: '',
   quantity: 1,
   name: '',
-  color: ''
+  color: '',
 })
 const imageProduct = ref()
 const lstColor = ref(['red-500', 'blue-500', 'green-500', 'black'])
@@ -16,7 +16,7 @@ const props = defineProps(['product', 'isModal'])
 const emit = defineEmits(['clearProduct', 'closeModal'])
 
 // Add product to cart
-const addProduct = (product) => {
+const addProduct = product => {
   authStore.addProduct(product)
   ToastUtil.success('Add product to cart successfully')
 }

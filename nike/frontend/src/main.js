@@ -8,11 +8,20 @@ import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createI18n } from 'vue-i18n'
+import en from './locales/en.json'
+import vi from './locales/vi.json'
+
 import AOS from 'aos'
 
 const i18n = createI18n({
-  locale: 'vn'
+  locale: 'vi', // Default languages
+  fallbackLocale: 'en',
+  messages: {
+    en,
+    vi,
+  },
 })
+
 import {
   faSearch,
   faSignOut,
@@ -41,7 +50,10 @@ import {
   faCloudArrowUp,
   faFolderOpen,
   faCheckCircle,
-  faComments
+  faComments,
+  faEyeSlash,
+  faCaretUp,
+  faCaretDown,
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -71,7 +83,10 @@ library.add(
   faCloudArrowUp,
   faFolderOpen,
   faCheckCircle,
-  faComments
+  faComments,
+  faEyeSlash,
+  faCaretUp,
+  faCaretDown
 )
 
 const app = createApp(App)

@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
     user: {},
-    cart: []
+    cart: [],
   }),
   getters: {
-    isLoggedIn: (state) => state.user?.email,
-    getRole: (state) => state.user?.role
+    isLoggedIn: state => state.user?.email,
+    getRole: state => state.user?.role,
   },
   actions: {
     signIn(userData) {
@@ -21,6 +21,6 @@ export const useAuthStore = defineStore('authStore', {
     },
     clearProduct() {
       this.cart = []
-    }
-  }
+    },
+  },
 })

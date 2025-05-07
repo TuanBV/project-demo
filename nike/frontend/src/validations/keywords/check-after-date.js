@@ -16,12 +16,12 @@ const checkAfterDate = {
     this.errors = [
       {
         keyword: 'checkAfterDate',
-        params: { keyword: 'checkAfterDate' }
-      }
+        params: { keyword: 'checkAfterDate' },
+      },
     ]
     return true
   },
-  errors: true
+  errors: true,
 }
 
 export default checkAfterDate

@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "user": "Người dùng",
+    "category": "Danh mục",
+    "product": "Sản phẩm",
+    "order": "Đơn hàng",
+    "blog": "Blog",
+    "slide": "Banner",
+    "email": "Email",
+    "post": "Bài viết",
+    "sale": "Chương trình sale",
+    "chat": "Chat",
+    "setting": "Cài đặt",
+    "logout": "Đăng xuất"
+  }
+}

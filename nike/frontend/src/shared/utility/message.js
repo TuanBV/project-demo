@@ -109,7 +109,8 @@ const MESSAGE = {
     },
     EDIT: {
       CONFIRM_TITLE: 'Xác nhận cập nhật CV',
-      CONFIRM_QUESTION: 'Đang bị trùng :dataExist của ứng viên <b>:fullname</b>. Bạn có muốn tiếp tục cập nhật thông tin ứng viên?',
+      CONFIRM_QUESTION:
+        'Đang bị trùng :dataExist của ứng viên <b>:fullname</b>. Bạn có muốn tiếp tục cập nhật thông tin ứng viên?',
       SUCCESS: 'Cập nhật CV thành công',
     },
   },
@@ -244,12 +245,18 @@ const MESSAGE = {
       CONFIRM_QUESTION: 'Bạn đồng ý cập nhật thông tin của ứng viên <b>:name</b>?',
       SUCCESS: 'Cập nhật thông tin ứng viên thành công',
       ERROR: 'Cập nhật thông tin ứng viên không thành công',
-      CONFIRM_RECEIVE_CV: 'Khi cập nhật trạng thái thành Nhận CV sẽ xóa dữ liệu test và phỏng vấn. Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
-      CONFIRM_ACCEPT_CV: 'Khi cập nhật trạng thái thành "Duyệt CV", "Mời test", "Làm bài test" sẽ xóa dữ liệu test, phỏng vấn và mặc định về trạng thái "Duyệt CV".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
-      CONFIRM_TEST_OK: 'Khi cập nhật trạng thái thành "Test OK", "Mời PV vòng 1", "PV vòng 1" sẽ xóa dữ liệu phỏng vấn và mặc định về trạng thái "Test OK".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
-      CONFIRM_FIRST_INTERVIEW_PASS: 'Khi cập nhật trạng thái thành "Qua vòng 1", "Mời PV vòng 2", "PV vòng 2" sẽ xóa dữ liệu phỏng vấn và mặc định về trạng thái "Qua vòng 1".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
-      CONFIRM_SECOND_INTERVIEW_PASS: 'Khi cập nhật trạng thái thành "Qua vòng 2", "Đã gửi offer", "Đã nhận offer", "Đã gửi form", "Đã cập nhật form" sẽ xóa dữ liệu test, phỏng vấn chưa hoàn thành.<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
-      CONFIRM_PASS_FAILED: 'Khi cập nhật các trạng thái liên quan đến pass, trượt, offer, form, nghỉ việc,... sẽ xóa dữ liệu test, phỏng vấn chưa hoàn thành.<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_RECEIVE_CV:
+        'Khi cập nhật trạng thái thành Nhận CV sẽ xóa dữ liệu test và phỏng vấn. Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_ACCEPT_CV:
+        'Khi cập nhật trạng thái thành "Duyệt CV", "Mời test", "Làm bài test" sẽ xóa dữ liệu test, phỏng vấn và mặc định về trạng thái "Duyệt CV".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_TEST_OK:
+        'Khi cập nhật trạng thái thành "Test OK", "Mời PV vòng 1", "PV vòng 1" sẽ xóa dữ liệu phỏng vấn và mặc định về trạng thái "Test OK".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_FIRST_INTERVIEW_PASS:
+        'Khi cập nhật trạng thái thành "Qua vòng 1", "Mời PV vòng 2", "PV vòng 2" sẽ xóa dữ liệu phỏng vấn và mặc định về trạng thái "Qua vòng 1".<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_SECOND_INTERVIEW_PASS:
+        'Khi cập nhật trạng thái thành "Qua vòng 2", "Đã gửi offer", "Đã nhận offer", "Đã gửi form", "Đã cập nhật form" sẽ xóa dữ liệu test, phỏng vấn chưa hoàn thành.<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
+      CONFIRM_PASS_FAILED:
+        'Khi cập nhật các trạng thái liên quan đến pass, trượt, offer, form, nghỉ việc,... sẽ xóa dữ liệu test, phỏng vấn chưa hoàn thành.<br>Xác nhận tiếp tục cập nhật thông tin của ứng viên <b>:name</b>?',
     },
     UPDATE_STATUS: {
       OFFER: {
@@ -323,7 +330,7 @@ const MESSAGE = {
       CONFIRM_QUESTION: 'Bạn có đồng ý thay đổi thông tin setting Google Calendar không?',
     },
   },
-};
+}
 
 const WARNING = {
   SEND_FORM: 'Chỉ gửi cho ứng viên đã có ngày đi làm và đã tạo mail',
@@ -336,12 +343,12 @@ const WARNING = {
   REQUIRED_SCORE: 'Cần nhập điểm đánh giá ứng viên',
   CANDIDATE_HAVE_SCORE_ALREADY: 'Ứng viên đã có điểm',
   FILE_NOT_VALID: 'Chỉ upload file định dạng pdf, doc, docx',
-};
+}
 
 const SUCCESS = {
   CREATE_FORM: 'Tạo mail thành công !',
   SEND_MAIL: 'Gửi mail thành công !',
-};
+}
 
 const ERROR = {
   PARAM: {
@@ -391,13 +398,15 @@ const ERROR = {
   },
   PASSWORD: {
     REQUIRED: 'Mật khẩu là trường bắt buộc',
-    INVALID: 'Mật khẩu tối thiểu 8 ký tự, tối đa 64 ký tự, ít nhất một chữ hoa, một chữ thường và một số, một kí tự đặc biệt.',
+    INVALID:
+      'Mật khẩu tối thiểu 8 ký tự, tối đa 64 ký tự, ít nhất một chữ hoa, một chữ thường và một số, một kí tự đặc biệt.',
     MAXLENGTH: 'Mật khẩu không quá 64 kí tự',
   },
   NEW_PASSWORD: {
     REQUIRED: 'Mật khẩu mới là trường bắt buộc',
     NOT_EQUAL_PASSWORD: 'Mật khẩu mới không được giống mật khẩu cũ',
-    INVALID: 'Mật khẩu mới tối thiểu 8 ký tự, tối đa 64 ký tự, ít nhất một chữ hoa, một chữ thường và một số, một kí tự đặc biệt.',
+    INVALID:
+      'Mật khẩu mới tối thiểu 8 ký tự, tối đa 64 ký tự, ít nhất một chữ hoa, một chữ thường và một số, một kí tự đặc biệt.',
   },
   CONFIRM_PASSWORD: {
     REQUIRED: 'Nhập lại mật khẩu là trường bắt buộc',
@@ -548,11 +557,6 @@ const ERROR = {
   FLAG_NOT_INTERVIEW: {
     INVALID: 'Sai định dạng dữ liệu',
   },
-};
+}
 
-export {
-  MESSAGE,
-  ERROR,
-  WARNING,
-  SUCCESS,
-};
+export { MESSAGE, ERROR, WARNING, SUCCESS }

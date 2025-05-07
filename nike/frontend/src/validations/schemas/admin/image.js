@@ -8,26 +8,26 @@ const imageSchema = {
       ...imageModel.file,
       errorMessage: {
         minLength: 'Min length of file is 1',
-        _: 'Invalid file.'
-      }
+        _: 'Invalid file.',
+      },
     },
     file_ext: {
       ...imageModel.file_ext,
       errorMessage: {
         enum: 'Type of file invalid.',
-        _: 'Invalid file type.'
-      }
+        _: 'Invalid file type.',
+      },
     },
     file_size: {
       ...imageModel.file_size,
       errorMessage: {
         minimum: 'Minium value for file is 0.',
         maximum: 'Maximum value for file is 10485760.',
-        _: 'Invalid file size.'
-      }
-    }
+        _: 'Invalid file size.',
+      },
+    },
   },
-  additionalProperties: false
+  additionalProperties: false,
 }
 
 export default imageSchema

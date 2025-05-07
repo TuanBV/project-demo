@@ -90,7 +90,9 @@
       </div>
     </center>
     <center class="mt-6">
-      <router-link to="/" class="rounded-md bg-gray-200 p-3 font-mono text-xl text-gray-500 hover:shadow-md"
+      <router-link
+        to="/"
+        class="rounded-md bg-gray-200 p-3 font-mono text-xl text-gray-500 hover:shadow-md"
         >Go back
       </router-link>
     </center>

@@ -9,11 +9,11 @@ const kindSchema = {
       errorMessage: {
         maxLength: 'Max length of kind name is 256.',
         minLength: 'Kind name is required to enter.',
-        _: 'Invalid kind name.'
-      }
-    }
+        _: 'Invalid kind name.',
+      },
+    },
   },
-  additionalProperties: false
+  additionalProperties: false,
 }
 
 export default kindSchema

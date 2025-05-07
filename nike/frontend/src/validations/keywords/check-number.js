@@ -8,12 +8,12 @@ const checkNumber = {
     this.errors = [
       {
         keyword: 'checkNumber',
-        params: { keyword: 'checkNumber' }
-      }
+        params: { keyword: 'checkNumber' },
+      },
     ]
     return true
   },
-  errors: true
+  errors: true,
 }
 
 export default checkNumber

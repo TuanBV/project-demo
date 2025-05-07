@@ -135,8 +135,8 @@ CREATE TABLE IF NOT EXISTS `cart_product` (
 CREATE TABLE IF NOT EXISTS `post` (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(256),
-    content VARCHAR(1000),
-    start_date TIMESTAMP,
+    content TEXT,
+    status INTEGER DEFAULT 1,
     created_user VARCHAR(256),
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(256),
@@ -222,12 +222,12 @@ INSERT INTO nike.kind
 VALUES(4, 'Featured', 'admin', '2025-03-04 09:25:43', NULL, '2025-03-04 09:25:43', 0);
 
 
-# Insert image
-INSERT INTO nike.image
-(id, name, `path`, folder, created_user, created_date, updated_user, updated_date, flg_del)
-VALUES(1, 'sale_1741156375.jpg', 'upload/sale/sale_1741156375.jpg', 'sale', NULL, '2025-03-05 06:32:55', NULL, '2025-03-05 06:32:55', 0);
+-- # Insert image
+-- INSERT INTO nike.image
+-- (id, name, `path`, folder, created_user, created_date, updated_user, updated_date, flg_del)
+-- VALUES(1, 'sale_1741156375.jpg', 'upload/sale/sale_1741156375.jpg', 'sale', NULL, '2025-03-05 06:32:55', NULL, '2025-03-05 06:32:55', 0);
 
-# Insert sale
-INSERT INTO nike.sale
-(id, name, discount, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del, image_id)
-VALUES(1, 'Siêu sale tháng 3 %%%', 20, '2025-03-05', '2025-03-31', 'admin', '2025-03-05 06:32:55', NULL, '2025-03-05 06:32:55', 0, 1);
+-- # Insert sale
+-- INSERT INTO nike.sale
+-- (id, name, discount, start_date, end_date, created_user, created_date, updated_user, updated_date, flg_del, image_id)
+-- VALUES(1, 'Siêu sale tháng 3 %%%', 20, '2025-03-05', '2025-03-31', 'admin', '2025-03-05 06:32:55', NULL, '2025-03-05 06:32:55', 0, 1);

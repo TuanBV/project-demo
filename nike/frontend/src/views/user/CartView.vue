@@ -6,8 +6,8 @@ const products = ref([
     name: 'Air Force 1',
     code: 'AF001',
     price: 999,
-    quantity: 1
-  }
+    quantity: 1,
+  },
 ])
 </script>
 <template>

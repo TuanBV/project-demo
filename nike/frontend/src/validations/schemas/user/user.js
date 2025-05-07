@@ -10,16 +10,16 @@ const userSchema = {
       errorMessage: {
         maxLength: 'Max length is 256.',
         minLength: 'Username is required to enter.',
-        _: 'Invalid username'
-      }
+        _: 'Invalid username',
+      },
     },
     fullname: {
       ...userModel.fullname,
       errorMessage: {
         maxLength: 'Max length is 256.',
         minLength: 'Fullname is required to enter.',
-        _: 'Invalid fullname'
-      }
+        _: 'Invalid fullname',
+      },
     },
     email: {
       ...userModel.email,
@@ -27,18 +27,18 @@ const userSchema = {
         maxLength: 'Max length is 256.',
         minLength: 'Email is required to enter.',
         pattern: 'Invalid email address',
-        _: 'Invalid email address'
-      }
+        _: 'Invalid email address',
+      },
     },
     password: {
       ...userModel.password,
       errorMessage: {
         minLength: 'Password is required to enter.',
-        _: 'Invalid password'
-      }
-    }
+        _: 'Invalid password',
+      },
+    },
   },
-  additionalProperties: false
+  additionalProperties: false,
 }
 
 export default userSchema

@@ -9,11 +9,11 @@ const categorySchema = {
       errorMessage: {
         maxLength: 'Max length of category name is 256.',
         minLength: 'Category name is required to enter.',
-        _: 'Invalid category name.'
-      }
-    }
+        _: 'Invalid category name.',
+      },
+    },
   },
-  additionalProperties: false
+  additionalProperties: false,
 }
 
 export default categorySchema

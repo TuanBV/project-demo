@@ -5,59 +5,59 @@ const listChat = reactive([
   {
     name: 'Person 1',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 2',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 3',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 4',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 5',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 6',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 7',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 8',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 9',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
+    image: 'assets/images/air_force_1.png',
   },
   {
     name: 'Person 10',
     last_text: 'oke ....',
-    image: 'assets/images/air_force_1.png'
-  }
+    image: 'assets/images/air_force_1.png',
+  },
 ])
 
 const currentChat = reactive({
   name: '',
   last_text: '',
-  image: ''
+  image: '',
 })
 
 onMounted(() => {

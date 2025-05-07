@@ -16,7 +16,7 @@ const data = ref({
   username: '',
   email: '',
   fullname: '',
-  password: ''
+  password: '',
 })
 // 3) ======= METHOD/FUNCTION ========
 const addUser = async () => {

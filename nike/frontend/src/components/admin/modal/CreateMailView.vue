@@ -16,12 +16,12 @@ const mail = ref({
   recipient: [],
   body: '',
   attachedFile: null,
-  cc: []
+  cc: [],
 })
 const isCheckedCC = ref(false)
 const errorMailCc = ref()
 
-const handleFileChange = (event) => {
+const handleFileChange = event => {
   const file = event.target.files[0]
   if (file) {
     selectedFile.value = file
@@ -29,9 +29,9 @@ const handleFileChange = (event) => {
   }
 }
 
-const readExcelFile = (file) => {
+const readExcelFile = file => {
   const reader = new FileReader()
-  reader.onload = (e) => {
+  reader.onload = e => {
     const binaryString = e.target.result
     const workbook = XLSX.read(binaryString, { type: 'binary' })
 
@@ -48,7 +48,7 @@ const readExcelFile = (file) => {
   reader.readAsBinaryString(file)
 }
 
-const handleAttachedFileChange = (event) => {
+const handleAttachedFileChange = event => {
   const file = event.target.files[0]
   if (file) {
     attachedFile.value = file
@@ -68,7 +68,7 @@ const addEmail = () => {
   errorMailCc.value = null
   emailInput.value = null
 }
-const removeEmail = (index) => {
+const removeEmail = index => {
   mail.value.cc.splice(index, 1)
 }
 

@@ -1,28 +1,27 @@
-import userSchema from 'models/user';
-import { ERROR } from 'utilities/message';
+import userModel from 'models/user.js'
 
 const loginSchema = {
   type: 'object',
   required: ['email', 'password'],
   properties: {
     email: {
-      ...userSchema.mail,
+      ...userModel.email,
       errorMessage: {
-        maxLength: ERROR.EMAIL.MAXLENGTH,
-        minLength: ERROR.EMAIL.REQUIRED,
-        _: ERROR.EMAIL.INVALID,
+        maxLength: 'Max length is 256.',
+        minLength: 'Email is required to enter.',
+        pattern: 'Invalid email address',
+        _: 'Invalid email address',
       },
     },
     password: {
-      ...userSchema.password,
+      ...userModel.password,
       errorMessage: {
-        minLength: ERROR.PASSWORD.REQUIRED,
-        maxLength: ERROR.PASSWORD.MAXLENGTH,
-        _: ERROR.PASSWORD.INVALID,
+        minLength: 'Password is required to enter.',
+        _: 'Invalid password',
       },
     },
   },
   additionalProperties: false,
-};
+}
 
-export default loginSchema;
+export default loginSchema

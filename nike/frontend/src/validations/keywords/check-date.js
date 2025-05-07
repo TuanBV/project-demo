@@ -13,12 +13,12 @@ const checkDate = {
     this.errors = [
       {
         keyword: 'checkDate',
-        params: { keyword: 'checkDate' }
-      }
+        params: { keyword: 'checkDate' },
+      },
     ]
     return true
   },
-  errors: true
+  errors: true,
 }
 
 export default checkDate

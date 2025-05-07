@@ -10,7 +10,7 @@ const router = useRouter()
 const menu = reactive([
   {
     label: 'New & Featured',
-    to: 'new-featured'
+    to: 'new-featured',
   },
   {
     label: 'Men',
@@ -23,8 +23,8 @@ const menu = reactive([
           { label: 'New Releases', to: 'new-releases' },
           { label: 'Best Sellers', to: 'best-sellers' },
           { label: 'Y2K Sneakers', to: 'y2k-sneakers' },
-          { label: 'Gifts for Him', to: 'gifts-for-him' }
-        ]
+          { label: 'Gifts for Him', to: 'gifts-for-him' },
+        ],
       },
       {
         header: 'Shoes',
@@ -37,8 +37,8 @@ const menu = reactive([
           { label: 'Football', to: 'football' },
           { label: 'Basketball', to: 'basketball' },
           { label: 'Training and Gym ', to: 'training-gym' },
-          { label: 'Nike by You', to: 'nike-by-you' }
-        ]
+          { label: 'Nike by You', to: 'nike-by-you' },
+        ],
       },
       {
         header: 'Clothing',
@@ -51,8 +51,8 @@ const menu = reactive([
           { label: 'Tracksuits', to: 'tracksuits' },
           { label: 'Tops and T-Shirts', to: 'top-shirts' },
           { label: 'Shorts ', to: 'shorts' },
-          { label: 'Kits and Jerseys', to: 'kits-jerseys' }
-        ]
+          { label: 'Kits and Jerseys', to: 'kits-jerseys' },
+        ],
       },
       {
         header: 'Discover Sport',
@@ -62,10 +62,10 @@ const menu = reactive([
           { label: 'Football', to: 'football' },
           { label: 'Basketball', to: 'basketball' },
           { label: 'Tennis', to: 'tennis' },
-          { label: 'Golf', to: 'golf' }
-        ]
-      }
-    ]
+          { label: 'Golf', to: 'golf' },
+        ],
+      },
+    ],
   },
   {
     label: 'Women',
@@ -78,8 +78,8 @@ const menu = reactive([
           { label: 'New Releases', to: 'new-releases' },
           { label: 'Best Sellers', to: 'best-sellers' },
           { label: 'Y2K Sneakers', to: 'y2k-sneakers' },
-          { label: 'Gifts for Him', to: 'gifts-for-him' }
-        ]
+          { label: 'Gifts for Him', to: 'gifts-for-him' },
+        ],
       },
       {
         header: 'Shoes',
@@ -92,8 +92,8 @@ const menu = reactive([
           { label: 'Football', to: 'football' },
           { label: 'Basketball', to: 'basketball' },
           { label: 'Training and Gym ', to: 'training-gym' },
-          { label: 'Nike by You', to: 'nike-by-you' }
-        ]
+          { label: 'Nike by You', to: 'nike-by-you' },
+        ],
       },
       {
         header: 'Clothing',
@@ -106,8 +106,8 @@ const menu = reactive([
           { label: 'Tracksuits', to: 'tracksuits' },
           { label: 'Tops and T-Shirts', to: 'top-shirts' },
           { label: 'Shorts ', to: 'shorts' },
-          { label: 'Kits and Jerseys', to: 'kits-jerseys' }
-        ]
+          { label: 'Kits and Jerseys', to: 'kits-jerseys' },
+        ],
       },
       {
         header: 'Discover Sport',
@@ -117,10 +117,10 @@ const menu = reactive([
           { label: 'Football', to: 'football' },
           { label: 'Basketball', to: 'basketball' },
           { label: 'Tennis', to: 'tennis' },
-          { label: 'Golf', to: 'golf' }
-        ]
-      }
-    ]
+          { label: 'Golf', to: 'golf' },
+        ],
+      },
+    ],
   },
   {
     label: 'Kids',
@@ -134,8 +134,8 @@ const menu = reactive([
           { label: 'Best Sellers', to: 'best-sellers' },
           { label: 'Teens', to: 'teens' },
           { label: 'EasyOn', to: 'easy-on' },
-          { label: 'Gifts for kids', to: 'gifts-for-kids' }
-        ]
+          { label: 'Gifts for kids', to: 'gifts-for-kids' },
+        ],
       },
       {
         header: 'Shoes',
@@ -146,8 +146,8 @@ const menu = reactive([
           { label: 'Jordan', to: 'jordan' },
           { label: 'Running', to: 'running' },
           { label: 'Football', to: 'football' },
-          { label: 'Basketball', to: 'basketball' }
-        ]
+          { label: 'Basketball', to: 'basketball' },
+        ],
       },
       {
         header: 'Clothing',
@@ -160,8 +160,8 @@ const menu = reactive([
           { label: 'Tracksuits', to: 'tracksuits' },
           { label: 'Tops and T-Shirts', to: 'top-shirts' },
           { label: 'Shorts ', to: 'shorts' },
-          { label: 'Kits and Jerseys', to: 'kits-jerseys' }
-        ]
+          { label: 'Kits and Jerseys', to: 'kits-jerseys' },
+        ],
       },
       {
         header: 'Kids by age',
@@ -169,15 +169,15 @@ const menu = reactive([
         children: [
           { label: 'Older kids', to: 'older-kids' },
           { label: 'Younger kids', to: 'younger-kids' },
-          { label: 'Baby & Toddler', to: 'baby-toddler' }
-        ]
-      }
-    ]
+          { label: 'Baby & Toddler', to: 'baby-toddler' },
+        ],
+      },
+    ],
   },
   {
     label: 'Sale',
-    to: 'sale'
-  }
+    to: 'sale',
+  },
 ])
 const auth = useAuthStore()
 
@@ -238,7 +238,7 @@ const logout = async () => {
                 :key="index2"
                 :to="{
                   name: 'product',
-                  params: { type1: item.to, type2: item2.to }
+                  params: { type1: item.to, type2: item2.to },
                 }"
               >
                 <header class="font-medium">{{ item2.header }}</header>
@@ -246,7 +246,7 @@ const logout = async () => {
                   <router-link
                     :to="{
                       name: 'product',
-                      params: { type1: item.to, type2: item2.to, type3: item3.to }
+                      params: { type1: item.to, type2: item2.to, type3: item3.to },
                     }"
                     class="text-base hover:text-[#025cbd]"
                     >{{ item3.label }}</router-link

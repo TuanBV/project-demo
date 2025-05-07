@@ -29,12 +29,12 @@ const product = ref({
   quantity: '',
   weight: '',
   height: '',
-  images: []
+  images: [],
 })
 // 3) ======= METHOD/FUNCTION ========
 const add = async () => {
-  product.value.images = imageList.value.map((item) => item.id.toString())
-  let valid = validate(productSchema, product.value)
+  product.value.images = imageList.value.map(item => item.id.toString())
+  const valid = validate(productSchema, product.value)
   if (!valid) {
     return
   }
@@ -50,7 +50,7 @@ onMounted(async () => {
   const [categoryRes, kindRes, saleRes] = await Promise.all([
     categoryService.getList(),
     kindService.getList(),
-    saleService.getList()
+    saleService.getList(),
   ])
   categories.value = categoryRes.item
   kinds.value = kindRes.item
@@ -261,7 +261,7 @@ onMounted(async () => {
               />
               <font-awesome-icon
                 :icon="['fas', 'close']"
-                @click.prevent="imageList = imageList.filter((i) => i != item)"
+                @click.prevent="imageList = imageList.filter(i => i != item)"
                 class="absolute right-0 top-0 text-red-500"
               />
             </div>
@@ -282,8 +282,8 @@ onMounted(async () => {
     <ImageListView
       :flgImageList="flgImageList"
       :imageList="imageList"
-      @close="(value) => (flgImageList = value)"
-      @update:imageList="(value) => (imageList = value)"
+      @close="value => (flgImageList = value)"
+      @update:imageList="value => (imageList = value)"
     />
   </div>
 </template>

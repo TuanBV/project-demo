@@ -12,7 +12,7 @@ const router = useRouter()
 const data = ref({
   email: '',
   password: '',
-  role: 0
+  role: 0,
 })
 
 const login = async () => {

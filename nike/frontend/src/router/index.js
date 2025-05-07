@@ -8,7 +8,7 @@ const router = createRouter({
   routes,
   scrollBehavior() {
     return { left: 0, top: 0, behavior: 'smooth' }
-  }
+  },
 })
 
 /**
@@ -24,12 +24,12 @@ const checkUserLogin = async () => {
 /**
  * Handle check authentication every time page change
  */
-router.beforeEach(async (to) => {
+router.beforeEach(async to => {
   const auth = useAuthStore()
   if (to.fullPath.includes('v1/admin')) {
     document.title = 'Page Admin'
   }
-  let checkLogin = await checkUserLogin()
+  const checkLogin = await checkUserLogin()
 
   // Check if the account login is admin
   if (auth.getRole) {

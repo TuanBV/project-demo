@@ -8,7 +8,7 @@ import ToastUtil from 'utility/toast'
 const { validate, errors } = useValidate()
 const childKind = defineModel()
 const kind = ref({
-  name: ''
+  name: '',
 })
 
 const addKind = async () => {

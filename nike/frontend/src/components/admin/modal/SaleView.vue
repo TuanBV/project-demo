@@ -9,11 +9,11 @@ const categories = ref([])
 const refConfirmPopup = ref({
   isVisible: false,
   message: '',
-  confirmAction: null
+  confirmAction: null,
 })
 const childSale = ref({
   isModalSale: false,
-  saleId: ''
+  saleId: '',
 })
 </script>
 <template>

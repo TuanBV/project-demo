@@ -1,9 +1,9 @@
-import RestClient from './rest-client';
+import RestClient from './rest-client'
 
 export default class BaseRepository {
-  client;
+  client
 
   constructor(servicePath, version = 'v1') {
-    this.client = new RestClient(servicePath, version);
+    this.client = new RestClient(servicePath, version)
   }
 }

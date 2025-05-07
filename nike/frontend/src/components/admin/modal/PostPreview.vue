@@ -21,9 +21,6 @@ const preview = defineModel()
           <div class="mx-auto w-full bg-white">
             <div class="text-xl">{{ preview.post.title }}</div>
             <div class="ql-editor" v-html="preview.post.content"></div>
-            <div v-if="preview.post.start_date">
-              <span>Start date: {{ preview.post.start_date }}</span>
-            </div>
           </div>
         </div>
       </div>

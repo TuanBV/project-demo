@@ -5,6 +5,10 @@ class FlgDelete(Enum):
     OFF = 0
     ON = 1
 
+class StatusPost(Enum):
+    POST = 0
+    SAVE = 1
+
 class ROLE(IntEnum):
     USER = 0
     ADMIN = 1

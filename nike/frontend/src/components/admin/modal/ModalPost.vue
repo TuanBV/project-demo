@@ -18,7 +18,7 @@ const post = ref({
   recipient: [],
   body: '',
   attachedFile: null,
-  cc: []
+  cc: [],
 })
 
 watch(isModal, () => {

@@ -9,7 +9,7 @@ class ToastUtil {
       gravity: 'top',
       position: 'right',
       backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
-      close: true
+      close: true,
     }).showToast()
   }
 
@@ -20,7 +20,7 @@ class ToastUtil {
       gravity: 'top',
       position: 'right',
       backgroundColor: 'linear-gradient(to right, #ffbb33, #ff6600)',
-      close: true
+      close: true,
     }).showToast()
   }
 
@@ -31,7 +31,7 @@ class ToastUtil {
       gravity: 'top',
       position: 'right',
       backgroundColor: 'linear-gradient(to right, #ff5f6d, #ffc3a0)',
-      close: true
+      close: true,
     }).showToast()
   }
 

@@ -75,18 +75,3 @@ class PostService:
         if not self.post_repo.get_by_post_id(post_id):
             raise CommonException(message="Post not exists")
         self.post_repo.delete(post_id, updated_user)
-
-    # Active post
-    def active(self, post_id, updated_user):
-        """
-            # Active post
-            # Params:
-            #   @post_id: id of the post
-            #   @updated_user: name of the user
-            # Output:
-            #   return:
-        """
-        # Check if post already exists
-        if not self.post_repo.get_by_post_id(post_id):
-            raise CommonException(message="Post not exists")
-        self.post_repo.active(post_id, updated_user)

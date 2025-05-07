@@ -16,7 +16,7 @@ const user = ref({
   area: '',
   city: '',
   state: '',
-  postcode: ''
+  postcode: '',
 })
 
 const addUser = async () => {

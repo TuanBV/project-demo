@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/:catchAll(.*)',
     name: 'Not Found',
-    component: () => import('components/common/page-error/NotFound.vue')
-  }
+    component: () => import('components/common/page-error/NotFound.vue'),
+  },
 ]
 export default routes

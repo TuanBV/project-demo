@@ -11,7 +11,7 @@ const products = ref()
 const categories = ref([])
 const childProduct = ref({
   isModalProduct: false,
-  productId: ''
+  productId: '',
 })
 const searchFilter = ref({
   name: '',
@@ -19,7 +19,7 @@ const searchFilter = ref({
   phone_number: '',
   date_search: '',
   record: 20,
-  sort: ''
+  sort: '',
 })
 
 // 3) ======= METHOD/FUNCTION ========
@@ -43,12 +43,12 @@ const getProduct = async () => {
   ToastUtil.error('Error!')
 }
 
-const edit = async (userId) => {
+const edit = async userId => {
   console.log(userId)
 }
 
-const returnCategory = (categoryId) => {
-  let letCategory = categories.value.find((item) => item.id == categoryId)
+const returnCategory = categoryId => {
+  const letCategory = categories.value.find(item => item.id == categoryId)
   console.log(typeof letCategory)
   return ''
 }
