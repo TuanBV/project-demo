@@ -5,8 +5,12 @@ import * as XLSX from 'xlsx'
 // import useValidate from 'composables/validate'
 // import addUserSchema from 'schemas/admin/addUser'
 // import ToastUtil from 'utility/toast'
-
+// 1) ======= INITIALIZATION ========
+// ==> 1.1) state and getters
 // const { validate, errors } = useValidate()
+// ==> 1.2) actions
+// ==> 1.3) Others
+// 2) ======= VARIABLE REF ========
 const isAddPage = defineModel()
 const selectedFile = ref()
 const attachedFile = ref()
@@ -21,7 +25,8 @@ const mail = ref({
 })
 const isCheckedCC = ref(false)
 const errorMailCc = ref()
-
+// 3) ======= METHOD/FUNCTION ========
+// Handle file change
 const handleFileChange = event => {
   const file = event.target.files[0]
   if (file) {
@@ -29,7 +34,7 @@ const handleFileChange = event => {
     readExcelFile(file)
   }
 }
-
+// Handle read file excel
 const readExcelFile = file => {
   const reader = new FileReader()
   reader.onload = e => {
@@ -48,13 +53,14 @@ const readExcelFile = file => {
   }
   reader.readAsBinaryString(file)
 }
-
+// Handle attached file change
 const handleAttachedFileChange = event => {
   const file = event.target.files[0]
   if (file) {
     attachedFile.value = file
   }
 }
+// Handle add mail
 const addEmail = () => {
   const email = emailInput.value.trim()
   // Validate email
@@ -69,10 +75,11 @@ const addEmail = () => {
   errorMailCc.value = null
   emailInput.value = null
 }
+// Hanlde remove mail
 const removeEmail = index => {
   mail.value.cc.splice(index, 1)
 }
-
+// 4) ======= VUE JS LIFECYCLE ========
 watch(isAddPage, () => {
   // errors.value = []
   selectedFile.value = null

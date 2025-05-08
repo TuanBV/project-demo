@@ -1,77 +1,68 @@
 <script setup>
-import { computed, onMounted } from 'vue'
-
+import { computed, watch } from 'vue'
+// 1) ======= INITIALIZATION ========
+// ==> 1.1) state and getters
+// ==> 1.2) actions
+// ==> 1.3) Others
+// 2) ======= VARIABLE REF ========
 const pagination = defineModel()
-
-const page = computed(() => pagination.total / pagination.show)
-
-onMounted(() => {
-  console.log(pagination)
+const page = computed(() => Math.ceil(pagination.value.total / pagination.value.show))
+// 3) ======= METHOD/FUNCTION ========
+// 4) ======= VUE JS LIFECYCLE ========
+watch(page, () => {
+  pagination.value.current = 1
 })
 </script>
 
 <template>
-  <div class="mt-5 flex flex-col justify-between pc:flex-row">
+  <div class="mt-5 flex flex-col justify-between border-t pt-5 pc:flex-row">
     <div class="flex flex-col items-center space-x-2 pc:flex-row">
       <select
         v-model="pagination.show"
-        class="inline-flex items-center rounded border px-4 py-2 font-medium text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50"
+        class="inline-flex items-center rounded border px-4 py-2 font-medium text-gray-600 hover:bg-gray-100 focus-visible:outline-none active:bg-gray-200 disabled:opacity-50"
       >
-        <option value="10">10 items</option>
-        <option value="20">20 items</option>
-        <option value="30">30 items</option>
-        <option value="50">50 items</option>
-        <option value="100">100 items</option>
+        <option :value="10">10 items</option>
+        <option :value="20">20 items</option>
+        <option :value="30">30 items</option>
+        <option :value="50">50 items</option>
+        <option :value="100">100 items</option>
       </select>
 
       <p class="mt-4 text-gray-500 pc:mt-0">
         Showing {{ (pagination.current - 1) * pagination.show + 1 }} to
-        {{ pagination.current * pagination.show + 1 }} of {{ pagination.total }} entires
+        {{
+          pagination.current != page ? pagination.current * pagination.show + 1 : pagination.total
+        }}
+        of {{ pagination.total }} entires
       </p>
     </div>
-
     <nav
+      v-if="pagination.total < page * pagination.show"
       aria-label="Pagination"
-      class="mt-8 flex items-center justify-center text-gray-600 pc:mt-0"
+      class="mt-8 flex cursor-pointer items-center justify-center text-gray-600 pc:mt-0"
     >
-      <p class="mr-4 rounded p-2 hover:bg-gray-100">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
+      <p
+        class="mr-4 rounded p-2 hover:bg-gray-100"
+        @click.prevent="pagination.current > 2 ? pagination.current-- : (pagination.current = 1)"
+      >
+        <font-awesome-icon :icon="['fas', 'angle-left']" class="group h-4 w-4" />
       </p>
       <p
         v-for="(item, index) in page"
         :key="index"
         class="rounded px-4 py-2 hover:bg-gray-100"
         :class="[item == pagination.current ? 'bg-gray-200' : '']"
+        @click.prevent="pagination.current = item"
       >
         {{ item }}
       </p>
-      <!-- <p class="rounded bg-gray-200 px-4 py-2 font-medium text-gray-900 hover:bg-gray-100">2</p> -->
-      <!-- <p class="rounded px-4 py-2 hover:bg-gray-100">3</p> -->
-      <!-- <p class="rounded px-4 py-2 hover:bg-gray-100">...</p> -->
-      <!-- <p class="rounded px-4 py-2 hover:bg-gray-100">9</p> -->
-      <p class="ml-4 rounded p-2 hover:bg-gray-100">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
+      <p
+        class="ml-4 rounded p-2 hover:bg-gray-100"
+        @click.prevent="
+          pagination.current < page - 1 ? pagination.current++ : (pagination.current = page)
+        "
+      >
+        <font-awesome-icon :icon="['fas', 'angle-right']" class="group h-4 w-4" />
       </p>
     </nav>
   </div>
