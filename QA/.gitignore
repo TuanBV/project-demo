@@ -1,0 +1,8 @@
+# QA project specific ignores (root .gitignore already covers .venv/, __pycache__/, .env, etc.)
+data/*.db
+data/*.db-journal
+.ruff_cache/
+htmlcov/
+.coverage
+*.docx
+!tests/fixtures/**/*.docx

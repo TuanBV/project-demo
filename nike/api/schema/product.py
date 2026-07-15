@@ -55,3 +55,7 @@ class ListProductResponse(BaseModel):
         Response list product
     """
     item: Optional[List[ProductResponse]] = None
+    total: int = 0
+    page: int = 1
+    page_size: int = 12
+    total_pages: int = 0

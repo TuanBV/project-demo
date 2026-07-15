@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Lịch sử luyện tập - Interview Review System{% endblock %}
+{% block content %}
+<h1>Lịch sử luyện tập</h1>
+<div class="card">
+    <table>
+        <thead>
+            <tr><th>Thời gian</th><th>Câu hỏi</th><th>Chủ đề</th><th>Điểm</th><th>Đánh giá</th><th>Thời gian trả lời</th></tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+    </table>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/history.js"></script>
+{% endblock %}

@@ -19,15 +19,25 @@ class ProductService:
         self.image_repo: ImageRepository = image_repository
         self.category_repo: CategoryRepository = category_repository
 
-    def get_all(self):
+    def get_all(self, page=1, page_size=12, category_id=None, kind_id=None, name=None):
         """
-            # Get list product
+            # Get a page of product, optionally filtered by category/kind/name
             # Params:
+            #   @page, @page_size: pagination
+            #   @category_id, @kind_id, @name: optional filters
             # Output:
-            #   return: List of product
+            #   return: List of product plus pagination metadata
         """
-        data = self.product_repo.get_all()
-        return {"item": jsonable_encoder(data)}
+        data = self.product_repo.get_all(page, page_size, category_id, kind_id, name)
+        total = self.product_repo.count_products(category_id, kind_id, name)
+        total_pages = (total + page_size - 1) // page_size if page_size else 0
+        return {
+            "item": jsonable_encoder(data),
+            "total": total,
+            "page": page,
+            "page_size": page_size,
+            "total_pages": total_pages
+        }
 
     def get_by_product_id(self, product_id):
         """

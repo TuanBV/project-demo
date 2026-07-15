@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Luyện tập - Interview Review System{% endblock %}
+{% block content %}
+<h1>Luyện tập trắc nghiệm</h1>
+
+<div class="card flex-row">
+    <div>
+        <label for="category-select">Chủ đề</label>
+        <select id="category-select">
+            <option value="">Tất cả</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="mode-select">Chế độ</label>
+        <select id="mode-select">
+            <option value="RANDOM">Ngẫu nhiên</option>
+            <option value="CATEGORY">Theo chủ đề</option>
+            <option value="REVIEW">Ôn câu sai</option>
+        </select>
+    </div>
+    <div style="align-self:flex-end;">
+        <button class="btn" id="restart-btn">Bắt đầu / Đổi bộ lọc</button>
+    </div>
+</div>
+
+<div class="card hidden" id="question-card">
+    <div class="flex-row muted">
+        <span id="q-category"></span> ·
+        <span id="q-type"></span> ·
+        <span id="q-difficulty"></span>
+        <span id="q-counter" style="margin-left:auto;"></span>
+    </div>
+    <h2 id="q-content" style="white-space:pre-wrap;"></h2>
+
+    <div id="options-list" role="radiogroup" aria-label="Đáp án"></div>
+
+    <div class="flex-row" style="margin-top:16px;">
+        <button class="btn" id="submit-btn" disabled>Trả lời</button>
+        <button class="btn secondary hidden" id="next-btn">Câu tiếp theo</button>
+    </div>
+    <p class="muted" style="margin-top:8px;">Mẹo: nhấn phím 1-4 để chọn đáp án, Enter để trả lời / sang câu tiếp theo.</p>
+</div>
+
+<div class="card hidden" id="result-banner">
+    <h2 id="result-title"></h2>
+    <p id="result-explanation" class="muted"></p>
+</div>
+
+<div class="card hidden" id="loading-card">
+    <p>Đang tải câu hỏi...</p>
+</div>
+
+<div class="card hidden" id="error-card">
+    <p id="error-message"></p>
+</div>
+
+<div class="card hidden" id="empty-card">
+    <p>Không còn câu hỏi phù hợp với bộ lọc đã chọn.</p>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/study.js"></script>
+{% endblock %}

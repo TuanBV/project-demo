@@ -1,7 +1,7 @@
 from models.model import Product, ProductKind, ProductImage, Image, Sale, Kind, Category
 from core import CommonRepository
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import asc, desc, outerjoin
+from sqlalchemy import asc, desc
 from sqlalchemy.orm import joinedload
 from utils.kbn import FlgDelete
 
@@ -10,32 +10,55 @@ class ProductRepository(CommonRepository):
     Repository of product
     """
 
-    def get_all(self):
+    def _filtered_query(self, session, category_id=None, kind_id=None, name=None):
         """
-            # Get list product
+            # Build the Product query shared by get_all() and count(), filtered by
+            # category/kind (joined through ProductKind, the real FK path) and name.
+        """
+        query = session.query(Product)
+        if category_id or kind_id:
+            query = query.join(ProductKind, ProductKind.id == Product.product_kind_id)
+        if category_id:
+            query = query.filter(ProductKind.category_id == int(category_id))
+        if kind_id:
+            query = query.filter(ProductKind.kind_id == int(kind_id))
+        if name:
+            query = query.filter(Product.name.ilike(f"%{name}%"))
+        return query
+
+    def count_products(self, category_id=None, kind_id=None, name=None):
+        """
+            # Count product matching the given filters
+            # Note: named distinctly from count() below, which counts Image rows
+            # for upload validation — same class, unrelated purpose.
+            # Output:
+            #   return: int
+        """
+        with self.session_factory_read() as session:
+            return self._filtered_query(session, category_id, kind_id, name).count()
+
+    def get_all(self, page=1, page_size=12, category_id=None, kind_id=None, name=None):
+        """
+            # Get a page of product, optionally filtered by category/kind/name
             # Params:
+            #   @page, @page_size: pagination
+            #   @category_id, @kind_id, @name: optional filters
             # Output:
             #   return: List of product
         """
         with self.session_factory_read() as session:
-            results = session.query(
-                    Product
-                ).outerjoin(
-                    ProductImage, Product.product_id == ProductImage.product_id
-                ).outerjoin(
-                    Image, Image.id == ProductImage.image_id
-                ).outerjoin(
-                    ProductKind, ProductKind.kind_id == Product.product_kind_id
-                ).outerjoin(
-                    Kind, Kind.id == ProductKind.kind_id
-                ).outerjoin(
-                    Category, Category.id == ProductKind.category_id
+            results = self._filtered_query(
+                    session, category_id, kind_id, name
                 ).options(
                     joinedload(Product.product_image).joinedload(ProductImage.images),
                     joinedload(Product.product_kinds).joinedload(ProductKind.kinds),
                     joinedload(Product.product_kinds).joinedload(ProductKind.categories)
                 ).order_by(
                     asc(Product.flg_del), desc(Product.created_date)
+                ).offset(
+                    (page - 1) * page_size
+                ).limit(
+                    page_size
                 ).all()
             return [
                 {

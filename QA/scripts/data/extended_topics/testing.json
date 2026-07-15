@@ -1,0 +1,122 @@
+[
+{"content": "Trong kiến trúc microservices, một integration test kiểm tra điều gì mà unit test (đã mock toàn bộ dependency) không thể kiểm tra được?", "explanation": "Integration test xác nhận sự tương tác thực tế giữa service với các thành phần phụ thuộc bên ngoài (database, message queue, service khác) mà unit test đã cách ly hoàn toàn nên không thể phát hiện.", "options": [
+{"content": "Logic tính toán bên trong một hàm khi mọi dependency đã bị cách ly hoàn toàn", "is_correct": false},
+{"content": "Sự tương tác thực tế giữa service với database, message queue hoặc service khác mà không mock các phụ thuộc đó", "is_correct": true},
+{"content": "Toàn bộ luồng nghiệp vụ từ giao diện người dùng đến cơ sở dữ liệu qua nhiều service", "is_correct": false},
+{"content": "Khả năng chịu tải của hệ thống khi có nhiều người dùng truy cập đồng thời", "is_correct": false}
+]},
+{"content": "Theo chu trình TDD Red-Green-Refactor, thứ tự thực hiện đúng là gì?", "explanation": "TDD bắt đầu bằng viết test thất bại (Red), viết code tối thiểu để test pass (Green), rồi cải tiến thiết kế mà không đổi hành vi (Refactor).", "options": [
+{"content": "Viết code hoàn chỉnh trước, sau đó viết test để kiểm chứng lại code", "is_correct": false},
+{"content": "Refactor code hiện có, viết test mới, rồi chạy test để xác nhận pass", "is_correct": false},
+{"content": "Viết test thất bại, viết code tối thiểu để test pass, sau đó cải tiến code mà vẫn giữ test pass", "is_correct": true},
+{"content": "Viết test luôn pass ngay từ đầu, thêm logic dần, cuối cùng bổ sung edge case", "is_correct": false}
+]},
+{"content": "Trong bước Refactor của TDD, mục tiêu chính cần đạt được là gì?", "explanation": "Refactor nhằm cải thiện cấu trúc/thiết kế code trong khi vẫn đảm bảo toàn bộ test hiện có tiếp tục pass, không thay đổi hành vi quan sát được từ bên ngoài.", "options": [
+{"content": "Thêm tính năng mới mà khách hàng vừa yêu cầu trong lúc test đang chạy", "is_correct": false},
+{"content": "Viết thêm test case mới để cố gắng đạt 100% coverage", "is_correct": false},
+{"content": "Xóa các test cũ không còn cần thiết để pipeline chạy nhanh hơn", "is_correct": false},
+{"content": "Cải thiện cấu trúc/thiết kế code mà không làm thay đổi hành vi đã được test xác nhận", "is_correct": true}
+]},
+{"content": "Điểm khác biệt cốt lõi giữa một mock và một stub trong test double taxonomy là gì?", "explanation": "Stub chỉ trả về giá trị định trước mà không quan tâm cách nó được gọi; mock còn được dùng để verify rằng một tương tác (lời gọi, tham số) thực sự xảy ra như kỳ vọng.", "options": [
+{"content": "Mock luôn kết nối tới hệ thống thật nên chạy chậm hơn, còn stub luôn giả lập hoàn toàn", "is_correct": false},
+{"content": "Stub chỉ trả về giá trị đã định trước, còn mock còn dùng để verify rằng một tương tác cụ thể đã xảy ra như kỳ vọng", "is_correct": true},
+{"content": "Stub chỉ dùng trong integration test, mock chỉ dùng trong unit test", "is_correct": false},
+{"content": "Mock lưu trạng thái nội bộ như một bản rút gọn của hệ thống thật, còn stub hoàn toàn không có hành vi", "is_correct": false}
+]},
+{"content": "Trong taxonomy test double (dummy/fake/stub/spy/mock), một 'fake' được đặc trưng bởi điều gì?", "explanation": "Fake là một cài đặt hoạt động thực sự nhưng đơn giản hóa (ví dụ in-memory database), khác với stub chỉ trả dữ liệu tĩnh cố định cho các lời gọi cụ thể.", "options": [
+{"content": "Là đối tượng chỉ để lấp đầy tham số bắt buộc mà không bao giờ được sử dụng thực sự trong test", "is_correct": false},
+{"content": "Là đối tượng ghi lại toàn bộ lời gọi để test assert số lần gọi và tham số truyền vào", "is_correct": false},
+{"content": "Là một cài đặt hoạt động thực sự nhưng đơn giản hóa, ví dụ dùng in-memory database thay cho database thật", "is_correct": true},
+{"content": "Là đối tượng thay thế service thật ngay trong môi trường production để tăng tốc độ xử lý", "is_correct": false}
+]},
+{"content": "Một module đạt 100% line coverage nhưng vẫn để lọt một bug nghiêm trọng khi lên production. Nguyên nhân hợp lý nhất là gì?", "explanation": "100% line coverage chỉ đảm bảo mọi dòng đã được thực thi, không đảm bảo đã kiểm tra đủ nhánh điều kiện, tổ hợp giá trị biên, hoặc có assertion đủ chặt để phát hiện kết quả sai.", "options": [
+{"content": "Line coverage 100% đồng nghĩa branch coverage cũng 100%, nên bug chỉ có thể do công cụ đo coverage tính sai", "is_correct": false},
+{"content": "Test đã chạy qua mọi dòng code nhưng thiếu assertion đủ chặt hoặc chưa bao phủ các nhánh/tổ hợp giá trị biên gây lỗi thực tế", "is_correct": true},
+{"content": "Coverage tool không hỗ trợ đúng ngôn ngữ lập trình đang được sử dụng trong dự án", "is_correct": false},
+{"content": "Bug chỉ có thể xảy ra khi coverage dưới 80%, nên đây là trường hợp ngoại lệ hiếm gặp", "is_correct": false}
+]},
+{"content": "Branch coverage khác line (statement) coverage như thế nào?", "explanation": "Branch coverage yêu cầu mọi nhánh rẽ (true/false của từng điều kiện) đều được thực thi ít nhất một lần, chặt hơn line coverage vì một dòng if có thể được tính là 'đã chạy' dù chỉ một nhánh được test tới.", "options": [
+{"content": "Branch coverage đo số nhánh Git đã được kiểm tra, còn line coverage đo số dòng code đã được review", "is_correct": false},
+{"content": "Line coverage chỉ áp dụng cho unit test, còn branch coverage chỉ áp dụng cho integration test", "is_correct": false},
+{"content": "Branch coverage yêu cầu mọi nhánh true/false của các điều kiện đều được thực thi, chặt hơn việc chỉ tính dòng đã chạy", "is_correct": true},
+{"content": "Branch coverage luôn cho kết quả thấp hơn line coverage một cách tuyệt đối trong mọi trường hợp", "is_correct": false}
+]},
+{"content": "Trong thiết kế CI pipeline nhiều stage, vì sao nên chạy unit test trước rồi mới đến integration/e2e test?", "explanation": "Unit test chạy nhanh, ít phụ thuộc môi trường nên giúp fail fast, tiết kiệm thời gian và tài nguyên hạ tầng trước khi chạy các test chậm và tốn kém hơn.", "options": [
+{"content": "Vì unit test luôn phát hiện được nhiều loại bug hơn integration/e2e test nên chạy integration là không cần thiết", "is_correct": false},
+{"content": "Vì integration/e2e test không thể chạy song song với unit test trên cùng một pipeline", "is_correct": false},
+{"content": "Unit test chạy nhanh và ít phụ thuộc môi trường, giúp fail fast và tiết kiệm tài nguyên trước khi chạy test chậm hơn", "is_correct": true},
+{"content": "Vì đây là yêu cầu bắt buộc về thứ tự stage của mọi công cụ CI như Jenkins hay GitHub Actions", "is_correct": false}
+]},
+{"content": "Consumer-driven contract testing (ví dụ dùng Pact) giải quyết vấn đề gì giữa các microservice?", "explanation": "Consumer định nghĩa kỳ vọng về API của provider thành một contract, provider verify lại contract đó để phát hiện breaking change sớm mà không cần dựng toàn bộ hệ thống để chạy integration test tốn kém.", "options": [
+{"content": "Thay thế hoàn toàn nhu cầu viết unit test cho cả consumer và provider", "is_correct": false},
+{"content": "Cho phép phát hiện sớm breaking change giữa consumer và provider mà không cần dựng toàn bộ hệ thống để test", "is_correct": true},
+{"content": "Đảm bảo thời gian phản hồi của provider luôn nằm dưới một ngưỡng SLA cố định", "is_correct": false},
+{"content": "Tự động sinh tài liệu OpenAPI/Swagger từ source code của provider", "is_correct": false}
+]},
+{"content": "Trong mô hình consumer-driven contract, ai là người khởi tạo nội dung contract ban đầu?", "explanation": "Consumer (bên gọi API) định nghĩa contract vì nó phản ánh đúng những gì consumer thực sự cần và sử dụng từ provider, tránh test dư những khả năng không dùng tới.", "options": [
+{"content": "Provider, vì provider hiểu rõ nhất toàn bộ khả năng mà API của mình có thể cung cấp", "is_correct": false},
+{"content": "Consumer, vì contract cần phản ánh đúng những gì consumer thực sự sử dụng từ provider", "is_correct": true},
+{"content": "Một API gateway trung gian chịu trách nhiệm định nghĩa mọi contract giữa các service", "is_correct": false},
+{"content": "QA team viết contract độc lập mà không cần trao đổi với cả consumer và provider", "is_correct": false}
+]},
+{"content": "Property-based testing (ví dụ Hypothesis, QuickCheck) khác example-based testing (unit test truyền thống với input cụ thể) ở điểm nào?", "explanation": "Thay vì viết từng test case cụ thể, property-based testing khai báo một bất biến (property) mà hàm phải luôn thỏa mãn, rồi framework tự sinh nhiều input ngẫu nhiên (kể cả edge case) để tìm phản ví dụ.", "options": [
+{"content": "Chạy nhanh hơn vì chỉ cần một input duy nhất để chứng minh property đúng cho mọi trường hợp", "is_correct": false},
+{"content": "Thay thế hoàn toàn nhu cầu code review vì framework tự chứng minh code không còn bug", "is_correct": false},
+{"content": "Khai báo một bất biến mà hàm phải luôn thỏa mãn, rồi framework tự sinh nhiều input ngẫu nhiên để tìm phản ví dụ", "is_correct": true},
+{"content": "Chỉ áp dụng được cho test giao diện người dùng, không phù hợp để test logic nghiệp vụ", "is_correct": false}
+]},
+{"content": "Khi một property-based test tìm được input làm fail, tính năng 'shrinking' của framework dùng để làm gì?", "explanation": "Shrinking tự động thu nhỏ input gây lỗi thành phiên bản nhỏ nhất, dễ hiểu nhất mà vẫn còn tái hiện được lỗi, giúp việc debug nhanh và tập trung hơn.", "options": [
+{"content": "Giảm số lượng test case sẽ chạy trong lần build kế tiếp để tiết kiệm thời gian CI", "is_correct": false},
+{"content": "Tự động thu nhỏ input gây lỗi thành phiên bản đơn giản nhất vẫn còn tái hiện được lỗi để dễ debug", "is_correct": true},
+{"content": "Tự động sửa code nguồn để input gây lỗi đó không còn gây fail nữa", "is_correct": false},
+{"content": "Nén dữ liệu test lại để giảm dung lượng lưu trữ log kết quả kiểm thử", "is_correct": false}
+]},
+{"content": "Một test suite pass khi chạy riêng lẻ nhưng fail ngẫu nhiên khi chạy cùng các test khác trong CI. Nguyên nhân phổ biến nhất là gì?", "explanation": "Đây là dấu hiệu điển hình của việc các test chia sẻ trạng thái chung (database, biến static, file tạm) và phụ thuộc thứ tự thực thi, nên kết quả một test bị ảnh hưởng bởi test chạy trước nó.", "options": [
+{"content": "Máy chạy CI luôn có cấu hình phần cứng yếu hơn máy local nên test không ổn định", "is_correct": false},
+{"content": "Các test chia sẻ trạng thái chung và phụ thuộc thứ tự thực thi, nên kết quả bị ảnh hưởng bởi test chạy trước", "is_correct": true},
+{"content": "Framework test đang sử dụng có bug nên không thể tin tưởng bất kỳ kết quả nào", "is_correct": false},
+{"content": "Số lượng test trong suite vượt quá giới hạn cho phép của công cụ CI đang dùng", "is_correct": false}
+]},
+{"content": "Trong các cách xử lý flaky test dưới đây, cách nào KHÔNG được coi là giải pháp bền vững mà chỉ là biện pháp che giấu tạm thời?", "explanation": "Tự động retry đến khi pass mà không điều tra nguyên nhân gốc chỉ che giấu vấn đề, không giải quyết được race condition, shared state hay timing assumption gây flaky.", "options": [
+{"content": "Cách ly trạng thái test bằng cách setup/teardown dữ liệu riêng cho từng test case", "is_correct": false},
+{"content": "Tự động retry test khi fail cho đến khi pass mà không điều tra nguyên nhân gốc gây fail", "is_correct": true},
+{"content": "Thay sleep cố định bằng cơ chế chờ có điều kiện (poll/wait-until) khi test có yếu tố bất đồng bộ", "is_correct": false},
+{"content": "Loại bỏ phụ thuộc vào thời gian thực bằng cách dùng clock có thể fake/inject được", "is_correct": false}
+]},
+{"content": "Vì sao test pyramid khuyến nghị có nhiều unit test ở đáy và ít e2e test ở đỉnh?", "explanation": "Unit test chạy nhanh, rẻ, ổn định và dễ chỉ ra chính xác vị trí lỗi; e2e test chạy chậm, đắt về hạ tầng và dễ flaky hơn nên chỉ nên dùng để phủ các luồng nghiệp vụ quan trọng nhất.", "options": [
+{"content": "Vì e2e test không thể tự động hóa được nên buộc phải chạy thủ công với số lượng ít", "is_correct": false},
+{"content": "Vì unit test luôn phát hiện được nhiều lỗi tích hợp giữa các service hơn e2e test", "is_correct": false},
+{"content": "Vì công cụ CI hiện đại giới hạn số lượng e2e test được chạy trong một lần build", "is_correct": false},
+{"content": "Unit test chạy nhanh, rẻ, ổn định, dễ định vị lỗi; e2e test chậm, đắt và dễ flaky hơn nên chỉ nên phủ luồng quan trọng nhất", "is_correct": true}
+]},
+{"content": "Một test chỉ assert `response.status_code == 200` mà không kiểm tra nội dung trả về. Rủi ro chính của cách viết assertion này là gì?", "explanation": "Assertion quá lỏng chỉ xác nhận request không lỗi, không xác nhận dữ liệu/logic trả về đúng, nên test có thể pass ngay cả khi kết quả nghiệp vụ sai.", "options": [
+{"content": "Test sẽ chạy chậm hơn đáng kể vì phải parse response body để so sánh", "is_correct": false},
+{"content": "Test có thể pass ngay cả khi response sai dữ liệu, thiếu field hoặc logic nghiệp vụ tính toán sai", "is_correct": true},
+{"content": "Test sẽ luôn fail trên CI vì status code có thể thay đổi giữa các lần chạy", "is_correct": false},
+{"content": "Assertion này vi phạm nguyên tắc Arrange-Act-Assert nên sẽ không được framework test hỗ trợ", "is_correct": false}
+]},
+{"content": "'Test independence' (tính độc lập giữa các test) yêu cầu điều gì?", "explanation": "Mỗi test cần tự thiết lập dữ liệu/trạng thái cần thiết và dọn dẹp sau khi chạy, để kết quả không phụ thuộc vào việc test khác đã chạy trước hay thứ tự thực thi.", "options": [
+{"content": "Mỗi test phải được viết bởi một developer khác nhau để tránh thiên vị khi kiểm thử", "is_correct": false},
+{"content": "Mỗi test phải chạy trên một máy chủ CI hoàn toàn tách biệt về mạng với các test khác", "is_correct": false},
+{"content": "Mỗi test tự thiết lập trạng thái cần thiết và dọn dẹp sau khi chạy, không phụ thuộc test khác hay thứ tự thực thi", "is_correct": true},
+{"content": "Mỗi test chỉ được gọi tối đa một hàm duy nhất trong toàn bộ codebase", "is_correct": false}
+]},
+{"content": "Load testing khác stress testing như thế nào?", "explanation": "Load testing đo hành vi hệ thống dưới mức tải kỳ vọng để xác nhận đáp ứng SLA, còn stress testing đẩy tải vượt xa giới hạn đó để tìm điểm hệ thống bắt đầu suy giảm hoặc sụp đổ.", "options": [
+{"content": "Load testing chỉ đo tốc độ tải trang web, stress testing chỉ đo lượng RAM sử dụng", "is_correct": false},
+{"content": "Load testing đo hành vi hệ thống dưới mức tải kỳ vọng để xác nhận SLA, stress testing đẩy tải vượt giới hạn để tìm điểm sụp đổ", "is_correct": true},
+{"content": "Load testing luôn thực hiện thủ công, stress testing luôn phải tự động hóa hoàn toàn", "is_correct": false},
+{"content": "Load testing chỉ áp dụng cho backend, stress testing chỉ áp dụng cho frontend", "is_correct": false}
+]},
+{"content": "Khi phân tích kết quả performance test, vì sao nên nhìn vào p95/p99 latency thay vì chỉ latency trung bình (average)?", "explanation": "Trung bình có thể bị các request nhanh áp đảo và che giấu một tỷ lệ nhỏ nhưng đáng kể request rất chậm; p95/p99 phản ánh trải nghiệm của nhóm người dùng chịu độ trễ cao nhất, thường là nơi phát sinh vấn đề thực tế.", "options": [
+{"content": "p95/p99 luôn cho ra số nhỏ hơn average nên dễ đạt SLA hơn khi báo cáo", "is_correct": false},
+{"content": "Average không thể tính toán được khi số lượng request lớn hơn vài nghìn", "is_correct": false},
+{"content": "Trung bình có thể bị che giấu bởi các request nhanh; p95/p99 phản ánh đúng trải nghiệm của nhóm người dùng chịu độ trễ cao nhất", "is_correct": true},
+{"content": "p95/p99 là chỉ số duy nhất mà các công cụ load test hiện nay hỗ trợ đo lường", "is_correct": false}
+]},
+{"content": "Regression testing nên được thực hiện khi nào và với mục tiêu gì?", "explanation": "Regression testing nên chạy sau mỗi lần thay đổi code (fix bug, thêm feature, refactor) để xác nhận các chức năng đã hoạt động đúng trước đó không bị phá vỡ bởi thay đổi mới.", "options": [
+{"content": "Chỉ thực hiện một lần duy nhất trước khi release phiên bản đầu tiên của sản phẩm", "is_correct": false},
+{"content": "Chỉ cần thực hiện khi khách hàng báo lỗi trực tiếp trên môi trường production", "is_correct": false},
+{"content": "Sau mỗi lần thay đổi code, nhằm xác nhận các chức năng đã hoạt động đúng trước đó không bị phá vỡ bởi thay đổi mới", "is_correct": true},
+{"content": "Thay thế hoàn toàn unit test khi dự án đã có bộ regression test đầy đủ", "is_correct": false}
+]}
+]

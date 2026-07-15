@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from typing import Optional
+from fastapi import APIRouter, Depends, Query
 # from schema.product import ProductRequest, ProductResponse, ListProductResponse
 from schema.product import ProductRequest, ListProductResponse
 from product import ProductService
@@ -38,11 +39,17 @@ product_router = APIRouter(route_class=CommonRoute, prefix='/product', tags=['pr
 
 @product_router.get('', responses={200:{"model": Response[ListProductResponse]}})
 @inject
-def get_all(product_service: ProductService = Depends(Provide(Container.product_service))):
+def get_all(
+        page: int = Query(1, ge=1),
+        page_size: int = Query(12, ge=1, le=100),
+        category_id: Optional[str] = Query(None),
+        kind_id: Optional[str] = Query(None),
+        name: Optional[str] = Query(None),
+        product_service: ProductService = Depends(Provide(Container.product_service))):
     """
-        Get list product
+        Get a page of product, optionally filtered by category/kind/name
     """
-    data = product_service.get_all()
+    data = product_service.get_all(page, page_size, category_id, kind_id, name)
     payload = ListProductResponse(**data)
     response = ok(data=payload.dict())
     return response

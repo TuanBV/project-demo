@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Import câu hỏi - Interview Review System{% endblock %}
+{% block content %}
+<h1>Import câu hỏi</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" data-tab="docx">Upload DOCX</button>
+    <button class="tab-btn" data-tab="paste">Dán text</button>
+    <button class="tab-btn" data-tab="manual">Nhập thủ công</button>
+</div>
+
+<div class="tab-panel active" id="tab-docx">
+    <div class="card">
+        <label for="docx-file">Chọn file .docx</label>
+        <input type="file" id="docx-file" accept=".docx" />
+        <label for="docx-duplicate">Xử lý trùng lặp</label>
+        <select id="docx-duplicate">
+            <option value="SKIP">Bỏ qua (SKIP)</option>
+            <option value="UPDATE">Cập nhật (UPDATE)</option>
+            <option value="CREATE_COPY">Tạo bản sao (CREATE_COPY)</option>
+        </select>
+        <label><input type="checkbox" id="docx-generate-concepts" style="width:auto;" /> Tự động đề xuất concept/keyword</label>
+        <div class="flex-row" style="margin-top:12px;">
+            <button class="btn secondary" id="docx-preview-btn">Phân tích dữ liệu (preview)</button>
+            <button class="btn" id="docx-import-btn">Xác nhận import</button>
+        </div>
+    </div>
+</div>
+
+<div class="tab-panel" id="tab-paste">
+    <div class="card">
+        <label for="paste-content">Dán nội dung câu hỏi</label>
+        <textarea id="paste-content" class="mono" rows="12" placeholder="CATEGORY: Java Core&#10;QUESTION: JVM la gi?&#10;ANSWER: ...&#10;---"></textarea>
+        <button class="btn secondary" id="paste-sample-btn" type="button">Xem định dạng mẫu</button>
+        <label for="paste-duplicate">Xử lý trùng lặp</label>
+        <select id="paste-duplicate">
+            <option value="SKIP">Bỏ qua (SKIP)</option>
+            <option value="UPDATE">Cập nhật (UPDATE)</option>
+            <option value="CREATE_COPY">Tạo bản sao (CREATE_COPY)</option>
+        </select>
+        <label><input type="checkbox" id="paste-generate-concepts" style="width:auto;" /> Tự động đề xuất concept/keyword</label>
+        <div class="flex-row" style="margin-top:12px;">
+            <button class="btn secondary" id="paste-preview-btn">Phân tích dữ liệu (preview)</button>
+            <button class="btn" id="paste-import-btn">Xác nhận import</button>
+        </div>
+    </div>
+</div>
+
+<div class="tab-panel" id="tab-manual">
+    <div class="card">
+        <p>Nhập nhanh một câu hỏi trắc nghiệm 4 đáp án (dùng form đầy đủ tại
+            <a href="/admin/questions/new">Quản lý câu hỏi &gt; Thêm mới</a> nếu cần câu hỏi tự luận).</p>
+        <label for="manual-category">Chủ đề</label>
+        <select id="manual-category">
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="manual-question">Câu hỏi</label>
+        <textarea id="manual-question" rows="2"></textarea>
+        <label for="manual-explanation">Giải thích (tùy chọn)</label>
+        <textarea id="manual-explanation" rows="2"></textarea>
+        <div id="manual-options"></div>
+        <div class="flex-row" style="margin-top:12px;">
+            <button class="btn" id="manual-submit-btn">Tạo câu hỏi</button>
+        </div>
+    </div>
+</div>
+
+<div class="card hidden" id="preview-section">
+    <h2>Kết quả phân tích</h2>
+    <p id="preview-summary" class="muted"></p>
+    <div style="overflow-x:auto;">
+    <table>
+        <thead>
+            <tr><th>STT</th><th>Category</th><th>Type</th><th>Câu hỏi</th><th>Đáp án</th><th>Trạng thái</th><th>Cảnh báo</th></tr>
+        </thead>
+        <tbody id="preview-body"></tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/import.js"></script>
+{% endblock %}

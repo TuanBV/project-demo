@@ -10,6 +10,8 @@ from dependencies import authorized_user
 from router.common import CommonRoute
 from tasks import add_task
 from helpers import context
+from utils.kbn import ROLE
+from decorators import permission
 # from typing import List
 
 
@@ -101,7 +103,8 @@ def create(request: UserRequest, user_service: UserService = Depends(Provide(Con
     return response
 
 
-@user_router.get('/all', responses={200:{"model": Response[ListUserResponse]}})
+@user_router.get('/all', responses={200:{"model": Response[ListUserResponse]}}, dependencies=[Depends(authorized_user)])
+@permission([ROLE.ADMIN])
 @inject
 def get_list(user_service: UserService = Depends(Provide(Container.user_service))):
     """
@@ -115,7 +118,8 @@ def get_list(user_service: UserService = Depends(Provide(Container.user_service)
     return response
 
 
-@user_router.post('/{user_id}/{status}', responses={200: {"model": Response[UserResponse]}})
+@user_router.post('/{user_id}/{status}', responses={200: {"model": Response[UserResponse]}}, dependencies=[Depends(authorized_user)])
+@permission([ROLE.ADMIN])
 @inject
 def status_user(user_id: str, status: int,
                 user_service: UserService = Depends(Provide(Container.user_service))):

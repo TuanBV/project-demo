@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useAuthStore } from 'stores/auth-store'
 import ToastUtil from 'utility/toast'
 import { API_BASE_URL } from 'utility/env'
+import placeholderImage from 'assets/logo.svg'
 
 const authStore = useAuthStore()
 const productAdd = ref({
@@ -26,7 +27,8 @@ watch(props, () => {
   productAdd.value.name = props.product.name
 
   // Set image
-  imageProduct.value = API_BASE_URL + '/' + props.product.images[0].path
+  const firstImage = props.product.images?.[0]
+  imageProduct.value = firstImage ? `${API_BASE_URL}/${firstImage.path}` : placeholderImage
 })
 
 onMounted(() => {

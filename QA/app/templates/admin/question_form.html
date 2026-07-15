@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}{% if question_id %}Sửa câu hỏi{% else %}Thêm câu hỏi{% endif %} - Interview Review System{% endblock %}
+{% block content %}
+<h1>{% if question_id %}Sửa câu hỏi #{{ question_id }}{% else %}Thêm câu hỏi mới{% endif %}</h1>
+<input type="hidden" id="question-id" value="{{ question_id or '' }}" />
+
+<div class="card" id="needs-review-banner" style="display:none; background:#fff6dc;">
+    <strong>Câu hỏi này cần được rà soát</strong> — đáp án sai có thể do hệ thống tự sinh, hãy kiểm tra kỹ trước khi kích hoạt.
+</div>
+
+<div class="card">
+    <h2>Thông tin cơ bản</h2>
+    <label for="f-category">Chủ đề</label>
+    <select id="f-category">
+        {% for cat in categories %}
+        <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <div class="flex-row">
+        <div style="flex:1;">
+            <label for="f-format">Định dạng câu hỏi</label>
+            <select id="f-format">
+                <option value="MULTIPLE_CHOICE" selected>Trắc nghiệm (4 đáp án)</option>
+                <option value="FREE_TEXT">Tự luận (legacy)</option>
+            </select>
+        </div>
+        <div style="flex:1;">
+            <label for="f-type">Question type</label>
+            <select id="f-type">
+                <option value="TEXT">TEXT</option>
+                <option value="CODE">CODE</option>
+                <option value="SQL">SQL</option>
+                <option value="SCENARIO">SCENARIO</option>
+            </select>
+        </div>
+        <div style="flex:1;">
+            <label for="f-language">Language scope</label>
+            <select id="f-language">
+                <option value="GENERAL">GENERAL</option>
+                <option value="JAVA">JAVA</option>
+                <option value="PYTHON">PYTHON</option>
+                <option value="SQL">SQL</option>
+            </select>
+        </div>
+        <div style="flex:1;">
+            <label for="f-difficulty">Độ khó</label>
+            <select id="f-difficulty">
+                <option value="EASY">EASY</option>
+                <option value="MEDIUM" selected>MEDIUM</option>
+                <option value="HARD">HARD</option>
+            </select>
+        </div>
+        <div style="flex:1;">
+            <label for="f-active">Trạng thái</label>
+            <select id="f-active">
+                <option value="true">Hoạt động</option>
+                <option value="false">Đã tắt</option>
+            </select>
+        </div>
+    </div>
+    <label for="f-content">Câu hỏi</label>
+    <textarea id="f-content" rows="3"></textarea>
+    <label for="f-explanation">Giải thích (hiển thị sau khi trả lời)</label>
+    <textarea id="f-explanation" rows="2"></textarea>
+</div>
+
+<div class="card" id="mc-section">
+    <div class="flex-row">
+        <h2 style="flex:1;">4 đáp án (chọn đúng 1 đáp án đúng)</h2>
+        <button class="btn secondary" id="regenerate-distractors-btn" type="button">Tạo lại 3 đáp án sai</button>
+    </div>
+    <div id="options-container"></div>
+    <p class="muted" id="options-warning"></p>
+</div>
+
+<div class="card hidden" id="free-text-section">
+    <label for="f-answer">Đáp án tham khảo (tự luận)</label>
+    <textarea id="f-answer" rows="4"></textarea>
+    <label for="f-java">Code Java mẫu</label>
+    <textarea id="f-java" class="mono" rows="4"></textarea>
+    <label for="f-python">Code Python mẫu</label>
+    <textarea id="f-python" class="mono" rows="4"></textarea>
+    <label for="f-sql">SQL mẫu</label>
+    <textarea id="f-sql" class="mono" rows="4"></textarea>
+    <div class="flex-row">
+        <h3 style="flex:1;">Concepts &amp; Keywords</h3>
+        <button class="btn secondary" id="suggest-btn" type="button">Tự động đề xuất concept và keyword</button>
+        <button class="btn secondary" id="add-concept-btn" type="button">+ Thêm concept</button>
+    </div>
+    <div id="concepts-container"></div>
+    <div class="flex-row">
+        <h3 style="flex:1;">Contradiction rules</h3>
+        <button class="btn secondary" id="add-contradiction-btn" type="button">+ Thêm rule</button>
+    </div>
+    <div id="contradictions-container"></div>
+</div>
+
+<div class="card hidden" id="free-text-test-section">
+    <h2>Test thử câu trả lời (tự luận)</h2>
+    <p class="muted" id="test-hint">Lưu câu hỏi trước để dùng chức năng test.</p>
+    <textarea id="test-answer" rows="3" placeholder="Nhập câu trả lời thử..."></textarea>
+    <button class="btn secondary" id="test-btn" type="button" disabled>Test chấm điểm</button>
+    <pre id="test-result" class="code-block" style="white-space:pre-wrap;"></pre>
+</div>
+
+<div class="card">
+    <button class="btn" id="save-btn">Lưu câu hỏi</button>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/question_form.js"></script>
+{% endblock %}

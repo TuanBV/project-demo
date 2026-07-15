@@ -1,27 +1,76 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 import productService from 'service/product.service'
+import categoryService from 'service/category.service'
+import kindService from 'service/kind.service'
 import ToastUtil from 'utility/toast'
 import ItemProduct from 'components/user/product/ItemProduct.vue'
 import ProductDetailView from 'components/user/product/ProductDetailView.vue'
+import PaginationView from 'components/common/pagination/PaginationView.vue'
 
 const productList = ref([])
 const product = ref()
 const isModal = ref(false)
-const currentPage = ref(1)
-const maxPage = ref(5)
+const categories = ref([])
+const kinds = ref([])
+const filters = ref({
+  category_id: '',
+  kind_id: '',
+  name: '',
+})
+const pagination = ref({
+  current: 1,
+  show: 12,
+  total: 0,
+})
 
 // Get list product
 const getList = async () => {
-  const res = await productService.getList()
+  const res = await productService.getList({
+    page: pagination.value.current,
+    page_size: pagination.value.show,
+    category_id: filters.value.category_id || undefined,
+    kind_id: filters.value.kind_id || undefined,
+    name: filters.value.name || undefined,
+  })
   if (res) {
     productList.value = res.item
+    pagination.value.total = res.total
     return
   }
   ToastUtil.error('Get list product failed')
 }
 
+const getCategory = async () => {
+  const res = await categoryService.getList()
+  if (res) categories.value = res.item
+}
+
+const getKind = async () => {
+  const res = await kindService.getList()
+  if (res) kinds.value = res.item
+}
+
+// Category/kind filters take effect immediately; page resets to 1 so the
+// user doesn't land on a page number that no longer exists under the filter.
+const onFilterChange = () => {
+  pagination.value.current = 1
+}
+
+// Free-text search is debounced so it doesn't fire a request per keystroke.
+const onSearchInput = useDebounceFn(() => {
+  pagination.value.current = 1
+  getList()
+}, 400)
+
+watch(
+  () => [pagination.value.current, pagination.value.show, filters.value.category_id, filters.value.kind_id],
+  () => getList()
+)
+
 onMounted(async () => {
+  await Promise.all([getCategory(), getKind()])
   await getList()
 })
 </script>
@@ -38,9 +87,33 @@ onMounted(async () => {
         </p>
       </header>
 
-      <div class="mt-8">
-        <p class="text-sm text-gray-500">Showing <span> 4 </span> of 40</p>
+      <!-- Filters -->
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <input
+          v-model="filters.name"
+          @input="onSearchInput"
+          type="text"
+          placeholder="Search products..."
+          class="rounded-md border px-3 py-2 text-sm"
+        />
+        <select
+          v-model="filters.category_id"
+          @change="onFilterChange"
+          class="rounded-md border px-3 py-2 text-sm"
+        >
+          <option value="">All categories</option>
+          <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.name }}</option>
+        </select>
+        <select
+          v-model="filters.kind_id"
+          @change="onFilterChange"
+          class="rounded-md border px-3 py-2 text-sm"
+        >
+          <option value="">All kinds</option>
+          <option v-for="item in kinds" :key="item.id" :value="item.id">{{ item.name }}</option>
+        </select>
       </div>
+
       <!-- List product -->
       <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 tablet:grid-cols-3 pc:grid-cols-4">
         <div v-for="(item, index) in productList" :key="index">
@@ -50,60 +123,9 @@ onMounted(async () => {
           />
         </div>
       </div>
-      <!-- Pagination -->
-      <div class="mt-8 flex justify-center gap-1 text-xs font-medium">
-        <div
-          @click.prevent="currentPage = --currentPage"
-          :class="currentPage == 1 ? 'pointer-events-none opacity-50' : ''"
-          class="inline-flex size-8 cursor-pointer items-center justify-center rounded border border-gray-100"
-        >
-          <span class="sr-only">Prev Page</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-3"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
+      <p v-if="!productList.length" class="mt-8 text-center text-gray-500">No products found.</p>
 
-        <div
-          v-for="(item, index) in maxPage"
-          :key="index"
-          :class="{
-            'border-gray-100 text-gray-600': currentPage !== item,
-            'border-black bg-black text-white': currentPage === item,
-          }"
-          @click.prevent="currentPage = item"
-          class="block size-8 cursor-pointer rounded border border-gray-100 text-center leading-8"
-        >
-          {{ item }}
-        </div>
-        <div
-          @click.prevent="currentPage = ++currentPage"
-          :class="currentPage == maxPage ? 'pointer-events-none opacity-50' : ''"
-          class="inline-flex size-8 cursor-pointer items-center justify-center rounded border border-gray-100"
-        >
-          <span class="sr-only">Next Page</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-3"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
-      </div>
+      <PaginationView v-model="pagination" />
     </div>
     <ProductDetailView
       :product="product"
