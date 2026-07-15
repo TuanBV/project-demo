@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import { useAuthStore } from 'stores/auth-store'
 import ToastUtil from 'utility/toast'
+import { API_BASE_URL } from 'utility/env'
 
 const authStore = useAuthStore()
 const productAdd = ref({
@@ -25,7 +26,7 @@ watch(props, () => {
   productAdd.value.name = props.product.name
 
   // Set image
-  imageProduct.value = 'http://localhost:8000/' + props.product.images[0].path
+  imageProduct.value = API_BASE_URL + '/' + props.product.images[0].path
 })
 
 onMounted(() => {
@@ -64,7 +65,7 @@ onMounted(() => {
                 loading="lazy"
                 v-for="(item, index) in props.product.images"
                 :key="index"
-                :src="'http://localhost:8000/' + item.path"
+                :src="API_BASE_URL + '/' + item.path"
                 alt="Thumbnail 1"
                 class="size-16 cursor-pointer rounded-md object-cover opacity-60 transition duration-300 hover:opacity-100 sm:size-20"
                 @click.prevent="imageProduct = item"

@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted, ref, defineModel, defineAsyncComponent, watch, nextTick, markRaw } from 'vue'
+import { onMounted, ref, defineAsyncComponent, watch, nextTick, markRaw } from 'vue'
 import { MAX_POST } from 'utility/const'
+import { API_BASE_URL } from 'utility/env'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 // 1) ======= INITIALIZATION ========
@@ -126,7 +127,7 @@ watch(imageList.value, () => {
     arrayDifferenceWithCount(imageList.value.images, imgListOld.value).length
   ) {
     arrayDifferenceWithCount(imageList.value.images, imgListOld.value).forEach(item => {
-      insertElementAtCursor('http://localhost:8000/' + item.path)
+      insertElementAtCursor(API_BASE_URL + '/' + item.path)
     })
   }
   if (imgListOld.value != imageList.value.images) {

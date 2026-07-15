@@ -5,6 +5,7 @@ import kindService from 'service/kind.service'
 import saleService from 'service/sale.service'
 import productService from 'service/product.service'
 import ToastUtil from 'utility/toast'
+import { API_BASE_URL } from 'utility/env'
 import ImageListView from 'components/admin/modal/ImageListView.vue'
 import useValidate from 'composables/validate'
 import productSchema from 'validations/schemas/admin/product'
@@ -253,7 +254,7 @@ onMounted(async () => {
           <div v-for="(item, index) in imageList" :key="index">
             <div class="relative h-[150px] w-[150px] rounded-md border">
               <img
-                :src="'http://localhost:8000/' + item.path"
+                :src="API_BASE_URL + '/' + item.path"
                 :alt="item.name"
                 height="100%"
                 width="100%"

@@ -3,6 +3,7 @@ import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import ConfirmPopup from 'components/ConfirmPopup.vue'
 import saleService from 'service/sale.service'
 import ToastUtil from 'utility/toast'
+import { API_BASE_URL } from 'utility/env'
 // 1) ======= INITIALIZATION ========
 // 2) ======= VARIABLE REF ========
 const categories = ref([])
@@ -97,7 +98,7 @@ onMounted(async () => {
               <div class="max-h-[100px] w-auto overflow-hidden">
                 <img
                   loading="lazy"
-                  :src="'http://localhost:8000/' + item.image"
+                  :src="API_BASE_URL + '/' + item.image"
                   alt="Banner sale"
                   height="100%"
                   class="max-h-[100px]"

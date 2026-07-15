@@ -2,8 +2,8 @@
 import { onMounted, ref } from 'vue'
 import categoryService from 'service/category.service'
 import productService from 'service/product.service'
-// import userService from 'service/user.service'
 import ToastUtil from 'utility/toast'
+import { API_BASE_URL } from 'utility/env'
 // 1) ======= INITIALIZATION ========
 
 // 2) ======= VARIABLE REF ========
@@ -87,7 +87,7 @@ onMounted(async () => {
             <td class="border-b border-gray-200 px-6 py-4">
               <div class="flex h-[100px] w-[100px] items-center overflow-hidden">
                 <img
-                  :src="'http://localhost:8000/' + item.images[0].path"
+                  :src="API_BASE_URL + '/' + item.images[0].path"
                   alt=""
                   class="object-cover"
                   width="100%"

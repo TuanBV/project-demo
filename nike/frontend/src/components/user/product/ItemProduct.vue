@@ -1,6 +1,7 @@
 <script setup>
+import { API_BASE_URL } from 'utility/env'
+
 const props = defineProps(['itemProduct'])
-// const product = defineModel()
 const emit = defineEmits(['update:itemProduct'])
 </script>
 <template>
@@ -8,7 +9,7 @@ const emit = defineEmits(['update:itemProduct'])
     <img
       loading="lazy"
       :alt="props.itemProduct.name"
-      :src="'http://localhost:8000/' + props.itemProduct.images[0].path"
+      :src="API_BASE_URL + '/' + props.itemProduct.images[0].path"
       class="mx-auto aspect-square object-cover transition duration-500 group-hover:scale-105"
       width="300"
       height="300"
