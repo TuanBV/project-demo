@@ -1,0 +1,16 @@
+# Never bake real secrets into an image layer
+api/.env
+**/.env
+!**/env.example
+
+# Dependency/build artifacts
+**/node_modules
+**/__pycache__
+**/*.pyc
+frontend/dist
+.git
+.vscode
+
+# Local data/logs, not needed inside images
+api/logs
+upload
