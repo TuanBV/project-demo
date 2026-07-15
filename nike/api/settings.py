@@ -3,7 +3,6 @@ Setting config
 """
 
 from pydantic_settings import BaseSettings
-# from pydantic import EmailStr
 
 class Settings(BaseSettings):
     """
@@ -32,8 +31,14 @@ class Settings(BaseSettings):
     MAIL_SSL: bool
     FORM_USER_URL: str
     PASSWORD_RESET_URL: str
+    CORS_ORIGINS: str = "http://localhost:5000,https://localhost:5000"
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        """Comma-separated CORS_ORIGINS env value as a list, e.g. for production domains."""
+        return [origin.strip() for origin in self.CORS_ORIGINS.split(",") if origin.strip()]
 
 settings = Settings()

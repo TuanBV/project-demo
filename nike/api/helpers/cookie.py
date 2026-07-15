@@ -10,7 +10,7 @@ def get_cookie(name: str):
   cookie = Box({
     "NAME": name,
     "DOMAIN": settings.DOMAIN_COOKIE,
-    "SAMESITE": "Strict" if settings.ENVIRONMENT == "production" else "None",
+    "SAMESITE": "Strict" if settings.ENVIRONMENT == "production" else "Lax",
     "SECURE": True if settings.ENVIRONMENT == "production" else False,
   })
 

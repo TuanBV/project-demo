@@ -53,7 +53,7 @@ def make_cookie(cookie_config=None, jwt_token="", max_age=MAX_AGE):
     "key":cookie_config.NAME,
     "value":jwt_token,
     "max_age":max_age,
-    "secure":True,
+    "secure":cookie_config.SECURE,
     "httponly":True,
     "domain":cookie_config.DOMAIN,
     "samesite":cookie_config.SAMESITE,

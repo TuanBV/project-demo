@@ -10,6 +10,7 @@ from .post import post_router
 from .image import image_router
 from .product import product_router
 from .setting import setting_router
+from .health import health_router
 
 __all__ = [
   "user_router",
@@ -19,5 +20,6 @@ __all__ = [
   "image_router",
   "product_router",
   "setting_router",
-  "kind_router"
+  "kind_router",
+  "health_router"
 ]
