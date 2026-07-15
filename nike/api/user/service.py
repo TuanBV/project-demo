@@ -7,6 +7,7 @@ from utils.hash import hash256
 from utils.common import random_text
 from fastapi.encoders import jsonable_encoder
 from core import CommonException
+from utils.kbn import ROLE
 import helpers.jwt as jwt
 
 
@@ -72,6 +73,9 @@ class UserService:
             # Output:
             #   return: Data user
         """
+        # Public registration must never grant a privileged role, regardless of
+        # what the client submits — role is server-authoritative here.
+        data["role"] = ROLE.USER.value
         return self.user_repo.create(data)
 
 

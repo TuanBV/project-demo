@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/coverage/
+
+# Environment / secrets — keep only *.example templates in source control
+.env
+.env.*
+!*.env.example
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db

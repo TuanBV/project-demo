@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { useAuthStore } from 'stores/auth-store'
 import { useAppStore } from 'stores/app-store'
 import { STATUS_CODE } from 'utility/const'
+import { API_BASE_URL } from 'utility/env'
 import ToastUtil from 'utility/toast'
 
 // merge params to axios config
@@ -21,7 +22,7 @@ export default class RestClient {
 
   createAxiosClient() {
     const axiosInstance = Axios.create({
-      baseURL: 'http://localhost:8000',
+      baseURL: API_BASE_URL,
       headers: {
         'Content-type': 'application/json',
       },

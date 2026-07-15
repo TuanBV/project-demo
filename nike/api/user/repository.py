@@ -112,7 +112,8 @@ class UserRepository(CommonRepository):
         with self.session_factory() as session:
             data_token = {
                 'username': data['username'],
-                'email': data['email']
+                'email': data['email'],
+                'role': data['role']
             }
             new_user = User(
                 user_id=random_text(20),

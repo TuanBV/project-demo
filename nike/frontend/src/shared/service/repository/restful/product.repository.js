@@ -8,10 +8,11 @@ class ProductRepository extends BaseRepository {
   /**
    * Handle get list product
    *
+   * @param {object} params page, page_size, category_id, kind_id, name
    * @returns list[object]|null
    */
-  getList() {
-    return this.client.get('')
+  getList(params) {
+    return this.client.get('', params)
   }
 
   /**

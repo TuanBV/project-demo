@@ -1,14 +1,22 @@
 <script setup>
+import { computed } from 'vue'
+import { API_BASE_URL } from 'utility/env'
+import placeholderImage from 'assets/logo.svg'
+
 const props = defineProps(['itemProduct'])
-// const product = defineModel()
 const emit = defineEmits(['update:itemProduct'])
+
+const imageSrc = computed(() => {
+  const firstImage = props.itemProduct.images?.[0]
+  return firstImage ? `${API_BASE_URL}/${firstImage.path}` : placeholderImage
+})
 </script>
 <template>
   <div class="group block overflow-hidden" @click="emit('update:itemProduct', props.itemProduct)">
     <img
       loading="lazy"
       :alt="props.itemProduct.name"
-      :src="'http://localhost:8000/' + props.itemProduct.images[0].path"
+      :src="imageSrc"
       class="mx-auto aspect-square object-cover transition duration-500 group-hover:scale-105"
       width="300"
       height="300"

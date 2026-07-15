@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Trang chủ - Interview Review System{% endblock %}
+{% block content %}
+<h1>Ôn tập câu hỏi phỏng vấn</h1>
+
+<div class="card grid">
+    <div class="stat">
+        <div class="value">{{ overview.total_questions }}</div>
+        <div class="label">Tổng số câu hỏi</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.attempted_questions }}</div>
+        <div class="label">Đã học</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.unattempted_questions }}</div>
+        <div class="label">Chưa học</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.average_score }}</div>
+        <div class="label">Điểm trung bình</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.mastered_questions }}</div>
+        <div class="label">Đã thành thạo</div>
+    </div>
+</div>
+
+<div class="card grid">
+    <div class="stat">
+        <div class="value">{{ overview.correct_count }}</div>
+        <div class="label">Câu đúng</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.incorrect_count }}</div>
+        <div class="label">Câu sai</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.accuracy }}%</div>
+        <div class="label">Tỷ lệ chính xác</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.current_streak }}</div>
+        <div class="label">Chuỗi đúng hiện tại</div>
+    </div>
+    <div class="stat">
+        <div class="value">{{ overview.best_streak }}</div>
+        <div class="label">Chuỗi đúng cao nhất</div>
+    </div>
+</div>
+
+<div class="card flex-row">
+    <a class="btn" href="/study?mode=RANDOM">Luyện tập ngẫu nhiên</a>
+    <a class="btn secondary" href="/study?mode=REVIEW">Ôn câu sai</a>
+    <a class="btn secondary" href="/study?mode=CATEGORY">Luyện theo chủ đề</a>
+</div>
+
+<div class="card">
+    <h2>Tiến độ theo chủ đề</h2>
+    <table>
+        <thead>
+            <tr><th>Chủ đề</th><th>Tổng câu</th><th>Đã học</th><th>Điểm TB</th><th></th></tr>
+        </thead>
+        <tbody>
+        {% for cat in overview.categories %}
+            <tr>
+                <td>{{ cat.category_name }}</td>
+                <td>{{ cat.total_questions }}</td>
+                <td>{{ cat.attempted_questions }}</td>
+                <td>{{ cat.average_score }}</td>
+                <td><a class="btn secondary" href="/study?mode=CATEGORY&category_id={{ cat.category_id }}">Luyện tập</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

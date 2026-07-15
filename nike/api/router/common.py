@@ -73,8 +73,11 @@ class CommonRoute(APIRoute):
     original_route_handler = super().get_route_handler()
 
     async def custom_route_handler(request: Request) -> Response:
+      # Assigned before any parsing that can fail, so the except/finally blocks
+      # below can always reference them safely.
+      request_id = f"{get_request_id()}_{format_date_time(get_current_time(), '%Y%m%d%H%M%S')}"
+      url_request = request.url.path
       try:
-        request_id = f"{get_request_id()}_{format_date_time(get_current_time(), '%Y%m%d%H%M%S')}"
         before = get_current_time()
         body_request = (await request.body()).decode()
         if body_request:
@@ -84,7 +87,6 @@ class CommonRoute(APIRoute):
           "query": request.url.query,
         }
 
-        url_request = request.url.path
         # LOG REQUEST
         # logger.request(url_request, request_id, request.method, request.headers.get("user-agent"), request_data)
 
@@ -109,7 +111,7 @@ class CommonRoute(APIRoute):
           error_msg = traceback.format_exc()
 
         # LOG ERROR RESPONSE
-        # logger.err_response(url_request, request_id, request.method, request.headers.get("user-agent"), error_msg)
+        logger.err_response(url_request, request_id, request.method, request.headers.get("user-agent"), error_msg)
 
         return response
       finally:

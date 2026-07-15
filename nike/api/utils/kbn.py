@@ -27,10 +27,16 @@ class IntEnum(db.TypeDecorator):
         self._enumtype = enumtype
 
     def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
         if isinstance(value, int):
             return value
 
         return value.value
 
     def process_result_value(self, value, dialect):
+        # A LEFT OUTER JOIN to an unmatched row yields NULL for every one of
+        # its columns, including this one — that is not an invalid enum value.
+        if value is None:
+            return None
         return self._enumtype(value)

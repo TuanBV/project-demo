@@ -1,0 +1,236 @@
+# Technical term aliases used by TextNormalizer to canonicalize Vietnamese/English
+# synonyms before keyword matching. Add new entries here instead of hard-coding them
+# in evaluator code (see app/evaluation/normalizer.py).
+aliases:
+  tham_chieu:
+    canonical: reference
+    values:
+      - tham chiếu
+      - tham chieu
+      - reference
+      - object reference
+
+  bat_bien:
+    canonical: immutable
+    values:
+      - bất biến
+      - bat bien
+      - immutable
+      - khong the thay doi
+      - không thể thay đổi
+      - khong thay doi sau khi tao
+      - không thay đổi sau khi tạo
+
+  kha_bien:
+    canonical: mutable
+    values:
+      - khả biến
+      - kha bien
+      - mutable
+      - co the thay doi
+      - có thể thay đổi
+      - thay doi trang thai
+      - thay đổi trạng thái
+
+  bo_thu_gom_rac:
+    canonical: garbage collector
+    values:
+      - garbage collector
+      - gc
+      - bộ thu gom rác
+      - bo thu gom rac
+      - trinh thu gom rac
+      - trình thu gom rác
+
+  may_ao_java:
+    canonical: jvm
+    values:
+      - jvm
+      - java virtual machine
+      - máy ảo java
+      - may ao java
+
+  bytecode:
+    canonical: bytecode
+    values:
+      - bytecode
+      - byte code
+      - mã bytecode
+      - ma bytecode
+
+  bien_dich:
+    canonical: compiler
+    values:
+      - compiler
+      - trình biên dịch
+      - trinh bien dich
+      - biên dịch
+      - bien dich
+
+  thong_dich:
+    canonical: interpreter
+    values:
+      - interpreter
+      - trình thông dịch
+      - trinh thong dich
+      - thông dịch
+      - thong dich
+
+  ke_thua:
+    canonical: inheritance
+    values:
+      - inheritance
+      - kế thừa
+      - ke thua
+
+  da_hinh:
+    canonical: polymorphism
+    values:
+      - polymorphism
+      - đa hình
+      - da hinh
+
+  dong_goi:
+    canonical: encapsulation
+    values:
+      - encapsulation
+      - đóng gói
+      - dong goi
+
+  truu_tuong:
+    canonical: abstraction
+    values:
+      - abstraction
+      - trừu tượng
+      - truu tuong
+
+  luong:
+    canonical: thread
+    values:
+      - thread
+      - luồng
+      - luong
+
+  dong_bo:
+    canonical: synchronization
+    values:
+      - synchronized
+      - synchronization
+      - đồng bộ
+      - dong bo
+
+  hien_thi:
+    canonical: visibility
+    values:
+      - visibility
+      - tính hiển thị
+      - tinh hien thi
+      - hiển thị
+      - hien thi
+
+  nguyen_tu:
+    canonical: atomic
+    values:
+      - atomic
+      - nguyên tử
+      - nguyen tu
+      - tinh nguyen tu
+      - tính nguyên tử
+
+  bo_nho_dem:
+    canonical: cache
+    values:
+      - cache
+      - bộ nhớ đệm
+      - bo nho dem
+
+  chi_muc:
+    canonical: index
+    values:
+      - index
+      - chỉ mục
+      - chi muc
+
+  khoa_chinh:
+    canonical: primary key
+    values:
+      - primary key
+      - khóa chính
+      - khoa chinh
+
+  khoa_ngoai:
+    canonical: foreign key
+    values:
+      - foreign key
+      - khóa ngoại
+      - khoa ngoai
+
+  giao_dich:
+    canonical: transaction
+    values:
+      - transaction
+      - giao dịch
+      - giao dich
+
+  lap:
+    canonical: iterator
+    values:
+      - iterator
+      - trình lặp
+      - trinh lap
+      - bộ lặp
+      - bo lap
+
+  tao_lazy:
+    canonical: lazy
+    values:
+      - lazy
+      - lười
+      - luoi
+      - trì hoãn
+      - tri hoan
+
+  bat_dong_bo:
+    canonical: asynchronous
+    values:
+      - asynchronous
+      - async
+      - bất đồng bộ
+      - bat dong bo
+
+  ham_bac_cao:
+    canonical: higher order function
+    values:
+      - higher-order function
+      - higher order function
+      - hàm bậc cao
+      - ham bac cao
+
+  con_tro:
+    canonical: pointer
+    values:
+      - pointer
+      - con trỏ
+      - con tro
+
+  ngan_xep:
+    canonical: stack
+    values:
+      - stack
+      - ngăn xếp
+      - ngan xep
+
+  hang_doi:
+    canonical: queue
+    values:
+      - queue
+      - hàng đợi
+      - hang doi
+
+  bang_bam:
+    canonical: hash table
+    values:
+      - hash table
+      - hash map
+      - bảng băm
+      - bang bam

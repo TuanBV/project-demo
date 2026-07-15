@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Quản lý câu hỏi - Interview Review System{% endblock %}
+{% block content %}
+<h1>Quản lý câu hỏi</h1>
+
+<div class="card flex-row">
+    <input type="text" id="search-input" placeholder="Tìm kiếm nội dung câu hỏi..." style="max-width:260px;" />
+    <select id="filter-category">
+        <option value="">Tất cả chủ đề</option>
+        {% for cat in categories %}
+        <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <select id="filter-type">
+        <option value="">Tất cả loại</option>
+        <option value="TEXT">TEXT</option>
+        <option value="CODE">CODE</option>
+        <option value="SQL">SQL</option>
+        <option value="SCENARIO">SCENARIO</option>
+    </select>
+    <select id="filter-active">
+        <option value="">Tất cả trạng thái</option>
+        <option value="true">Đang hoạt động</option>
+        <option value="false">Đã tắt</option>
+    </select>
+    <button class="btn secondary" id="filter-btn">Lọc</button>
+    <a class="btn" href="/admin/questions/new">Thêm câu hỏi mới</a>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Câu hỏi</th><th>Loại</th><th>Độ khó</th><th>Trạng thái</th><th></th></tr>
+        </thead>
+        <tbody id="question-body"></tbody>
+    </table>
+    <div class="flex-row" style="margin-top:12px;">
+        <button class="btn secondary" id="prev-page-btn">&laquo; Trước</button>
+        <span id="page-label" class="muted"></span>
+        <button class="btn secondary" id="next-page-btn">Sau &raquo;</button>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/admin_questions.js"></script>
+{% endblock %}

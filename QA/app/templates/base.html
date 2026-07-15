@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Interview Review System{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/main.css" />
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">Interview Review System</a>
+        <nav class="nav">
+            <a href="/">Trang chủ</a>
+            <a href="/study">Luyện tập</a>
+            <a href="/admin/questions">Quản lý câu hỏi</a>
+            <a href="/import">Import</a>
+            <a href="/history">Lịch sử</a>
+        </nav>
+    </header>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <script src="/static/js/api.js"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

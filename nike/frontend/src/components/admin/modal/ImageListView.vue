@@ -1,9 +1,10 @@
 <script setup>
-import { ref, watch, defineEmits, defineProps, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import imageService from 'service/image.service'
 import useValidate from 'composables/validate'
 import ImageSchema from 'schemas/admin/image'
 import ToastUtil from 'utility/toast'
+import { API_BASE_URL } from 'utility/env'
 
 const { validate, errors } = useValidate()
 
@@ -140,7 +141,7 @@ onMounted(async () => {
             "
           >
             <img
-              :src="'http://localhost:8000/' + item.path"
+              :src="API_BASE_URL + '/' + item.path"
               :alt="item.name"
               height="100%"
               width="100%"

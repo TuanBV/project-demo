@@ -8,7 +8,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
   server: {
-    port: 5000
+    port: 5000,
+    host: true
   },
   resolve: {
     alias: {

@@ -7,6 +7,7 @@ import { computed, watch } from 'vue'
 // 2) ======= VARIABLE REF ========
 const pagination = defineModel()
 const page = computed(() => Math.ceil(pagination.value.total / pagination.value.show))
+const rangeTo = computed(() => Math.min(pagination.value.current * pagination.value.show, pagination.value.total))
 // 3) ======= METHOD/FUNCTION ========
 // 4) ======= VUE JS LIFECYCLE ========
 watch(page, () => {
@@ -29,15 +30,13 @@ watch(page, () => {
       </select>
 
       <p class="mt-4 text-gray-500 pc:mt-0">
-        Showing {{ (pagination.current - 1) * pagination.show + 1 }} to
-        {{
-          pagination.current != page ? pagination.current * pagination.show + 1 : pagination.total
-        }}
-        of {{ pagination.total }} entires
+        Showing {{ pagination.total ? (pagination.current - 1) * pagination.show + 1 : 0 }} to
+        {{ rangeTo }}
+        of {{ pagination.total }} entries
       </p>
     </div>
     <nav
-      v-if="pagination.total < page * pagination.show"
+      v-if="page > 1"
       aria-label="Pagination"
       class="mt-8 flex cursor-pointer items-center justify-center text-gray-600 pc:mt-0"
     >

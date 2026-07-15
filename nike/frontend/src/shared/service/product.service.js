@@ -8,11 +8,11 @@ class ProductService extends BaseService {
   /**
    * Handle get list product
    *
-   * @param
-   * @returns list[object]|false
+   * @param {object} params page, page_size, category_id, kind_id, name
+   * @returns {item, total, page, page_size, total_pages}|false
    */
-  async getList() {
-    const res = await this.dao.getList()
+  async getList(params) {
+    const res = await this.dao.getList(params)
     if (STATUS_CODE.SUCCESS === res.code) {
       return res.payload
     }

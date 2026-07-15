@@ -1,5 +1,6 @@
 """Logger"""
 
+import os
 import types
 import logging
 from logging.handlers import RotatingFileHandler
@@ -62,6 +63,9 @@ def response(self, url="", request_id="", method="", user_agent="", content=""):
 
 def get_logger():
   formatter = jsonlogger.JsonFormatter()
+  log_dir = os.path.dirname(settings.LOG_FILE_NAME)
+  if log_dir:
+    os.makedirs(log_dir, exist_ok=True)
   logging.basicConfig(level=logging.INFO, filename=settings.LOG_FILE_NAME, filemode="a")
   name = settings.LOG_GROUP_NAME
   global loggers

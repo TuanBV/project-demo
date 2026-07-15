@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt
 WORKDIR /frontend
 
 # Copy file package.json and package-lock.json to container
-COPY frontend/package.json ./
+COPY frontend/package.json frontend/package-lock.json ./
 
-# Delete package-lock.json file and Install dependencies
-RUN rm -f package-lock.json && npm install --force
+# Reproducible install from the committed lockfile
+RUN npm ci
 
 # Copy source code of frontend to container
 COPY frontend/ .
