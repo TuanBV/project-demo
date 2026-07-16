@@ -86,15 +86,15 @@ def test_study_page_has_key_elements(pr_client: TestClient) -> None:
     html = pr_client.get("/practical-review/topics/oop/study").text
     for expected in (
         'id="pr-flashcard"',
-        'id="pr-reveal-btn"',
         'id="pr-flashcard-answer-area"',
         'data-rate="mastered"',
         'data-rate="review"',
         'id="pr-order-mode"',
     ):
         assert expected in html
-    # The answer/explanation text must not be pre-rendered into the page HTML -- only
-    # inserted client-side after the learner clicks "Xem đáp án".
+    # The answer/explanation text is populated client-side after fetching the topic (shown
+    # immediately, no reveal click required) -- the raw server-rendered HTML itself never
+    # contains the answer text baked in.
     assert 'id="pr-flashcard-answer"></p>' in html or 'id="pr-flashcard-answer">' in html
 
 

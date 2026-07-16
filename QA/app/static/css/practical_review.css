@@ -19,7 +19,7 @@
     color: #1f2430;
 }
 
-.pr-app a { color: var(--pr-primary); }
+.pr-app a:not(.pr-btn) { color: var(--pr-primary); }
 
 .pr-header { margin-bottom: 24px; }
 .pr-header h1 { margin: 0 0 6px 0; font-size: 1.9rem; }

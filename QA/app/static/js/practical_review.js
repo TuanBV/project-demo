@@ -462,7 +462,6 @@
         let questions = [];
         let order = [];
         let position = 0;
-        let revealed = false;
 
         function shuffle(array) {
             const copy = array.slice();
@@ -489,15 +488,22 @@
             return 0;
         }
 
+        // Answer/explanation are shown immediately alongside the question (no separate
+        // reveal step), so a view is recorded as soon as a card becomes current.
+        function _recordViewForCurrent() {
+            const question = current();
+            if (question) ProgressStore.recordView(question.number);
+        }
+
         function init(loadedQuestions, mode, startAt) {
             questions = loadedQuestions;
             order = buildOrder(mode);
-            revealed = false;
             if (typeof startAt === "number") {
                 position = Math.min(Math.max(startAt, 0), Math.max(order.length - 1, 0));
             } else {
                 position = firstUnmasteredPosition();
             }
+            _recordViewForCurrent();
         }
 
         function isEmpty() {
@@ -509,17 +515,6 @@
             return questions[order[position]];
         }
 
-        function reveal() {
-            const question = current();
-            if (!question) return;
-            revealed = true;
-            ProgressStore.recordView(question.number);
-        }
-
-        function isRevealed() {
-            return revealed;
-        }
-
         function rate(status) {
             const question = current();
             if (!question) return;
@@ -529,20 +524,20 @@
         function next() {
             if (isEmpty()) return;
             position = Math.min(position + 1, order.length - 1);
-            revealed = false;
+            _recordViewForCurrent();
         }
 
         function prev() {
             if (isEmpty()) return;
             position = Math.max(position - 1, 0);
-            revealed = false;
+            _recordViewForCurrent();
         }
 
         function progress() {
             return { position, total: order.length };
         }
 
-        return { init, isEmpty, current, reveal, isRevealed, rate, next, prev, progress };
+        return { init, isEmpty, current, rate, next, prev, progress };
     })();
 
     // ---------------------------------------------------------------------
@@ -593,15 +588,12 @@
         const params = new URLSearchParams(window.location.search);
         const orderSelect = document.getElementById("pr-order-mode");
         const questionEl = document.getElementById("pr-flashcard-question");
-        const answerAreaEl = document.getElementById("pr-flashcard-answer-area");
-        const revealActionsEl = document.getElementById("pr-flashcard-reveal-actions");
         const answerEl = document.getElementById("pr-flashcard-answer");
         const explanationEl = document.getElementById("pr-flashcard-explanation");
         const positionEl = document.getElementById("pr-flashcard-position");
         const progressFillEl = document.getElementById("pr-flashcard-progress-fill");
         const emptyEl = document.getElementById("pr-flashcard-empty-state");
         const shellEl = document.querySelector(".pr-flashcard-shell");
-        const revealBtn = document.getElementById("pr-reveal-btn");
         const prevBtn = document.getElementById("pr-prev-btn");
         const nextBtn = document.getElementById("pr-next-btn");
 
@@ -635,28 +627,13 @@
             positionEl.textContent = `Câu ${position + 1} / ${total}`;
             progressFillEl.style.width = `${total ? ((position + 1) / total) * 100 : 0}%`;
             questionEl.textContent = question.question;
-
-            const revealed = FlashcardController.isRevealed();
-            answerAreaEl.classList.toggle("hidden", !revealed);
-            revealActionsEl.classList.toggle("hidden", revealed);
-            if (revealed) {
-                answerEl.textContent = question.answer;
-                explanationEl.textContent = question.explanation;
-            } else {
-                answerEl.textContent = "";
-                explanationEl.textContent = "";
-            }
+            answerEl.textContent = question.answer;
+            explanationEl.textContent = question.explanation;
             prevBtn.disabled = position <= 0;
             nextBtn.disabled = position >= total - 1;
         }
 
-        function doReveal() {
-            FlashcardController.reveal();
-            renderCard();
-        }
-
         function doRate(status) {
-            if (!FlashcardController.isRevealed()) return;
             FlashcardController.rate(status);
             renderCard();
         }
@@ -671,7 +648,6 @@
             renderCard();
         }
 
-        revealBtn.addEventListener("click", doReveal);
         prevBtn.addEventListener("click", doPrev);
         nextBtn.addEventListener("click", doNext);
         for (const btn of document.querySelectorAll(".pr-flashcard-rate-actions .pr-rate-btn")) {
@@ -683,9 +659,7 @@
         });
 
         KeyboardController.bind({
-            onReveal: () => {
-                if (!FlashcardController.isRevealed()) doReveal();
-            },
+            onReveal: doNext,
             onRate: doRate,
             onNext: doNext,
             onPrev: doPrev,
