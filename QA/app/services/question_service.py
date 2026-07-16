@@ -59,6 +59,13 @@ class QuestionService:
     def list_filtered(self, **kwargs: object) -> tuple[list[Question], int]:
         return self._questions.list_filtered(**kwargs)  # type: ignore[arg-type]
 
+    def list_for_review(
+        self, *, category_id: int | None = None, page: int = 1, page_size: int = 20
+    ) -> tuple[list[Question], int]:
+        return self._questions.list_review_items(
+            category_id=category_id, page=page, page_size=page_size
+        )
+
     def create(self, data: AdminQuestionCreate, source_type: str = "MANUAL") -> Question:
         category_id = self._resolve_category(data.category_id, data.category_name)
         content_hash = compute_content_hash(

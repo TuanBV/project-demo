@@ -40,6 +40,14 @@ def study_page(request: Request, db: Session = Depends(get_db)) -> HTMLResponse:
     )
 
 
+@router.get("/review", response_class=HTMLResponse)
+def review_page(request: Request, db: Session = Depends(get_db)) -> HTMLResponse:
+    categories = category_service(db)
+    return templates.TemplateResponse(
+        request, "review.html", {"categories": categories.list_all(active_only=True)}
+    )
+
+
 @router.get("/import", response_class=HTMLResponse)
 def import_page(request: Request, db: Session = Depends(get_db)) -> HTMLResponse:
     categories = category_service(db)

@@ -2,6 +2,10 @@
 
 Hướng dẫn cho Claude Code (và bất kỳ ai) khi làm việc tiếp trên repository này.
 
+Rule chi tiết theo khu vực nằm trong `.claude/rules/`; quy trình nhiều bước (thêm import
+format, evaluator, question type, migration, endpoint...) nằm trong `.claude/skills/` —
+xem `.claude/README.md` để biết danh sách đầy đủ. File này chỉ giữ context nền tảng.
+
 ## Tổng quan dự án
 
 Web app ôn tập câu hỏi phỏng vấn Junior Developer. **Luồng học mặc định là trắc nghiệm 4 đáp
@@ -48,6 +52,10 @@ API routes -> Services -> Repositories -> DB models
   đổi thứ tự.
 - CLI scripts (`scripts/import_docx.py`, `scripts/import_text.py`, `scripts/seed.py`,
   `scripts/convert_free_text_questions.py`) gọi thẳng service — không sao chép business logic.
+- Câu hỏi MC hàng loạt (`scripts/seed_java_python_mc.py`, `scripts/seed_extended_topics.py`)
+  đọc từ JSON theo category trong `scripts/data/*/`, dedup bằng `content_hash` (an toàn khi
+  chạy lại) — cả hai được gọi trong `Dockerfile` CMD nên mỗi lần container khởi động đều seed
+  lại (bỏ qua câu đã tồn tại). Thêm chủ đề mới → dùng skill `/add-question-topic`.
 
 ## Lệnh thường dùng
 
@@ -58,7 +66,9 @@ pip install -e ".[dev]"
 
 # Migration & seed
 alembic upgrade head
-python scripts/seed.py
+python scripts/seed.py                        # demo data: FREE_TEXT + MC hand-authored
+python scripts/seed_java_python_mc.py          # 112 câu MC từ scripts/data/java_python_mc/*.json
+python scripts/seed_extended_topics.py         # ~20 câu MC/chủ đề từ scripts/data/extended_topics/*.json
 python scripts/convert_free_text_questions.py --dry-run   # xem trước khi chuyển dữ liệu cũ
 python scripts/convert_free_text_questions.py --generate-distractors
 
@@ -75,64 +85,22 @@ pytest --cov=app --cov-report=term-missing
 make check
 ```
 
-## Quy tắc repository (bắt buộc tuân theo)
+## Quy tắc repository
 
-1. **Không đặt business logic trong route.** Route chỉ parse request, gọi service, map
-   sang schema. Logic thuộc về `app/services/*`.
-2. **Mỗi câu hỏi active phải có đúng 4 option, đúng 1 đáp án đúng.** Validate ở cả 3 lớp:
-   Pydantic (`app/schemas/question.py::_validate_option_set`), service
-   (`QuestionOptionService.validate_and_build`), và DB (partial unique index trên
-   `question_options`). Không bỏ bớt lớp nào.
-3. **Không làm lộ đáp án qua Study API.** `StudyQuestionResponse`/`StudyQuestionOptionResponse`
-   không bao giờ được thêm field `is_correct`/`correct_option_id`/`reference_answer`/
-   `concepts`/`keywords`/`contradiction_rules`/`java_answer`/`python_answer`/`sql_answer`.
-   Chỉ `AdminQuestionResponse`/`QuestionOptionResponse` (admin) mới chứa `is_correct`.
-4. **Option phải được xáo trộn ở backend** (`OptionOrderService`), không random bằng
-   JavaScript. Thứ tự phải ổn định trong cùng session (dùng `QuestionDelivery`, không tạo
-   shuffle mới mỗi lần gọi `/next`).
-5. **Không bao giờ tin `is_correct`/kết quả chấm từ client.** `submit_option_answer` luôn tự
-   tra `correct_option_id` từ DB và so sánh với `selected_option_id` phía server.
-6. **Không thực thi code hoặc SQL không tin cậy.** `DisabledCodeRunner`/`DisabledSqlEvaluator`
-   (khi thêm) phải luôn trả `NOT_CONFIGURED`.
-7. **Phải chạy test sau khi sửa evaluator/importer/submit/shuffle logic.**
-   `pytest tests/unit/evaluation`, `pytest tests/unit/importers`,
-   `pytest tests/unit/services/test_study_service.py test_question_option_service.py` tối
-   thiểu; ưu tiên `make check` đầy đủ.
-8. **Phải thêm Alembic migration khi thay đổi model** (`Question`/`QuestionOption`/
-   `QuestionDelivery`/`Attempt`/`QuestionProgress`...). Dùng `render_as_batch=True` (đã bật
-   trong `alembic/env.py`) vì SQLite không hỗ trợ `ALTER TABLE` đầy đủ; đặt tên rõ ràng cho
-   mọi `create_foreign_key`/`drop_constraint` trong batch mode (không truyền `None`).
-9. **Câu hỏi có distractor tự sinh không được active.** Bất kỳ chỗ nào tạo option tự động
-   (import, `regenerate-distractors`, `convert_free_text_questions.py`) đều phải đặt
-   `needs_review=True, active=False` cho tới khi admin xác nhận qua PUT hoặc
-   `/validate` trả `VALID`.
-10. **SQLAlchemy model không được trả thẳng ra API** — luôn map qua Pydantic schema.
-11. **Threshold/scoring weight nằm trong config** (`app/core/config.py`, đọc từ `.env`),
-    gồm cả `multiple_choice_option_count`/`multiple_choice_correct_option_count`.
+Danh sách đầy đủ + evidence nằm trong `.claude/rules/` (module hóa theo chủ đề, có `paths`
+frontmatter): `architecture.md`, `mc-integrity.md`, `database-migrations.md`, `security.md`,
+`testing-requirements.md`, `configuration.md`. Ba quy tắc quan trọng nhất, luôn áp dụng bất
+kể đang sửa gì:
 
-## Quy tắc thêm một import format mới
+1. **Không đặt business logic trong route** — route chỉ parse request, gọi service, map
+   sang schema.
+2. **Không bao giờ tin `is_correct`/kết quả chấm từ client** — `submit_option_answer` luôn
+   tự tra `correct_option_id` từ DB.
+3. **Không làm lộ đáp án qua Study API** — xem `.claude/rules/mc-integrity.md`.
 
-1. Thêm field vào `ParsedQuestion` (`app/importers/dto.py`) nếu cần (ví dụ thêm `options`/
-   `correct_option_index` khi thêm định dạng MC mới).
-2. Viết parser mới, implement `QuestionDocumentParser` Protocol (`can_parse` + `parse`),
-   trả `ParsedImportDocument`. **Không** truy cập DB trong parser.
-3. Đăng ký vào `QuestionTextParser` theo thứ tự ưu tiên `can_parse`.
-4. Nếu định dạng có option rõ ràng, thêm validate số lượng/trùng lặp vào
-   `ImportValidationService._validate_explicit_options` — không viết validator riêng.
-5. Viết unit test trong `tests/unit/importers/`, tái dùng `QuestionImportService` hiện có.
-
-## Quy tắc thêm evaluator mới (semantic/hybrid/LLM cho FREE_TEXT)
-
-1. Implement `AnswerEvaluator` Protocol (`app/evaluation/base.py`).
-2. Đăng ký qua `EVALUATOR_MODE` + factory ở `app/api/dependencies.py::evaluation_service`.
-3. Không dùng cho MC — MC luôn dùng `MultipleChoiceGrader` (so sánh ID).
-4. Vẫn phải áp dụng `ContradictionDetector` sau coverage score (không đổi hành vi FREE_TEXT).
-
-## Quy tắc thêm question type mới
-
-1. Thêm value vào `QuestionType` hoặc `QuestionFormat` (`app/db/models/enums.py`) + migration.
-2. Nếu type cần thực thi (code/SQL), dùng abstraction (`CodeRunner`/`SqlEvaluator` Protocol).
-3. Cập nhật parser nếu type mới cần nhận diện từ header đặc biệt.
+Quy trình thêm import format mới / evaluator mới / question type mới / API endpoint mới /
+Alembic migration → dùng skill tương ứng (`/add-import-format`, `/add-evaluator`,
+`/add-question-type`, `/create-api-endpoint`, `/create-database-migration`).
 
 ## Giới hạn hiện tại (đừng ngạc nhiên khi thấy)
 

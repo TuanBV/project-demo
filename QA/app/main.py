@@ -15,6 +15,7 @@ from app.api.routes import (
     categories,
     health,
     imports,
+    knowledge_review,
     progress,
     questions,
     study_sessions,
@@ -58,6 +59,7 @@ register_exception_handlers(app)
 app.include_router(health.router)
 app.include_router(categories.router)
 app.include_router(questions.router)
+app.include_router(knowledge_review.router)
 app.include_router(admin_questions.router)
 app.include_router(imports.router)
 app.include_router(study_sessions.router)

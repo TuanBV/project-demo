@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch)",
+      "Bash(git branch *)",
+      "Bash(make *)",
+      "Bash(ruff format .)",
+      "Bash(ruff format *)",
+      "Bash(ruff check .)",
+      "Bash(ruff check *)",
+      "Bash(mypy app)",
+      "Bash(pytest *)",
+      "Bash(alembic *)",
+      "Bash(python scripts/*.py *)",
+      "Bash(python scripts/*.py)",
+      "Bash(uvicorn app.main:app *)",
+      "Bash(docker compose up *)",
+      "Bash(docker compose build *)",
+      "Bash(docker compose down *)",
+      "Bash(docker compose logs *)",
+      "Bash(curl http://localhost:*)",
+      "Read(./.env.example)"
+    ],
+    "ask": [
+      "Bash(docker build *)",
+      "Bash(docker run *)",
+      "Bash(docker volume *)",
+      "Bash(docker stop *)",
+      "Bash(docker rm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(pip install *)",
+      "Bash(alembic downgrade *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Read(./data/*.db)",
+      "Read(./data/*.db-journal)",
+      "Edit(./data/*.db)",
+      "Edit(./data/*.db-journal)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(git branch -D *)",
+      "Bash(rm -rf *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/scripts/hooks/format_python_on_edit.py"
+            ],
+            "timeout": 20,
+            "statusMessage": "Formatting Python file with ruff..."
+          }
+        ]
+      }
+    ]
+  }
+}
