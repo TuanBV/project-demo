@@ -1,0 +1,112 @@
+[
+  {
+    "content": "API chạy chậm bất thường. Cách xử lý nào hợp lý nhất?",
+    "explanation": "Đo latency và xác định phạm vi; xem log/trace/metric; kiểm tra query DB, N+1, connection pool, dịch vụ ngoài, CPU/memory/GC, payload, cache và thay đổi gần nhất trước khi tối ưu.",
+    "options": [
+      {
+        "content": "Tăng cấu hình máy chủ ngay lập tức mà không đo hoặc xác định nút thắt.",
+        "is_correct": false
+      },
+      {
+        "content": "Xóa toàn bộ log để giảm dung lượng rồi triển khai lại phiên bản hiện tại.",
+        "is_correct": false
+      },
+      {
+        "content": "Viết lại toàn bộ API bằng ngôn ngữ khác trước khi kiểm tra database và dịch vụ phụ thuộc.",
+        "is_correct": false
+      },
+      {
+        "content": "Đo latency và xác định phạm vi; xem log/trace/metric; kiểm tra query DB, N+1, connection pool, dịch vụ ngoài, CPU/memory/GC, payload, cache và thay đổi gần nhất trước khi tối ưu.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Code chạy đúng local nhưng lỗi ở môi trường test. Nên điều tra thế nào?",
+    "explanation": "So sánh config, runtime/dependency, biến môi trường, dữ liệu DB, timezone/locale, permission, network và migration; đọc log/stack trace và tái tạo môi trường gần giống.",
+    "options": [
+      {
+        "content": "Thay đổi ngẫu nhiên nhiều dependency cùng lúc đến khi lỗi biến mất.",
+        "is_correct": false
+      },
+      {
+        "content": "So sánh config, runtime/dependency, biến môi trường, dữ liệu DB, timezone/locale, permission, network và migration; đọc log/stack trace và tái tạo môi trường gần giống.",
+        "is_correct": true
+      },
+      {
+        "content": "Kết luận môi trường test bị hỏng và bỏ qua lỗi vì local đã chạy đúng.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ xóa cache trình duyệt, không cần kiểm tra log hoặc cấu hình backend.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Ứng dụng hết bộ nhớ. Quy trình điều tra nào phù hợp?",
+    "explanation": "Xác định heap hay tài nguyên ngoài heap; theo dõi memory/GC; lấy heap dump/profile; tìm cache/collection tăng vô hạn, object bị giữ reference, tài nguyên không đóng hoặc tải dữ liệu quá lớn; tái hiện và xác nhận sau sửa.",
+    "options": [
+      {
+        "content": "Xác định heap hay tài nguyên ngoài heap; theo dõi memory/GC; lấy heap dump/profile; tìm cache/collection tăng vô hạn, object bị giữ reference, tài nguyên không đóng hoặc tải dữ liệu quá lớn; tái hiện và xác nhận sau sửa.",
+        "is_correct": true
+      },
+      {
+        "content": "Tăng RAM mà không kiểm tra object bị giữ hoặc tài nguyên không được đóng.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ gọi garbage collector liên tục và coi đó là giải pháp lâu dài.",
+        "is_correct": false
+      },
+      {
+        "content": "Xóa unit test vì test là nguyên nhân trực tiếp làm production hết bộ nhớ.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Phát hiện bug production nghiêm trọng ngay trước release. Nên làm gì?",
+    "explanation": "Thông báo rõ mức độ, dừng hoặc rollback release nếu cần, cô lập thay đổi, tạo hotfix tối thiểu, review và regression test, triển khai có giám sát, rồi làm root-cause analysis và bổ sung guardrail.",
+    "options": [
+      {
+        "content": "Vẫn release đúng lịch và chờ người dùng báo lỗi để có thêm dữ liệu.",
+        "is_correct": false
+      },
+      {
+        "content": "Che giấu lỗi để tránh ảnh hưởng tiến độ, sau đó xử lý khi có thời gian.",
+        "is_correct": false
+      },
+      {
+        "content": "Thông báo rõ mức độ, dừng hoặc rollback release nếu cần, cô lập thay đổi, tạo hotfix tối thiểu, review và regression test, triển khai có giám sát, rồi làm root-cause analysis và bổ sung guardrail.",
+        "is_correct": true
+      },
+      {
+        "content": "Sửa trực tiếp trên production không review, không test và không ghi lại thay đổi.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi được giao một công nghệ chưa biết, cách tiếp cận nào phù hợp nhất?",
+    "explanation": "Làm rõ đầu ra, đọc tài liệu chính thức, tạo ví dụ nhỏ, chia task, hỏi mentor bằng câu hỏi cụ thể, time-box một spike và xác nhận bằng test thay vì sao chép mù quáng.",
+    "options": [
+      {
+        "content": "Làm rõ đầu ra, đọc tài liệu chính thức, tạo ví dụ nhỏ, chia task, hỏi mentor bằng câu hỏi cụ thể, time-box một spike và xác nhận bằng test thay vì sao chép mù quáng.",
+        "is_correct": true
+      },
+      {
+        "content": "Sao chép nguyên một dự án trên mạng và triển khai ngay mà không hiểu hoặc kiểm thử.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ đọc bài quảng cáo sản phẩm, không cần tài liệu chính thức hay thử nghiệm nhỏ.",
+        "is_correct": false
+      },
+      {
+        "content": "Từ chối nhiệm vụ vì chưa từng dùng công nghệ đó trước đây. ====================================================================================================",
+        "is_correct": false
+      }
+    ]
+  }
+]

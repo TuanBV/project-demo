@@ -39,7 +39,7 @@ def test_no_duplicate_question_content_within_a_topic() -> None:
         assert len(contents) == len(set(contents))
 
 
-def test_main_creates_180_questions_and_is_idempotent(db_session: Session) -> None:
+def test_main_creates_200_questions_and_is_idempotent(db_session: Session) -> None:
     original_session_local = seed_extended_topics.SessionLocal
     db_session.close = lambda: None  # type: ignore[method-assign] -- main() closes the db it's given
     try:
@@ -61,12 +61,12 @@ def test_main_creates_180_questions_and_is_idempotent(db_session: Session) -> No
                 assert len(saved.options) == 4
                 assert sum(1 for o in saved.options if o.is_correct) == 1
                 checked += 1
-        assert checked == 180
+        assert checked == 200
 
         # Idempotent: re-running must not create duplicates.
         seed_extended_topics.main()
 
         _, total = question_repo.list_filtered(page=1, page_size=1000)
-        assert total >= 180
+        assert total >= 200
     finally:
         seed_extended_topics.SessionLocal = original_session_local

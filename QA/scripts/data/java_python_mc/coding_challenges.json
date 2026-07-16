@@ -1,0 +1,112 @@
+[
+  {
+    "content": "Với danh sách [5, 1, 9, 7, 9], phần tử lớn thứ hai phân biệt là gì và giải pháp tối ưu một lượt có độ phức tạp thế nào?",
+    "explanation": "Kết quả là 7; có thể duyệt một lần với O(n) thời gian và O(1) bộ nhớ bổ sung.",
+    "options": [
+      {
+        "content": "Không thể xác định nếu không dùng HashMap với O(n) bộ nhớ.",
+        "is_correct": false
+      },
+      {
+        "content": "Kết quả là 7; có thể duyệt một lần với O(n) thời gian và O(1) bộ nhớ bổ sung.",
+        "is_correct": true
+      },
+      {
+        "content": "Kết quả là 9; vì 9 xuất hiện hai lần nên được xem là phần tử lớn thứ hai.",
+        "is_correct": false
+      },
+      {
+        "content": "Kết quả là 5; giải pháp bắt buộc phải sắp xếp với O(n²) thời gian.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Kết quả đếm tần suất ký tự của chuỗi \"hello\" là gì?",
+    "explanation": "{h=1, e=1, l=2, o=1}. Có thể xử lý trong O(n) thời gian và O(k) bộ nhớ với k là số ký tự khác nhau.",
+    "options": [
+      {
+        "content": "{hello=5} vì toàn bộ chuỗi được dùng làm một key duy nhất.",
+        "is_correct": false
+      },
+      {
+        "content": "{h=0, e=1, l=2, o=2} vì ký tự đầu tiên không được tính.",
+        "is_correct": false
+      },
+      {
+        "content": "{h=1, e=1, l=2, o=1}. Có thể xử lý trong O(n) thời gian và O(k) bộ nhớ với k là số ký tự khác nhau.",
+        "is_correct": true
+      },
+      {
+        "content": "{h=1, e=1, l=1, o=1} vì chỉ đếm mỗi ký tự một lần.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Cách phù hợp để kiểm tra palindrome khi bỏ qua ký tự không phải chữ/số là gì?",
+    "explanation": "Dùng hai con trỏ từ hai đầu, bỏ qua ký tự không phải chữ/số và so sánh không phân biệt hoa thường; O(n) thời gian, O(1) bộ nhớ.",
+    "options": [
+      {
+        "content": "Sắp xếp các ký tự rồi kiểm tra hai nửa có giống nhau hay không.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng hai con trỏ từ hai đầu, bỏ qua ký tự không phải chữ/số và so sánh không phân biệt hoa thường; O(n) thời gian, O(1) bộ nhớ.",
+        "is_correct": true
+      },
+      {
+        "content": "Đếm số lượng từng ký tự; mọi chuỗi có số ký tự chẵn đều là palindrome.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ so sánh ký tự đầu và cuối; nếu giống nhau thì toàn bộ chuỗi là palindrome.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Để nhóm tên nhân viên theo phòng ban, cách triển khai nào phù hợp nhất?",
+    "explanation": "Dùng map có key là department và value là danh sách tên; Java có thể dùng groupingBy + mapping, Python có thể dùng defaultdict(list).",
+    "options": [
+      {
+        "content": "Dùng set duy nhất chứa toàn bộ tên vì set tự động giữ thông tin phòng ban.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng map có key là department và value là danh sách tên; Java có thể dùng groupingBy + mapping, Python có thể dùng defaultdict(list).",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng một biến chuỗi và nối toàn bộ tên, không cần cấu trúc ánh xạ.",
+        "is_correct": false
+      },
+      {
+        "content": "Sắp xếp theo id rồi lấy id làm tên phòng ban.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Cấu trúc dữ liệu nào phù hợp để xây dựng LRU Cache với get/put trung bình O(1)?",
+    "explanation": "Kết hợp hash map với cấu trúc duy trì thứ tự truy cập, như LinkedHashMap access-order trong Java hoặc OrderedDict trong Python.",
+    "options": [
+      {
+        "content": "Dùng cây nhị phân tìm kiếm không cân bằng và không lưu thứ tự truy cập.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ dùng stack vì phần tử ít dùng nhất luôn nằm trên đỉnh stack.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ dùng mảng tĩnh và quét toàn bộ mảng sau mỗi lần get/put.",
+        "is_correct": false
+      },
+      {
+        "content": "Kết hợp hash map với cấu trúc duy trì thứ tự truy cập, như LinkedHashMap access-order trong Java hoặc OrderedDict trong Python.",
+        "is_correct": true
+      }
+    ]
+  }
+]

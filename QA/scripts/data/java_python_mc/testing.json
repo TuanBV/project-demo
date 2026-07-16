@@ -1,0 +1,68 @@
+[
+  {
+    "content": "Unit test, integration test và end-to-end test khác nhau thế nào?",
+    "explanation": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+    "options": [
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": false
+      },
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": true
+      },
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Mock dùng khi nào và rủi ro gì?",
+    "explanation": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+    "options": [
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": false
+      },
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Một test tốt có đặc điểm gì?",
+    "explanation": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+    "options": [
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": true
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": false
+      },
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      }
+    ]
+  }
+]

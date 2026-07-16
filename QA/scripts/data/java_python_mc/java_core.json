@@ -1,0 +1,618 @@
+[
+  {
+    "content": "JDK, JRE và JVM khác nhau thế nào?",
+    "explanation": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+    "options": [
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": true
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Quy trình từ file .java đến khi chương trình chạy?",
+    "explanation": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+    "options": [
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": true
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Primitive type và wrapper class khác nhau thế nào?",
+    "explanation": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+    "options": [
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": true
+      },
+      {
+        "content": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "== và equals() trong Java khác nhau thế nào?",
+    "explanation": "Với primitive, == so sánh giá trị. Với object, == so sánh reference. equals() so sánh bình đẳng logic nếu class override đúng. Khi override equals() phải override hashCode() nhất quán.",
+    "options": [
+      {
+        "content": "Với primitive, == so sánh giá trị. Với object, == so sánh reference. equals() so sánh bình đẳng logic nếu class override đúng. Khi override equals() phải override hashCode() nhất quán.",
+        "is_correct": true
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Tại sao String immutable?",
+    "explanation": "Giúp an toàn khi dùng làm key trong hash map, hỗ trợ string pool, cache hashCode, thread-safe tự nhiên và tránh thay đổi ngoài ý muốn trong API/bảo mật.",
+    "options": [
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Giúp an toàn khi dùng làm key trong hash map, hỗ trợ string pool, cache hashCode, thread-safe tự nhiên và tránh thay đổi ngoài ý muốn trong API/bảo mật.",
+        "is_correct": true
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "String, StringBuilder và StringBuffer dùng khi nào?",
+    "explanation": "String cho chuỗi bất biến. StringBuilder cho nối/sửa chuỗi nhiều lần trong một luồng. StringBuffer tương tự nhưng synchronized, chậm hơn và hiếm khi cần trong code hiện đại.",
+    "options": [
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "String cho chuỗi bất biến. StringBuilder cho nối/sửa chuỗi nhiều lần trong một luồng. StringBuffer tương tự nhưng synchronized, chậm hơn và hiếm khi cần trong code hiện đại.",
+        "is_correct": true
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "String Pool là gì?",
+    "explanation": "Vùng lưu các string literal dùng chung. Hai literal giống nhau thường trỏ cùng object. new String(...) tạo object mới; intern() có thể lấy representation trong pool.",
+    "options": [
+      {
+        "content": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+        "is_correct": false
+      },
+      {
+        "content": "Vùng lưu các string literal dùng chung. Hai literal giống nhau thường trỏ cùng object. new String(...) tạo object mới; intern() có thể lấy representation trong pool.",
+        "is_correct": true
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "ArrayList và LinkedList khác nhau thế nào?",
+    "explanation": "ArrayList dựa trên mảng động: truy cập index nhanh O(1), thêm cuối amortized O(1), chèn giữa phải dịch phần tử. LinkedList truy cập index O(n), thêm/xóa tại node đã biết O(1) nhưng overhead bộ nhớ lớn; thực tế ArrayList thường tốt hơn.",
+    "options": [
+      {
+        "content": "ArrayList dựa trên mảng động: truy cập index nhanh O(1), thêm cuối amortized O(1), chèn giữa phải dịch phần tử. LinkedList truy cập index O(n), thêm/xóa tại node đã biết O(1) nhưng overhead bộ nhớ lớn; thực tế ArrayList thường tốt hơn.",
+        "is_correct": true
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "HashMap hoạt động thế nào?",
+    "explanation": "Dùng hashCode để xác định bucket, sau đó equals để tìm đúng key. Collision được xử lý bằng danh sách/cây tùy phiên bản. Trung bình get/put O(1), nhưng phụ thuộc hash phân bố tốt.",
+    "options": [
+      {
+        "content": "Dùng hashCode để xác định bucket, sau đó equals để tìm đúng key. Collision được xử lý bằng danh sách/cây tùy phiên bản. Trung bình get/put O(1), nhưng phụ thuộc hash phân bố tốt.",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "HashMap và ConcurrentHashMap khác nhau thế nào?",
+    "explanation": "HashMap không thread-safe và cho phép một null key. ConcurrentHashMap hỗ trợ truy cập đồng thời với khóa hạt mịn/CAS, không cho null key/value để tránh mơ hồ trong concurrent API.",
+    "options": [
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "HashMap không thread-safe và cho phép một null key. ConcurrentHashMap hỗ trợ truy cập đồng thời với khóa hạt mịn/CAS, không cho null key/value để tránh mơ hồ trong concurrent API.",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "HashSet lưu dữ liệu như thế nào?",
+    "explanation": "HashSet thường được triển khai trên HashMap, phần tử là key và value là object đánh dấu. Tính duy nhất phụ thuộc equals/hashCode.",
+    "options": [
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "HashSet thường được triển khai trên HashMap, phần tử là key và value là object đánh dấu. Tính duy nhất phụ thuộc equals/hashCode.",
+        "is_correct": true
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Comparable và Comparator khác nhau thế nào?",
+    "explanation": "Comparable định nghĩa thứ tự tự nhiên ngay trong class qua compareTo. Comparator là chiến lược so sánh bên ngoài, cho phép nhiều tiêu chí sắp xếp.",
+    "options": [
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Comparable định nghĩa thứ tự tự nhiên ngay trong class qua compareTo. Comparator là chiến lược so sánh bên ngoài, cho phép nhiều tiêu chí sắp xếp.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Checked và unchecked exception khác nhau thế nào?",
+    "explanation": "Checked exception phải được catch hoặc khai báo throws, phù hợp lỗi có khả năng phục hồi. Unchecked là RuntimeException và lớp con, thường do lỗi lập trình hoặc vi phạm contract.",
+    "options": [
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Checked exception phải được catch hoặc khai báo throws, phù hợp lỗi có khả năng phục hồi. Unchecked là RuntimeException và lớp con, thường do lỗi lập trình hoặc vi phạm contract.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "try-with-resources có tác dụng gì?",
+    "explanation": "Tự động đóng tài nguyên triển khai AutoCloseable theo thứ tự ngược khi thoát block, kể cả có exception; giảm rò rỉ file, socket, connection.",
+    "options": [
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": false
+      },
+      {
+        "content": "Tự động đóng tài nguyên triển khai AutoCloseable theo thứ tự ngược khi thoát block, kể cả có exception; giảm rò rỉ file, socket, connection.",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "final, finally và finalize khác nhau thế nào?",
+    "explanation": "final áp dụng cho biến/phương thức/lớp. finally là block dọn dẹp sau try/catch. finalize() là cơ chế cũ không đáng tin cậy và đã bị loại bỏ dần; nên dùng try-with-resources/Cleaner khi thật sự cần.",
+    "options": [
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": false
+      },
+      {
+        "content": "final áp dụng cho biến/phương thức/lớp. finally là block dọn dẹp sau try/catch. finalize() là cơ chế cũ không đáng tin cậy và đã bị loại bỏ dần; nên dùng try-with-resources/Cleaner khi thật sự cần.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Garbage Collector trong Java làm gì?",
+    "explanation": "Tự động thu hồi object không còn reachable. Không đảm bảo thời điểm cụ thể và không thay thế việc đóng tài nguyên ngoài heap như file, socket, DB connection.",
+    "options": [
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Tự động thu hồi object không còn reachable. Không đảm bảo thời điểm cụ thể và không thay thế việc đóng tài nguyên ngoài heap như file, socket, DB connection.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Java pass-by-value có ý nghĩa gì với object?",
+    "explanation": "Hàm nhận bản sao của reference. Có thể thay đổi trạng thái object qua reference đó, nhưng gán tham số sang object mới không đổi reference của biến bên gọi.",
+    "options": [
+      {
+        "content": "Giúp an toàn khi dùng làm key trong hash map, hỗ trợ string pool, cache hashCode, thread-safe tự nhiên và tránh thay đổi ngoài ý muốn trong API/bảo mật.",
+        "is_correct": false
+      },
+      {
+        "content": "Hàm nhận bản sao của reference. Có thể thay đổi trạng thái object qua reference đó, nhưng gán tham số sang object mới không đổi reference của biến bên gọi.",
+        "is_correct": true
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Generic mang lại lợi ích gì?",
+    "explanation": "Kiểm tra type tại compile time, giảm cast, tăng tái sử dụng và độ an toàn. Do type erasure, phần lớn thông tin generic không còn đầy đủ tại runtime.",
+    "options": [
+      {
+        "content": "Với primitive, == so sánh giá trị. Với object, == so sánh reference. equals() so sánh bình đẳng logic nếu class override đúng. Khi override equals() phải override hashCode() nhất quán.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Kiểm tra type tại compile time, giảm cast, tăng tái sử dụng và độ an toàn. Do type erasure, phần lớn thông tin generic không còn đầy đủ tại runtime.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "? extends T và ? super T khác nhau thế nào?",
+    "explanation": "? extends T phù hợp để đọc các giá trị như T nhưng khó thêm; ? super T phù hợp để thêm T. Quy tắc PECS: Producer Extends, Consumer Super.",
+    "options": [
+      {
+        "content": "? extends T phù hợp để đọc các giá trị như T nhưng khó thêm; ? super T phù hợp để thêm T. Quy tắc PECS: Producer Extends, Consumer Super.",
+        "is_correct": true
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Lambda expression và functional interface là gì?",
+    "explanation": "Lambda là cách viết ngắn implementation của interface chỉ có một abstract method, ví dụ Predicate, Function, Consumer, Supplier.",
+    "options": [
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Lambda là cách viết ngắn implementation của interface chỉ có một abstract method, ví dụ Predicate, Function, Consumer, Supplier.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Stream API khác collection thế nào?",
+    "explanation": "Collection lưu dữ liệu; Stream mô tả pipeline xử lý dữ liệu, thường lazy và không thay đổi nguồn. Terminal operation như collect, reduce kích hoạt xử lý.",
+    "options": [
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Collection lưu dữ liệu; Stream mô tả pipeline xử lý dữ liệu, thường lazy và không thay đổi nguồn. Terminal operation như collect, reduce kích hoạt xử lý.",
+        "is_correct": true
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Với primitive, == so sánh giá trị. Với object, == so sánh reference. equals() so sánh bình đẳng logic nếu class override đúng. Khi override equals() phải override hashCode() nhất quán.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "map và flatMap trong Stream khác nhau thế nào?",
+    "explanation": "map biến mỗi phần tử thành một giá trị. flatMap biến mỗi phần tử thành stream rồi làm phẳng thành một stream duy nhất, hữu ích với danh sách lồng nhau hoặc Optional.",
+    "options": [
+      {
+        "content": "map biến mỗi phần tử thành một giá trị. flatMap biến mỗi phần tử thành stream rồi làm phẳng thành một stream duy nhất, hữu ích với danh sách lồng nhau hoặc Optional.",
+        "is_correct": true
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Thread và process khác nhau thế nào?",
+    "explanation": "Process có không gian bộ nhớ riêng; thread chia sẻ heap trong cùng process nhưng có stack riêng. Thread nhẹ hơn nhưng cần đồng bộ khi truy cập dữ liệu dùng chung.",
+    "options": [
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "Process có không gian bộ nhớ riêng; thread chia sẻ heap trong cùng process nhưng có stack riêng. Thread nhẹ hơn nhưng cần đồng bộ khi truy cập dữ liệu dùng chung.",
+        "is_correct": true
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "synchronized và volatile khác nhau thế nào?",
+    "explanation": "synchronized cung cấp mutual exclusion và visibility. volatile chỉ đảm bảo visibility/thứ tự đọc ghi nhất định, không làm thao tác ghép như count++ trở thành atomic.",
+    "options": [
+      {
+        "content": "synchronized cung cấp mutual exclusion và visibility. volatile chỉ đảm bảo visibility/thứ tự đọc ghi nhất định, không làm thao tác ghép như count++ trở thành atomic.",
+        "is_correct": true
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Deadlock là gì và phòng tránh thế nào?",
+    "explanation": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+    "options": [
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "Deadlock xảy ra khi các thread chờ khóa lẫn nhau. Phòng tránh bằng thứ tự lock cố định, giảm phạm vi khóa, dùng timeout/tryLock và tránh giữ nhiều lock.",
+        "is_correct": true
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "ExecutorService tốt hơn tạo Thread trực tiếp ở điểm nào?",
+    "explanation": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+    "options": [
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Quản lý thread pool, hàng đợi task, shutdown, Future và giới hạn tài nguyên. Tách logic công việc khỏi cách quản lý thread.",
+        "is_correct": true
+      },
+      {
+        "content": "Với primitive, == so sánh giá trị. Với object, == so sánh reference. equals() so sánh bình đẳng logic nếu class override đúng. Khi override equals() phải override hashCode() nhất quán.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Optional nên dùng như thế nào?",
+    "explanation": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+    "options": [
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Record trong Java dùng khi nào?",
+    "explanation": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+    "options": [
+      {
+        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "is_correct": false
+      },
+      {
+        "content": "Primitive như int, long, boolean lưu giá trị trực tiếp và không phải object. Wrapper như Integer, Long dùng trong generic/collection, có thể null và phát sinh boxing/unboxing.",
+        "is_correct": false
+      },
+      {
+        "content": "javac biên dịch .java thành .class bytecode. ClassLoader nạp class, verifier kiểm tra bytecode, JVM diễn giải hoặc JIT compile các đoạn nóng thành mã máy.",
+        "is_correct": false
+      },
+      {
+        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "is_correct": true
+      }
+    ]
+  }
+]

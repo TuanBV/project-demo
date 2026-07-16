@@ -1,0 +1,46 @@
+[
+  {
+    "content": "git merge và git rebase khác nhau thế nào?",
+    "explanation": "Merge giữ lịch sử nhánh và tạo merge commit khi cần. Rebase viết lại commit lên base mới tạo lịch sử tuyến tính; không rebase commit đã chia sẻ nếu có thể gây rối.",
+    "options": [
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": false
+      },
+      {
+        "content": "Merge giữ lịch sử nhánh và tạo merge commit khi cần. Rebase viết lại commit lên base mới tạo lịch sử tuyến tính; không rebase commit đã chia sẻ nếu có thể gây rối.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Quy trình xử lý merge conflict?",
+    "explanation": "Cập nhật base, mở file conflict, hiểu ý định hai phía, chỉnh thành kết quả đúng, chạy build/test/lint, git add rồi tiếp tục merge/rebase. Không chỉ xóa marker mà chưa kiểm chứng logic.",
+    "options": [
+      {
+        "content": "Cập nhật base, mở file conflict, hiểu ý định hai phía, chỉnh thành kết quả đúng, chạy build/test/lint, git add rồi tiếp tục merge/rebase. Không chỉ xóa marker mà chưa kiểm chứng logic.",
+        "is_correct": true
+      },
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": false
+      },
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      }
+    ]
+  }
+]
