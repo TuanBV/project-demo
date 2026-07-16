@@ -36,13 +36,33 @@ def test_knowledge_review_includes_correct_answer_and_explanation(client: TestCl
     item = next(i for i in body["items"] if i["id"] == ctx["question"]["id"])
     assert item["correct_answer"] == "May ao thuc thi Java bytecode."
     assert item["explanation"] == "JVM thuc thi Java bytecode."
-    assert set(item["options"]) == {
-        "May ao thuc thi Java bytecode.",
-        "Trinh bien dich.",
-        "Thu vien giao dien.",
-        "He quan tri CSDL.",
-    }
+    assert "options" not in item
     assert item["category"]["name"] == ctx["category"]["name"]
+
+
+def test_knowledge_review_falls_back_to_option_explanation(client: TestClient) -> None:
+    category = client.post("/api/admin/categories", json={"name": "Review Fallback Cat"}).json()
+    question = client.post(
+        "/api/admin/questions",
+        json={
+            "category_id": category["id"],
+            "content": "Overloading la gi?",
+            "options": [
+                {
+                    "content": "Cung ten nhung khac tham so.",
+                    "is_correct": True,
+                    "explanation": "Giai thich rieng cho dap an dung.",
+                },
+                {"content": "Sai 1.", "is_correct": False},
+                {"content": "Sai 2.", "is_correct": False},
+                {"content": "Sai 3.", "is_correct": False},
+            ],
+        },
+    ).json()
+
+    response = client.get(f"/api/knowledge-review?category_id={category['id']}")
+    item = next(i for i in response.json()["items"] if i["id"] == question["id"])
+    assert item["explanation"] == "Giai thich rieng cho dap an dung."
 
 
 def test_knowledge_review_filters_by_category(client: TestClient) -> None:

@@ -270,7 +270,6 @@ class KnowledgeReviewItemResponse(BaseModel):
     content: str
     correct_answer: str
     explanation: str | None = None
-    options: list[str] | None = None
 
 
 class KnowledgeReviewListResponse(BaseModel):

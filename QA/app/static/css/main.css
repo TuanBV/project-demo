@@ -152,9 +152,9 @@ th { color: var(--color-muted); font-weight: 600; }
 .option-item.reveal-incorrect { border-color: var(--color-danger); background: #fde2e2; }
 .option-item.reveal-incorrect .option-key { border-color: var(--color-danger); color: var(--color-danger); }
 
-.review-item .review-answer { margin-top: 12px; }
-.review-options { margin: 8px 0; padding-left: 20px; }
-.review-options .review-correct-option { color: var(--color-success); font-weight: 600; }
+.review-item .review-answer { margin-top: 12px; padding: 12px; border-radius: var(--radius); background: #e2f6ea; }
+.review-item .review-correct-answer { color: var(--color-success); font-weight: 600; margin: 0 0 8px 0; }
+.review-item .review-explanation { margin: 0; color: var(--color-text); }
 
 @media (max-width: 640px) {
     .topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
