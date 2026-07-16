@@ -21,15 +21,6 @@ function renderItem(item) {
     const card = document.createElement("div");
     card.className = "card review-item";
 
-    const optionsHtml = item.options
-        ? `<ul class="review-options">${item.options
-              .map((opt) => {
-                  const isCorrect = opt === item.correct_answer;
-                  return `<li class="${isCorrect ? "review-correct-option" : ""}">${escapeHtml(opt)}</li>`;
-              })
-              .join("")}</ul>`
-        : "";
-
     card.innerHTML = `
         <div class="flex-row muted">
             <span>${escapeHtml(item.category.name)}</span> ·
@@ -38,9 +29,12 @@ function renderItem(item) {
         <h3 style="white-space:pre-wrap;">${escapeHtml(item.content)}</h3>
         <button class="btn secondary review-toggle-btn">Hiện đáp án</button>
         <div class="review-answer hidden">
-            ${optionsHtml}
-            <p><strong>Đáp án đúng:</strong> ${escapeHtml(item.correct_answer)}</p>
-            ${item.explanation ? `<p class="muted">${escapeHtml(item.explanation)}</p>` : ""}
+            <p class="review-correct-answer"><strong>Đáp án đúng:</strong> ${escapeHtml(item.correct_answer)}</p>
+            ${
+                item.explanation
+                    ? `<p class="review-explanation"><strong>Giải thích:</strong> ${escapeHtml(item.explanation)}</p>`
+                    : ""
+            }
         </div>
     `;
 

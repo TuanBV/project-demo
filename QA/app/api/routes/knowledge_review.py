@@ -26,12 +26,14 @@ def _question_service(db: Session = Depends(get_db)) -> QuestionService:
 
 def _to_review_item(question: Question) -> KnowledgeReviewItemResponse:
     active_options = [o for o in question.options if o.active]
+    explanation = question.explanation
     if question.question_format == QuestionFormat.MULTIPLE_CHOICE and active_options:
-        correct_answer = next((o.content for o in active_options if o.is_correct), "")
-        options = [o.content for o in active_options]
+        correct_option = next((o for o in active_options if o.is_correct), None)
+        correct_answer = correct_option.content if correct_option else ""
+        if not explanation and correct_option is not None:
+            explanation = correct_option.explanation
     else:
         correct_answer = question.reference_answer or ""
-        options = None
 
     return KnowledgeReviewItemResponse(
         id=question.id,
@@ -43,8 +45,7 @@ def _to_review_item(question: Question) -> KnowledgeReviewItemResponse:
         difficulty=question.difficulty,
         content=question.content,
         correct_answer=correct_answer,
-        explanation=question.explanation,
-        options=options,
+        explanation=explanation,
     )
 
 
