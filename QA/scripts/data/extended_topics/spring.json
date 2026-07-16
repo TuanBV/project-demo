@@ -1,20 +1,442 @@
-[{"content":"Vì sao Constructor Injection thường được ưu tiên hơn Field Injection (@Autowired trên field) khi viết unit test cho một Service?","explanation":"Với constructor injection, ta có thể gọi `new Service(mockDep)` trực tiếp để truyền mock vào, không cần khởi động Spring context hay dùng reflection để set field private như field injection.","options":[{"content":"Vì Mockito không thể tạo mock cho dependency được khai báo bằng @Autowired trên field trong bất kỳ trường hợp nào","is_correct":false},{"content":"Vì constructor injection cho phép truyền mock trực tiếp khi gọi `new Service(mockDep)`, không cần Spring context hay reflection để set field private","is_correct":true},{"content":"Vì field injection bắt buộc dependency phải implement interface, còn constructor injection thì không yêu cầu điều này","is_correct":false},{"content":"Vì constructor injection giúp Spring bỏ qua bước tạo proxy AOP khi chạy test","is_correct":false}]},
-{"content":"Một bean scope `prototype` được inject qua constructor vào một bean scope `singleton`. Khi ứng dụng chạy, điều gì xảy ra với bean prototype đó?","explanation":"Singleton chỉ được tạo một lần khi khởi động context, nên việc inject prototype cũng chỉ diễn ra một lần tại thời điểm đó; mọi lần sử dụng sau này của singleton đều dùng lại đúng instance prototype ban đầu, không có instance mới nào được tạo thêm.","options":[{"content":"Spring tự động tạo instance mới của prototype bean mỗi khi một phương thức của singleton được gọi","is_correct":false},{"content":"Spring báo lỗi BeanCreationException ngay khi khởi động context vì hai scope không tương thích","is_correct":false},{"content":"Singleton chỉ nhận đúng một instance của prototype bean tại thời điểm khởi tạo, mọi lần dùng sau đó đều là instance đó","is_correct":true},{"content":"Prototype bean sẽ tự động chuyển thành scope singleton để tránh xung đột","is_correct":false}]},
-{"content":"Thứ tự thực thi đúng giữa constructor, dependency injection (field/setter), @PostConstruct và InitializingBean.afterPropertiesSet() trong lifecycle của một Spring bean là gì?","explanation":"Spring tạo object bằng constructor trước, sau đó inject dependency, rồi gọi @PostConstruct, và cuối cùng mới gọi afterPropertiesSet() của interface InitializingBean (annotation được xử lý trước interface chuẩn).","options":[{"content":"Constructor chạy sau khi dependency injection hoàn tất để đảm bảo bean sẵn sàng ngay khi tạo","is_correct":false},{"content":"afterPropertiesSet() luôn chạy trước @PostConstruct vì là interface chuẩn của Spring","is_correct":false},{"content":"@PostConstruct chạy song song với constructor để tối ưu thời gian khởi tạo bean","is_correct":false},{"content":"Constructor chạy trước, sau đó dependency được inject, rồi @PostConstruct, cuối cùng là afterPropertiesSet()","is_correct":true}]},
-{"content":"Loại advice nào trong Spring AOP có khả năng kiểm soát toàn bộ luồng thực thi của method gốc, kể cả quyết định có gọi method đó hay không và thay đổi giá trị trả về?","explanation":"@Around nhận vào ProceedingJoinPoint, cho phép chủ động gọi proceed() (hoặc không gọi), thay đổi tham số trước khi gọi và thay đổi giá trị trả về sau khi gọi — điều mà @Before, @AfterReturning, @AfterThrowing không làm được.","options":[{"content":"@Before","is_correct":false},{"content":"@AfterReturning","is_correct":false},{"content":"@Around","is_correct":true},{"content":"@AfterThrowing","is_correct":false}]},
-{"content":"Trong class OrderService, method placeOrder() (không có @Transactional) gọi trực tiếp this.saveOrder() — một method khác cùng class được đánh dấu @Transactional. Điều gì xảy ra với transaction của saveOrder()?","explanation":"Spring AOP dùng proxy để bọc bean; khi gọi this.saveOrder() từ bên trong cùng class, lệnh gọi đi trực tiếp vào object gốc, bỏ qua proxy, nên annotation @Transactional bị bỏ qua một cách âm thầm, không có transaction nào được mở.","options":[{"content":"Transaction vẫn hoạt động bình thường vì Spring luôn proxy mọi method public bất kể lệnh gọi từ đâu","is_correct":false},{"content":"Spring ném ra TransactionRequiredException ngay khi runtime phát hiện lệnh gọi nội bộ","is_correct":false},{"content":"saveOrder() sẽ dùng chung transaction với placeOrder() vì cả hai nằm trong cùng class","is_correct":false},{"content":"@Transactional trên saveOrder() không có hiệu lực vì lệnh gọi this.saveOrder() bỏ qua AOP proxy do Spring tạo ra","is_correct":true}]},
-{"content":"Trong Spring MVC, thành phần nào nhận mọi HTTP request đầu vào rồi tra cứu HandlerMapping để xác định controller/method nào sẽ xử lý request đó?","explanation":"DispatcherServlet đóng vai trò Front Controller: nhận request, hỏi HandlerMapping để tìm handler phù hợp, giao cho HandlerAdapter thực thi, rồi phối hợp với ViewResolver (nếu cần) để trả kết quả.","options":[{"content":"HandlerAdapter","is_correct":false},{"content":"ViewResolver","is_correct":false},{"content":"FilterChain","is_correct":false},{"content":"DispatcherServlet","is_correct":true}]},
-{"content":"Entity Employee có field department (String) và salary (BigDecimal). Khai báo method nào trong JpaRepository giúp Spring Data JPA tự sinh query tìm nhân viên thuộc một phòng ban VÀ có lương lớn hơn một ngưỡng, không cần viết @Query?","explanation":"Spring Data JPA phân tích tên method theo quy ước findBy<Thuộc tính><Toán tử>And<Thuộc tính><Toán tử>; findByDepartmentAndSalaryGreaterThan đúng ngữ nghĩa AND kết hợp với so sánh lớn hơn.","options":[{"content":"List<Employee> findByDepartmentOrSalary(String department, BigDecimal salary);","is_correct":false},{"content":"List<Employee> findByDepartmentAndSalaryGreaterThan(String department, BigDecimal salary);","is_correct":true},{"content":"List<Employee> findByDepartmentAndSalary(String department, BigDecimal salary);","is_correct":false},{"content":"List<Employee> getDepartmentWithSalary(String department, BigDecimal salary);","is_correct":false}]},
-{"content":"Khi load danh sách Order kèm List<OrderItem> (quan hệ @OneToMany mặc định LAZY) và lặp qua từng Order để gọi order.getItems(), ứng dụng gặp vấn đề N+1 query. Cách khắc phục nào hiệu quả nhất mà vẫn giữ lazy loading cho các quan hệ khác?","explanation":"JOIN FETCH (hoặc @EntityGraph) load Order kèm OrderItem trong một câu SELECT duy nhất chỉ cho query đó, không ảnh hưởng đến cấu hình fetch mặc định của các quan hệ khác trong entity.","options":[{"content":"Đổi toàn bộ quan hệ trong entity sang FetchType.EAGER để Hibernate tự động load kèm mọi lúc","is_correct":false},{"content":"Gọi order.getItems().size() ngay sau khi load Order để buộc Hibernate cache trước","is_correct":false},{"content":"Dùng JPQL với JOIN FETCH (hoặc @EntityGraph) trong method repository để load Order kèm OrderItem trong một câu query duy nhất","is_correct":true},{"content":"Tăng hibernate.jdbc.batch_size trong cấu hình để Hibernate gộp các câu SELECT lại thành một batch","is_correct":false}]},
-{"content":"Method logAudit() có @Transactional(propagation = Propagation.REQUIRES_NEW) được gọi từ bên trong processPayment() (propagation mặc định REQUIRED). Nếu processPayment() bị rollback sau khi logAudit() đã commit thành công, dữ liệu audit log sẽ ra sao?","explanation":"REQUIRES_NEW tạm ngưng transaction bên ngoài và mở một transaction vật lý độc lập; transaction này commit/rollback riêng, không phụ thuộc kết quả của transaction bao ngoài nó.","options":[{"content":"Dữ liệu audit log cũng bị rollback theo vì các transaction lồng nhau dùng chung connection và commit/rollback đồng thời","is_correct":false},{"content":"Ứng dụng sẽ throw IllegalTransactionStateException vì không thể có hai transaction cùng lúc trên một thread","is_correct":false},{"content":"Dữ liệu audit log chỉ được giữ lại nếu processPayment() cũng dùng propagation REQUIRES_NEW","is_correct":false},{"content":"Dữ liệu audit log vẫn được giữ lại vì REQUIRES_NEW tạo một transaction độc lập, không bị ảnh hưởng bởi rollback của transaction bên ngoài","is_correct":true}]},
-{"content":"Trong cùng một transaction, một câu SELECT được chạy 2 lần trên cùng một dòng dữ liệu; giữa hai lần đọc, transaction khác COMMIT một UPDATE lên đúng dòng đó khiến giá trị đọc lần 2 khác lần 1. Đây là hiện tượng gì và mức isolation nào ngăn được nó?","explanation":"Đây là non-repeatable read — dữ liệu đã đọc bị thay đổi giữa hai lần đọc trong cùng transaction. Mức REPEATABLE_READ (hoặc SERIALIZABLE) đảm bảo các lần đọc lại cùng dữ liệu trong một transaction luôn nhất quán.","options":[{"content":"Dirty read; cần mức isolation READ_COMMITTED để ngăn","is_correct":false},{"content":"Non-repeatable read; cần mức isolation REPEATABLE_READ hoặc cao hơn để ngăn","is_correct":true},{"content":"Phantom read; cần mức isolation READ_UNCOMMITTED để ngăn","is_correct":false},{"content":"Lost update; mức isolation mặc định READ_COMMITTED là đủ để ngăn","is_correct":false}]},
-{"content":"Một method @Transactional ném ra một checked exception tự định nghĩa (extends Exception, không phải RuntimeException). Mặc định, Spring xử lý transaction như thế nào?","explanation":"Quy tắc rollback mặc định của Spring chỉ áp dụng cho RuntimeException và Error; checked exception sẽ không kích hoạt rollback tự động trừ khi khai báo rõ rollbackFor = MyException.class trên @Transactional.","options":[{"content":"Spring luôn rollback với mọi loại exception, không phân biệt checked hay unchecked","is_correct":false},{"content":"Spring KHÔNG rollback theo mặc định với checked exception; phải khai báo rollbackFor thì mới rollback","is_correct":true},{"content":"Spring rollback transaction nhưng vẫn commit các thay đổi đã flush xuống DB trước đó","is_correct":false},{"content":"Transaction bị treo ở trạng thái chờ cho đến khi có lệnh gọi commit() thủ công","is_correct":false}]},
-{"content":"UsernamePasswordAuthenticationFilter trong Spring Security hoạt động ở đâu trong quá trình xử lý request, và vai trò của nó là gì?","explanation":"Đây là một Servlet Filter nằm trong SecurityFilterChain, chạy trước khi request đến được DispatcherServlet; nó trích xuất username/password từ request để thực hiện authentication thông qua AuthenticationManager.","options":[{"content":"Nó là một HandlerInterceptor trong Spring MVC, chạy sau khi DispatcherServlet đã chọn được controller","is_correct":false},{"content":"Nó là một Aspect trong Spring AOP áp dụng lên các method có annotation @PreAuthorize","is_correct":false},{"content":"Nó là một filter trong SecurityFilterChain, chạy trước DispatcherServlet, chịu trách nhiệm trích xuất username/password để thực hiện authentication","is_correct":true},{"content":"Nó chỉ chạy khi ứng dụng dùng OAuth2, còn form login thông thường sẽ bỏ qua filter này","is_correct":false}]},
-{"content":"Việc kiểm tra một user đã đăng nhập có role ADMIN hay không để cho phép gọi một API cụ thể (ví dụ @PreAuthorize(\"hasRole('ADMIN')\")) thuộc về khái niệm nào trong Spring Security?","explanation":"Authorization (phân quyền) diễn ra sau khi user đã được xác thực (authentication) — nó xác định user đó có quyền thực hiện hành động cụ thể hay không, khác với việc xác minh danh tính.","options":[{"content":"Authentication, vì role được lưu trong cùng token với thông tin đăng nhập","is_correct":false},{"content":"Session management, vì Spring Security dùng session để lưu role của user","is_correct":false},{"content":"CORS policy, vì kiểm tra role cũng là một dạng kiểm soát nguồn truy cập","is_correct":false},{"content":"Authorization, vì nó xác định user đã xác thực có được phép thực hiện hành động cụ thể hay không","is_correct":true}]},
-{"content":"spring-boot-starter-data-jpa giúp gộp sẵn các dependency cần thiết (Hibernate, Spring Data JPA, HikariCP...). Thứ gì trong Spring Boot chịu trách nhiệm TỰ ĐỘNG tạo các bean như DataSource, EntityManagerFactory dựa trên các class có sẵn trên classpath?","explanation":"Auto-configuration (các class trong spring-boot-autoconfigure) dùng @ConditionalOnClass/@ConditionalOnMissingBean để quyết định bean nào cần tự tạo dựa trên những gì đang có trên classpath và trong context, khác với starter (chỉ là tập hợp dependency) hay component scanning (chỉ quét class trong package của chính project).","options":[{"content":"Component scanning (@ComponentScan), vì nó tự động phát hiện mọi class trên classpath và biến thành bean","is_correct":false},{"content":"Spring Initializr, vì công cụ này sinh sẵn code cấu hình DataSource khi tạo project","is_correct":false},{"content":"Auto-configuration, thông qua các class dùng @ConditionalOnClass/@ConditionalOnMissingBean để quyết định bean nào cần tạo","is_correct":true},{"content":"BeanFactoryPostProcessor do lập trình viên tự viết trong mỗi project","is_correct":false}]},
-{"content":"Ứng dụng có application.yml, application-dev.yml và application-prod.yml. Khi chạy với spring.profiles.active=prod, thứ tự override cấu hình diễn ra như thế nào?","explanation":"application.yml luôn được load làm cấu hình mặc định (baseline); khi một profile được active, file application-{profile}.yml tương ứng sẽ được load thêm và các key trùng tên sẽ ghi đè lên giá trị mặc định.","options":[{"content":"Chỉ application-prod.yml được load, application.yml bị bỏ qua hoàn toàn","is_correct":false},{"content":"Spring load application.yml làm mặc định, sau đó application-prod.yml override các key trùng tên","is_correct":true},{"content":"Cả ba file được merge, nếu xung đột thì file có tên theo thứ tự alphabet sau cùng sẽ thắng","is_correct":false},{"content":"application-dev.yml luôn được load kèm để làm fallback cho các key thiếu trong application-prod.yml","is_correct":false}]},
-{"content":"Thêm dependency spring-boot-starter-actuator vào project mang lại lợi ích chính nào?","explanation":"Actuator cung cấp sẵn các endpoint HTTP (như /actuator/health, /actuator/metrics, /actuator/info) để giám sát tình trạng vận hành và các chỉ số của ứng dụng đang chạy, không cần tự viết code giám sát.","options":[{"content":"Tự động tạo Swagger UI để test API mà không cần cấu hình thêm","is_correct":false},{"content":"Tăng tốc độ khởi động ứng dụng bằng cách cache lại các bean đã tạo ở lần chạy trước","is_correct":false},{"content":"Cung cấp sẵn các endpoint HTTP để giám sát tình trạng và số liệu vận hành của ứng dụng đang chạy","is_correct":true},{"content":"Tự động validate toàn bộ DTO request bằng Bean Validation mà không cần annotation @Valid","is_correct":false}]},
-{"content":"Muốn test một @RestController để kiểm tra HTTP status code, JSON response và validation, nhưng KHÔNG muốn khởi tạo Service/Repository/DataSource thật (sẽ mock Service), nên dùng annotation nào để test chạy nhanh và tách biệt?","explanation":"@WebMvcTest chỉ load web layer (controller, filter, validation, MockMvc), các bean Service/Repository không được load tự động và phải khai báo @MockBean; điều này khác với @SpringBootTest (load toàn bộ context, chậm hơn) và @DataJpaTest (dành cho tầng repository, không phù hợp để test controller).","options":[{"content":"@SpringBootTest, vì load toàn bộ ApplicationContext để đảm bảo test giống môi trường thật nhất","is_correct":false},{"content":"@DataJpaTest, vì lớp này cũng nằm trong tầng xử lý request nên phù hợp để test Controller","is_correct":false},{"content":"@ExtendWith(MockitoExtension.class) cùng @InjectMocks trên controller, không cần annotation Spring Boot nào","is_correct":false},{"content":"@WebMvcTest, vì chỉ load web layer (controller, MockMvc) và yêu cầu tự @MockBean các Service","is_correct":true}]},
-{"content":"Hai bean ServiceA và ServiceB phụ thuộc lẫn nhau, cả hai đều dùng CONSTRUCTOR injection để lấy nhau. Khi khởi động ứng dụng, Spring sẽ làm gì?","explanation":"Với constructor injection, Spring không có cách nào tạo object hoàn chỉnh cho cả hai bean (mỗi bean cần bean còn lại làm tham số constructor ngay khi tạo) nên sẽ ném BeanCurrentlyInCreationException; cần chuyển một bên sang setter/field injection, dùng @Lazy, hoặc tách phần dùng chung ra bean thứ ba để phá vòng lặp.","options":[{"content":"Spring tự động phát hiện và giải quyết vòng lặp bằng cách tạo proxy tạm thời cho cả hai bean, không cần can thiệp gì","is_correct":false},{"content":"Spring ném ra BeanCurrentlyInCreationException vì không thể hoàn thành tạo cả hai bean bằng constructor injection","is_correct":true},{"content":"Spring tạo ServiceA và ServiceB theo thứ tự ngẫu nhiên, inject giá trị null tạm thời rồi cập nhật lại sau","is_correct":false},{"content":"Ứng dụng vẫn khởi động bình thường nhưng cả hai bean có dependency là null cho đến khi được gọi lần đầu","is_correct":false}]},
-{"content":"Method sendEmailAsync() trong NotificationService được đánh dấu @Async, và được gọi từ một method khác NGAY TRONG CÙNG class đó (self-invocation). Điều gì xảy ra?","explanation":"@Async cũng dựa trên AOP proxy giống @Transactional; khi gọi method async từ chính bên trong class, lệnh gọi bỏ qua proxy nên method chạy đồng bộ (blocking) trên thread hiện tại, không có thread mới nào được tạo.","options":[{"content":"Method vẫn chạy bất đồng bộ bình thường vì @Async không phụ thuộc vào cơ chế proxy như @Transactional","is_correct":false},{"content":"Ứng dụng sẽ throw AsyncExecutionException ngay khi runtime phát hiện self-invocation trên method @Async","is_correct":false},{"content":"Spring tự tạo một thread mới cho toàn bộ class NotificationService để đảm bảo mọi method trong đó đều async","is_correct":false},{"content":"@Async không có hiệu lực do self-invocation giống @Transactional, method vẫn chạy đồng bộ trên thread hiện tại","is_correct":true}]},
-{"content":"Sự khác biệt chính giữa @Scheduled(fixedRate = 5000) và @Scheduled(fixedDelay = 5000) là gì?","explanation":"fixedRate đo khoảng cách 5 giây giữa các lần BẮT ĐẦU thực thi liên tiếp, không quan tâm lần trước đã hoàn tất hay chưa (có thể chồng chéo nếu task chạy lâu); fixedDelay đo 5 giây tính từ khi lần thực thi trước KẾT THÚC mới bắt đầu lần sau, đảm bảo không bao giờ chạy song song.","options":[{"content":"fixedRate chỉ chạy một lần sau 5 giây kể từ khi ứng dụng khởi động, còn fixedDelay chạy lặp lại vô hạn","is_correct":false},{"content":"fixedDelay cho phép nhiều lần thực thi chạy song song nếu task trước chưa xong, còn fixedRate luôn chờ tuần tự","is_correct":false},{"content":"Cả hai hoàn toàn giống nhau về hành vi, chỉ khác tên gọi để dễ đọc code","is_correct":false},{"content":"fixedRate tính khoảng cách giữa các lần bắt đầu liên tiếp, còn fixedDelay tính từ khi lần trước kết thúc mới bắt đầu lần sau","is_correct":true}]}]
+[
+  {
+    "content": "Vì sao Constructor Injection thường được ưu tiên hơn Field Injection (@Autowired trên field) khi viết unit test cho một Service?",
+    "explanation": "Với constructor injection, ta có thể gọi `new Service(mockDep)` trực tiếp để truyền mock vào, không cần khởi động Spring context hay dùng reflection để set field private như field injection.",
+    "options": [
+      {
+        "content": "Vì Mockito không thể tạo mock cho dependency được khai báo bằng @Autowired trên field trong bất kỳ trường hợp nào",
+        "is_correct": false
+      },
+      {
+        "content": "Vì constructor injection cho phép truyền mock trực tiếp khi gọi `new Service(mockDep)`, không cần Spring context hay reflection để set field private",
+        "is_correct": true
+      },
+      {
+        "content": "Vì field injection bắt buộc dependency phải implement interface, còn constructor injection thì không yêu cầu điều này",
+        "is_correct": false
+      },
+      {
+        "content": "Vì constructor injection giúp Spring bỏ qua bước tạo proxy AOP khi chạy test",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Một bean scope `prototype` được inject qua constructor vào một bean scope `singleton`. Khi ứng dụng chạy, điều gì xảy ra với bean prototype đó?",
+    "explanation": "Singleton chỉ được tạo một lần khi khởi động context, nên việc inject prototype cũng chỉ diễn ra một lần tại thời điểm đó; mọi lần sử dụng sau này của singleton đều dùng lại đúng instance prototype ban đầu, không có instance mới nào được tạo thêm.",
+    "options": [
+      {
+        "content": "Spring tự động tạo instance mới của prototype bean mỗi khi một phương thức của singleton được gọi",
+        "is_correct": false
+      },
+      {
+        "content": "Spring báo lỗi BeanCreationException ngay khi khởi động context vì hai scope không tương thích",
+        "is_correct": false
+      },
+      {
+        "content": "Singleton chỉ nhận đúng một instance của prototype bean tại thời điểm khởi tạo, mọi lần dùng sau đó đều là instance đó",
+        "is_correct": true
+      },
+      {
+        "content": "Prototype bean sẽ tự động chuyển thành scope singleton để tránh xung đột",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Thứ tự thực thi đúng giữa constructor, dependency injection (field/setter), @PostConstruct và InitializingBean.afterPropertiesSet() trong lifecycle của một Spring bean là gì?",
+    "explanation": "Spring tạo object bằng constructor trước, sau đó inject dependency, rồi gọi @PostConstruct, và cuối cùng mới gọi afterPropertiesSet() của interface InitializingBean (annotation được xử lý trước interface chuẩn).",
+    "options": [
+      {
+        "content": "Constructor chạy sau khi dependency injection hoàn tất để đảm bảo bean sẵn sàng ngay khi tạo",
+        "is_correct": false
+      },
+      {
+        "content": "afterPropertiesSet() luôn chạy trước @PostConstruct vì là interface chuẩn của Spring",
+        "is_correct": false
+      },
+      {
+        "content": "@PostConstruct chạy song song với constructor để tối ưu thời gian khởi tạo bean",
+        "is_correct": false
+      },
+      {
+        "content": "Constructor chạy trước, sau đó dependency được inject, rồi @PostConstruct, cuối cùng là afterPropertiesSet()",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Loại advice nào trong Spring AOP có khả năng kiểm soát toàn bộ luồng thực thi của method gốc, kể cả quyết định có gọi method đó hay không và thay đổi giá trị trả về?",
+    "explanation": "@Around nhận vào ProceedingJoinPoint, cho phép chủ động gọi proceed() (hoặc không gọi), thay đổi tham số trước khi gọi và thay đổi giá trị trả về sau khi gọi — điều mà @Before, @AfterReturning, @AfterThrowing không làm được.",
+    "options": [
+      {
+        "content": "@Before",
+        "is_correct": false
+      },
+      {
+        "content": "@AfterReturning",
+        "is_correct": false
+      },
+      {
+        "content": "@Around",
+        "is_correct": true
+      },
+      {
+        "content": "@AfterThrowing",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong class OrderService, method placeOrder() (không có @Transactional) gọi trực tiếp this.saveOrder() — một method khác cùng class được đánh dấu @Transactional. Điều gì xảy ra với transaction của saveOrder()?",
+    "explanation": "Spring AOP dùng proxy để bọc bean; khi gọi this.saveOrder() từ bên trong cùng class, lệnh gọi đi trực tiếp vào object gốc, bỏ qua proxy, nên annotation @Transactional bị bỏ qua một cách âm thầm, không có transaction nào được mở.",
+    "options": [
+      {
+        "content": "Transaction vẫn hoạt động bình thường vì Spring luôn proxy mọi method public bất kể lệnh gọi từ đâu",
+        "is_correct": false
+      },
+      {
+        "content": "Spring ném ra TransactionRequiredException ngay khi runtime phát hiện lệnh gọi nội bộ",
+        "is_correct": false
+      },
+      {
+        "content": "saveOrder() sẽ dùng chung transaction với placeOrder() vì cả hai nằm trong cùng class",
+        "is_correct": false
+      },
+      {
+        "content": "@Transactional trên saveOrder() không có hiệu lực vì lệnh gọi this.saveOrder() bỏ qua AOP proxy do Spring tạo ra",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Trong Spring MVC, thành phần nào nhận mọi HTTP request đầu vào rồi tra cứu HandlerMapping để xác định controller/method nào sẽ xử lý request đó?",
+    "explanation": "DispatcherServlet đóng vai trò Front Controller: nhận request, hỏi HandlerMapping để tìm handler phù hợp, giao cho HandlerAdapter thực thi, rồi phối hợp với ViewResolver (nếu cần) để trả kết quả.",
+    "options": [
+      {
+        "content": "HandlerAdapter",
+        "is_correct": false
+      },
+      {
+        "content": "ViewResolver",
+        "is_correct": false
+      },
+      {
+        "content": "FilterChain",
+        "is_correct": false
+      },
+      {
+        "content": "DispatcherServlet",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Entity Employee có field department (String) và salary (BigDecimal). Khai báo method nào trong JpaRepository giúp Spring Data JPA tự sinh query tìm nhân viên thuộc một phòng ban VÀ có lương lớn hơn một ngưỡng, không cần viết @Query?",
+    "explanation": "Spring Data JPA phân tích tên method theo quy ước findBy<Thuộc tính><Toán tử>And<Thuộc tính><Toán tử>; findByDepartmentAndSalaryGreaterThan đúng ngữ nghĩa AND kết hợp với so sánh lớn hơn.",
+    "options": [
+      {
+        "content": "List<Employee> findByDepartmentOrSalary(String department, BigDecimal salary);",
+        "is_correct": false
+      },
+      {
+        "content": "List<Employee> findByDepartmentAndSalaryGreaterThan(String department, BigDecimal salary);",
+        "is_correct": true
+      },
+      {
+        "content": "List<Employee> findByDepartmentAndSalary(String department, BigDecimal salary);",
+        "is_correct": false
+      },
+      {
+        "content": "List<Employee> getDepartmentWithSalary(String department, BigDecimal salary);",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi load danh sách Order kèm List<OrderItem> (quan hệ @OneToMany mặc định LAZY) và lặp qua từng Order để gọi order.getItems(), ứng dụng gặp vấn đề N+1 query. Cách khắc phục nào hiệu quả nhất mà vẫn giữ lazy loading cho các quan hệ khác?",
+    "explanation": "JOIN FETCH (hoặc @EntityGraph) load Order kèm OrderItem trong một câu SELECT duy nhất chỉ cho query đó, không ảnh hưởng đến cấu hình fetch mặc định của các quan hệ khác trong entity.",
+    "options": [
+      {
+        "content": "Đổi toàn bộ quan hệ trong entity sang FetchType.EAGER để Hibernate tự động load kèm mọi lúc",
+        "is_correct": false
+      },
+      {
+        "content": "Gọi order.getItems().size() ngay sau khi load Order để buộc Hibernate cache trước",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng JPQL với JOIN FETCH (hoặc @EntityGraph) trong method repository để load Order kèm OrderItem trong một câu query duy nhất",
+        "is_correct": true
+      },
+      {
+        "content": "Tăng hibernate.jdbc.batch_size trong cấu hình để Hibernate gộp các câu SELECT lại thành một batch",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Method `logAudit()` có `@Transactional(propagation = REQUIRES_NEW)` được gọi qua một Spring proxy từ transaction `processPayment()` (REQUIRED). Nếu transaction ngoài rollback sau khi audit đã commit, dữ liệu audit ra sao?",
+    "explanation": "Khi interceptor transaction thực sự được kích hoạt, `REQUIRES_NEW` suspend transaction ngoài, mở transaction riêng và commit/rollback độc lập; rollback của `processPayment` không đảo ngược audit đã commit. Điểm quan trọng: lời gọi self-invocation trực tiếp giữa hai method trong cùng bean thường bỏ qua proxy, nên annotation có thể không được áp dụng; thường tách audit sang bean khác hoặc dùng proxy đúng cách.",
+    "options": [
+      {
+        "content": "Dữ liệu audit log cũng bị rollback theo vì các transaction lồng nhau dùng chung connection và commit/rollback đồng thời",
+        "is_correct": false
+      },
+      {
+        "content": "Ứng dụng sẽ throw IllegalTransactionStateException vì không thể có hai transaction cùng lúc trên một thread",
+        "is_correct": false
+      },
+      {
+        "content": "Dữ liệu audit log chỉ được giữ lại nếu processPayment() cũng dùng propagation REQUIRES_NEW",
+        "is_correct": false
+      },
+      {
+        "content": "Audit vẫn được giữ vì lời gọi qua proxy áp dụng `REQUIRES_NEW`, tạm ngưng transaction ngoài và tạo transaction vật lý độc lập đã commit.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Trong cùng một transaction, một câu SELECT được chạy 2 lần trên cùng một dòng dữ liệu; giữa hai lần đọc, transaction khác COMMIT một UPDATE lên đúng dòng đó khiến giá trị đọc lần 2 khác lần 1. Đây là hiện tượng gì và mức isolation nào ngăn được nó?",
+    "explanation": "Đây là non-repeatable read — dữ liệu đã đọc bị thay đổi giữa hai lần đọc trong cùng transaction. Mức REPEATABLE_READ (hoặc SERIALIZABLE) đảm bảo các lần đọc lại cùng dữ liệu trong một transaction luôn nhất quán.",
+    "options": [
+      {
+        "content": "Dirty read; cần mức isolation READ_COMMITTED để ngăn",
+        "is_correct": false
+      },
+      {
+        "content": "Non-repeatable read; cần mức isolation REPEATABLE_READ hoặc cao hơn để ngăn",
+        "is_correct": true
+      },
+      {
+        "content": "Phantom read; cần mức isolation READ_UNCOMMITTED để ngăn",
+        "is_correct": false
+      },
+      {
+        "content": "Lost update; mức isolation mặc định READ_COMMITTED là đủ để ngăn",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Một method @Transactional ném ra một checked exception tự định nghĩa (extends Exception, không phải RuntimeException). Mặc định, Spring xử lý transaction như thế nào?",
+    "explanation": "Quy tắc rollback mặc định của Spring chỉ áp dụng cho RuntimeException và Error; checked exception sẽ không kích hoạt rollback tự động trừ khi khai báo rõ rollbackFor = MyException.class trên @Transactional.",
+    "options": [
+      {
+        "content": "Spring luôn rollback với mọi loại exception, không phân biệt checked hay unchecked",
+        "is_correct": false
+      },
+      {
+        "content": "Spring KHÔNG rollback theo mặc định với checked exception; phải khai báo rollbackFor thì mới rollback",
+        "is_correct": true
+      },
+      {
+        "content": "Spring rollback transaction nhưng vẫn commit các thay đổi đã flush xuống DB trước đó",
+        "is_correct": false
+      },
+      {
+        "content": "Transaction bị treo ở trạng thái chờ cho đến khi có lệnh gọi commit() thủ công",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "UsernamePasswordAuthenticationFilter trong Spring Security hoạt động ở đâu trong quá trình xử lý request, và vai trò của nó là gì?",
+    "explanation": "Đây là một Servlet Filter nằm trong SecurityFilterChain, chạy trước khi request đến được DispatcherServlet; nó trích xuất username/password từ request để thực hiện authentication thông qua AuthenticationManager.",
+    "options": [
+      {
+        "content": "Nó là một HandlerInterceptor trong Spring MVC, chạy sau khi DispatcherServlet đã chọn được controller",
+        "is_correct": false
+      },
+      {
+        "content": "Nó là một Aspect trong Spring AOP áp dụng lên các method có annotation @PreAuthorize",
+        "is_correct": false
+      },
+      {
+        "content": "Nó là một filter trong SecurityFilterChain, chạy trước DispatcherServlet, chịu trách nhiệm trích xuất username/password để thực hiện authentication",
+        "is_correct": true
+      },
+      {
+        "content": "Nó chỉ chạy khi ứng dụng dùng OAuth2, còn form login thông thường sẽ bỏ qua filter này",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Việc kiểm tra một user đã đăng nhập có role ADMIN hay không để cho phép gọi một API cụ thể (ví dụ @PreAuthorize(\"hasRole('ADMIN')\")) thuộc về khái niệm nào trong Spring Security?",
+    "explanation": "Authorization (phân quyền) diễn ra sau khi user đã được xác thực (authentication) — nó xác định user đó có quyền thực hiện hành động cụ thể hay không, khác với việc xác minh danh tính.",
+    "options": [
+      {
+        "content": "Authentication, vì role được lưu trong cùng token với thông tin đăng nhập",
+        "is_correct": false
+      },
+      {
+        "content": "Session management, vì Spring Security dùng session để lưu role của user",
+        "is_correct": false
+      },
+      {
+        "content": "CORS policy, vì kiểm tra role cũng là một dạng kiểm soát nguồn truy cập",
+        "is_correct": false
+      },
+      {
+        "content": "Authorization, vì nó xác định user đã xác thực có được phép thực hiện hành động cụ thể hay không",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "spring-boot-starter-data-jpa giúp gộp sẵn các dependency cần thiết (Hibernate, Spring Data JPA, HikariCP...). Thứ gì trong Spring Boot chịu trách nhiệm TỰ ĐỘNG tạo các bean như DataSource, EntityManagerFactory dựa trên các class có sẵn trên classpath?",
+    "explanation": "Auto-configuration (các class trong spring-boot-autoconfigure) dùng @ConditionalOnClass/@ConditionalOnMissingBean để quyết định bean nào cần tự tạo dựa trên những gì đang có trên classpath và trong context, khác với starter (chỉ là tập hợp dependency) hay component scanning (chỉ quét class trong package của chính project).",
+    "options": [
+      {
+        "content": "Component scanning (@ComponentScan), vì nó tự động phát hiện mọi class trên classpath và biến thành bean",
+        "is_correct": false
+      },
+      {
+        "content": "Spring Initializr, vì công cụ này sinh sẵn code cấu hình DataSource khi tạo project",
+        "is_correct": false
+      },
+      {
+        "content": "Auto-configuration, thông qua các class dùng @ConditionalOnClass/@ConditionalOnMissingBean để quyết định bean nào cần tạo",
+        "is_correct": true
+      },
+      {
+        "content": "BeanFactoryPostProcessor do lập trình viên tự viết trong mỗi project",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Ứng dụng có application.yml, application-dev.yml và application-prod.yml. Khi chạy với spring.profiles.active=prod, thứ tự override cấu hình diễn ra như thế nào?",
+    "explanation": "application.yml luôn được load làm cấu hình mặc định (baseline); khi một profile được active, file application-{profile}.yml tương ứng sẽ được load thêm và các key trùng tên sẽ ghi đè lên giá trị mặc định.",
+    "options": [
+      {
+        "content": "Chỉ application-prod.yml được load, application.yml bị bỏ qua hoàn toàn",
+        "is_correct": false
+      },
+      {
+        "content": "Spring load application.yml làm mặc định, sau đó application-prod.yml override các key trùng tên",
+        "is_correct": true
+      },
+      {
+        "content": "Cả ba file được merge, nếu xung đột thì file có tên theo thứ tự alphabet sau cùng sẽ thắng",
+        "is_correct": false
+      },
+      {
+        "content": "application-dev.yml luôn được load kèm để làm fallback cho các key thiếu trong application-prod.yml",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Thêm dependency spring-boot-starter-actuator vào project mang lại lợi ích chính nào?",
+    "explanation": "Actuator cung cấp sẵn các endpoint HTTP (như /actuator/health, /actuator/metrics, /actuator/info) để giám sát tình trạng vận hành và các chỉ số của ứng dụng đang chạy, không cần tự viết code giám sát.",
+    "options": [
+      {
+        "content": "Tự động tạo Swagger UI để test API mà không cần cấu hình thêm",
+        "is_correct": false
+      },
+      {
+        "content": "Tăng tốc độ khởi động ứng dụng bằng cách cache lại các bean đã tạo ở lần chạy trước",
+        "is_correct": false
+      },
+      {
+        "content": "Cung cấp sẵn các endpoint HTTP để giám sát tình trạng và số liệu vận hành của ứng dụng đang chạy",
+        "is_correct": true
+      },
+      {
+        "content": "Tự động validate toàn bộ DTO request bằng Bean Validation mà không cần annotation @Valid",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Muốn test một @RestController để kiểm tra HTTP status code, JSON response và validation, nhưng KHÔNG muốn khởi tạo Service/Repository/DataSource thật (sẽ mock Service), nên dùng annotation nào để test chạy nhanh và tách biệt?",
+    "explanation": "`@WebMvcTest` chỉ tập trung vào web layer như controller, converter, validation, filter và cấu hình MockMvc, nên nhanh hơn `@SpringBootTest`. Các dependency tầng service cần được đưa vào context dưới dạng mock. Với Spring Boot hiện hành, tài liệu dùng `@MockitoBean`; dự án Boot cũ có thể vẫn dùng `@MockBean`, nhưng không nên ghi nó như lựa chọn duy nhất cho mọi phiên bản.",
+    "options": [
+      {
+        "content": "@SpringBootTest, vì load toàn bộ ApplicationContext để đảm bảo test giống môi trường thật nhất",
+        "is_correct": false
+      },
+      {
+        "content": "@DataJpaTest, vì lớp này cũng nằm trong tầng xử lý request nên phù hợp để test Controller",
+        "is_correct": false
+      },
+      {
+        "content": "@ExtendWith(MockitoExtension.class) cùng @InjectMocks trên controller, không cần annotation Spring Boot nào",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng `@WebMvcTest` để load MVC slice và `MockMvc`; trong Spring Boot hiện hành dùng `@MockitoBean` để thay Service bằng mock (`@MockBean` là API cũ/deprecated ở các phiên bản mới).",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Hai bean ServiceA và ServiceB phụ thuộc lẫn nhau, cả hai đều dùng CONSTRUCTOR injection để lấy nhau. Khi khởi động ứng dụng, Spring sẽ làm gì?",
+    "explanation": "Với constructor injection, Spring không có cách nào tạo object hoàn chỉnh cho cả hai bean (mỗi bean cần bean còn lại làm tham số constructor ngay khi tạo) nên sẽ ném BeanCurrentlyInCreationException; cần chuyển một bên sang setter/field injection, dùng @Lazy, hoặc tách phần dùng chung ra bean thứ ba để phá vòng lặp.",
+    "options": [
+      {
+        "content": "Spring tự động phát hiện và giải quyết vòng lặp bằng cách tạo proxy tạm thời cho cả hai bean, không cần can thiệp gì",
+        "is_correct": false
+      },
+      {
+        "content": "Spring ném ra BeanCurrentlyInCreationException vì không thể hoàn thành tạo cả hai bean bằng constructor injection",
+        "is_correct": true
+      },
+      {
+        "content": "Spring tạo ServiceA và ServiceB theo thứ tự ngẫu nhiên, inject giá trị null tạm thời rồi cập nhật lại sau",
+        "is_correct": false
+      },
+      {
+        "content": "Ứng dụng vẫn khởi động bình thường nhưng cả hai bean có dependency là null cho đến khi được gọi lần đầu",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Method sendEmailAsync() trong NotificationService được đánh dấu @Async, và được gọi từ một method khác NGAY TRONG CÙNG class đó (self-invocation). Điều gì xảy ra?",
+    "explanation": "@Async cũng dựa trên AOP proxy giống @Transactional; khi gọi method async từ chính bên trong class, lệnh gọi bỏ qua proxy nên method chạy đồng bộ (blocking) trên thread hiện tại, không có thread mới nào được tạo.",
+    "options": [
+      {
+        "content": "Method vẫn chạy bất đồng bộ bình thường vì @Async không phụ thuộc vào cơ chế proxy như @Transactional",
+        "is_correct": false
+      },
+      {
+        "content": "Ứng dụng sẽ throw AsyncExecutionException ngay khi runtime phát hiện self-invocation trên method @Async",
+        "is_correct": false
+      },
+      {
+        "content": "Spring tự tạo một thread mới cho toàn bộ class NotificationService để đảm bảo mọi method trong đó đều async",
+        "is_correct": false
+      },
+      {
+        "content": "@Async không có hiệu lực do self-invocation giống @Transactional, method vẫn chạy đồng bộ trên thread hiện tại",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt chính giữa @Scheduled(fixedRate = 5000) và @Scheduled(fixedDelay = 5000) là gì?",
+    "explanation": "Với `fixedDelay`, lần kế tiếp chỉ được lên lịch sau khi lần trước hoàn tất và hết khoảng delay. Với `fixedRate`, lịch bám theo chu kỳ bắt đầu; nếu task chạy lâu, lần sau có thể bị trễ hoặc chạy sát nhau khi scheduler có thread. Không nên khẳng định fixedRate luôn chồng chéo hay fixedDelay là cơ chế duy nhất ngăn song song: concurrency còn phụ thuộc task scheduler, pool size và cách cấu hình.",
+    "options": [
+      {
+        "content": "fixedRate chỉ chạy một lần sau 5 giây kể từ khi ứng dụng khởi động, còn fixedDelay chạy lặp lại vô hạn",
+        "is_correct": false
+      },
+      {
+        "content": "fixedDelay cho phép nhiều lần thực thi chạy song song nếu task trước chưa xong, còn fixedRate luôn chờ tuần tự",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai hoàn toàn giống nhau về hành vi, chỉ khác tên gọi để dễ đọc code",
+        "is_correct": false
+      },
+      {
+        "content": "`fixedRate` lập lịch theo khoảng giữa các thời điểm bắt đầu dự kiến; `fixedDelay` đợi task trước hoàn tất rồi mới chờ delay. Việc có chạy chồng hay không còn phụ thuộc scheduler/executor.",
+        "is_correct": true
+      }
+    ]
+  }
+]

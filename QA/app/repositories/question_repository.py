@@ -67,6 +67,35 @@ class QuestionRepository(BaseRepository[Question]):
         items = list(self.db.execute(stmt).unique().scalars().all())
         return items, total
 
+    def list_review_items(
+        self,
+        *,
+        category_id: int | None = None,
+        page: int = 1,
+        page_size: int = 20,
+    ) -> tuple[list[Question], int]:
+        """Active, admin-approved questions only (needs_review excluded) -- for the
+        answer-revealing /review study-guide page. Distinct from list_filtered, which admin
+        listing relies on to also see needs_review questions."""
+        stmt = (
+            select(Question)
+            .options(selectinload(Question.options), joinedload(Question.category))
+            .where(Question.active.is_(True), Question.needs_review.is_(False))
+        )
+        if category_id is not None:
+            stmt = stmt.where(Question.category_id == category_id)
+
+        count_stmt = select(func.count()).select_from(stmt.subquery())
+        total = self.db.execute(count_stmt).scalar_one()
+
+        stmt = (
+            stmt.order_by(Question.category_id, Question.id)
+            .offset((page - 1) * page_size)
+            .limit(page_size)
+        )
+        items = list(self.db.execute(stmt).unique().scalars().all())
+        return items, total
+
     def list_candidates(
         self,
         *,

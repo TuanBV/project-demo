@@ -1,20 +1,442 @@
-[{"content":"Nhận định nào sau đây về idempotency của các phương thức HTTP trong REST API là chính xác?","explanation":"Idempotency nói về hiệu ứng cuối cùng lên trạng thái server, không phải về mã trạng thái hay nội dung response trả về. DELETE gọi nhiều lần lên cùng một resource luôn để server ở cùng trạng thái (resource không còn tồn tại), dù lần gọi đầu có thể trả 204 và các lần sau trả 404.","options":[{"content":"DELETE là idempotent: gọi nhiều lần lên cùng resource cho ra cùng trạng thái cuối (resource đã bị xóa), dù mã trạng thái trả về ở lần gọi sau có thể khác (404 thay vì 204)","is_correct":true},{"content":"POST luôn idempotent vì server có thể dùng ID do client sinh ra để tránh tạo trùng","is_correct":false},{"content":"GET không idempotent vì mỗi lần gọi có thể trả về dữ liệu khác nếu resource thay đổi","is_correct":false},{"content":"PUT không idempotent vì nó thay thế toàn bộ resource, gây thay đổi trạng thái mỗi lần gọi","is_correct":false}]},
-{"content":"Vì sao PATCH không được đảm bảo là idempotent giống PUT?","explanation":"PATCH có thể mô tả một phép biến đổi tương đối (delta) như tăng giá trị hoặc thêm phần tử vào danh sách; áp dụng lại phép biến đổi này nhiều lần cho ra kết quả khác lần đầu, khác với PUT luôn ghi đè toàn bộ resource bằng một giá trị cố định.","options":[{"content":"Vì thao tác PATCH có thể mô tả một phép biến đổi tương đối (ví dụ 'tăng số lượng lên 1' hoặc 'thêm phần tử vào danh sách'), nên gọi lại nhiều lần có thể cho kết quả khác lần đầu","is_correct":true},{"content":"Vì PATCH luôn dùng để tạo resource mới nên mỗi lần gọi sẽ sinh ra ID khác nhau","is_correct":false},{"content":"Vì PATCH bắt buộc phải gửi toàn bộ resource giống PUT nên dễ gây xung đột dữ liệu","is_correct":false},{"content":"Vì PATCH không hỗ trợ trả về mã trạng thái 200, chỉ hỗ trợ 202 nên client không biết idempotent hay không","is_correct":false}]},
-{"content":"Client gửi request tạo user mới với email đã tồn tại trong hệ thống (dữ liệu hợp lệ về cú pháp/schema nhưng vi phạm ràng buộc nghiệp vụ 'email duy nhất'). Mã trạng thái HTTP nào phù hợp nhất?","explanation":"409 Conflict dùng khi request hợp lệ về cấu trúc nhưng xung đột với trạng thái hiện tại của tài nguyên trên server (email đã được dùng bởi user khác). 422 phù hợp hơn cho lỗi ngữ nghĩa của dữ liệu không phụ thuộc trạng thái hiện có, còn 400 dành cho lỗi cú pháp.","options":[{"content":"409 Conflict, vì request xung đột với trạng thái hiện tại của dữ liệu trên server","is_correct":true},{"content":"422 Unprocessable Entity, vì dữ liệu không đúng schema nên server không xử lý được","is_correct":false},{"content":"400 Bad Request, vì cú pháp request không hợp lệ","is_correct":false},{"content":"403 Forbidden, vì client không có quyền tạo user với email đó","is_correct":false}]},
-{"content":"So với việc đặt version trong URL path (/v1/users), versioning qua HTTP header (ví dụ Accept: application/vnd.myapp.v2+json) có nhược điểm chính nào?","explanation":"Khi version nằm trong header thay vì URL, người dùng không thể nhận biết version chỉ bằng cách nhìn URL — muốn debug, curl thử nhanh, hay chia sẻ link, đều phải biết và set thêm header, gây bất tiện hơn so với version hiện diện ngay trên URL.","options":[{"content":"URL không còn tự thể hiện version, gây khó khăn khi debug/curl trực tiếp hoặc chia sẻ link vì phải set thêm header để biết đang gọi version nào","is_correct":true},{"content":"Media-type versioning không cho phép định nghĩa nhiều version cùng lúc trên một server","is_correct":false},{"content":"Không tương thích với HTTP caching vì proxy không thể đọc được bất kỳ header nào của request","is_correct":false},{"content":"Yêu cầu phải đổi toàn bộ đường dẫn URL của resource mỗi khi ra version mới","is_correct":false}]},
-{"content":"Mục đích chính của HATEOAS (Hypermedia as the Engine of Application State) trong response API là gì?","explanation":"HATEOAS nhúng các link liên quan (ví dụ link tới hành động tiếp theo hoặc resource liên kết) ngay trong response, giúp client điều hướng động theo trạng thái hiện tại của resource thay vì phải hard-code cấu trúc URL ở phía client.","options":[{"content":"Nhúng các link tới hành động/tài nguyên liên quan trong response để client điều hướng động, giảm việc client phải hard-code URL","is_correct":true},{"content":"Tăng tốc độ response bằng cách nén payload JSON","is_correct":false},{"content":"Thay thế hoàn toàn việc versioning API vì client luôn theo link mới nhất","is_correct":false},{"content":"Bắt buộc mọi API REST phải dùng XML thay vì JSON để mô tả liên kết","is_correct":false}]},
-{"content":"Vì sao cursor-based pagination thường được ưu tiên hơn offset-based pagination cho API có tập dữ liệu lớn và tần suất ghi cao?","explanation":"Offset pagination phải quét/bỏ qua N dòng đầu (OFFSET N) mỗi lần truy vấn, chi phí tăng dần theo độ sâu trang; cursor pagination dùng giá trị khóa đã sắp xếp (ví dụ id hoặc timestamp cuối trang trước) để truy vấn trực tiếp trang kế tiếp với chi phí gần như không đổi, đồng thời ổn định hơn khi dữ liệu thay đổi liên tục.","options":[{"content":"Offset pagination phải quét/bỏ qua N dòng mỗi lần nên chi phí tăng theo độ sâu trang, còn cursor pagination truy vấn trực tiếp từ vị trí đã biết với chi phí gần như hằng số","is_correct":true},{"content":"Cursor pagination luôn trả về ít dữ liệu hơn offset pagination nên nhẹ hơn","is_correct":false},{"content":"Offset pagination không hỗ trợ sắp xếp (sort) trong khi cursor pagination hỗ trợ","is_correct":false},{"content":"Cursor pagination không cần index trên cột sắp xếp nên setup đơn giản hơn offset pagination","is_correct":false}]},
-{"content":"Khi dùng offset pagination (?limit=20&offset=40) trên một danh sách sắp xếp theo thời gian tạo giảm dần mà liên tục có bản ghi mới được thêm vào đầu, vấn đề điển hình nào có thể xảy ra giữa hai lần gọi trang kế tiếp?","explanation":"Offset là vị trí tuyệt đối trong tập kết quả; khi có bản ghi mới chèn vào đầu danh sách giữa hai lần gọi, toàn bộ vị trí các bản ghi phía sau bị dịch đi, khiến trang sau có thể lặp lại bản ghi đã thấy hoặc bỏ sót bản ghi lẽ ra phải xuất hiện.","options":[{"content":"Một số bản ghi bị lặp lại hoặc bị bỏ sót giữa các trang vì offset tính theo vị trí tuyệt đối bị lệch khi có bản ghi mới chèn vào phía trước","is_correct":true},{"content":"API sẽ trả lỗi 409 Conflict vì offset không còn hợp lệ","is_correct":false},{"content":"Toàn bộ response sẽ bị cache sai và không bao giờ cập nhật lại","is_correct":false},{"content":"Offset pagination sẽ tự động chuyển sang cursor pagination để tránh lỗi","is_correct":false}]},
-{"content":"Khi client vượt quá giới hạn rate limit, theo best practice REST API nên trả về gì?","explanation":"Chuẩn phổ biến là trả 429 Too Many Requests kèm header Retry-After (hoặc X-RateLimit-Reset) để client biết chính xác nên chờ bao lâu trước khi thử lại, thay vì trả các mã trạng thái mơ hồ khác hoặc đóng kết nối không rõ lý do.","options":[{"content":"Mã trạng thái 429 Too Many Requests, kèm header Retry-After cho biết client nên thử lại sau bao lâu","is_correct":true},{"content":"Mã trạng thái 403 Forbidden vì client không còn quyền truy cập tiếp","is_correct":false},{"content":"Mã trạng thái 503 Service Unavailable vì server tạm ngừng phục vụ toàn bộ client","is_correct":false},{"content":"Đóng kết nối TCP ngay lập tức mà không trả response để tiết kiệm tài nguyên","is_correct":false}]},
-{"content":"Vì sao Authorization Code Flow kết hợp PKCE được khuyến nghị cho single-page app (SPA) hoặc mobile app thay vì Implicit Flow?","explanation":"SPA/mobile là public client, không thể giữ client secret an toàn. PKCE dùng cặp code_verifier/code_challenge để chống việc authorization code bị đánh cắp và dùng lại, mà không cần secret cố định; ngược lại Implicit flow trả access token trực tiếp qua URL fragment, dễ bị lộ qua lịch sử trình duyệt hoặc log trung gian.","options":[{"content":"SPA/mobile là public client không giữ được client secret an toàn; PKCE chống đánh cắp authorization code mà không cần secret, còn Implicit flow trả token qua URL fragment dễ bị rò rỉ","is_correct":true},{"content":"Vì Client Credentials flow yêu cầu người dùng đăng nhập trực tiếp trên SPA nên không phù hợp với thiết bị di động","is_correct":false},{"content":"Vì PKCE cho phép SPA lưu trữ client secret an toàn hơn trong localStorage","is_correct":false},{"content":"Vì Implicit flow không được hỗ trợ bởi HTTPS nên không an toàn cho các app public","is_correct":false}]},
-{"content":"JWT (JSON Web Token) gồm 3 phần header.payload.signature. Nhận định nào đúng về bản chất của các phần này?","explanation":"Header và payload chỉ được encode bằng Base64URL, không được mã hóa (encrypt), nên bất kỳ ai có token đều đọc được nội dung claims nếu decode; signature chỉ dùng để xác minh token chưa bị chỉnh sửa, không nhằm mục đích ẩn dữ liệu — đây là lý do không nên đặt thông tin nhạy cảm vào payload JWT.","options":[{"content":"Header và payload chỉ được encode Base64URL (không mã hóa) nên ai có token đều đọc được claims; signature dùng để xác minh token không bị chỉnh sửa, không dùng để ẩn nội dung","is_correct":true},{"content":"Cả 3 phần đều được mã hóa bằng khóa bí mật của server nên client không thể đọc được payload","is_correct":false},{"content":"Payload chứa khóa bí mật dùng để server tạo signature ở request tiếp theo","is_correct":false},{"content":"Signature được tạo ra bằng cách hash toàn bộ token bằng MD5 theo chuẩn JWT","is_correct":false}]},
-{"content":"Một lỗ hổng bảo mật kinh điển khi backend verify JWT là gì, và cách phòng tránh đúng?","explanation":"Nếu code verify tin tưởng field 'alg' trong header của token để chọn thuật toán kiểm tra signature, attacker có thể đổi alg thành 'none' hoặc đổi RS256 sang HS256 rồi dùng public key làm secret để giả mạo token. Cách phòng tránh đúng là cấu hình cứng một allow-list thuật toán được phép ở phía server và không tin field alg lấy từ token.","options":[{"content":"Backend tin tưởng field 'alg' trong header token để chọn thuật toán verify (chấp nhận none hoặc đổi RS256 sang HS256); cần hardcode allow-list thuật toán được phép ở server, không tin alg từ token","is_correct":true},{"content":"JWT không hỗ trợ hết hạn (exp) nên token luôn có giá trị vĩnh viễn, cách phòng tránh là chuyển sang session cookie","is_correct":false},{"content":"JWT không thể chứa nhiều claim cùng lúc, cách phòng tránh là chia thành nhiều token nhỏ","is_correct":false},{"content":"JWT bắt buộc phải gửi qua query string nên luôn bị log lại, cách phòng tránh là mã hóa toàn bộ URL","is_correct":false}]},
-{"content":"Theo best practice thiết kế URI cho REST API, cách đặt tên endpoint nào sau đây đúng chuẩn?","explanation":"Quy ước phổ biến là dùng danh từ số nhiều cho resource, lồng resource con theo quan hệ sở hữu (orders/{id}/items), và để HTTP method (GET/POST/DELETE...) thể hiện hành động thay vì nhúng động từ vào path.","options":[{"content":"GET /orders/{orderId}/items — dùng danh từ số nhiều, lồng resource con theo quan hệ sở hữu, hành động thể hiện qua HTTP method chứ không chèn vào path","is_correct":true},{"content":"GET /getOrderItems?orderId=123 — dùng động từ mô tả hành động ngay trong path để rõ nghĩa cho client","is_correct":false},{"content":"POST /order/item/create — luôn thêm động từ 'create' ở cuối path khi tạo resource mới để phân biệt với GET","is_correct":false},{"content":"DELETE /orders/deleteItem/123 — nhúng tên hành động trong path để đồng bộ với method DELETE","is_correct":false}]},
-{"content":"Thiết kế query parameter cho việc lọc và sắp xếp danh sách resource nào sau đây theo đúng convention phổ biến của REST API?","explanation":"Convention phổ biến dùng mỗi field lọc là một query parameter riêng (category=shoes, status=active), và sort dùng dấu '-' trước tên field để chỉ thứ tự giảm dần, nhiều field sort phân tách bằng dấu phẩy — dễ đọc, dễ mở rộng, không cần cú pháp đặc biệt trong path.","options":[{"content":"GET /products?category=shoes&status=active&sort=-price,name — mỗi điều kiện lọc là một query param riêng, dấu '-' trước field chỉ thứ tự giảm dần","is_correct":true},{"content":"GET /products/filter/category=shoes/sort/price/desc — nhúng toàn bộ điều kiện lọc và sắp xếp vào path để dễ đọc","is_correct":false},{"content":"POST /products/search với body chứa sort là cách duy nhất chuẩn REST để lọc dữ liệu, GET không được phép có nhiều hơn 1 query param","is_correct":false},{"content":"GET /products?filter=category:shoes;status:active — luôn phải dùng dấu ';' để nối điều kiện lọc theo chuẩn REST chính thức","is_correct":false}]},
-{"content":"Thiết kế response lỗi (error body) tốt cho REST API nên có đặc điểm nào?","explanation":"Error body nên có cấu trúc nhất quán với một field mã lỗi machine-readable (ví dụ error.code) bên cạnh message dành cho người đọc, để client viết logic xử lý dựa trên code ổn định thay vì phải parse chuỗi message có thể thay đổi hoặc được dịch ngôn ngữ khác.","options":[{"content":"Cấu trúc nhất quán, có field mã lỗi machine-readable ngoài message cho người đọc, để client xử lý logic dựa trên code mà không cần parse message","is_correct":true},{"content":"Luôn trả về mã trạng thái 200 OK kèm field success:false trong body để tránh client phải xử lý nhiều loại status code khác nhau","is_correct":false},{"content":"Chỉ cần trả về đúng message gốc từ exception stacktrace để tiết kiệm thời gian phát triển","is_correct":false},{"content":"Không cần trả body khi lỗi, chỉ cần mã trạng thái HTTP là đủ để client hiểu chi tiết nguyên nhân","is_correct":false}]},
-{"content":"Cơ chế ETag kết hợp với header If-None-Match hoạt động như thế nào để tối ưu băng thông?","explanation":"Server sinh ETag đại diện cho phiên bản hiện tại của resource; ở request sau, client gửi lại giá trị đó qua If-None-Match, nếu resource chưa thay đổi server trả 304 Not Modified không kèm body, giúp client dùng lại bản đã cache mà không cần tải lại toàn bộ dữ liệu.","options":[{"content":"Server sinh ETag cho phiên bản hiện tại; client gửi lại qua If-None-Match, nếu resource chưa đổi server trả 304 Not Modified không kèm body","is_correct":true},{"content":"ETag là mã hóa toàn bộ response để giảm dung lượng truyền tải qua mạng","is_correct":false},{"content":"If-None-Match được server dùng để yêu cầu client xóa cache cũ trước khi nhận response mới","is_correct":false},{"content":"ETag chỉ hoạt động với phương thức POST để tránh submit trùng lặp form","is_correct":false}]},
-{"content":"Sự khác biệt giữa Cache-Control: private, no-cache, và no-store là gì?","explanation":"'private' cho phép cache riêng ở trình duyệt của user nhưng cấm shared cache/CDN lưu trữ; 'no-cache' cho phép lưu nhưng buộc phải revalidate với server trước khi dùng lại bản cache; 'no-store' cấm hoàn toàn việc lưu trữ response dưới bất kỳ hình thức nào, kể cả tạm thời.","options":[{"content":"'private' chỉ cho browser cache, không cho shared cache/CDN; 'no-cache' cho lưu nhưng phải revalidate trước khi dùng; 'no-store' cấm lưu trữ hoàn toàn","is_correct":true},{"content":"'no-cache' nghĩa là không được cache ở đâu cả, còn 'no-store' cho phép cache nhưng không được log lại","is_correct":false},{"content":"'private' và 'no-store' là hai cách viết khác nhau của cùng một chỉ thị, tương thích ngược cho HTTP/1.0","is_correct":false},{"content":"Cả ba chỉ thị đều chỉ áp dụng cho response lỗi (4xx/5xx), không áp dụng cho response thành công","is_correct":false}]},
-{"content":"Trình duyệt gửi request OPTIONS (preflight) trước một request PUT có Content-Type: application/json trong CORS nhằm mục đích gì?","explanation":"Preflight dùng để hỏi trước server, qua các header Access-Control-Request-Method/Access-Control-Request-Headers, xem origin, method và header của request thực tế có được server cho phép hay không, tránh gửi request có side-effect (như PUT/DELETE) khi chưa được phép truy cập cross-origin.","options":[{"content":"Hỏi trước server xem origin, method và header của request thực tế có được cho phép hay không, tránh gửi request có side-effect khi chưa được phép","is_correct":true},{"content":"Để giảm tải cho server bằng cách cache toàn bộ response thực tế ngay trong bước preflight","is_correct":false},{"content":"Vì HTTP/1.1 yêu cầu mọi request PUT/DELETE phải có 2 round-trip bất kể có phải cross-origin hay không","is_correct":false},{"content":"Để trình duyệt xác thực lại mật khẩu người dùng trước khi gửi request nhạy cảm","is_correct":false}]},
-{"content":"Khi thiết kế webhook để bên thứ ba (ví dụ cổng thanh toán) gọi ngược vào hệ thống của bạn, cơ chế nào giúp xác minh request thật sự đến từ bên gửi đáng tin và không bị giả mạo/chỉnh sửa?","explanation":"Bên gửi ký payload bằng HMAC với secret key đã chia sẻ trước và đính kèm signature vào header; bên nhận tính lại HMAC trên raw body và so sánh với signature nhận được để xác minh cả tính xác thực (đúng bên gửi) và tính nguyên vẹn (nội dung không bị sửa) của request.","options":[{"content":"Bên gửi ký payload bằng HMAC với secret key chia sẻ trước, đính signature vào header; bên nhận tính lại HMAC trên raw body và so sánh để xác minh tính xác thực và nguyên vẹn","is_correct":true},{"content":"Chỉ cần whitelist địa chỉ IP của bên gửi là đủ, không cần thêm cơ chế nào khác vì IP không thể giả mạo","is_correct":false},{"content":"Webhook luôn tự động an toàn vì dùng HTTPS nên không cần thêm xác minh ở application layer","is_correct":false},{"content":"Yêu cầu bên gửi đặt password admin trong query string của webhook URL để xác thực","is_correct":false}]},
-{"content":"Khi nào chọn gRPC thay vì REST/GraphQL cho giao tiếp giữa các service nội bộ (internal microservices) là hợp lý hơn?","explanation":"gRPC phù hợp khi cần hiệu năng cao, độ trễ thấp, contract nghiêm ngặt qua Protocol Buffers với dữ liệu nhị phân nhỏ gọn hơn JSON, phục vụ giao tiếp service-to-service mà không cần khả năng dễ dàng browse/debug qua trình duyệt như REST hay chọn field linh hoạt như GraphQL.","options":[{"content":"Khi cần hiệu năng cao, độ trễ thấp, contract rõ ràng qua Protocol Buffers và giao tiếp service-to-service không cần dễ dàng debug qua trình duyệt như REST","is_correct":true},{"content":"Khi cần API public cho nhiều client bên ngoài (web, mobile, partner) dễ dàng đọc tài liệu qua trình duyệt mà không cần công cụ đặc biệt","is_correct":false},{"content":"Khi client cần tự chọn chính xác field nào muốn nhận để tránh over-fetching/under-fetching","is_correct":false},{"content":"Khi hệ thống cần hỗ trợ cache HTTP GET tiêu chuẩn qua CDN/proxy trung gian","is_correct":false}]},
-{"content":"Vì sao vẫn cần validate dữ liệu ở phía server (ví dụ bằng JSON Schema/Pydantic) dù client đã validate form trước khi gửi request?","explanation":"Client-side validation chỉ cải thiện UX và hoàn toàn có thể bị bỏ qua — gọi trực tiếp API qua curl/Postman, sửa JavaScript, hoặc dùng client khác không validate — nên server luôn là nơi duy nhất đảm bảo được tính đúng đắn và an toàn của dữ liệu trước khi xử lý/lưu vào database.","options":[{"content":"Vì client-side validation chỉ cải thiện UX và có thể bị bỏ qua hoàn toàn (gọi trực tiếp API, sửa JS, hoặc client khác); server là nơi duy nhất đảm bảo dữ liệu đúng đắn trước khi lưu DB","is_correct":true},{"content":"Vì client-side validation chỉ hoạt động trên một số trình duyệt, các trình duyệt khác không hỗ trợ JavaScript validate","is_correct":false},{"content":"Vì HTTP không cho phép gửi dữ liệu đã validate qua giao thức HTTPS","is_correct":false},{"content":"Vì server validate giúp giảm dung lượng payload response trả về client","is_correct":false}]}]
+[
+  {
+    "content": "Nhận định nào sau đây về idempotency của các phương thức HTTP trong REST API là chính xác?",
+    "explanation": "Idempotency nói về hiệu ứng cuối cùng lên trạng thái server, không phải về mã trạng thái hay nội dung response trả về. DELETE gọi nhiều lần lên cùng một resource luôn để server ở cùng trạng thái (resource không còn tồn tại), dù lần gọi đầu có thể trả 204 và các lần sau trả 404.",
+    "options": [
+      {
+        "content": "DELETE là idempotent: gọi nhiều lần lên cùng resource cho ra cùng trạng thái cuối (resource đã bị xóa), dù mã trạng thái trả về ở lần gọi sau có thể khác (404 thay vì 204)",
+        "is_correct": true
+      },
+      {
+        "content": "POST luôn idempotent vì server có thể dùng ID do client sinh ra để tránh tạo trùng",
+        "is_correct": false
+      },
+      {
+        "content": "GET không idempotent vì mỗi lần gọi có thể trả về dữ liệu khác nếu resource thay đổi",
+        "is_correct": false
+      },
+      {
+        "content": "PUT không idempotent vì nó thay thế toàn bộ resource, gây thay đổi trạng thái mỗi lần gọi",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao PATCH không được đảm bảo là idempotent giống PUT?",
+    "explanation": "PATCH có thể mô tả một phép biến đổi tương đối (delta) như tăng giá trị hoặc thêm phần tử vào danh sách; áp dụng lại phép biến đổi này nhiều lần cho ra kết quả khác lần đầu, khác với PUT luôn ghi đè toàn bộ resource bằng một giá trị cố định.",
+    "options": [
+      {
+        "content": "Vì thao tác PATCH có thể mô tả một phép biến đổi tương đối (ví dụ 'tăng số lượng lên 1' hoặc 'thêm phần tử vào danh sách'), nên gọi lại nhiều lần có thể cho kết quả khác lần đầu",
+        "is_correct": true
+      },
+      {
+        "content": "Vì PATCH luôn dùng để tạo resource mới nên mỗi lần gọi sẽ sinh ra ID khác nhau",
+        "is_correct": false
+      },
+      {
+        "content": "Vì PATCH bắt buộc phải gửi toàn bộ resource giống PUT nên dễ gây xung đột dữ liệu",
+        "is_correct": false
+      },
+      {
+        "content": "Vì PATCH không hỗ trợ trả về mã trạng thái 200, chỉ hỗ trợ 202 nên client không biết idempotent hay không",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Client gửi request tạo user mới với email đã tồn tại trong hệ thống (dữ liệu hợp lệ về cú pháp/schema nhưng vi phạm ràng buộc nghiệp vụ 'email duy nhất'). Mã trạng thái HTTP nào phù hợp nhất?",
+    "explanation": "HTTP 409 mô tả xung đột với trạng thái hiện tại của target resource, nên phù hợp cho unique conflict như email đã được dùng. 422 cũng được một số API dùng cho dữ liệu đúng cú pháp nhưng không thỏa quy tắc nghiệp vụ. Vì chuẩn không quy định riêng “duplicate email”, điều quan trọng là contract lỗi ổn định, machine-readable và được tài liệu hóa; trong các lựa chọn của câu này, 409 là đáp án tốt nhất.",
+    "options": [
+      {
+        "content": "409 Conflict là lựa chọn phổ biến vì request xung đột với trạng thái hiện tại (email đã tồn tại); một API cũng có thể quy ước 422 cho validation nghiệp vụ nếu tài liệu hóa nhất quán.",
+        "is_correct": true
+      },
+      {
+        "content": "422 Unprocessable Entity, vì dữ liệu không đúng schema nên server không xử lý được",
+        "is_correct": false
+      },
+      {
+        "content": "400 Bad Request, vì cú pháp request không hợp lệ",
+        "is_correct": false
+      },
+      {
+        "content": "403 Forbidden, vì client không có quyền tạo user với email đó",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "So với việc đặt version trong URL path (/v1/users), versioning qua HTTP header (ví dụ Accept: application/vnd.myapp.v2+json) có nhược điểm chính nào?",
+    "explanation": "Khi version nằm trong header thay vì URL, người dùng không thể nhận biết version chỉ bằng cách nhìn URL — muốn debug, curl thử nhanh, hay chia sẻ link, đều phải biết và set thêm header, gây bất tiện hơn so với version hiện diện ngay trên URL.",
+    "options": [
+      {
+        "content": "URL không còn tự thể hiện version, gây khó khăn khi debug/curl trực tiếp hoặc chia sẻ link vì phải set thêm header để biết đang gọi version nào",
+        "is_correct": true
+      },
+      {
+        "content": "Media-type versioning không cho phép định nghĩa nhiều version cùng lúc trên một server",
+        "is_correct": false
+      },
+      {
+        "content": "Không tương thích với HTTP caching vì proxy không thể đọc được bất kỳ header nào của request",
+        "is_correct": false
+      },
+      {
+        "content": "Yêu cầu phải đổi toàn bộ đường dẫn URL của resource mỗi khi ra version mới",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Mục đích chính của HATEOAS (Hypermedia as the Engine of Application State) trong response API là gì?",
+    "explanation": "HATEOAS nhúng các link liên quan (ví dụ link tới hành động tiếp theo hoặc resource liên kết) ngay trong response, giúp client điều hướng động theo trạng thái hiện tại của resource thay vì phải hard-code cấu trúc URL ở phía client.",
+    "options": [
+      {
+        "content": "Nhúng các link tới hành động/tài nguyên liên quan trong response để client điều hướng động, giảm việc client phải hard-code URL",
+        "is_correct": true
+      },
+      {
+        "content": "Tăng tốc độ response bằng cách nén payload JSON",
+        "is_correct": false
+      },
+      {
+        "content": "Thay thế hoàn toàn việc versioning API vì client luôn theo link mới nhất",
+        "is_correct": false
+      },
+      {
+        "content": "Bắt buộc mọi API REST phải dùng XML thay vì JSON để mô tả liên kết",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao cursor-based pagination thường được ưu tiên hơn offset-based pagination cho API có tập dữ liệu lớn và tần suất ghi cao?",
+    "explanation": "Offset pagination phải xác định rồi bỏ qua nhiều row khi OFFSET lớn và kết quả có thể bị lệch nếu dữ liệu thay đổi giữa các request. Cursor/keyset pagination dùng điều kiện như `(created_at, id) < (?, ?)` trên một thứ tự duy nhất và index tương ứng để seek tới vị trí tiếp theo. Chi phí “gần hằng số” chỉ đúng khi thiết kế sort key/index tốt; cursor cũng khó nhảy trực tiếp tới trang số N.",
+    "options": [
+      {
+        "content": "Với thứ tự ổn định và index phù hợp, cursor/keyset pagination seek từ khóa cuối trang trước nên không phải bỏ qua N dòng; offset thường chậm dần và dễ dịch trang khi có insert/delete.",
+        "is_correct": true
+      },
+      {
+        "content": "Cursor pagination luôn trả về ít dữ liệu hơn offset pagination nên nhẹ hơn",
+        "is_correct": false
+      },
+      {
+        "content": "Offset pagination không hỗ trợ sắp xếp (sort) trong khi cursor pagination hỗ trợ",
+        "is_correct": false
+      },
+      {
+        "content": "Cursor pagination không cần index trên cột sắp xếp nên setup đơn giản hơn offset pagination",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi dùng offset pagination (?limit=20&offset=40) trên một danh sách sắp xếp theo thời gian tạo giảm dần mà liên tục có bản ghi mới được thêm vào đầu, vấn đề điển hình nào có thể xảy ra giữa hai lần gọi trang kế tiếp?",
+    "explanation": "Offset là vị trí tuyệt đối trong tập kết quả; khi có bản ghi mới chèn vào đầu danh sách giữa hai lần gọi, toàn bộ vị trí các bản ghi phía sau bị dịch đi, khiến trang sau có thể lặp lại bản ghi đã thấy hoặc bỏ sót bản ghi lẽ ra phải xuất hiện.",
+    "options": [
+      {
+        "content": "Một số bản ghi bị lặp lại hoặc bị bỏ sót giữa các trang vì offset tính theo vị trí tuyệt đối bị lệch khi có bản ghi mới chèn vào phía trước",
+        "is_correct": true
+      },
+      {
+        "content": "API sẽ trả lỗi 409 Conflict vì offset không còn hợp lệ",
+        "is_correct": false
+      },
+      {
+        "content": "Toàn bộ response sẽ bị cache sai và không bao giờ cập nhật lại",
+        "is_correct": false
+      },
+      {
+        "content": "Offset pagination sẽ tự động chuyển sang cursor pagination để tránh lỗi",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi client vượt quá giới hạn rate limit, theo best practice REST API nên trả về gì?",
+    "explanation": "Chuẩn phổ biến là trả 429 Too Many Requests kèm header Retry-After (hoặc X-RateLimit-Reset) để client biết chính xác nên chờ bao lâu trước khi thử lại, thay vì trả các mã trạng thái mơ hồ khác hoặc đóng kết nối không rõ lý do.",
+    "options": [
+      {
+        "content": "Mã trạng thái 429 Too Many Requests, kèm header Retry-After cho biết client nên thử lại sau bao lâu",
+        "is_correct": true
+      },
+      {
+        "content": "Mã trạng thái 403 Forbidden vì client không còn quyền truy cập tiếp",
+        "is_correct": false
+      },
+      {
+        "content": "Mã trạng thái 503 Service Unavailable vì server tạm ngừng phục vụ toàn bộ client",
+        "is_correct": false
+      },
+      {
+        "content": "Đóng kết nối TCP ngay lập tức mà không trả response để tiết kiệm tài nguyên",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao Authorization Code Flow kết hợp PKCE được khuyến nghị cho single-page app (SPA) hoặc mobile app thay vì Implicit Flow?",
+    "explanation": "PKCE tạo `code_challenge` và giữ `code_verifier` ở client, nên một authorization code bị chặn khó được attacker đổi lấy token. Implicit Flow đưa token trực tiếp qua authorization response trong user-agent, làm tăng khả năng token bị lộ cho browser environment, extension, script hoặc các thành phần xử lý URL. OAuth Security BCP khuyến nghị Authorization Code + PKCE cho public clients thay cho Implicit.",
+    "options": [
+      {
+        "content": "SPA/mobile là public client không giữ client secret; Authorization Code + PKCE ràng buộc code với client, còn Implicit trả access token trực tiếp qua front channel/user-agent và hiện không được khuyến nghị.",
+        "is_correct": true
+      },
+      {
+        "content": "Vì Client Credentials flow yêu cầu người dùng đăng nhập trực tiếp trên SPA nên không phù hợp với thiết bị di động",
+        "is_correct": false
+      },
+      {
+        "content": "Vì PKCE cho phép SPA lưu trữ client secret an toàn hơn trong localStorage",
+        "is_correct": false
+      },
+      {
+        "content": "Vì Implicit flow không được hỗ trợ bởi HTTPS nên không an toàn cho các app public",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "JWT (JSON Web Token) gồm 3 phần header.payload.signature. Nhận định nào đúng về bản chất của các phần này?",
+    "explanation": "Header và payload chỉ được encode bằng Base64URL, không được mã hóa (encrypt), nên bất kỳ ai có token đều đọc được nội dung claims nếu decode; signature chỉ dùng để xác minh token chưa bị chỉnh sửa, không nhằm mục đích ẩn dữ liệu — đây là lý do không nên đặt thông tin nhạy cảm vào payload JWT.",
+    "options": [
+      {
+        "content": "Header và payload chỉ được encode Base64URL (không mã hóa) nên ai có token đều đọc được claims; signature dùng để xác minh token không bị chỉnh sửa, không dùng để ẩn nội dung",
+        "is_correct": true
+      },
+      {
+        "content": "Cả 3 phần đều được mã hóa bằng khóa bí mật của server nên client không thể đọc được payload",
+        "is_correct": false
+      },
+      {
+        "content": "Payload chứa khóa bí mật dùng để server tạo signature ở request tiếp theo",
+        "is_correct": false
+      },
+      {
+        "content": "Signature được tạo ra bằng cách hash toàn bộ token bằng MD5 theo chuẩn JWT",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Một lỗ hổng bảo mật kinh điển khi backend verify JWT là gì, và cách phòng tránh đúng?",
+    "explanation": "Nếu code verify tin tưởng field 'alg' trong header của token để chọn thuật toán kiểm tra signature, attacker có thể đổi alg thành 'none' hoặc đổi RS256 sang HS256 rồi dùng public key làm secret để giả mạo token. Cách phòng tránh đúng là cấu hình cứng một allow-list thuật toán được phép ở phía server và không tin field alg lấy từ token.",
+    "options": [
+      {
+        "content": "Backend tin tưởng field 'alg' trong header token để chọn thuật toán verify (chấp nhận none hoặc đổi RS256 sang HS256); cần hardcode allow-list thuật toán được phép ở server, không tin alg từ token",
+        "is_correct": true
+      },
+      {
+        "content": "JWT không hỗ trợ hết hạn (exp) nên token luôn có giá trị vĩnh viễn, cách phòng tránh là chuyển sang session cookie",
+        "is_correct": false
+      },
+      {
+        "content": "JWT không thể chứa nhiều claim cùng lúc, cách phòng tránh là chia thành nhiều token nhỏ",
+        "is_correct": false
+      },
+      {
+        "content": "JWT bắt buộc phải gửi qua query string nên luôn bị log lại, cách phòng tránh là mã hóa toàn bộ URL",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Theo best practice thiết kế URI cho REST API, cách đặt tên endpoint nào sau đây đúng chuẩn?",
+    "explanation": "Quy ước phổ biến là dùng danh từ số nhiều cho resource, lồng resource con theo quan hệ sở hữu (orders/{id}/items), và để HTTP method (GET/POST/DELETE...) thể hiện hành động thay vì nhúng động từ vào path.",
+    "options": [
+      {
+        "content": "GET /orders/{orderId}/items — dùng danh từ số nhiều, lồng resource con theo quan hệ sở hữu, hành động thể hiện qua HTTP method chứ không chèn vào path",
+        "is_correct": true
+      },
+      {
+        "content": "GET /getOrderItems?orderId=123 — dùng động từ mô tả hành động ngay trong path để rõ nghĩa cho client",
+        "is_correct": false
+      },
+      {
+        "content": "POST /order/item/create — luôn thêm động từ 'create' ở cuối path khi tạo resource mới để phân biệt với GET",
+        "is_correct": false
+      },
+      {
+        "content": "DELETE /orders/deleteItem/123 — nhúng tên hành động trong path để đồng bộ với method DELETE",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Thiết kế query parameter cho việc lọc và sắp xếp danh sách resource nào sau đây theo đúng convention phổ biến của REST API?",
+    "explanation": "Convention phổ biến dùng mỗi field lọc là một query parameter riêng (category=shoes, status=active), và sort dùng dấu '-' trước tên field để chỉ thứ tự giảm dần, nhiều field sort phân tách bằng dấu phẩy — dễ đọc, dễ mở rộng, không cần cú pháp đặc biệt trong path.",
+    "options": [
+      {
+        "content": "GET /products?category=shoes&status=active&sort=-price,name — mỗi điều kiện lọc là một query param riêng, dấu '-' trước field chỉ thứ tự giảm dần",
+        "is_correct": true
+      },
+      {
+        "content": "GET /products/filter/category=shoes/sort/price/desc — nhúng toàn bộ điều kiện lọc và sắp xếp vào path để dễ đọc",
+        "is_correct": false
+      },
+      {
+        "content": "POST /products/search với body chứa sort là cách duy nhất chuẩn REST để lọc dữ liệu, GET không được phép có nhiều hơn 1 query param",
+        "is_correct": false
+      },
+      {
+        "content": "GET /products?filter=category:shoes;status:active — luôn phải dùng dấu ';' để nối điều kiện lọc theo chuẩn REST chính thức",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Thiết kế response lỗi (error body) tốt cho REST API nên có đặc điểm nào?",
+    "explanation": "Error body nên có cấu trúc nhất quán với một field mã lỗi machine-readable (ví dụ error.code) bên cạnh message dành cho người đọc, để client viết logic xử lý dựa trên code ổn định thay vì phải parse chuỗi message có thể thay đổi hoặc được dịch ngôn ngữ khác.",
+    "options": [
+      {
+        "content": "Cấu trúc nhất quán, có field mã lỗi machine-readable ngoài message cho người đọc, để client xử lý logic dựa trên code mà không cần parse message",
+        "is_correct": true
+      },
+      {
+        "content": "Luôn trả về mã trạng thái 200 OK kèm field success:false trong body để tránh client phải xử lý nhiều loại status code khác nhau",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ cần trả về đúng message gốc từ exception stacktrace để tiết kiệm thời gian phát triển",
+        "is_correct": false
+      },
+      {
+        "content": "Không cần trả body khi lỗi, chỉ cần mã trạng thái HTTP là đủ để client hiểu chi tiết nguyên nhân",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Cơ chế ETag kết hợp với header If-None-Match hoạt động như thế nào để tối ưu băng thông?",
+    "explanation": "Server sinh ETag đại diện cho phiên bản hiện tại của resource; ở request sau, client gửi lại giá trị đó qua If-None-Match, nếu resource chưa thay đổi server trả 304 Not Modified không kèm body, giúp client dùng lại bản đã cache mà không cần tải lại toàn bộ dữ liệu.",
+    "options": [
+      {
+        "content": "Server sinh ETag cho phiên bản hiện tại; client gửi lại qua If-None-Match, nếu resource chưa đổi server trả 304 Not Modified không kèm body",
+        "is_correct": true
+      },
+      {
+        "content": "ETag là mã hóa toàn bộ response để giảm dung lượng truyền tải qua mạng",
+        "is_correct": false
+      },
+      {
+        "content": "If-None-Match được server dùng để yêu cầu client xóa cache cũ trước khi nhận response mới",
+        "is_correct": false
+      },
+      {
+        "content": "ETag chỉ hoạt động với phương thức POST để tránh submit trùng lặp form",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt giữa Cache-Control: private, no-cache, và no-store là gì?",
+    "explanation": "`private` ngăn shared cache như CDN lưu response nhưng cho phép private cache của người dùng. `no-cache` không có nghĩa là “không lưu”; cache được lưu nhưng phải xác thực lại trước mỗi lần reuse. `no-store` yêu cầu cache không lưu response và cố gắng xóa dữ liệu đã lưu sớm nhất có thể, nhưng RFC cũng lưu ý đây không phải cơ chế bảo mật tuyệt đối trước phần mềm độc hại, log ngoài cache hoặc lỗi triển khai.",
+    "options": [
+      {
+        "content": "`private`: chỉ cache riêng được lưu; `no-cache`: có thể lưu nhưng phải revalidate trước khi tái sử dụng; `no-store`: cache không được chủ ý lưu response/request liên quan.",
+        "is_correct": true
+      },
+      {
+        "content": "'no-cache' nghĩa là không được cache ở đâu cả, còn 'no-store' cho phép cache nhưng không được log lại",
+        "is_correct": false
+      },
+      {
+        "content": "'private' và 'no-store' là hai cách viết khác nhau của cùng một chỉ thị, tương thích ngược cho HTTP/1.0",
+        "is_correct": false
+      },
+      {
+        "content": "Cả ba chỉ thị đều chỉ áp dụng cho response lỗi (4xx/5xx), không áp dụng cho response thành công",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trình duyệt gửi request OPTIONS (preflight) trước một request PUT có Content-Type: application/json trong CORS nhằm mục đích gì?",
+    "explanation": "Preflight dùng để hỏi trước server, qua các header Access-Control-Request-Method/Access-Control-Request-Headers, xem origin, method và header của request thực tế có được server cho phép hay không, tránh gửi request có side-effect (như PUT/DELETE) khi chưa được phép truy cập cross-origin.",
+    "options": [
+      {
+        "content": "Hỏi trước server xem origin, method và header của request thực tế có được cho phép hay không, tránh gửi request có side-effect khi chưa được phép",
+        "is_correct": true
+      },
+      {
+        "content": "Để giảm tải cho server bằng cách cache toàn bộ response thực tế ngay trong bước preflight",
+        "is_correct": false
+      },
+      {
+        "content": "Vì HTTP/1.1 yêu cầu mọi request PUT/DELETE phải có 2 round-trip bất kể có phải cross-origin hay không",
+        "is_correct": false
+      },
+      {
+        "content": "Để trình duyệt xác thực lại mật khẩu người dùng trước khi gửi request nhạy cảm",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi thiết kế webhook để bên thứ ba (ví dụ cổng thanh toán) gọi ngược vào hệ thống của bạn, cơ chế nào giúp xác minh request thật sự đến từ bên gửi đáng tin và không bị giả mạo/chỉnh sửa?",
+    "explanation": "Bên gửi ký payload bằng HMAC với secret key đã chia sẻ trước và đính kèm signature vào header; bên nhận tính lại HMAC trên raw body và so sánh với signature nhận được để xác minh cả tính xác thực (đúng bên gửi) và tính nguyên vẹn (nội dung không bị sửa) của request.",
+    "options": [
+      {
+        "content": "Bên gửi ký payload bằng HMAC với secret key chia sẻ trước, đính signature vào header; bên nhận tính lại HMAC trên raw body và so sánh để xác minh tính xác thực và nguyên vẹn",
+        "is_correct": true
+      },
+      {
+        "content": "Chỉ cần whitelist địa chỉ IP của bên gửi là đủ, không cần thêm cơ chế nào khác vì IP không thể giả mạo",
+        "is_correct": false
+      },
+      {
+        "content": "Webhook luôn tự động an toàn vì dùng HTTPS nên không cần thêm xác minh ở application layer",
+        "is_correct": false
+      },
+      {
+        "content": "Yêu cầu bên gửi đặt password admin trong query string của webhook URL để xác thực",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi nào chọn gRPC thay vì REST/GraphQL cho giao tiếp giữa các service nội bộ (internal microservices) là hợp lý hơn?",
+    "explanation": "gRPC phù hợp khi cần hiệu năng cao, độ trễ thấp, contract nghiêm ngặt qua Protocol Buffers với dữ liệu nhị phân nhỏ gọn hơn JSON, phục vụ giao tiếp service-to-service mà không cần khả năng dễ dàng browse/debug qua trình duyệt như REST hay chọn field linh hoạt như GraphQL.",
+    "options": [
+      {
+        "content": "Khi cần hiệu năng cao, độ trễ thấp, contract rõ ràng qua Protocol Buffers và giao tiếp service-to-service không cần dễ dàng debug qua trình duyệt như REST",
+        "is_correct": true
+      },
+      {
+        "content": "Khi cần API public cho nhiều client bên ngoài (web, mobile, partner) dễ dàng đọc tài liệu qua trình duyệt mà không cần công cụ đặc biệt",
+        "is_correct": false
+      },
+      {
+        "content": "Khi client cần tự chọn chính xác field nào muốn nhận để tránh over-fetching/under-fetching",
+        "is_correct": false
+      },
+      {
+        "content": "Khi hệ thống cần hỗ trợ cache HTTP GET tiêu chuẩn qua CDN/proxy trung gian",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao vẫn cần validate dữ liệu ở phía server (ví dụ bằng JSON Schema/Pydantic) dù client đã validate form trước khi gửi request?",
+    "explanation": "Client-side validation chỉ cải thiện UX và hoàn toàn có thể bị bỏ qua — gọi trực tiếp API qua curl/Postman, sửa JavaScript, hoặc dùng client khác không validate — nên server luôn là nơi duy nhất đảm bảo được tính đúng đắn và an toàn của dữ liệu trước khi xử lý/lưu vào database.",
+    "options": [
+      {
+        "content": "Vì client-side validation chỉ cải thiện UX và có thể bị bỏ qua hoàn toàn (gọi trực tiếp API, sửa JS, hoặc client khác); server là nơi duy nhất đảm bảo dữ liệu đúng đắn trước khi lưu DB",
+        "is_correct": true
+      },
+      {
+        "content": "Vì client-side validation chỉ hoạt động trên một số trình duyệt, các trình duyệt khác không hỗ trợ JavaScript validate",
+        "is_correct": false
+      },
+      {
+        "content": "Vì HTTP không cho phép gửi dữ liệu đã validate qua giao thức HTTPS",
+        "is_correct": false
+      },
+      {
+        "content": "Vì server validate giúp giảm dung lượng payload response trả về client",
+        "is_correct": false
+      }
+    ]
+  }
+]

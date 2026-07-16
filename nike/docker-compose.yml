@@ -8,7 +8,8 @@ services:
     volumes:
       - ./upload:/api/upload
     ports:
-      - "8000:8000"
+      # Host port 8000 is already used by the QA project.
+      - "8001:8000"
     depends_on:
       mysql:
         condition: service_healthy
@@ -23,6 +24,8 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - REDIS_HOST=redis
+      # Public URL used by the browser; the API still listens on 8000 inside Docker.
+      - DOMAIN_FILE=http://localhost:8001
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health/live"]
       interval: 10s
@@ -113,7 +116,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-changeme}
       MYSQL_DATABASE: ${MYSQL_DB:-nike}
     ports:
-      - "3306:3306"
+      # Host port 3306 is already used by another MySQL container.
+      - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_PASSWORD:-changeme}"]
       interval: 10s
@@ -137,7 +141,7 @@ services:
         condition: service_healthy
     environment:
       # Browser calls this directly, so it must be host-reachable, not the internal service name.
-      - VITE_API_BASE_URL=http://localhost:8000
+      - VITE_API_BASE_URL=http://localhost:8001
     ports:
       - "5000:5000"
     networks:

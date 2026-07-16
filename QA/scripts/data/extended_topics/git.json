@@ -1,20 +1,442 @@
-[{"content":"So với trunk-based development, đặc điểm nào sau đây mô tả đúng mô hình Git Flow?","explanation":"Git Flow định nghĩa nhiều nhánh dài hạn (main, develop, feature, release, hotfix) để quản lý các đợt release theo lịch, khác với trunk-based development nơi mọi người commit trực tiếp và thường xuyên vào một nhánh chính (trunk/main).","options":[{"content":"Duy trì nhiều nhánh dài hạn song song với main (develop, release, feature, hotfix), phù hợp chu kỳ release theo lịch cố định","is_correct":true},{"content":"Yêu cầu mọi developer commit trực tiếp lên nhánh main mỗi ngày, không dùng nhánh feature riêng","is_correct":false},{"content":"Không cho phép tạo nhánh hotfix để vá lỗi production ngoài kế hoạch release","is_correct":false},{"content":"Bắt buộc rebase toàn bộ lịch sử trước mỗi lần merge để tránh tạo merge commit","is_correct":false}]},
-{"content":"Vì sao rebase một nhánh đã push lên remote và đang được nhiều người khác cùng sử dụng lại tiềm ẩn rủi ro?","explanation":"Rebase tạo commit mới với SHA khác để thay thế commit cũ, nên nếu nhánh đã push và người khác đã pull, lịch sử của họ sẽ không còn khớp với remote sau khi force-push, gây conflict hoặc mất commit khi đồng bộ.","options":[{"content":"Rebase viết lại SHA của các commit đã tồn tại, khiến lịch sử cục bộ của người khác lệch khỏi remote và họ gặp conflict khi đồng bộ lại","is_correct":true},{"content":"Rebase tự động xóa các commit cũ trên remote server, khiến dữ liệu bị mất vĩnh viễn không thể khôi phục","is_correct":false},{"content":"Rebase làm tăng kích thước thư mục .git vì tạo bản sao toàn bộ lịch sử commit mới bên cạnh lịch sử cũ","is_correct":false},{"content":"Rebase không cho phép resolve conflict, buộc phải hủy toàn bộ thay đổi rồi merge lại từ đầu","is_correct":false}]},
-{"content":"Trong quy trình làm việc nhóm, khi nào nên ưu tiên git merge thay vì git rebase?","explanation":"Trên nhánh chia sẻ mà nhiều người đang dựa vào, merge không viết lại lịch sử cũ nên an toàn hơn; rebase chỉ nên dùng trên nhánh cá nhân chưa chia sẻ hoặc trước khi tạo pull request.","options":[{"content":"Khi merge vào nhánh chia sẻ/công khai như main mà nhiều người đã pull về, để tránh viết lại lịch sử họ đang dựa vào","is_correct":true},{"content":"Khi muốn có commit history tuyến tính, dễ đọc, không có merge commit rẽ nhánh","is_correct":false},{"content":"Khi cần thay đổi thứ tự hoặc gộp các commit trong nhánh feature cá nhân trước khi tạo pull request","is_correct":false},{"content":"Khi dung lượng repository quá lớn và cần xóa các commit cũ để tiết kiệm dung lượng","is_correct":false}]},
-{"content":"git cherry-pick thường được dùng trong tình huống nào?","explanation":"cherry-pick lấy đúng một hoặc vài commit cụ thể và áp lên nhánh khác, phù hợp khi chỉ cần đưa một bản fix sang nhánh release mà không muốn kéo theo toàn bộ các commit khác của nhánh nguồn.","options":[{"content":"Áp dụng một commit sửa lỗi cụ thể từ nhánh này sang nhánh khác mà không cần merge toàn bộ nhánh nguồn","is_correct":true},{"content":"Gộp toàn bộ lịch sử của một nhánh feature vào main chỉ trong một commit duy nhất","is_correct":false},{"content":"Xóa vĩnh viễn một commit khỏi lịch sử của tất cả các nhánh đang tồn tại","is_correct":false},{"content":"Đồng bộ tự động các thay đổi mới nhất từ remote về tất cả nhánh local cùng lúc","is_correct":false}]},
-{"content":"Khi git cherry-pick gặp conflict, quy trình xử lý đúng là gì?","explanation":"Cherry-pick xử lý conflict tương tự merge/rebase: sửa file, git add, rồi git cherry-pick --continue để hoàn tất commit đó, hoặc --abort để hủy và trở lại trạng thái trước khi cherry-pick.","options":[{"content":"Sửa file conflict, git add các file đã resolve, rồi chạy git cherry-pick --continue (hoặc --abort để hủy bỏ)","is_correct":true},{"content":"Git tự động bỏ qua commit gây conflict và tiếp tục cherry-pick các commit tiếp theo trong danh sách","is_correct":false},{"content":"Phải xóa nhánh hiện tại và tạo lại từ đầu thì mới có thể tiếp tục cherry-pick","is_correct":false},{"content":"Chạy git merge --abort để hủy toàn bộ thay đổi rồi thử cherry-pick lại từ commit đầu tiên","is_correct":false}]},
-{"content":"Sự khác biệt giữa git stash pop và git stash apply là gì?","explanation":"pop = apply + drop: áp dụng thay đổi và xóa luôn entry khỏi stash list; apply chỉ áp dụng, entry vẫn còn trong danh sách stash để dùng lại nếu cần.","options":[{"content":"pop áp dụng thay đổi rồi xóa entry khỏi stash list; apply chỉ áp dụng nhưng vẫn giữ lại entry trong stash list","is_correct":true},{"content":"pop chỉ hoạt động với untracked file, còn apply chỉ hoạt động với file đã tracked","is_correct":false},{"content":"apply áp dụng thay đổi lên nhánh remote, còn pop chỉ áp dụng lên nhánh local hiện tại","is_correct":false},{"content":"pop tạo commit mới chứa thay đổi đã stash, còn apply chỉ hiển thị nội dung thay đổi mà không áp dụng","is_correct":false}]},
-{"content":"Theo mặc định, git stash không lưu lại loại thay đổi nào, và cần thêm option gì để bao gồm chúng?","explanation":"git stash mặc định bỏ qua file chưa tracked; thêm -u/--include-untracked (hoặc -a để gồm cả file bị ignore) để stash đầy đủ hơn.","options":[{"content":"Không lưu file chưa được Git theo dõi (untracked); cần thêm -u hoặc --include-untracked để stash cả các file này","is_correct":true},{"content":"Không lưu các thay đổi đã git add vào staging area; cần thêm --staged để stash chúng","is_correct":false},{"content":"Không lưu file bị liệt trong .gitignore; mặc định luôn bỏ qua nhóm file này dù dùng bất kỳ option nào","is_correct":false},{"content":"Không lưu commit message của lần stash trước; cần thêm --message để đặt tên rõ ràng cho stash mới","is_correct":false}]},
-{"content":"git bisect giúp tìm commit gây ra lỗi (regression) bằng cách nào?","explanation":"git bisect chia đôi phạm vi commit sau mỗi lần đánh dấu good/bad, giảm số lần kiểm tra theo cấp số nhân (O(log n)) để nhanh chóng thu hẹp về commit gây lỗi.","options":[{"content":"Thực hiện tìm kiếm nhị phân trên lịch sử commit giữa một điểm good và một điểm bad, checkout commit giữa để đánh dấu good/bad cho đến khi thu hẹp về đúng 1 commit","is_correct":true},{"content":"Quét tuần tự từng commit theo thứ tự thời gian từ mới nhất đến cũ nhất cho đến khi tìm thấy lỗi","is_correct":false},{"content":"So sánh diff nội dung giữa tất cả các commit để tự động phát hiện dòng code gây lỗi bằng phân tích tĩnh","is_correct":false},{"content":"Chạy lại toàn bộ test suite trên nhánh hiện tại và báo cáo commit có coverage thấp nhất","is_correct":false}]},
-{"content":"Ví dụ nào sau đây là cách dùng git hook phía client (client-side hook) hợp lý?","explanation":"pre-commit là hook phía client chạy trước khi commit được tạo, thường dùng để chạy lint/format/test nhanh và chặn commit nếu không đạt yêu cầu.","options":[{"content":"Dùng pre-commit hook để tự động chạy linter/formatter và chặn commit nếu code không đạt chuẩn","is_correct":true},{"content":"Dùng pre-commit hook để tự động deploy code lên server production ngay sau khi merge vào main","is_correct":false},{"content":"Dùng post-commit hook để ngăn người dùng push commit lên nhánh protected trên remote","is_correct":false},{"content":"Dùng pre-push hook để tự động resolve mọi merge conflict phát sinh khi push","is_correct":false}]},
-{"content":"Vì sao git hook nằm trong .git/hooks không tự động áp dụng cho tất cả thành viên khi họ clone repository?","explanation":".git/hooks nằm trong thư mục .git, không được Git commit/track cùng source code, nên hook không tự nhân bản khi clone; muốn đồng bộ hook cho cả team cần công cụ như Husky hoặc pre-commit framework lưu hook trong repo và cài đặt lại.","options":[{"content":"Vì .git/hooks không được Git theo dõi/versioned cùng repo, nên mỗi người phải tự cài hoặc dùng công cụ như Husky để đồng bộ","is_correct":true},{"content":"Vì hook chỉ chạy được trên hệ điều hành Linux, không tương thích với Windows/macOS khi clone","is_correct":false},{"content":"Vì GitHub/GitLab tự động chặn toàn bộ hook phía client vì lý do bảo mật","is_correct":false},{"content":"Vì hook chỉ có hiệu lực sau khi tạo release tag, không áp dụng cho commit thông thường","is_correct":false}]},
-{"content":"Điều gì cần lưu ý khi clone một repository có chứa submodule?","explanation":"Git clone thông thường chỉ ghi lại tham chiếu (commit SHA) tới submodule, không tự tải nội dung; cần --recurse-submodules khi clone hoặc git submodule update --init --recursive sau đó.","options":[{"content":"git clone thông thường chỉ tạo thư mục trống cho submodule; cần chạy thêm git submodule update --init --recursive hoặc clone với --recurse-submodules để lấy đầy đủ code","is_correct":true},{"content":"Submodule sẽ tự động cập nhật theo commit mới nhất của remote mỗi khi pull nhánh cha, không cần thao tác gì thêm","is_correct":false},{"content":"Toàn bộ lịch sử commit của submodule sẽ bị gộp chung vào lịch sử của repository cha ngay khi clone","is_correct":false},{"content":"Submodule chỉ hoạt động nếu cả hai repository cha và con dùng cùng một remote host","is_correct":false}]},
-{"content":"Trong file có conflict, các marker <<<<<<< HEAD, =======, >>>>>>> branch-name thể hiện điều gì?","explanation":"<<<<<<< HEAD đánh dấu bắt đầu nội dung của nhánh hiện tại, ======= là ranh giới, >>>>>>> <branch> đánh dấu kết thúc nội dung từ nhánh được merge/rebase vào; phải giữ lại phần đúng và xóa hết marker trước khi hoàn tất.","options":[{"content":"Phần giữa <<<<<<< HEAD và ======= là nội dung của nhánh hiện tại; phần giữa ======= và >>>>>>> branch-name là nội dung từ nhánh đang merge vào, cần xóa hết marker sau khi sửa","is_correct":true},{"content":"Đây là log lỗi cú pháp do Git tạo ra khi file bị hỏng, cần xóa toàn bộ nội dung file và tải lại từ remote","is_correct":false},{"content":"<<<<<<< đánh dấu dòng cần xóa, ======= đánh dấu dòng giữ nguyên, >>>>>>> đánh dấu dòng cần thêm mới, không liên quan đến nhánh nào","is_correct":false},{"content":"Các marker này chỉ xuất hiện khi dùng git merge, không bao giờ xuất hiện khi rebase vì rebase tự động chọn nhánh nguồn","is_correct":false}]},
-{"content":"Vì sao git revert được xem là an toàn hơn git reset khi cần undo một commit đã push lên nhánh chia sẻ?","explanation":"revert không xóa hay thay đổi commit cũ, chỉ thêm commit mới đảo ngược thay đổi, nên lịch sử vẫn nhất quán với những người đã pull nhánh đó; reset di chuyển con trỏ nhánh, nếu dùng trên nhánh đã chia sẻ có thể làm lệch lịch sử của người khác.","options":[{"content":"revert tạo commit mới đảo ngược thay đổi và giữ nguyên lịch sử cũ, không làm lệch lịch sử của người khác; reset di chuyển con trỏ nhánh và có thể làm mất commit trong lịch sử chia sẻ","is_correct":true},{"content":"revert xóa hẳn commit lỗi khỏi lịch sử trong khi reset chỉ ẩn commit đó mà không xóa dữ liệu thật","is_correct":false},{"content":"revert chỉ hoạt động trên remote repository, còn reset chỉ hoạt động trên local nên reset an toàn hơn khi làm việc nhóm","is_correct":false},{"content":"revert yêu cầu quyền admin trên repository còn reset thì không, nên revert được kiểm soát chặt hơn về mặt bảo mật","is_correct":false}]},
-{"content":"Sự khác biệt giữa git reset --soft, --mixed và --hard khi cùng trỏ về một commit trước đó là gì?","explanation":"--soft chỉ di chuyển HEAD (staging và working dir giữ nguyên); --mixed di chuyển HEAD và reset staging nhưng giữ working dir; --hard di chuyển HEAD và ghi đè cả staging lẫn working directory, nên có thể mất thay đổi chưa commit.","options":[{"content":"--soft chỉ di chuyển HEAD, giữ nguyên staging và working directory; --mixed reset staging nhưng giữ working directory; --hard xóa cả thay đổi ở staging và working directory","is_correct":true},{"content":"--soft xóa toàn bộ file trong working directory, --mixed chỉ xóa staging area, --hard giữ nguyên mọi thứ để an toàn nhất","is_correct":false},{"content":"Cả ba đều có tác động giống nhau đến working directory, chỉ khác nhau ở cách hiển thị log commit","is_correct":false},{"content":"--soft và --hard chỉ khác nhau ở việc có tạo backup branch tự động hay không, còn --mixed không còn tồn tại trong Git hiện tại","is_correct":false}]},
-{"content":"Sự khác biệt chính giữa lightweight tag và annotated tag trong Git là gì?","explanation":"Annotated tag là một object riêng trong Git (có message, tác giả, ngày tạo, có thể ký GPG); lightweight tag chỉ là con trỏ trỏ trực tiếp tới commit, không lưu thêm metadata.","options":[{"content":"Annotated tag là một object đầy đủ lưu tác giả, ngày tạo, message và có thể GPG-sign; lightweight tag chỉ là con trỏ đơn giản trỏ tới commit, không kèm metadata","is_correct":true},{"content":"Lightweight tag chỉ dùng được cho nhánh main, còn annotated tag dùng được cho mọi nhánh","is_correct":false},{"content":"Annotated tag tự động push lên remote khi tạo, còn lightweight tag chỉ tồn tại ở local vĩnh viễn","is_correct":false},{"content":"Lightweight tag có thể di chuyển sang commit khác theo thời gian, còn annotated tag cố định vĩnh viễn không thể thay đổi","is_correct":false}]},
-{"content":"Hạn chế thường gặp khi dùng git blame để tìm ai đã thay đổi một dòng code là gì?","explanation":"Khi một dòng bị format lại hoặc xuống dòng do công cụ tự động, git blame mặc định coi commit format đó là chủ của dòng, che mất tác giả logic thực sự; -w (ignore whitespace) hoặc --ignore-rev giúp bỏ qua các commit như vậy.","options":[{"content":"Nếu dòng đó từng bị format lại hoặc di chuyển vị trí, git blame sẽ chỉ ra commit format là tác giả cuối, che mất người thực sự sửa logic; cần dùng -w hoặc --ignore-rev để loại trừ","is_correct":true},{"content":"git blame không thể chạy trên file đã được rename dù chỉ một lần trong toàn bộ lịch sử","is_correct":false},{"content":"git blame chỉ hiển thị được thông tin của 10 commit gần nhất, các commit cũ hơn sẽ bị ẩn theo mặc định","is_correct":false},{"content":"git blame yêu cầu phải có kết nối tới remote server thì mới tra được tác giả của dòng code","is_correct":false}]},
-{"content":"Squash merge một nhánh feature vào main có tác động gì đến lịch sử commit?","explanation":"Squash merge cô đọng toàn bộ commit trên nhánh feature thành một commit duy nhất khi đưa vào main, giúp lịch sử main sạch nhưng không còn giữ chi tiết từng commit nhỏ trên main (các commit gốc vẫn còn trên nhánh feature nếu nhánh đó chưa bị xóa).","options":[{"content":"Toàn bộ commit của nhánh feature được gộp thành một commit duy nhất trên main, giúp lịch sử gọn gàng nhưng mất chi tiết từng commit nhỏ gốc","is_correct":true},{"content":"Squash merge xóa vĩnh viễn nhánh feature khỏi remote ngay khi thực hiện, không thể khôi phục các commit gốc dưới bất kỳ hình thức nào","is_correct":false},{"content":"Squash merge giữ nguyên toàn bộ commit gốc trên main nhưng sắp xếp lại theo thứ tự thời gian mới","is_correct":false},{"content":"Squash merge tạo ra hai commit mới trên main: một cho phần thêm và một cho phần xóa, để dễ revert từng phần","is_correct":false}]},
-{"content":"Sau khi vô tình chạy git reset --hard làm mất các commit chưa push, cách khôi phục nào phù hợp nhất?","explanation":"git reflog ghi lại lịch sử di chuyển của HEAD/nhánh cục bộ kể cả sau reset/rebase, nên có thể tìm lại SHA của commit đã mất và checkout/reset lại về đó miễn là chưa bị garbage collect.","options":[{"content":"Dùng git reflog để tìm SHA của commit trước khi reset, sau đó git reset --hard <SHA> hoặc tạo nhánh mới từ SHA đó","is_correct":true},{"content":"Không thể khôi phục được vì git reset --hard xóa vĩnh viễn dữ liệu khỏi ổ đĩa ngay khi chạy lệnh","is_correct":false},{"content":"Chạy git fetch --all rồi git pull để lấy lại các commit đã mất từ remote server","is_correct":false},{"content":"Xóa thư mục .git và chạy git init lại để Git tự động quét file trong working directory và phục hồi commit cũ","is_correct":false}]},
-{"content":"origin/main khác gì so với nhánh main cục bộ, và git fetch khác git pull như thế nào?","explanation":"origin/main chỉ được cập nhật khi fetch/pull, phản ánh trạng thái remote tại lần đồng bộ gần nhất, không tự động theo thời gian thực; git fetch chỉ tải dữ liệu và cập nhật origin/main, còn git pull thực hiện fetch rồi merge (hoặc rebase) vào nhánh local hiện tại.","options":[{"content":"origin/main là remote-tracking branch phản ánh trạng thái remote tại lần đồng bộ gần nhất; fetch chỉ cập nhật origin/main, còn pull = fetch rồi merge/rebase vào nhánh local hiện tại","is_correct":true},{"content":"origin/main và main cục bộ luôn đồng bộ tự động theo thời gian thực, không cần fetch hay pull","is_correct":false},{"content":"git fetch và git pull hoàn toàn giống nhau, chỉ khác tên lệnh do lịch sử phát triển của Git","is_correct":false},{"content":"origin/main là bản sao chỉ đọc lưu trên máy chủ remote, không tồn tại trên máy local của developer","is_correct":false}]},
-{"content":"Một file đã được commit vào repository từ trước, sau đó mới được thêm vào .gitignore. Điều gì sẽ xảy ra?","explanation":".gitignore chỉ có tác dụng với file chưa được Git theo dõi; file đã tracked trước đó vẫn tiếp tục bị theo dõi bình thường cho đến khi chủ động gỡ bằng git rm --cached.","options":[{"content":".gitignore chỉ ảnh hưởng đến file chưa tracked; file đã tracked vẫn tiếp tục được theo dõi cho đến khi chạy git rm --cached để ngừng theo dõi","is_correct":true},{"content":"Git tự động untrack file đó ngay khi .gitignore được cập nhật và commit","is_correct":false},{"content":"File sẽ bị xóa khỏi working directory ngay khi thêm vào .gitignore để đảm bảo đồng bộ","is_correct":false},{"content":".gitignore sẽ ghi đè lịch sử commit cũ của file đó, khiến các thay đổi trước đây không còn xem được qua git log","is_correct":false}]}]
+[
+  {
+    "content": "So với trunk-based development, đặc điểm nào sau đây mô tả đúng mô hình Git Flow?",
+    "explanation": "Trong mô hình Git Flow cổ điển, main/master và develop là hai nhánh tồn tại lâu dài. Feature branch tách từ develop rồi được hợp nhất và xóa; release branch và hotfix branch cũng chỉ tồn tại trong thời gian chuẩn bị/phục hồi một bản phát hành. Vì vậy không nên gọi feature, release và hotfix là các nhánh dài hạn.",
+    "options": [
+      {
+        "content": "Duy trì hai nhánh chính dài hạn (main/master và develop); feature, release và hotfix là các nhánh hỗ trợ tạm thời cho chu kỳ phát hành theo kế hoạch.",
+        "is_correct": true
+      },
+      {
+        "content": "Yêu cầu mọi developer commit trực tiếp lên nhánh main mỗi ngày, không dùng nhánh feature riêng",
+        "is_correct": false
+      },
+      {
+        "content": "Không cho phép tạo nhánh hotfix để vá lỗi production ngoài kế hoạch release",
+        "is_correct": false
+      },
+      {
+        "content": "Bắt buộc rebase toàn bộ lịch sử trước mỗi lần merge để tránh tạo merge commit",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao rebase một nhánh đã push lên remote và đang được nhiều người khác cùng sử dụng lại tiềm ẩn rủi ro?",
+    "explanation": "Rebase tạo commit mới với SHA khác để thay thế commit cũ, nên nếu nhánh đã push và người khác đã pull, lịch sử của họ sẽ không còn khớp với remote sau khi force-push, gây conflict hoặc mất commit khi đồng bộ.",
+    "options": [
+      {
+        "content": "Rebase viết lại SHA của các commit đã tồn tại, khiến lịch sử cục bộ của người khác lệch khỏi remote và họ gặp conflict khi đồng bộ lại",
+        "is_correct": true
+      },
+      {
+        "content": "Rebase tự động xóa các commit cũ trên remote server, khiến dữ liệu bị mất vĩnh viễn không thể khôi phục",
+        "is_correct": false
+      },
+      {
+        "content": "Rebase làm tăng kích thước thư mục .git vì tạo bản sao toàn bộ lịch sử commit mới bên cạnh lịch sử cũ",
+        "is_correct": false
+      },
+      {
+        "content": "Rebase không cho phép resolve conflict, buộc phải hủy toàn bộ thay đổi rồi merge lại từ đầu",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong quy trình làm việc nhóm, khi nào nên ưu tiên git merge thay vì git rebase?",
+    "explanation": "Trên nhánh chia sẻ mà nhiều người đang dựa vào, merge không viết lại lịch sử cũ nên an toàn hơn; rebase chỉ nên dùng trên nhánh cá nhân chưa chia sẻ hoặc trước khi tạo pull request.",
+    "options": [
+      {
+        "content": "Khi merge vào nhánh chia sẻ/công khai như main mà nhiều người đã pull về, để tránh viết lại lịch sử họ đang dựa vào",
+        "is_correct": true
+      },
+      {
+        "content": "Khi muốn có commit history tuyến tính, dễ đọc, không có merge commit rẽ nhánh",
+        "is_correct": false
+      },
+      {
+        "content": "Khi cần thay đổi thứ tự hoặc gộp các commit trong nhánh feature cá nhân trước khi tạo pull request",
+        "is_correct": false
+      },
+      {
+        "content": "Khi dung lượng repository quá lớn và cần xóa các commit cũ để tiết kiệm dung lượng",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "git cherry-pick thường được dùng trong tình huống nào?",
+    "explanation": "cherry-pick lấy đúng một hoặc vài commit cụ thể và áp lên nhánh khác, phù hợp khi chỉ cần đưa một bản fix sang nhánh release mà không muốn kéo theo toàn bộ các commit khác của nhánh nguồn.",
+    "options": [
+      {
+        "content": "Áp dụng một commit sửa lỗi cụ thể từ nhánh này sang nhánh khác mà không cần merge toàn bộ nhánh nguồn",
+        "is_correct": true
+      },
+      {
+        "content": "Gộp toàn bộ lịch sử của một nhánh feature vào main chỉ trong một commit duy nhất",
+        "is_correct": false
+      },
+      {
+        "content": "Xóa vĩnh viễn một commit khỏi lịch sử của tất cả các nhánh đang tồn tại",
+        "is_correct": false
+      },
+      {
+        "content": "Đồng bộ tự động các thay đổi mới nhất từ remote về tất cả nhánh local cùng lúc",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi git cherry-pick gặp conflict, quy trình xử lý đúng là gì?",
+    "explanation": "Cherry-pick xử lý conflict tương tự merge/rebase: sửa file, git add, rồi git cherry-pick --continue để hoàn tất commit đó, hoặc --abort để hủy và trở lại trạng thái trước khi cherry-pick.",
+    "options": [
+      {
+        "content": "Sửa file conflict, git add các file đã resolve, rồi chạy git cherry-pick --continue (hoặc --abort để hủy bỏ)",
+        "is_correct": true
+      },
+      {
+        "content": "Git tự động bỏ qua commit gây conflict và tiếp tục cherry-pick các commit tiếp theo trong danh sách",
+        "is_correct": false
+      },
+      {
+        "content": "Phải xóa nhánh hiện tại và tạo lại từ đầu thì mới có thể tiếp tục cherry-pick",
+        "is_correct": false
+      },
+      {
+        "content": "Chạy git merge --abort để hủy toàn bộ thay đổi rồi thử cherry-pick lại từ commit đầu tiên",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt giữa git stash pop và git stash apply là gì?",
+    "explanation": "pop = apply + drop: áp dụng thay đổi và xóa luôn entry khỏi stash list; apply chỉ áp dụng, entry vẫn còn trong danh sách stash để dùng lại nếu cần.",
+    "options": [
+      {
+        "content": "pop áp dụng thay đổi rồi xóa entry khỏi stash list; apply chỉ áp dụng nhưng vẫn giữ lại entry trong stash list",
+        "is_correct": true
+      },
+      {
+        "content": "pop chỉ hoạt động với untracked file, còn apply chỉ hoạt động với file đã tracked",
+        "is_correct": false
+      },
+      {
+        "content": "apply áp dụng thay đổi lên nhánh remote, còn pop chỉ áp dụng lên nhánh local hiện tại",
+        "is_correct": false
+      },
+      {
+        "content": "pop tạo commit mới chứa thay đổi đã stash, còn apply chỉ hiển thị nội dung thay đổi mà không áp dụng",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Theo mặc định, git stash không lưu lại loại thay đổi nào, và cần thêm option gì để bao gồm chúng?",
+    "explanation": "git stash mặc định bỏ qua file chưa tracked; thêm -u/--include-untracked (hoặc -a để gồm cả file bị ignore) để stash đầy đủ hơn.",
+    "options": [
+      {
+        "content": "Không lưu file chưa được Git theo dõi (untracked); cần thêm -u hoặc --include-untracked để stash cả các file này",
+        "is_correct": true
+      },
+      {
+        "content": "Không lưu các thay đổi đã git add vào staging area; cần thêm --staged để stash chúng",
+        "is_correct": false
+      },
+      {
+        "content": "Không lưu file bị liệt trong .gitignore; mặc định luôn bỏ qua nhóm file này dù dùng bất kỳ option nào",
+        "is_correct": false
+      },
+      {
+        "content": "Không lưu commit message của lần stash trước; cần thêm --message để đặt tên rõ ràng cho stash mới",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "git bisect giúp tìm commit gây ra lỗi (regression) bằng cách nào?",
+    "explanation": "git bisect chia đôi phạm vi commit sau mỗi lần đánh dấu good/bad, giảm số lần kiểm tra theo cấp số nhân (O(log n)) để nhanh chóng thu hẹp về commit gây lỗi.",
+    "options": [
+      {
+        "content": "Thực hiện tìm kiếm nhị phân trên lịch sử commit giữa một điểm good và một điểm bad, checkout commit giữa để đánh dấu good/bad cho đến khi thu hẹp về đúng 1 commit",
+        "is_correct": true
+      },
+      {
+        "content": "Quét tuần tự từng commit theo thứ tự thời gian từ mới nhất đến cũ nhất cho đến khi tìm thấy lỗi",
+        "is_correct": false
+      },
+      {
+        "content": "So sánh diff nội dung giữa tất cả các commit để tự động phát hiện dòng code gây lỗi bằng phân tích tĩnh",
+        "is_correct": false
+      },
+      {
+        "content": "Chạy lại toàn bộ test suite trên nhánh hiện tại và báo cáo commit có coverage thấp nhất",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Ví dụ nào sau đây là cách dùng git hook phía client (client-side hook) hợp lý?",
+    "explanation": "pre-commit là hook phía client chạy trước khi commit được tạo, thường dùng để chạy lint/format/test nhanh và chặn commit nếu không đạt yêu cầu.",
+    "options": [
+      {
+        "content": "Dùng pre-commit hook để tự động chạy linter/formatter và chặn commit nếu code không đạt chuẩn",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng pre-commit hook để tự động deploy code lên server production ngay sau khi merge vào main",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng post-commit hook để ngăn người dùng push commit lên nhánh protected trên remote",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng pre-push hook để tự động resolve mọi merge conflict phát sinh khi push",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao git hook nằm trong .git/hooks không tự động áp dụng cho tất cả thành viên khi họ clone repository?",
+    "explanation": ".git/hooks nằm trong thư mục .git, không được Git commit/track cùng source code, nên hook không tự nhân bản khi clone; muốn đồng bộ hook cho cả team cần công cụ như Husky hoặc pre-commit framework lưu hook trong repo và cài đặt lại.",
+    "options": [
+      {
+        "content": "Vì .git/hooks không được Git theo dõi/versioned cùng repo, nên mỗi người phải tự cài hoặc dùng công cụ như Husky để đồng bộ",
+        "is_correct": true
+      },
+      {
+        "content": "Vì hook chỉ chạy được trên hệ điều hành Linux, không tương thích với Windows/macOS khi clone",
+        "is_correct": false
+      },
+      {
+        "content": "Vì GitHub/GitLab tự động chặn toàn bộ hook phía client vì lý do bảo mật",
+        "is_correct": false
+      },
+      {
+        "content": "Vì hook chỉ có hiệu lực sau khi tạo release tag, không áp dụng cho commit thông thường",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Điều gì cần lưu ý khi clone một repository có chứa submodule?",
+    "explanation": "Git clone thông thường chỉ ghi lại tham chiếu (commit SHA) tới submodule, không tự tải nội dung; cần --recurse-submodules khi clone hoặc git submodule update --init --recursive sau đó.",
+    "options": [
+      {
+        "content": "git clone thông thường chỉ tạo thư mục trống cho submodule; cần chạy thêm git submodule update --init --recursive hoặc clone với --recurse-submodules để lấy đầy đủ code",
+        "is_correct": true
+      },
+      {
+        "content": "Submodule sẽ tự động cập nhật theo commit mới nhất của remote mỗi khi pull nhánh cha, không cần thao tác gì thêm",
+        "is_correct": false
+      },
+      {
+        "content": "Toàn bộ lịch sử commit của submodule sẽ bị gộp chung vào lịch sử của repository cha ngay khi clone",
+        "is_correct": false
+      },
+      {
+        "content": "Submodule chỉ hoạt động nếu cả hai repository cha và con dùng cùng một remote host",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong file có conflict, các marker <<<<<<< HEAD, =======, >>>>>>> branch-name thể hiện điều gì?",
+    "explanation": "Các marker chia hai phiên bản xung đột để người sửa lựa chọn hoặc kết hợp nội dung rồi xóa marker. Với một merge thông thường, phần sau `<<<<<<< HEAD` là phiên bản đang checkout và phần sau `=======` là phiên bản được đưa vào. Khi rebase/cherry-pick, nhãn và ý nghĩa “ours/theirs” có thể gây nhầm lẫn, nên cần xem tên ref và lệnh đang chạy thay vì áp dụng máy móc quy tắc của merge.",
+    "options": [
+      {
+        "content": "Phần giữa <<<<<<< HEAD và ======= là nội dung của nhánh hiện tại; phần giữa ======= và >>>>>>> branch-name là nội dung từ nhánh đang merge vào, cần xóa hết marker sau khi sửa",
+        "is_correct": true
+      },
+      {
+        "content": "Đây là log lỗi cú pháp do Git tạo ra khi file bị hỏng, cần xóa toàn bộ nội dung file và tải lại từ remote",
+        "is_correct": false
+      },
+      {
+        "content": "<<<<<<< đánh dấu dòng cần xóa, ======= đánh dấu dòng giữ nguyên, >>>>>>> đánh dấu dòng cần thêm mới, không liên quan đến nhánh nào",
+        "is_correct": false
+      },
+      {
+        "content": "Các marker này chỉ xuất hiện khi dùng git merge, không bao giờ xuất hiện khi rebase vì rebase tự động chọn nhánh nguồn",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao git revert được xem là an toàn hơn git reset khi cần undo một commit đã push lên nhánh chia sẻ?",
+    "explanation": "revert không xóa hay thay đổi commit cũ, chỉ thêm commit mới đảo ngược thay đổi, nên lịch sử vẫn nhất quán với những người đã pull nhánh đó; reset di chuyển con trỏ nhánh, nếu dùng trên nhánh đã chia sẻ có thể làm lệch lịch sử của người khác.",
+    "options": [
+      {
+        "content": "revert tạo commit mới đảo ngược thay đổi và giữ nguyên lịch sử cũ, không làm lệch lịch sử của người khác; reset di chuyển con trỏ nhánh và có thể làm mất commit trong lịch sử chia sẻ",
+        "is_correct": true
+      },
+      {
+        "content": "revert xóa hẳn commit lỗi khỏi lịch sử trong khi reset chỉ ẩn commit đó mà không xóa dữ liệu thật",
+        "is_correct": false
+      },
+      {
+        "content": "revert chỉ hoạt động trên remote repository, còn reset chỉ hoạt động trên local nên reset an toàn hơn khi làm việc nhóm",
+        "is_correct": false
+      },
+      {
+        "content": "revert yêu cầu quyền admin trên repository còn reset thì không, nên revert được kiểm soát chặt hơn về mặt bảo mật",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt giữa git reset --soft, --mixed và --hard khi cùng trỏ về một commit trước đó là gì?",
+    "explanation": "--soft chỉ di chuyển HEAD (staging và working dir giữ nguyên); --mixed di chuyển HEAD và reset staging nhưng giữ working dir; --hard di chuyển HEAD và ghi đè cả staging lẫn working directory, nên có thể mất thay đổi chưa commit.",
+    "options": [
+      {
+        "content": "--soft chỉ di chuyển HEAD, giữ nguyên staging và working directory; --mixed reset staging nhưng giữ working directory; --hard xóa cả thay đổi ở staging và working directory",
+        "is_correct": true
+      },
+      {
+        "content": "--soft xóa toàn bộ file trong working directory, --mixed chỉ xóa staging area, --hard giữ nguyên mọi thứ để an toàn nhất",
+        "is_correct": false
+      },
+      {
+        "content": "Cả ba đều có tác động giống nhau đến working directory, chỉ khác nhau ở cách hiển thị log commit",
+        "is_correct": false
+      },
+      {
+        "content": "--soft và --hard chỉ khác nhau ở việc có tạo backup branch tự động hay không, còn --mixed không còn tồn tại trong Git hiện tại",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt chính giữa lightweight tag và annotated tag trong Git là gì?",
+    "explanation": "Annotated tag là một object riêng trong Git (có message, tác giả, ngày tạo, có thể ký GPG); lightweight tag chỉ là con trỏ trỏ trực tiếp tới commit, không lưu thêm metadata.",
+    "options": [
+      {
+        "content": "Annotated tag là một object đầy đủ lưu tác giả, ngày tạo, message và có thể GPG-sign; lightweight tag chỉ là con trỏ đơn giản trỏ tới commit, không kèm metadata",
+        "is_correct": true
+      },
+      {
+        "content": "Lightweight tag chỉ dùng được cho nhánh main, còn annotated tag dùng được cho mọi nhánh",
+        "is_correct": false
+      },
+      {
+        "content": "Annotated tag tự động push lên remote khi tạo, còn lightweight tag chỉ tồn tại ở local vĩnh viễn",
+        "is_correct": false
+      },
+      {
+        "content": "Lightweight tag có thể di chuyển sang commit khác theo thời gian, còn annotated tag cố định vĩnh viễn không thể thay đổi",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Hạn chế thường gặp khi dùng git blame để tìm ai đã thay đổi một dòng code là gì?",
+    "explanation": "Khi một dòng bị format lại hoặc xuống dòng do công cụ tự động, git blame mặc định coi commit format đó là chủ của dòng, che mất tác giả logic thực sự; -w (ignore whitespace) hoặc --ignore-rev giúp bỏ qua các commit như vậy.",
+    "options": [
+      {
+        "content": "Nếu dòng đó từng bị format lại hoặc di chuyển vị trí, git blame sẽ chỉ ra commit format là tác giả cuối, che mất người thực sự sửa logic; cần dùng -w hoặc --ignore-rev để loại trừ",
+        "is_correct": true
+      },
+      {
+        "content": "git blame không thể chạy trên file đã được rename dù chỉ một lần trong toàn bộ lịch sử",
+        "is_correct": false
+      },
+      {
+        "content": "git blame chỉ hiển thị được thông tin của 10 commit gần nhất, các commit cũ hơn sẽ bị ẩn theo mặc định",
+        "is_correct": false
+      },
+      {
+        "content": "git blame yêu cầu phải có kết nối tới remote server thì mới tra được tác giả của dòng code",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Squash merge một nhánh feature vào main có tác động gì đến lịch sử commit?",
+    "explanation": "Squash merge cô đọng toàn bộ commit trên nhánh feature thành một commit duy nhất khi đưa vào main, giúp lịch sử main sạch nhưng không còn giữ chi tiết từng commit nhỏ trên main (các commit gốc vẫn còn trên nhánh feature nếu nhánh đó chưa bị xóa).",
+    "options": [
+      {
+        "content": "Toàn bộ commit của nhánh feature được gộp thành một commit duy nhất trên main, giúp lịch sử gọn gàng nhưng mất chi tiết từng commit nhỏ gốc",
+        "is_correct": true
+      },
+      {
+        "content": "Squash merge xóa vĩnh viễn nhánh feature khỏi remote ngay khi thực hiện, không thể khôi phục các commit gốc dưới bất kỳ hình thức nào",
+        "is_correct": false
+      },
+      {
+        "content": "Squash merge giữ nguyên toàn bộ commit gốc trên main nhưng sắp xếp lại theo thứ tự thời gian mới",
+        "is_correct": false
+      },
+      {
+        "content": "Squash merge tạo ra hai commit mới trên main: một cho phần thêm và một cho phần xóa, để dễ revert từng phần",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sau khi vô tình chạy git reset --hard làm mất các commit chưa push, cách khôi phục nào phù hợp nhất?",
+    "explanation": "git reflog ghi lại lịch sử di chuyển của HEAD/nhánh cục bộ kể cả sau reset/rebase, nên có thể tìm lại SHA của commit đã mất và checkout/reset lại về đó miễn là chưa bị garbage collect.",
+    "options": [
+      {
+        "content": "Dùng git reflog để tìm SHA của commit trước khi reset, sau đó git reset --hard <SHA> hoặc tạo nhánh mới từ SHA đó",
+        "is_correct": true
+      },
+      {
+        "content": "Không thể khôi phục được vì git reset --hard xóa vĩnh viễn dữ liệu khỏi ổ đĩa ngay khi chạy lệnh",
+        "is_correct": false
+      },
+      {
+        "content": "Chạy git fetch --all rồi git pull để lấy lại các commit đã mất từ remote server",
+        "is_correct": false
+      },
+      {
+        "content": "Xóa thư mục .git và chạy git init lại để Git tự động quét file trong working directory và phục hồi commit cũ",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "origin/main khác gì so với nhánh main cục bộ, và git fetch khác git pull như thế nào?",
+    "explanation": "origin/main chỉ được cập nhật khi fetch/pull, phản ánh trạng thái remote tại lần đồng bộ gần nhất, không tự động theo thời gian thực; git fetch chỉ tải dữ liệu và cập nhật origin/main, còn git pull thực hiện fetch rồi merge (hoặc rebase) vào nhánh local hiện tại.",
+    "options": [
+      {
+        "content": "origin/main là remote-tracking branch phản ánh trạng thái remote tại lần đồng bộ gần nhất; fetch chỉ cập nhật origin/main, còn pull = fetch rồi merge/rebase vào nhánh local hiện tại",
+        "is_correct": true
+      },
+      {
+        "content": "origin/main và main cục bộ luôn đồng bộ tự động theo thời gian thực, không cần fetch hay pull",
+        "is_correct": false
+      },
+      {
+        "content": "git fetch và git pull hoàn toàn giống nhau, chỉ khác tên lệnh do lịch sử phát triển của Git",
+        "is_correct": false
+      },
+      {
+        "content": "origin/main là bản sao chỉ đọc lưu trên máy chủ remote, không tồn tại trên máy local của developer",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Một file đã được commit vào repository từ trước, sau đó mới được thêm vào .gitignore. Điều gì sẽ xảy ra?",
+    "explanation": ".gitignore chỉ có tác dụng với file chưa được Git theo dõi; file đã tracked trước đó vẫn tiếp tục bị theo dõi bình thường cho đến khi chủ động gỡ bằng git rm --cached.",
+    "options": [
+      {
+        "content": ".gitignore chỉ ảnh hưởng đến file chưa tracked; file đã tracked vẫn tiếp tục được theo dõi cho đến khi chạy git rm --cached để ngừng theo dõi",
+        "is_correct": true
+      },
+      {
+        "content": "Git tự động untrack file đó ngay khi .gitignore được cập nhật và commit",
+        "is_correct": false
+      },
+      {
+        "content": "File sẽ bị xóa khỏi working directory ngay khi thêm vào .gitignore để đảm bảo đồng bộ",
+        "is_correct": false
+      },
+      {
+        "content": ".gitignore sẽ ghi đè lịch sử commit cũ của file đó, khiến các thay đổi trước đây không còn xem được qua git log",
+        "is_correct": false
+      }
+    ]
+  }
+]

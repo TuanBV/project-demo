@@ -258,6 +258,28 @@ class StudyQuestionResponse(BaseModel):
     options: list[StudyQuestionOptionResponse] = Field(default_factory=list)
 
 
+class KnowledgeReviewItemResponse(BaseModel):
+    """Read-only study-guide view: deliberately DOES include the correct answer, unlike
+    StudyQuestionResponse. Only for the /review browsing page (spec: "xem lại kiến thức"),
+    never wired into the quiz/practice flow."""
+
+    id: int
+    category: CategorySummary
+    question_type: QuestionType
+    difficulty: Difficulty
+    content: str
+    correct_answer: str
+    explanation: str | None = None
+    options: list[str] | None = None
+
+
+class KnowledgeReviewListResponse(BaseModel):
+    items: list[KnowledgeReviewItemResponse]
+    total: int
+    page: int
+    page_size: int
+
+
 class SuggestRubricRequest(BaseModel):
     question: str = Field(min_length=1)
     reference_answer: str = Field(min_length=1)

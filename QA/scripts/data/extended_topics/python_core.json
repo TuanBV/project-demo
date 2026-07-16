@@ -1,20 +1,442 @@
-[{"content":"Trong CPython, dù có Global Interpreter Lock (GIL), đoạn code `counter += 1` được nhiều thread thực thi đồng thời vẫn có thể cho kết quả sai (mất một số lần tăng). Nguyên nhân chính là gì?","explanation":"GIL chỉ đảm bảo mỗi thời điểm chỉ một thread thực thi bytecode, nhưng `counter += 1` gồm nhiều bước bytecode (đọc, cộng, ghi); GIL có thể được nhả giữa các bước này, cho phép thread khác chen vào và gây race condition, dù `int` vẫn là kiểu bất biến.","options":[{"content":"`counter += 1` gồm nhiều bước bytecode (đọc-cộng-ghi), GIL có thể được nhả giữa các bước đó cho thread khác chen vào","is_correct":true},{"content":"GIL bị tự động tắt khi số lượng thread đang chạy vượt quá 2","is_correct":false},{"content":"Toán tử += trên int gây race condition vì int trong Python là kiểu mutable","is_correct":false},{"content":"GIL chỉ bảo vệ vùng nhớ trên heap, hoàn toàn không liên quan đến các phép toán trên biến local","is_correct":false}]},
-{"content":"Trong CPython, một object thông thường (không tham gia vào chu trình tham chiếu vòng) được giải phóng bộ nhớ khi nào?","explanation":"CPython dùng reference counting: ngay khi refcount của object giảm về 0 (không còn tham chiếu nào tới nó), bộ nhớ được thu hồi ngay lập tức, không cần đợi garbage collector theo chu trình chạy.","options":[{"content":"Ngay khi reference count của object giảm về 0, bộ nhớ được thu hồi ngay lập tức","is_correct":true},{"content":"Chỉ khi garbage collector (module gc) chạy theo chu kỳ generation 0/1/2","is_correct":false},{"content":"Khi tiến trình Python kết thúc, toàn bộ object mới được giải phóng cùng lúc","is_correct":false},{"content":"Khi object không được truy cập trong một khoảng thời gian timeout nhất định","is_correct":false}]},
-{"content":"Vì sao CPython cần thêm garbage collector theo chu trình (generational cyclic GC) bên cạnh reference counting?","explanation":"Hai hay nhiều object tham chiếu vòng tròn tới nhau sẽ giữ refcount của nhau luôn lớn hơn 0 dù không còn được truy cập từ bên ngoài; reference counting đơn thuần không phát hiện được trường hợp này nên cần thuật toán cyclic GC riêng để tìm và dọn các chu trình đó.","options":[{"content":"Vì các object tham chiếu vòng tròn sẽ không bao giờ có refcount về 0 dù không còn được truy cập từ bên ngoài","is_correct":true},{"content":"Vì reference counting chạy quá chậm nên cần một cơ chế thay thế hoàn toàn","is_correct":false},{"content":"Vì reference counting không hoạt động với các object bất biến (immutable)","is_correct":false},{"content":"Vì reference counting chỉ áp dụng cho object cấp module, không áp dụng cho object tạo trong hàm","is_correct":false}]},
-{"content":"Khi viết một decorator, vì sao nên dùng `functools.wraps(func)` cho hàm wrapper bên trong?","explanation":"`functools.wraps` copy các thuộc tính như `__name__`, `__doc__`, `__module__` (và gắn `__wrapped__`) từ hàm gốc sang wrapper, giúp các công cụ introspection, debugging, logging hiển thị đúng thông tin của hàm gốc thay vì thông tin của wrapper.","options":[{"content":"Để wrapper thừa hưởng `__name__`, `__doc__`, `__module__` của hàm gốc, tránh sai lệch khi introspection/debugging","is_correct":true},{"content":"Để đảm bảo decorator chạy nhanh hơn nhờ cache kết quả của hàm gốc","is_correct":false},{"content":"Để tự động truyền đúng *args, **kwargs cho hàm gốc mà không cần khai báo trong wrapper","is_correct":false},{"content":"Để ngăn decorator bị áp dụng nhiều lần lên cùng một hàm","is_correct":false}]},
-{"content":"Một decorator có tham số riêng, ví dụ dùng như `@retry(times=3)`, thường được viết theo cấu trúc nào?","explanation":"Đây là mẫu decorator factory: hàm ngoài cùng nhận tham số cấu hình và trả về decorator thật (hàm nhận `func`), decorator này lại trả về hàm wrapper thực hiện logic gọi `func` — tổng cộng ba tầng hàm lồng nhau.","options":[{"content":"Một hàm ngoài nhận tham số cấu hình, trả về decorator thật (nhận func), decorator này trả về wrapper gọi func","is_correct":true},{"content":"Một class kế thừa từ `functools.partial` để inject tham số vào decorator gốc","is_correct":false},{"content":"Một decorator thông thường nhận func làm tham số đầu tiên, còn tham số cấu hình truyền qua biến global","is_correct":false},{"content":"Python tự động curry decorator khi thấy dấu ngoặc () ngay sau tên decorator","is_correct":false}]},
-{"content":"Điều nào mô tả đúng nhất vai trò của metaclass trong Python?","explanation":"Metaclass là 'class của class': mặc định mọi class dùng metaclass `type`, và một metaclass tùy chỉnh (thường override `__new__`/`__init__` của metaclass) cho phép can thiệp vào thuộc tính/phương thức của class ngay trong quá trình class được tạo ra, trước khi bất kỳ instance nào tồn tại.","options":[{"content":"Metaclass là 'class của class', kiểm soát quá trình tạo class (qua __new__/__init__ của metaclass); mặc định mọi class dùng metaclass type","is_correct":true},{"content":"Metaclass là một base class đặc biệt luôn nằm ở vị trí đầu tiên trong MRO của mọi class","is_correct":false},{"content":"Metaclass giúp tạo instance nhanh hơn class thông thường vì bỏ qua việc gọi __init__","is_correct":false},{"content":"Metaclass chỉ là tên gọi khác của abstract base class trong module abc","is_correct":false}]},
-{"content":"`@property` trong Python hoạt động dựa trên cơ chế nào ở tầng thấp?","explanation":"`property` là một data descriptor implement `__get__`, `__set__` (và có thể `__delete__`); khi truy cập `obj.attr`, Python thực chất gọi `type(obj).attr.__get__(obj, type(obj))` theo descriptor protocol, không phải một cơ chế ẩn giấu nào khác.","options":[{"content":"Descriptor protocol: property là data descriptor implement __get__/__set__, được gọi khi truy cập attribute trên instance","is_correct":true},{"content":"Python tạo một biến ẩn _attr và ghi đè __getattr__, __setattr__ của instance","is_correct":false},{"content":"property hoạt động thuần túy nhờ decorator pattern, không liên quan đến cơ chế attribute lookup của class","is_correct":false},{"content":"property lưu giá trị trực tiếp vào __dict__ của instance giống một attribute thông thường","is_correct":false}]},
-{"content":"Khi một class có một data descriptor (implement cả `__get__` và `__set__`) trùng tên với một entry trong `instance.__dict__`, giá trị nào được trả về khi truy cập `instance.attr`?","explanation":"Theo thứ tự attribute lookup của Python, data descriptor định nghĩa trên class luôn được ưu tiên hơn `instance.__dict__` — đây là điểm khác biệt quan trọng so với non-data descriptor, vốn bị `instance.__dict__` che khuất nếu trùng tên.","options":[{"content":"Giá trị từ data descriptor trên class luôn được ưu tiên hơn instance.__dict__","is_correct":true},{"content":"Giá trị trong instance.__dict__ luôn được ưu tiên vì instance attribute override class attribute trong mọi trường hợp","is_correct":false},{"content":"Python sẽ raise AttributeError vì có xung đột giữa hai nơi lưu cùng tên thuộc tính","is_correct":false},{"content":"Kết quả phụ thuộc ngẫu nhiên vào thứ tự gán giá trị trong __init__","is_correct":false}]},
-{"content":"Trong context manager viết bằng class, nếu `__exit__(self, exc_type, exc_val, exc_tb)` trả về `True` khi có exception xảy ra trong block `with`, điều gì xảy ra?","explanation":"Giá trị trả về truthy của `__exit__` báo cho Python biết exception đã được xử lý bên trong `__exit__`, nên nó bị suppress — không propagate ra ngoài block `with`, và chương trình tiếp tục chạy các dòng code phía sau bình thường.","options":[{"content":"Exception bị coi như đã xử lý (suppressed), không propagate ra ngoài block with","is_correct":true},{"content":"Exception vẫn được ném ra như thường lệ, giá trị trả về của __exit__ không ảnh hưởng gì","is_correct":false},{"content":"Python sẽ raise lại chính exception đó nhưng kèm thêm traceback riêng của __exit__","is_correct":false},{"content":"__exit__ trả True chỉ có hiệu lực khi bên trong nó có gọi raise","is_correct":false}]},
-{"content":"Khi dùng `@contextlib.contextmanager` để viết context manager từ một generator function, phần code sau lệnh `yield` có vai trò gì?","explanation":"Phần trước `yield` đóng vai trò `__enter__`, phần sau `yield` đóng vai trò cleanup giống `finally` — luôn chạy khi thoát `with`; nếu block `with` gặp exception, exception đó được ném vào ngay tại điểm `yield` bên trong generator (nên thường cần bọc try/except/finally quanh yield).","options":[{"content":"Đóng vai trò cleanup giống finally, luôn chạy khi thoát with; exception trong block with được ném vào ngay tại điểm yield","is_correct":true},{"content":"Chỉ chạy khi block with hoàn thành mà không có bất kỳ exception nào xảy ra","is_correct":false},{"content":"Chạy trước khi block with bắt đầu, có vai trò giống hệt __enter__","is_correct":false},{"content":"contextlib.contextmanager không cho phép có code sau yield, generator phải return ngay tại đó","is_correct":false}]},
-{"content":"Vì sao gọi một hàm blocking đồng bộ (ví dụ `time.sleep(5)`) bên trong một coroutine `async def` lại là vấn đề nghiêm trọng trong asyncio?","explanation":"asyncio chạy cooperative multitasking trên một event loop đơn luồng: các coroutine chỉ nhường quyền điều khiển tại điểm `await`. Một hàm blocking không có `await` sẽ giữ luồng thực thi, khiến toàn bộ event loop bị đứng và mọi coroutine/task khác đều phải chờ, dù chúng không liên quan gì đến sleep.","options":[{"content":"asyncio chạy trên event loop đơn luồng cooperative; hàm blocking không nhường quyền điều khiển nên làm đứng toàn bộ event loop","is_correct":true},{"content":"time.sleep sẽ tự động tạo ra một thread mới ngoài ý muốn, gây race condition với các coroutine khác","is_correct":false},{"content":"asyncio sẽ raise RuntimeError ngay khi phát hiện có hàm blocking được gọi trong coroutine","is_correct":false},{"content":"GIL bị giải phóng hoàn toàn trong lúc sleep, khiến các coroutine khác chạy sai thứ tự đã lên lịch","is_correct":false}]},
-{"content":"Iterator protocol trong Python (dùng cho vòng lặp `for`) được định nghĩa dựa trên điều gì?","explanation":"Iterator protocol yêu cầu object có `__iter__()` (thường trả về chính nó) và `__next__()` trả về giá trị kế tiếp hoặc raise `StopIteration` khi hết phần tử; đây khác với protocol cũ dựa trên `__getitem__`/`IndexError` mà Python vẫn hỗ trợ như một fallback riêng biệt.","options":[{"content":"Object có __iter__() trả về chính nó, và __next__() trả giá trị tiếp theo hoặc raise StopIteration khi hết","is_correct":true},{"content":"Object phải implement __len__() và __getitem__() để vòng lặp for biết khi nào dừng","is_correct":false},{"content":"Object chỉ cần implement __next__(), Python tự suy ra __iter__() từ đó mà không cần khai báo","is_correct":false},{"content":"Object phải raise IndexError khi hết phần tử, giống cách list báo lỗi khi truy cập ngoài phạm vi","is_correct":false}]},
-{"content":"`yield from sub_generator()` trong một generator có tác dụng gì mà một vòng `for x in sub_generator(): yield x` đơn giản không làm được đầy đủ?","explanation":"`yield from` tạo một kênh giao tiếp hai chiều đầy đủ: nó tự động forward `send()`, `throw()` từ generator cha xuống sub-generator, và forward giá trị `return` của sub-generator lên thành kết quả của biểu thức `yield from`; vòng `for...yield` thông thường chỉ chuyển tiếp các giá trị được yield, không xử lý được send/throw/return.","options":[{"content":"Nó forward cả send(), throw(), và giá trị return giữa generator cha và sub-generator, không chỉ đơn thuần lặp qua giá trị yield","is_correct":true},{"content":"Nó chạy sub-generator trên một thread riêng để tránh block generator cha","is_correct":false},{"content":"Nó biến sub-generator thành một list đầy đủ trước khi yield từng phần tử","is_correct":false},{"content":"Nó hoàn toàn tương đương vòng for...yield về hành vi runtime, chỉ khác cú pháp","is_correct":false}]},
-{"content":"Nếu một class override `__eq__` nhưng không override `__hash__`, điều gì xảy ra khi thử đưa instance của class đó vào một `set` hoặc dùng làm key của `dict`?","explanation":"Python quy định: khi một class override `__eq__` mà không định nghĩa lại `__hash__`, `__hash__` của class đó tự động bị đặt thành `None` (vì hai object bằng nhau theo `__eq__` nhưng hash khác nhau theo `object.__hash__` mặc định sẽ vi phạm hợp đồng hash), khiến instance trở thành unhashable và raise `TypeError` khi cho vào set/dict.","options":[{"content":"__hash__ tự động bị đặt thành None, instance trở thành unhashable và raise TypeError khi cho vào set/dict","is_correct":true},{"content":"Python vẫn dùng __hash__ kế thừa từ object dựa trên id(), hoạt động bình thường không lỗi","is_correct":false},{"content":"Instance được hash dựa trên giá trị trả về của __eq__, luôn cho ra cùng một hash","is_correct":false},{"content":"Chỉ raise lỗi khi so sánh hai instance khác kiểu dữ liệu, còn thêm vào set thì vẫn chạy bình thường","is_correct":false}]},
-{"content":"Dunder method `__call__` khi được định nghĩa trên một class có ý nghĩa gì?","explanation":"`__call__` cho phép instance của class được gọi trực tiếp bằng cú pháp `instance(...)` như một hàm; đây là kỹ thuật phổ biến để viết decorator dạng class hoặc các object có trạng thái nội tại nhưng vẫn hành xử như một callable.","options":[{"content":"Cho phép instance của class được gọi như một hàm bằng cú pháp instance(...), thường dùng để viết decorator dạng class","is_correct":true},{"content":"Cho phép class đó được dùng trực tiếp làm decorator mà không cần tạo instance","is_correct":false},{"content":"Bắt buộc phải có ở mọi class implement context manager để hỗ trợ cú pháp with","is_correct":false},{"content":"Được Python tự động gọi mỗi khi instance của class bị garbage collect","is_correct":false}]},
-{"content":"Sự khác biệt chính giữa `__repr__` và `__str__` là gì?","explanation":"`__repr__` hướng tới developer, nhằm tạo biểu diễn rõ ràng, không mơ hồ (lý tưởng là có thể dùng lại để tái tạo object), và được Python dùng làm fallback khi `__str__` không được định nghĩa, cũng như khi hiển thị object trong REPL, list, dict; `__str__` hướng tới người dùng cuối, ưu tiên dễ đọc.","options":[{"content":"__repr__ hướng tới developer (rõ ràng, không mơ hồ, dùng làm fallback cho __str__ và khi in trong REPL/container), __str__ hướng tới người dùng cuối, dễ đọc hơn","is_correct":true},{"content":"__repr__ chỉ dùng nội bộ cho debugger, không bao giờ được gọi trong code thông thường","is_correct":false},{"content":"__str__ là bắt buộc phải định nghĩa, còn __repr__ là tùy chọn và không có giá trị mặc định nào","is_correct":false},{"content":"Cả hai hoàn toàn giống nhau về mục đích, chỉ khác cú pháp gọi giữa repr() và str()","is_correct":false}]},
-{"content":"So với `namedtuple`, dùng `@dataclass(frozen=True, slots=True)` mang lại ưu điểm nào?","explanation":"`slots=True` loại bỏ `__dict__` trên mỗi instance nên tiết kiệm bộ nhớ tương đương namedtuple, còn `frozen=True` vẫn giữ tính bất biến; đồng thời dataclass cho phép khai báo field với type hint, giá trị mặc định phức tạp và method tùy ý tự nhiên hơn so với cú pháp hạn chế của namedtuple.","options":[{"content":"Vẫn bất biến và tiết kiệm bộ nhớ tương tự namedtuple, nhưng cho phép khai báo field với type hint, default value và method linh hoạt hơn","is_correct":true},{"content":"namedtuple không thể so sánh bằng == giữa hai instance, còn dataclass frozen thì có thể","is_correct":false},{"content":"dataclass(frozen=True) cho phép sửa đổi giá trị field sau khi tạo, còn namedtuple thì không","is_correct":false},{"content":"namedtuple tiêu tốn nhiều bộ nhớ hơn dataclass thông thường vì phải lưu tên field riêng trong mỗi instance","is_correct":false}]},
-{"content":"Trong type hinting, sự khác biệt giữa dùng `TypeVar` (generic) và `Protocol` là gì?","explanation":"`TypeVar` biểu diễn một kiểu chung/generic để ràng buộc quan hệ giữa các tham số và giá trị trả về của hàm/class (ví dụ đảm bảo input và output cùng kiểu); `Protocol` định nghĩa structural typing (duck typing tĩnh) — một kiểu được coi là khớp Protocol nếu nó có đủ method/attribute cần thiết, không cần kế thừa rõ ràng từ Protocol đó.","options":[{"content":"TypeVar biểu diễn kiểu generic ràng buộc giữa input/output, Protocol định nghĩa structural typing dựa trên method/attribute có sẵn, không cần kế thừa","is_correct":true},{"content":"TypeVar chỉ dùng được với kiểu built-in như int, str, còn Protocol dùng cho custom class","is_correct":false},{"content":"Protocol là cách duy nhất để khai báo generic class trong Python, TypeVar đã bị deprecated","is_correct":false},{"content":"Cả hai đều được CPython interpreter kiểm tra và enforce bắt buộc tại runtime","is_correct":false}]},
-{"content":"Với đa kế thừa hình kim cương như `class D(B, C)`, trong đó `B(A)` và `C(A)`, khi gọi `super()` trong `D`, thứ tự tìm phương thức được xác định bằng cách nào?","explanation":"MRO được tính bằng thuật toán C3 linearization, cho ra thứ tự D, B, C, A: đảm bảo một class luôn xuất hiện trước class cha của nó, giữ đúng thứ tự khai báo kế thừa tại D(B, C), và mỗi class chỉ xuất hiện đúng một lần trong MRO (khác với depth-first thuần túy kiểu cũ có thể viếng A hai lần).","options":[{"content":"Theo MRO tính bằng C3 linearization, cho ra thứ tự D, B, C, A, đảm bảo mỗi class chỉ xuất hiện một lần","is_correct":true},{"content":"Python tìm kiếm depth-first thuần túy từ trái sang phải kiểu cũ, cho ra thứ tự D, B, A, C, A","is_correct":false},{"content":"Thứ tự được xác định ngẫu nhiên tại runtime tùy vào thời điểm class được import","is_correct":false},{"content":"super() trong đa kế thừa luôn gọi trực tiếp lên class gốc chung (A), bỏ qua hoàn toàn B và C","is_correct":false}]},
-{"content":"Vì sao nối chuỗi bằng `+=` trong một vòng lặp lớn (hàng chục nghìn lần) thường được coi là một performance pitfall trong Python, và cách khắc phục phổ biến là gì?","explanation":"Vì `str` là kiểu bất biến, mỗi lần `+=` phải tạo ra một object chuỗi mới và copy lại toàn bộ nội dung cũ, khiến tổng chi phí gần O(n²) theo số lần lặp; cách khắc phục phổ biến là gom các đoạn chuỗi vào một list rồi gọi `''.join(list)` một lần duy nhất ở cuối, chỉ tốn O(n).","options":[{"content":"Vì str là immutable nên mỗi lần += phải tạo chuỗi mới và copy nội dung cũ, gần O(n²); khắc phục bằng cách gom vào list rồi dùng ''.join()","is_correct":true},{"content":"Vì += trên chuỗi luôn tạo ra deadlock giữa các thread do tranh chấp GIL","is_correct":false},{"content":"Vì Python giới hạn độ dài tối đa của một chuỗi là 65536 ký tự, buộc phải chia nhỏ và nối lại","is_correct":false},{"content":"Vì += trên chuỗi thực chất gọi ngầm hàm eval() để parse lại chuỗi mỗi lần, gây chậm","is_correct":false}]}]
+[
+  {
+    "content": "Trong build CPython có GIL, dù Global Interpreter Lock tồn tại, đoạn code `counter += 1` được nhiều thread thực thi đồng thời vẫn có thể cho kết quả sai. Nguyên nhân chính là gì?",
+    "explanation": "GIL không biến một biểu thức Python cấp cao thành transaction nguyên tử. Hai thread có thể cùng đọc giá trị cũ, tính giá trị mới rồi lần lượt ghi lại, làm mất một lần tăng; hãy bảo vệ bằng `Lock` hoặc dùng cấu trúc đồng bộ thích hợp. Từ Python 3.13 còn có free-threaded build có thể tắt GIL, nên mọi giả định dựa vào GIL càng không nên dùng làm cơ chế đồng bộ.",
+    "options": [
+      {
+        "content": "`counter += 1` là thao tác đọc–tính–ghi gồm nhiều bước và không được bảo đảm atomic; thread switch có thể xảy ra giữa các bước, làm mất cập nhật.",
+        "is_correct": true
+      },
+      {
+        "content": "GIL bị tự động tắt khi số lượng thread đang chạy vượt quá 2",
+        "is_correct": false
+      },
+      {
+        "content": "Toán tử += trên int gây race condition vì int trong Python là kiểu mutable",
+        "is_correct": false
+      },
+      {
+        "content": "GIL chỉ bảo vệ vùng nhớ trên heap, hoàn toàn không liên quan đến các phép toán trên biến local",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong build CPython truyền thống có GIL, một object thông thường không nằm trong chu trình tham chiếu được giải phóng khi nào?",
+    "explanation": "CPython truyền thống dùng reference counting nên object không còn reference thường được finalize/giải phóng ngay khi refcount về 0; cyclic GC xử lý các chu trình mà reference counting đơn thuần không thu hồi được. Đây là chi tiết implementation chứ không phải cam kết của ngôn ngữ Python, và free-threaded build có thể trì hoãn một phần cập nhật/thu hồi.",
+    "options": [
+      {
+        "content": "Thông thường ngay khi reference count giảm về 0; cyclic garbage collector chủ yếu xử lý chu trình tham chiếu. Free-threaded CPython có thể dùng deferred reference counting nên không nên coi thời điểm hủy là bảo đảm ngôn ngữ.",
+        "is_correct": true
+      },
+      {
+        "content": "Chỉ khi garbage collector (module gc) chạy theo chu kỳ generation 0/1/2",
+        "is_correct": false
+      },
+      {
+        "content": "Khi tiến trình Python kết thúc, toàn bộ object mới được giải phóng cùng lúc",
+        "is_correct": false
+      },
+      {
+        "content": "Khi object không được truy cập trong một khoảng thời gian timeout nhất định",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao CPython cần thêm garbage collector theo chu trình (generational cyclic GC) bên cạnh reference counting?",
+    "explanation": "Hai hay nhiều object tham chiếu vòng tròn tới nhau sẽ giữ refcount của nhau luôn lớn hơn 0 dù không còn được truy cập từ bên ngoài; reference counting đơn thuần không phát hiện được trường hợp này nên cần thuật toán cyclic GC riêng để tìm và dọn các chu trình đó.",
+    "options": [
+      {
+        "content": "Vì các object tham chiếu vòng tròn sẽ không bao giờ có refcount về 0 dù không còn được truy cập từ bên ngoài",
+        "is_correct": true
+      },
+      {
+        "content": "Vì reference counting chạy quá chậm nên cần một cơ chế thay thế hoàn toàn",
+        "is_correct": false
+      },
+      {
+        "content": "Vì reference counting không hoạt động với các object bất biến (immutable)",
+        "is_correct": false
+      },
+      {
+        "content": "Vì reference counting chỉ áp dụng cho object cấp module, không áp dụng cho object tạo trong hàm",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi viết một decorator, vì sao nên dùng `functools.wraps(func)` cho hàm wrapper bên trong?",
+    "explanation": "`functools.wraps` copy các thuộc tính như `__name__`, `__doc__`, `__module__` (và gắn `__wrapped__`) từ hàm gốc sang wrapper, giúp các công cụ introspection, debugging, logging hiển thị đúng thông tin của hàm gốc thay vì thông tin của wrapper.",
+    "options": [
+      {
+        "content": "Để wrapper thừa hưởng `__name__`, `__doc__`, `__module__` của hàm gốc, tránh sai lệch khi introspection/debugging",
+        "is_correct": true
+      },
+      {
+        "content": "Để đảm bảo decorator chạy nhanh hơn nhờ cache kết quả của hàm gốc",
+        "is_correct": false
+      },
+      {
+        "content": "Để tự động truyền đúng *args, **kwargs cho hàm gốc mà không cần khai báo trong wrapper",
+        "is_correct": false
+      },
+      {
+        "content": "Để ngăn decorator bị áp dụng nhiều lần lên cùng một hàm",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Một decorator có tham số riêng, ví dụ dùng như `@retry(times=3)`, thường được viết theo cấu trúc nào?",
+    "explanation": "Đây là mẫu decorator factory: hàm ngoài cùng nhận tham số cấu hình và trả về decorator thật (hàm nhận `func`), decorator này lại trả về hàm wrapper thực hiện logic gọi `func` — tổng cộng ba tầng hàm lồng nhau.",
+    "options": [
+      {
+        "content": "Một hàm ngoài nhận tham số cấu hình, trả về decorator thật (nhận func), decorator này trả về wrapper gọi func",
+        "is_correct": true
+      },
+      {
+        "content": "Một class kế thừa từ `functools.partial` để inject tham số vào decorator gốc",
+        "is_correct": false
+      },
+      {
+        "content": "Một decorator thông thường nhận func làm tham số đầu tiên, còn tham số cấu hình truyền qua biến global",
+        "is_correct": false
+      },
+      {
+        "content": "Python tự động curry decorator khi thấy dấu ngoặc () ngay sau tên decorator",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Điều nào mô tả đúng nhất vai trò của metaclass trong Python?",
+    "explanation": "Metaclass là 'class của class': mặc định mọi class dùng metaclass `type`, và một metaclass tùy chỉnh (thường override `__new__`/`__init__` của metaclass) cho phép can thiệp vào thuộc tính/phương thức của class ngay trong quá trình class được tạo ra, trước khi bất kỳ instance nào tồn tại.",
+    "options": [
+      {
+        "content": "Metaclass là 'class của class', kiểm soát quá trình tạo class (qua __new__/__init__ của metaclass); mặc định mọi class dùng metaclass type",
+        "is_correct": true
+      },
+      {
+        "content": "Metaclass là một base class đặc biệt luôn nằm ở vị trí đầu tiên trong MRO của mọi class",
+        "is_correct": false
+      },
+      {
+        "content": "Metaclass giúp tạo instance nhanh hơn class thông thường vì bỏ qua việc gọi __init__",
+        "is_correct": false
+      },
+      {
+        "content": "Metaclass chỉ là tên gọi khác của abstract base class trong module abc",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "`@property` trong Python hoạt động dựa trên cơ chế nào ở tầng thấp?",
+    "explanation": "`property` là một data descriptor implement `__get__`, `__set__` (và có thể `__delete__`); khi truy cập `obj.attr`, Python thực chất gọi `type(obj).attr.__get__(obj, type(obj))` theo descriptor protocol, không phải một cơ chế ẩn giấu nào khác.",
+    "options": [
+      {
+        "content": "Descriptor protocol: property là data descriptor implement __get__/__set__, được gọi khi truy cập attribute trên instance",
+        "is_correct": true
+      },
+      {
+        "content": "Python tạo một biến ẩn _attr và ghi đè __getattr__, __setattr__ của instance",
+        "is_correct": false
+      },
+      {
+        "content": "property hoạt động thuần túy nhờ decorator pattern, không liên quan đến cơ chế attribute lookup của class",
+        "is_correct": false
+      },
+      {
+        "content": "property lưu giá trị trực tiếp vào __dict__ của instance giống một attribute thông thường",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi một class có một data descriptor (implement cả `__get__` và `__set__`) trùng tên với một entry trong `instance.__dict__`, giá trị nào được trả về khi truy cập `instance.attr`?",
+    "explanation": "Theo thứ tự attribute lookup của Python, data descriptor định nghĩa trên class luôn được ưu tiên hơn `instance.__dict__` — đây là điểm khác biệt quan trọng so với non-data descriptor, vốn bị `instance.__dict__` che khuất nếu trùng tên.",
+    "options": [
+      {
+        "content": "Giá trị từ data descriptor trên class luôn được ưu tiên hơn instance.__dict__",
+        "is_correct": true
+      },
+      {
+        "content": "Giá trị trong instance.__dict__ luôn được ưu tiên vì instance attribute override class attribute trong mọi trường hợp",
+        "is_correct": false
+      },
+      {
+        "content": "Python sẽ raise AttributeError vì có xung đột giữa hai nơi lưu cùng tên thuộc tính",
+        "is_correct": false
+      },
+      {
+        "content": "Kết quả phụ thuộc ngẫu nhiên vào thứ tự gán giá trị trong __init__",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong context manager viết bằng class, nếu `__exit__(self, exc_type, exc_val, exc_tb)` trả về `True` khi có exception xảy ra trong block `with`, điều gì xảy ra?",
+    "explanation": "Giá trị trả về truthy của `__exit__` báo cho Python biết exception đã được xử lý bên trong `__exit__`, nên nó bị suppress — không propagate ra ngoài block `with`, và chương trình tiếp tục chạy các dòng code phía sau bình thường.",
+    "options": [
+      {
+        "content": "Exception bị coi như đã xử lý (suppressed), không propagate ra ngoài block with",
+        "is_correct": true
+      },
+      {
+        "content": "Exception vẫn được ném ra như thường lệ, giá trị trả về của __exit__ không ảnh hưởng gì",
+        "is_correct": false
+      },
+      {
+        "content": "Python sẽ raise lại chính exception đó nhưng kèm thêm traceback riêng của __exit__",
+        "is_correct": false
+      },
+      {
+        "content": "__exit__ trả True chỉ có hiệu lực khi bên trong nó có gọi raise",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Khi dùng `@contextlib.contextmanager` để viết context manager từ một generator function, phần code sau lệnh `yield` có vai trò gì?",
+    "explanation": "Phần trước `yield` đóng vai trò `__enter__`, phần sau `yield` đóng vai trò cleanup giống `finally` — luôn chạy khi thoát `with`; nếu block `with` gặp exception, exception đó được ném vào ngay tại điểm `yield` bên trong generator (nên thường cần bọc try/except/finally quanh yield).",
+    "options": [
+      {
+        "content": "Đóng vai trò cleanup giống finally, luôn chạy khi thoát with; exception trong block with được ném vào ngay tại điểm yield",
+        "is_correct": true
+      },
+      {
+        "content": "Chỉ chạy khi block with hoàn thành mà không có bất kỳ exception nào xảy ra",
+        "is_correct": false
+      },
+      {
+        "content": "Chạy trước khi block with bắt đầu, có vai trò giống hệt __enter__",
+        "is_correct": false
+      },
+      {
+        "content": "contextlib.contextmanager không cho phép có code sau yield, generator phải return ngay tại đó",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao gọi một hàm blocking đồng bộ (ví dụ `time.sleep(5)`) bên trong một coroutine `async def` lại là vấn đề nghiêm trọng trong asyncio?",
+    "explanation": "asyncio chạy cooperative multitasking trên một event loop đơn luồng: các coroutine chỉ nhường quyền điều khiển tại điểm `await`. Một hàm blocking không có `await` sẽ giữ luồng thực thi, khiến toàn bộ event loop bị đứng và mọi coroutine/task khác đều phải chờ, dù chúng không liên quan gì đến sleep.",
+    "options": [
+      {
+        "content": "asyncio chạy trên event loop đơn luồng cooperative; hàm blocking không nhường quyền điều khiển nên làm đứng toàn bộ event loop",
+        "is_correct": true
+      },
+      {
+        "content": "time.sleep sẽ tự động tạo ra một thread mới ngoài ý muốn, gây race condition với các coroutine khác",
+        "is_correct": false
+      },
+      {
+        "content": "asyncio sẽ raise RuntimeError ngay khi phát hiện có hàm blocking được gọi trong coroutine",
+        "is_correct": false
+      },
+      {
+        "content": "GIL bị giải phóng hoàn toàn trong lúc sleep, khiến các coroutine khác chạy sai thứ tự đã lên lịch",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Iterator protocol trong Python (dùng cho vòng lặp `for`) được định nghĩa dựa trên điều gì?",
+    "explanation": "Iterator protocol yêu cầu object có `__iter__()` (thường trả về chính nó) và `__next__()` trả về giá trị kế tiếp hoặc raise `StopIteration` khi hết phần tử; đây khác với protocol cũ dựa trên `__getitem__`/`IndexError` mà Python vẫn hỗ trợ như một fallback riêng biệt.",
+    "options": [
+      {
+        "content": "Object có __iter__() trả về chính nó, và __next__() trả giá trị tiếp theo hoặc raise StopIteration khi hết",
+        "is_correct": true
+      },
+      {
+        "content": "Object phải implement __len__() và __getitem__() để vòng lặp for biết khi nào dừng",
+        "is_correct": false
+      },
+      {
+        "content": "Object chỉ cần implement __next__(), Python tự suy ra __iter__() từ đó mà không cần khai báo",
+        "is_correct": false
+      },
+      {
+        "content": "Object phải raise IndexError khi hết phần tử, giống cách list báo lỗi khi truy cập ngoài phạm vi",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "`yield from sub_generator()` trong một generator có tác dụng gì mà một vòng `for x in sub_generator(): yield x` đơn giản không làm được đầy đủ?",
+    "explanation": "`yield from` tạo một kênh giao tiếp hai chiều đầy đủ: nó tự động forward `send()`, `throw()` từ generator cha xuống sub-generator, và forward giá trị `return` của sub-generator lên thành kết quả của biểu thức `yield from`; vòng `for...yield` thông thường chỉ chuyển tiếp các giá trị được yield, không xử lý được send/throw/return.",
+    "options": [
+      {
+        "content": "Nó forward cả send(), throw(), và giá trị return giữa generator cha và sub-generator, không chỉ đơn thuần lặp qua giá trị yield",
+        "is_correct": true
+      },
+      {
+        "content": "Nó chạy sub-generator trên một thread riêng để tránh block generator cha",
+        "is_correct": false
+      },
+      {
+        "content": "Nó biến sub-generator thành một list đầy đủ trước khi yield từng phần tử",
+        "is_correct": false
+      },
+      {
+        "content": "Nó hoàn toàn tương đương vòng for...yield về hành vi runtime, chỉ khác cú pháp",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Nếu một class override `__eq__` nhưng không override `__hash__`, điều gì xảy ra khi thử đưa instance của class đó vào một `set` hoặc dùng làm key của `dict`?",
+    "explanation": "Python quy định: khi một class override `__eq__` mà không định nghĩa lại `__hash__`, `__hash__` của class đó tự động bị đặt thành `None` (vì hai object bằng nhau theo `__eq__` nhưng hash khác nhau theo `object.__hash__` mặc định sẽ vi phạm hợp đồng hash), khiến instance trở thành unhashable và raise `TypeError` khi cho vào set/dict.",
+    "options": [
+      {
+        "content": "__hash__ tự động bị đặt thành None, instance trở thành unhashable và raise TypeError khi cho vào set/dict",
+        "is_correct": true
+      },
+      {
+        "content": "Python vẫn dùng __hash__ kế thừa từ object dựa trên id(), hoạt động bình thường không lỗi",
+        "is_correct": false
+      },
+      {
+        "content": "Instance được hash dựa trên giá trị trả về của __eq__, luôn cho ra cùng một hash",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ raise lỗi khi so sánh hai instance khác kiểu dữ liệu, còn thêm vào set thì vẫn chạy bình thường",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Dunder method `__call__` khi được định nghĩa trên một class có ý nghĩa gì?",
+    "explanation": "`__call__` cho phép instance của class được gọi trực tiếp bằng cú pháp `instance(...)` như một hàm; đây là kỹ thuật phổ biến để viết decorator dạng class hoặc các object có trạng thái nội tại nhưng vẫn hành xử như một callable.",
+    "options": [
+      {
+        "content": "Cho phép instance của class được gọi như một hàm bằng cú pháp instance(...), thường dùng để viết decorator dạng class",
+        "is_correct": true
+      },
+      {
+        "content": "Cho phép class đó được dùng trực tiếp làm decorator mà không cần tạo instance",
+        "is_correct": false
+      },
+      {
+        "content": "Bắt buộc phải có ở mọi class implement context manager để hỗ trợ cú pháp with",
+        "is_correct": false
+      },
+      {
+        "content": "Được Python tự động gọi mỗi khi instance của class bị garbage collect",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Sự khác biệt chính giữa `__repr__` và `__str__` là gì?",
+    "explanation": "`__repr__` hướng tới developer, nhằm tạo biểu diễn rõ ràng, không mơ hồ (lý tưởng là có thể dùng lại để tái tạo object), và được Python dùng làm fallback khi `__str__` không được định nghĩa, cũng như khi hiển thị object trong REPL, list, dict; `__str__` hướng tới người dùng cuối, ưu tiên dễ đọc.",
+    "options": [
+      {
+        "content": "__repr__ hướng tới developer (rõ ràng, không mơ hồ, dùng làm fallback cho __str__ và khi in trong REPL/container), __str__ hướng tới người dùng cuối, dễ đọc hơn",
+        "is_correct": true
+      },
+      {
+        "content": "__repr__ chỉ dùng nội bộ cho debugger, không bao giờ được gọi trong code thông thường",
+        "is_correct": false
+      },
+      {
+        "content": "__str__ là bắt buộc phải định nghĩa, còn __repr__ là tùy chọn và không có giá trị mặc định nào",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai hoàn toàn giống nhau về mục đích, chỉ khác cú pháp gọi giữa repr() và str()",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "So với `namedtuple`, dùng `@dataclass(frozen=True, slots=True)` mang lại ưu điểm nào?",
+    "explanation": "Dataclass diễn đạt model bằng type annotation, default/default_factory, method và validation trong `__post_init__` thuận tiện hơn. `slots=True` bỏ `__dict__` thông thường nên thường giảm memory, còn `frozen=True` chặn gán field qua API dataclass nhưng không tạo deep immutability. Kích thước thực tế tùy phiên bản CPython, field và kiểu dữ liệu, vì vậy cần đo thay vì khẳng định bằng namedtuple.",
+    "options": [
+      {
+        "content": "`frozen=True` tạo API gần bất biến và dataclass hỗ trợ type hint/default/method linh hoạt; `slots=True` thường giảm overhead instance, nhưng mức tiết kiệm không được bảo đảm “tương đương namedtuple”.",
+        "is_correct": true
+      },
+      {
+        "content": "namedtuple không thể so sánh bằng == giữa hai instance, còn dataclass frozen thì có thể",
+        "is_correct": false
+      },
+      {
+        "content": "dataclass(frozen=True) cho phép sửa đổi giá trị field sau khi tạo, còn namedtuple thì không",
+        "is_correct": false
+      },
+      {
+        "content": "namedtuple tiêu tốn nhiều bộ nhớ hơn dataclass thông thường vì phải lưu tên field riêng trong mỗi instance",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Trong type hinting, sự khác biệt giữa dùng `TypeVar` (generic) và `Protocol` là gì?",
+    "explanation": "`TypeVar` biểu diễn một kiểu chung/generic để ràng buộc quan hệ giữa các tham số và giá trị trả về của hàm/class (ví dụ đảm bảo input và output cùng kiểu); `Protocol` định nghĩa structural typing (duck typing tĩnh) — một kiểu được coi là khớp Protocol nếu nó có đủ method/attribute cần thiết, không cần kế thừa rõ ràng từ Protocol đó.",
+    "options": [
+      {
+        "content": "TypeVar biểu diễn kiểu generic ràng buộc giữa input/output, Protocol định nghĩa structural typing dựa trên method/attribute có sẵn, không cần kế thừa",
+        "is_correct": true
+      },
+      {
+        "content": "TypeVar chỉ dùng được với kiểu built-in như int, str, còn Protocol dùng cho custom class",
+        "is_correct": false
+      },
+      {
+        "content": "Protocol là cách duy nhất để khai báo generic class trong Python, TypeVar đã bị deprecated",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai đều được CPython interpreter kiểm tra và enforce bắt buộc tại runtime",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Với đa kế thừa hình kim cương như `class D(B, C)`, trong đó `B(A)` và `C(A)`, khi gọi `super()` trong `D`, thứ tự tìm phương thức được xác định bằng cách nào?",
+    "explanation": "MRO được tính bằng thuật toán C3 linearization, cho ra thứ tự D, B, C, A: đảm bảo một class luôn xuất hiện trước class cha của nó, giữ đúng thứ tự khai báo kế thừa tại D(B, C), và mỗi class chỉ xuất hiện đúng một lần trong MRO (khác với depth-first thuần túy kiểu cũ có thể viếng A hai lần).",
+    "options": [
+      {
+        "content": "Theo MRO tính bằng C3 linearization, cho ra thứ tự D, B, C, A, đảm bảo mỗi class chỉ xuất hiện một lần",
+        "is_correct": true
+      },
+      {
+        "content": "Python tìm kiếm depth-first thuần túy từ trái sang phải kiểu cũ, cho ra thứ tự D, B, A, C, A",
+        "is_correct": false
+      },
+      {
+        "content": "Thứ tự được xác định ngẫu nhiên tại runtime tùy vào thời điểm class được import",
+        "is_correct": false
+      },
+      {
+        "content": "super() trong đa kế thừa luôn gọi trực tiếp lên class gốc chung (A), bỏ qua hoàn toàn B và C",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Vì sao nối chuỗi bằng `+=` trong một vòng lặp lớn (hàng chục nghìn lần) thường được coi là một performance pitfall trong Python, và cách khắc phục phổ biến là gì?",
+    "explanation": "Vì `str` là kiểu bất biến, mỗi lần `+=` phải tạo ra một object chuỗi mới và copy lại toàn bộ nội dung cũ, khiến tổng chi phí gần O(n²) theo số lần lặp; cách khắc phục phổ biến là gom các đoạn chuỗi vào một list rồi gọi `''.join(list)` một lần duy nhất ở cuối, chỉ tốn O(n).",
+    "options": [
+      {
+        "content": "Vì str là immutable nên mỗi lần += phải tạo chuỗi mới và copy nội dung cũ, gần O(n²); khắc phục bằng cách gom vào list rồi dùng ''.join()",
+        "is_correct": true
+      },
+      {
+        "content": "Vì += trên chuỗi luôn tạo ra deadlock giữa các thread do tranh chấp GIL",
+        "is_correct": false
+      },
+      {
+        "content": "Vì Python giới hạn độ dài tối đa của một chuỗi là 65536 ký tự, buộc phải chia nhỏ và nối lại",
+        "is_correct": false
+      },
+      {
+        "content": "Vì += trên chuỗi thực chất gọi ngầm hàm eval() để parse lại chuỗi mỗi lần, gây chậm",
+        "is_correct": false
+      }
+    ]
+  }
+]
