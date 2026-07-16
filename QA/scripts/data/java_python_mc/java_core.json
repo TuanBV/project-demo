@@ -1,14 +1,14 @@
 [
   {
     "content": "JDK, JRE và JVM khác nhau thế nào?",
-    "explanation": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+    "explanation": "JVM là máy ảo thực thi bytecode. “JRE” là lớp runtime gồm JVM và thư viện cần để chạy, còn JDK bổ sung javac và các công cụ phát triển. Đây vẫn là phân biệt khái niệm hữu ích, nhưng từ Java 11 nhiều vendor không còn cung cấp một gói JRE độc lập như trước; ứng dụng thường dùng JDK runtime image hoặc image tạo bằng `jlink`.",
     "options": [
       {
         "content": "Dùng làm kiểu trả về khi giá trị có thể thiếu. Tránh dùng làm field/parameter tùy tiện và tránh gọi get() không kiểm tra; ưu tiên map, flatMap, orElseGet, orElseThrow.",
         "is_correct": false
       },
       {
-        "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
+        "content": "JVM thực thi bytecode. Về mặt khái niệm, JRE gồm JVM và thư viện/runtime để chạy ứng dụng; JDK gồm runtime cùng compiler, debugger và công cụ phát triển. Nhiều JDK hiện đại không còn phát hành một JRE độc lập.",
         "is_correct": true
       },
       {
@@ -309,7 +309,7 @@
   },
   {
     "content": "final, finally và finalize khác nhau thế nào?",
-    "explanation": "final áp dụng cho biến/phương thức/lớp. finally là block dọn dẹp sau try/catch. finalize() là cơ chế cũ không đáng tin cậy và đã bị loại bỏ dần; nên dùng try-with-resources/Cleaner khi thật sự cần.",
+    "explanation": "`final` là keyword hạn chế gán/override/kế thừa tùy vị trí. `finally` dùng cho logic kết thúc nhưng quản lý resource nên ưu tiên try-with-resources. `Object.finalize()` không bảo đảm thời điểm hay việc sẽ chạy, đã deprecated for removal; dùng try-with-resources, explicit close hoặc Cleaner khi thật sự phù hợp.",
     "options": [
       {
         "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
@@ -324,7 +324,7 @@
         "is_correct": false
       },
       {
-        "content": "final áp dụng cho biến/phương thức/lớp. finally là block dọn dẹp sau try/catch. finalize() là cơ chế cũ không đáng tin cậy và đã bị loại bỏ dần; nên dùng try-with-resources/Cleaner khi thật sự cần.",
+        "content": "`final` áp dụng cho biến/phương thức/lớp; `finally` là block chạy khi rời `try` (trừ các tình huống tiến trình kết thúc bất thường); `finalize()` là cơ chế không đáng tin cậy, deprecated for removal và không nên dùng.",
         "is_correct": true
       }
     ]
@@ -595,7 +595,7 @@
   },
   {
     "content": "Record trong Java dùng khi nào?",
-    "explanation": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+    "explanation": "Record giảm boilerplate cho dữ liệu được xác định bởi một tập component. Component field là final nên record bất biến nông, nhưng object mutable được tham chiếu vẫn có thể thay đổi. Record có thể kiểm tra invariant trong compact constructor, song entity ORM hoặc object có identity/vòng đời mutable thường cần class thông thường.",
     "options": [
       {
         "content": "JVM thực thi Java bytecode. JRE gồm JVM và thư viện cần để chạy ứng dụng. JDK gồm JRE cùng compiler, debugger và công cụ phát triển.",
@@ -610,7 +610,7 @@
         "is_correct": false
       },
       {
-        "content": "Record phù hợp dữ liệu bất biến dạng carrier; compiler tạo constructor, accessor, equals, hashCode, toString. Không thay thế entity mutable hoặc class có invariants phức tạp.",
+        "content": "Record phù hợp cho data carrier bất biến nông; compiler tạo constructor/accessor/equals/hashCode/toString. Không mặc nhiên deep-immutable và không luôn phù hợp với entity mutable hay invariants/vòng đời phức tạp.",
         "is_correct": true
       }
     ]

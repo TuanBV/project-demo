@@ -441,7 +441,7 @@
   },
   {
     "content": "GIL trong CPython là gì?",
-    "explanation": "Global Interpreter Lock cho phép một thread thực thi Python bytecode tại một thời điểm trong một process CPython. Thread vẫn hữu ích cho I/O-bound; CPU-bound thường dùng multiprocessing hoặc native code giải phóng GIL.",
+    "explanation": "GIL truyền thống đơn giản hóa một phần quản lý object của CPython nhưng giới hạn song song CPU của Python bytecode trong một process. I/O thường nhả GIL nên thread vẫn có ích; CPU-bound thường dùng multiprocessing, native code nhả GIL hoặc free-threaded CPython nếu ecosystem tương thích. GIL không phải khóa nghiệp vụ và không làm các thao tác nhiều bước trở thành atomic.",
     "options": [
       {
         "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
@@ -452,7 +452,7 @@
         "is_correct": false
       },
       {
-        "content": "Global Interpreter Lock cho phép một thread thực thi Python bytecode tại một thời điểm trong một process CPython. Thread vẫn hữu ích cho I/O-bound; CPU-bound thường dùng multiprocessing hoặc native code giải phóng GIL.",
+        "content": "Trong build CPython có GIL, tại một thời điểm chỉ một thread thực thi Python bytecode trong một interpreter; thread vẫn hữu ích cho I/O. Free-threaded build (hỗ trợ từ Python 3.13) có thể tắt GIL, nên CPU-bound strategy phụ thuộc build và extension.",
         "is_correct": true
       },
       {
