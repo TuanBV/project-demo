@@ -1,0 +1,68 @@
+[
+  {
+    "content": "RESTful API nên trả status code nào khi tạo resource?",
+    "explanation": "Thường 201 Created và có thể kèm Location. Validation sai: 400 hoặc 422 tùy convention; chưa xác thực 401; không đủ quyền 403; không tìm thấy 404; xung đột 409.",
+    "options": [
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      },
+      {
+        "content": "Thường 201 Created và có thể kèm Location. Validation sai: 400 hoặc 422 tùy convention; chưa xác thực 401; không đủ quyền 403; không tìm thấy 404; xung đột 409.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "PUT và PATCH khác nhau thế nào?",
+    "explanation": "PUT thường thay thế toàn bộ representation và idempotent. PATCH cập nhật một phần; có thể idempotent nếu thiết kế operation phù hợp.",
+    "options": [
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "PUT thường thay thế toàn bộ representation và idempotent. PATCH cập nhật một phần; có thể idempotent nếu thiết kế operation phù hợp.",
+        "is_correct": true
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Idempotency là gì?",
+    "explanation": "Gọi cùng request nhiều lần có cùng trạng thái cuối như gọi một lần. GET/PUT/DELETE về ngữ nghĩa thường idempotent; POST thường không, nhưng có thể dùng idempotency key.",
+    "options": [
+      {
+        "content": "Gọi cùng request nhiều lần có cùng trạng thái cuối như gọi một lần. GET/PUT/DELETE về ngữ nghĩa thường idempotent; POST thường không, nhưng có thể dùng idempotency key.",
+        "is_correct": true
+      },
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": false
+      },
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      }
+    ]
+  }
+]

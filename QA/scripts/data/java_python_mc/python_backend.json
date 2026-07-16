@@ -1,0 +1,178 @@
+[
+  {
+    "content": "Flask, Django và FastAPI khác nhau thế nào?",
+    "explanation": "Flask tối giản và linh hoạt; Django “batteries included” có ORM/admin/auth; FastAPI tập trung API hiện đại, type hint, validation và async. Chọn theo quy mô, yêu cầu và kinh nghiệm đội.",
+    "options": [
+      {
+        "content": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+        "is_correct": false
+      },
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng parameterized query hoặc ORM đúng cách; không nối chuỗi input vào SQL; kiểm soát dynamic column/order bằng allowlist; áp dụng least privilege cho tài khoản DB.",
+        "is_correct": false
+      },
+      {
+        "content": "Flask tối giản và linh hoạt; Django “batteries included” có ORM/admin/auth; FastAPI tập trung API hiện đại, type hint, validation và async. Chọn theo quy mô, yêu cầu và kinh nghiệm đội.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "WSGI và ASGI khác nhau thế nào?",
+    "explanation": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+    "options": [
+      {
+        "content": "Dùng parameterized query hoặc ORM đúng cách; không nối chuỗi input vào SQL; kiểm soát dynamic column/order bằng allowlist; áp dụng least privilege cho tài khoản DB.",
+        "is_correct": false
+      },
+      {
+        "content": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+        "is_correct": false
+      },
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": true
+      },
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Dependency injection trong FastAPI dùng để làm gì?",
+    "explanation": "Depends cho phép khai báo dependency như auth, DB session, config; framework resolve và cache theo request, giúp tái sử dụng và test override.",
+    "options": [
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng parameterized query hoặc ORM đúng cách; không nối chuỗi input vào SQL; kiểm soát dynamic column/order bằng allowlist; áp dụng least privilege cho tài khoản DB.",
+        "is_correct": false
+      },
+      {
+        "content": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+        "is_correct": false
+      },
+      {
+        "content": "Depends cho phép khai báo dependency như auth, DB session, config; framework resolve và cache theo request, giúp tái sử dụng và test override.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "ORM có ưu và nhược điểm gì?",
+    "explanation": "Tăng năng suất, abstraction DB và mapping object; nhược điểm là dễ tạo query kém hiệu quả, che giấu SQL và coupling vào framework. Cần hiểu SQL và profiling query.",
+    "options": [
+      {
+        "content": "Tăng năng suất, abstraction DB và mapping object; nhược điểm là dễ tạo query kém hiệu quả, che giấu SQL và coupling vào framework. Cần hiểu SQL và profiling query.",
+        "is_correct": true
+      },
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": false
+      },
+      {
+        "content": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Session/connection DB nên quản lý thế nào?",
+    "explanation": "Tạo theo request/unit of work, commit/rollback rõ ràng và luôn close/return pool. Không dùng một session mutable toàn cục cho nhiều request.",
+    "options": [
+      {
+        "content": "Flask tối giản và linh hoạt; Django “batteries included” có ORM/admin/auth; FastAPI tập trung API hiện đại, type hint, validation và async. Chọn theo quy mô, yêu cầu và kinh nghiệm đội.",
+        "is_correct": false
+      },
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": false
+      },
+      {
+        "content": "Tạo theo request/unit of work, commit/rollback rõ ràng và luôn close/return pool. Không dùng một session mutable toàn cục cho nhiều request.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Làm thế nào bảo vệ API khỏi SQL Injection?",
+    "explanation": "Dùng parameterized query hoặc ORM đúng cách; không nối chuỗi input vào SQL; kiểm soát dynamic column/order bằng allowlist; áp dụng least privilege cho tài khoản DB.",
+    "options": [
+      {
+        "content": "Depends cho phép khai báo dependency như auth, DB session, config; framework resolve và cache theo request, giúp tái sử dụng và test override.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng parameterized query hoặc ORM đúng cách; không nối chuỗi input vào SQL; kiểm soát dynamic column/order bằng allowlist; áp dụng least privilege cho tài khoản DB.",
+        "is_correct": true
+      },
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": false
+      },
+      {
+        "content": "Tạo theo request/unit of work, commit/rollback rõ ràng và luôn close/return pool. Không dùng một session mutable toàn cục cho nhiều request.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Authentication và authorization khác nhau thế nào?",
+    "explanation": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+    "options": [
+      {
+        "content": "Depends cho phép khai báo dependency như auth, DB session, config; framework resolve và cache theo request, giúp tái sử dụng và test override.",
+        "is_correct": false
+      },
+      {
+        "content": "Flask tối giản và linh hoạt; Django “batteries included” có ORM/admin/auth; FastAPI tập trung API hiện đại, type hint, validation và async. Chọn theo quy mô, yêu cầu và kinh nghiệm đội.",
+        "is_correct": false
+      },
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": false
+      },
+      {
+        "content": "Authentication xác định người dùng là ai. Authorization kiểm tra người đó được phép làm gì. API cần kiểm tra authorization tại server cho từng resource/action.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "JWT có nhược điểm gì?",
+    "explanation": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+    "options": [
+      {
+        "content": "WSGI là interface truyền thống cho ứng dụng web Python đồng bộ. ASGI hỗ trợ async, WebSocket và kết nối sống lâu; FastAPI thường chạy trên ASGI server như Uvicorn.",
+        "is_correct": false
+      },
+      {
+        "content": "Khó thu hồi trước hạn nếu hoàn toàn stateless, token có thể lớn và lộ dữ liệu payload nếu hiểu nhầm là mã hóa. Cần thời hạn ngắn, bảo vệ khóa, kiểm tra issuer/audience/algorithm và cơ chế refresh/revoke phù hợp.",
+        "is_correct": true
+      },
+      {
+        "content": "Flask tối giản và linh hoạt; Django “batteries included” có ORM/admin/auth; FastAPI tập trung API hiện đại, type hint, validation và async. Chọn theo quy mô, yêu cầu và kinh nghiệm đội.",
+        "is_correct": false
+      },
+      {
+        "content": "Depends cho phép khai báo dependency như auth, DB session, config; framework resolve và cache theo request, giúp tái sử dụng và test override.",
+        "is_correct": false
+      }
+    ]
+  }
+]

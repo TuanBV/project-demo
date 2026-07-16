@@ -2,7 +2,7 @@
 """Seed the database with ~20 additional multiple-choice interview questions per existing
 category (scripts/data/extended_topics/*.json), targeting a mid-level (~3 years experience)
 backend developer: OOP, Java Core, Spring, Python Core, Python Backend, SQL, REST API, Git,
-Testing.
+Testing, Vibe Coding & AI.
 
 Each JSON file is a plain list of {"content", "explanation", "options": [{"content",
 "is_correct"}x4]} objects. Reuses QuestionService/CategoryService directly -- no separate
@@ -42,6 +42,7 @@ _TOPIC_TO_CATEGORY = {
     "rest_api": "REST API",
     "git": "Git",
     "testing": "Testing",
+    "vibe_coding_ai": "Vibe Coding & AI",
 }
 
 

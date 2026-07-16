@@ -1,0 +1,574 @@
+[
+  {
+    "content": "Python là ngôn ngữ interpreted hay compiled?",
+    "explanation": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "List, tuple, set và dict khác nhau thế nào?",
+    "explanation": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+    "options": [
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": true
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "is và == khác nhau thế nào?",
+    "explanation": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+    "options": [
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Shallow copy và deep copy khác nhau thế nào?",
+    "explanation": "Shallow copy tạo container mới nhưng phần tử lồng nhau vẫn dùng chung reference. Deep copy đệ quy sao chép object con khi có thể.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Shallow copy tạo container mới nhưng phần tử lồng nhau vẫn dùng chung reference. Deep copy đệ quy sao chép object con khi có thể.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Mutable default argument gây lỗi gì?",
+    "explanation": "Giá trị mặc định được tạo một lần khi định nghĩa hàm, nên list/dict có thể giữ dữ liệu giữa các lần gọi. Dùng None rồi tạo object trong hàm.",
+    "options": [
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Giá trị mặc định được tạo một lần khi định nghĩa hàm, nên list/dict có thể giữ dữ liệu giữa các lần gọi. Dùng None rồi tạo object trong hàm.",
+        "is_correct": true
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "*args và **kwargs dùng để làm gì?",
+    "explanation": "*args thu positional arguments thành tuple; **kwargs thu keyword arguments thành dict. Khi gọi hàm, * và ** dùng unpack iterable/mapping.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "*args thu positional arguments thành tuple; **kwargs thu keyword arguments thành dict. Khi gọi hàm, * và ** dùng unpack iterable/mapping.",
+        "is_correct": true
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "List comprehension có ưu điểm gì?",
+    "explanation": "Biểu diễn phép biến đổi/lọc ngắn gọn và thường nhanh hơn vòng lặp append thuần. Không nên lồng quá phức tạp làm giảm khả năng đọc.",
+    "options": [
+      {
+        "content": "Biểu diễn phép biến đổi/lọc ngắn gọn và thường nhanh hơn vòng lặp append thuần. Không nên lồng quá phức tạp làm giảm khả năng đọc.",
+        "is_correct": true
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Iterator và iterable khác nhau thế nào?",
+    "explanation": "Iterable có __iter__ trả iterator. Iterator có __next__ và giữ trạng thái duyệt; hết dữ liệu thì raise StopIteration.",
+    "options": [
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Iterable có __iter__ trả iterator. Iterator có __next__ và giữ trạng thái duyệt; hết dữ liệu thì raise StopIteration.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Generator là gì?",
+    "explanation": "Hàm dùng yield tạo iterator lazy, chỉ sinh giá trị khi cần nên tiết kiệm bộ nhớ và phù hợp stream dữ liệu lớn.",
+    "options": [
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Hàm dùng yield tạo iterator lazy, chỉ sinh giá trị khi cần nên tiết kiệm bộ nhớ và phù hợp stream dữ liệu lớn.",
+        "is_correct": true
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Decorator là gì?",
+    "explanation": "Callable nhận function/class và trả callable/class mới để bổ sung hành vi như logging, authorization, caching mà không sửa thân hàm.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Callable nhận function/class và trả callable/class mới để bổ sung hành vi như logging, authorization, caching mà không sửa thân hàm.",
+        "is_correct": true
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Context manager là gì?",
+    "explanation": "Đối tượng quản lý setup/cleanup qua __enter__/__exit__, dùng với with. Có thể tạo bằng class hoặc contextlib.contextmanager.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng quản lý setup/cleanup qua __enter__/__exit__, dùng với with. Có thể tạo bằng class hoặc contextlib.contextmanager.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "LEGB rule là gì?",
+    "explanation": "Thứ tự tìm tên: Local, Enclosing, Global, Built-in. global và nonlocal cho phép gán vào scope tương ứng nhưng nên dùng thận trọng.",
+    "options": [
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Thứ tự tìm tên: Local, Enclosing, Global, Built-in. global và nonlocal cho phép gán vào scope tương ứng nhưng nên dùng thận trọng.",
+        "is_correct": true
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Duck typing là gì?",
+    "explanation": "Đánh giá object theo hành vi/phương thức nó cung cấp thay vì bắt buộc đúng class. “Nếu hoạt động như vịt thì coi như vịt”. Type hint/Protocol có thể mô tả contract mà vẫn linh hoạt.",
+    "options": [
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "Đánh giá object theo hành vi/phương thức nó cung cấp thay vì bắt buộc đúng class. “Nếu hoạt động như vịt thì coi như vịt”. Type hint/Protocol có thể mô tả contract mà vẫn linh hoạt.",
+        "is_correct": true
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Magic method là gì?",
+    "explanation": "Các phương thức đặc biệt như __init__, __str__, __len__, __eq__, __enter__ cho phép class tích hợp với cú pháp và protocol của Python.",
+    "options": [
+      {
+        "content": "Các phương thức đặc biệt như __init__, __str__, __len__, __eq__, __enter__ cho phép class tích hợp với cú pháp và protocol của Python.",
+        "is_correct": true
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "@staticmethod, @classmethod và instance method khác nhau thế nào?",
+    "explanation": "Instance method nhận self; classmethod nhận cls, thường dùng alternate constructor; staticmethod không nhận self/cls, là hàm tiện ích đặt trong namespace của class.",
+    "options": [
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "Instance method nhận self; classmethod nhận cls, thường dùng alternate constructor; staticmethod không nhận self/cls, là hàm tiện ích đặt trong namespace của class.",
+        "is_correct": true
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Dataclass dùng khi nào?",
+    "explanation": "Dùng cho class chủ yếu chứa dữ liệu; tự sinh __init__, __repr__, __eq__ và hỗ trợ frozen/order/default_factory. Không tự động validation.",
+    "options": [
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng cho class chủ yếu chứa dữ liệu; tự sinh __init__, __repr__, __eq__ và hỗ trợ frozen/order/default_factory. Không tự động validation.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Exception handling tốt trong Python cần lưu ý gì?",
+    "explanation": "Bắt exception cụ thể, giữ phạm vi try nhỏ, dùng else/finally đúng mục đích, không nuốt lỗi bằng except: pass và dùng raise ... from ... để giữ nguyên nhân.",
+    "options": [
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Bắt exception cụ thể, giữ phạm vi try nhỏ, dùng else/finally đúng mục đích, không nuốt lỗi bằng except: pass và dùng raise ... from ... để giữ nguyên nhân.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "with statement giúp gì khi làm việc với file?",
+    "explanation": "Đảm bảo file được đóng kể cả khi có exception. Ví dụ with open(...) as f. Cần chỉ rõ encoding như utf-8 khi xử lý text.",
+    "options": [
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "Đảm bảo file được đóng kể cả khi có exception. Ví dụ with open(...) as f. Cần chỉ rõ encoding như utf-8 khi xử lý text.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Module và package khác nhau thế nào?",
+    "explanation": "Module thường là một file Python. Package là tập module có namespace; package hiện đại có thể là regular package có __init__.py hoặc namespace package.",
+    "options": [
+      {
+        "content": "Module thường là một file Python. Package là tập module có namespace; package hiện đại có thể là regular package có __init__.py hoặc namespace package.",
+        "is_correct": true
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Virtual environment dùng để làm gì?",
+    "explanation": "Cô lập dependency và phiên bản package giữa các dự án, tránh xung đột với Python hệ thống. Thường dùng venv, virtualenv, Poetry hoặc uv.",
+    "options": [
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Shallow copy tạo container mới nhưng phần tử lồng nhau vẫn dùng chung reference. Deep copy đệ quy sao chép object con khi có thể.",
+        "is_correct": false
+      },
+      {
+        "content": "Cô lập dependency và phiên bản package giữa các dự án, tránh xung đột với Python hệ thống. Thường dùng venv, virtualenv, Poetry hoặc uv.",
+        "is_correct": true
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "GIL trong CPython là gì?",
+    "explanation": "Global Interpreter Lock cho phép một thread thực thi Python bytecode tại một thời điểm trong một process CPython. Thread vẫn hữu ích cho I/O-bound; CPU-bound thường dùng multiprocessing hoặc native code giải phóng GIL.",
+    "options": [
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Global Interpreter Lock cho phép một thread thực thi Python bytecode tại một thời điểm trong một process CPython. Thread vẫn hữu ích cho I/O-bound; CPU-bound thường dùng multiprocessing hoặc native code giải phóng GIL.",
+        "is_correct": true
+      },
+      {
+        "content": "Shallow copy tạo container mới nhưng phần tử lồng nhau vẫn dùng chung reference. Deep copy đệ quy sao chép object con khi có thể.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Threading, multiprocessing và asyncio dùng khi nào?",
+    "explanation": "Threading phù hợp I/O blocking và thư viện đồng bộ; multiprocessing cho CPU-bound, đổi lại tốn IPC/bộ nhớ; asyncio cho nhiều I/O concurrent khi dùng thư viện async và event loop.",
+    "options": [
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Threading phù hợp I/O blocking và thư viện đồng bộ; multiprocessing cho CPU-bound, đổi lại tốn IPC/bộ nhớ; asyncio cho nhiều I/O concurrent khi dùng thư viện async và event loop.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "async và await hoạt động thế nào?",
+    "explanation": "async def tạo coroutine. await tạm nhường quyền khi chờ awaitable để event loop chạy task khác; không tự động làm code CPU-bound nhanh hơn.",
+    "options": [
+      {
+        "content": "async def tạo coroutine. await tạm nhường quyền khi chờ awaitable để event loop chạy task khác; không tự động làm code CPU-bound nhanh hơn.",
+        "is_correct": true
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Type hint có bắt buộc tại runtime không?",
+    "explanation": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+    "options": [
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "Shallow copy tạo container mới nhưng phần tử lồng nhau vẫn dùng chung reference. Deep copy đệ quy sao chép object con khi có thể.",
+        "is_correct": false
+      },
+      {
+        "content": "Không. Type hint chủ yếu phục vụ IDE, static checker và tài liệu. Runtime vẫn dynamic trừ khi framework/library chủ động kiểm tra.",
+        "is_correct": true
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Pydantic khác dataclass thế nào?",
+    "explanation": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+    "options": [
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      },
+      {
+        "content": "Pydantic tập trung parsing/validation/serialization dữ liệu runtime; dataclass chủ yếu giảm boilerplate cho class dữ liệu và không mặc định validate.",
+        "is_correct": true
+      },
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "pytest fixture là gì?",
+    "explanation": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+    "options": [
+      {
+        "content": "== so sánh giá trị theo __eq__; is so sánh identity, tức có cùng object hay không. Dùng is None thay vì == None.",
+        "is_correct": false
+      },
+      {
+        "content": "List có thứ tự, mutable; tuple có thứ tự, immutable; set chứa phần tử duy nhất và tối ưu membership; dict ánh xạ key-value, giữ thứ tự chèn trong Python hiện đại.",
+        "is_correct": false
+      },
+      {
+        "content": "Cơ chế setup dependency/test data có thể tái sử dụng, quản lý scope và teardown bằng yield. Giúp test rõ và giảm lặp.",
+        "is_correct": true
+      },
+      {
+        "content": "Cả hai theo nghĩa thực tế: CPython biên dịch source thành bytecode rồi interpreter/virtual machine thực thi. Các implementation khác có thể dùng JIT hoặc cách khác.",
+        "is_correct": false
+      }
+    ]
+  }
+]

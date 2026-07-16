@@ -1,0 +1,266 @@
+[
+  {
+    "content": "Compiler và interpreter khác nhau thế nào?",
+    "explanation": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+    "options": [
+      {
+        "content": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+        "is_correct": false
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      },
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Biến cục bộ, biến instance và biến class khác nhau thế nào?",
+    "explanation": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+    "options": [
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": false
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      },
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": true
+      },
+      {
+        "content": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Mutable và immutable là gì?",
+    "explanation": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+    "options": [
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": false
+      },
+      {
+        "content": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+        "is_correct": false
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": true
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Tham trị và tham chiếu được truyền vào hàm như thế nào?",
+    "explanation": "Java luôn truyền tham trị; với object, giá trị được truyền là bản sao của reference. Python truyền theo cơ chế object sharing: tên biến mới trỏ tới cùng object; thay đổi object mutable có thể thấy bên ngoài, nhưng gán lại tên không làm đổi biến bên gọi.",
+    "options": [
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      },
+      {
+        "content": "Interface mô tả hợp đồng hành vi và hỗ trợ đa kế thừa kiểu. Abstract class có thể chứa trạng thái, constructor và implementation dùng chung. Python không có interface keyword; thường dùng ABC, Protocol hoặc duck typing.",
+        "is_correct": false
+      },
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": false
+      },
+      {
+        "content": "Java luôn truyền tham trị; với object, giá trị được truyền là bản sao của reference. Python truyền theo cơ chế object sharing: tên biến mới trỏ tới cùng object; thay đổi object mutable có thể thấy bên ngoài, nhưng gán lại tên không làm đổi biến bên gọi.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Stack memory và heap memory khác nhau thế nào?",
+    "explanation": "Stack thường chứa frame của hàm, biến cục bộ và thông tin gọi hàm; cấp phát/thu hồi nhanh theo LIFO. Heap chứa object có vòng đời linh hoạt và được garbage collector quản lý.",
+    "options": [
+      {
+        "content": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+        "is_correct": false
+      },
+      {
+        "content": "Stack thường chứa frame của hàm, biến cục bộ và thông tin gọi hàm; cấp phát/thu hồi nhanh theo LIFO. Heap chứa object có vòng đời linh hoạt và được garbage collector quản lý.",
+        "is_correct": true
+      },
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": false
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Exception khác error thông thường thế nào?",
+    "explanation": "Exception là sự kiện bất thường có thể bắt và xử lý. Lỗi nghiêm trọng thuộc môi trường/runtime thường không nên cố phục hồi. Java phân biệt Exception và Error; Python dùng hệ thống exception, trong đó BaseException là gốc.",
+    "options": [
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      },
+      {
+        "content": "Exception là sự kiện bất thường có thể bắt và xử lý. Lỗi nghiêm trọng thuộc môi trường/runtime thường không nên cố phục hồi. Java phân biệt Exception và Error; Python dùng hệ thống exception, trong đó BaseException là gốc.",
+        "is_correct": true
+      },
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Bốn tính chất của OOP là gì?",
+    "explanation": "Đóng gói, trừu tượng, kế thừa và đa hình. Mục tiêu là che giấu chi tiết, mô hình hóa hành vi, tái sử dụng có kiểm soát và cho phép thay thế implementation.",
+    "options": [
+      {
+        "content": "Đóng gói, trừu tượng, kế thừa và đa hình. Mục tiêu là che giấu chi tiết, mô hình hóa hành vi, tái sử dụng có kiểm soát và cho phép thay thế implementation.",
+        "is_correct": true
+      },
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Interface và abstract class khác nhau thế nào?",
+    "explanation": "Interface mô tả hợp đồng hành vi và hỗ trợ đa kế thừa kiểu. Abstract class có thể chứa trạng thái, constructor và implementation dùng chung. Python không có interface keyword; thường dùng ABC, Protocol hoặc duck typing.",
+    "options": [
+      {
+        "content": "Interface mô tả hợp đồng hành vi và hỗ trợ đa kế thừa kiểu. Abstract class có thể chứa trạng thái, constructor và implementation dùng chung. Python không có interface keyword; thường dùng ABC, Protocol hoặc duck typing.",
+        "is_correct": true
+      },
+      {
+        "content": "Java luôn truyền tham trị; với object, giá trị được truyền là bản sao của reference. Python truyền theo cơ chế object sharing: tên biến mới trỏ tới cùng object; thay đổi object mutable có thể thấy bên ngoài, nhưng gán lại tên không làm đổi biến bên gọi.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Overloading và overriding khác nhau thế nào?",
+    "explanation": "Overloading: cùng tên nhưng khác danh sách tham số, được Java hỗ trợ ở compile time. Overriding: lớp con thay đổi implementation của phương thức lớp cha. Python không hỗ trợ overloading theo chữ ký truyền thống; thường dùng tham số mặc định, *args hoặc singledispatch.",
+    "options": [
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      },
+      {
+        "content": "Overloading: cùng tên nhưng khác danh sách tham số, được Java hỗ trợ ở compile time. Overriding: lớp con thay đổi implementation của phương thức lớp cha. Python không hỗ trợ overloading theo chữ ký truyền thống; thường dùng tham số mặc định, *args hoặc singledispatch.",
+        "is_correct": true
+      },
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Composition và inheritance: nên ưu tiên cách nào?",
+    "explanation": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+    "options": [
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Thường ưu tiên composition vì ghép các thành phần linh hoạt, giảm coupling và tránh cây kế thừa sâu. Dùng inheritance khi có quan hệ “is-a” rõ ràng và tuân thủ nguyên tắc thay thế Liskov.",
+        "is_correct": true
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "SOLID là gì?",
+    "explanation": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+    "options": [
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      },
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Năm nguyên tắc thiết kế: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation và Dependency Inversion. Junior cần hiểu mục tiêu chính là giảm coupling, tăng khả năng thay đổi và kiểm thử.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Big O dùng để làm gì?",
+    "explanation": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+    "options": [
+      {
+        "content": "Biến cục bộ tồn tại trong hàm/khối. Biến instance thuộc từng đối tượng. Biến class/static dùng chung cho mọi đối tượng của lớp.",
+        "is_correct": false
+      },
+      {
+        "content": "Compiler dịch toàn bộ hoặc phần lớn mã nguồn sang mã máy/bytecode trước khi chạy; interpreter thực thi từng lệnh hoặc thông qua máy ảo ở runtime. Java biên dịch sang bytecode rồi JVM thực thi/JIT; Python thường biên dịch sang bytecode rồi chạy trên interpreter như CPython.",
+        "is_correct": false
+      },
+      {
+        "content": "Mô tả tốc độ tăng của thời gian hoặc bộ nhớ theo kích thước đầu vào. Ví dụ truy cập mảng O(1), tìm tuyến tính O(n), binary search O(log n), hai vòng lặp lồng nhau thường O(n²).",
+        "is_correct": true
+      },
+      {
+        "content": "Mutable có thể thay đổi trạng thái sau khi tạo, ví dụ list trong Python hoặc ArrayList trong Java. Immutable không đổi trạng thái, ví dụ str/tuple trong Python và String/Integer trong Java. Immutable dễ chia sẻ, an toàn hơn trong môi trường đa luồng.",
+        "is_correct": false
+      }
+    ]
+  }
+]

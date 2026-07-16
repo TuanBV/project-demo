@@ -1,0 +1,266 @@
+[
+  {
+    "content": "Dependency Injection là gì?",
+    "explanation": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+    "options": [
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": true
+      },
+      {
+        "content": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng Bean Validation annotation như @NotNull, @Size, @Email trên DTO và @Valid/@Validated tại controller/service; xử lý lỗi tập trung bằng @ControllerAdvice.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Spring Bean là gì?",
+    "explanation": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+    "options": [
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      },
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": true
+      },
+      {
+        "content": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "Lazy tải quan hệ khi truy cập; eager tải ngay. Eager dễ lấy thừa dữ liệu; lazy dễ gặp LazyInitializationException hoặc N+1 nếu không quản lý transaction/query tốt.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "@Component, @Service, @Repository khác nhau thế nào?",
+    "explanation": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+    "options": [
+      {
+        "content": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+        "is_correct": true
+      },
+      {
+        "content": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+        "is_correct": false
+      },
+      {
+        "content": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Constructor injection và field injection: nên dùng cách nào?",
+    "explanation": "Ưu tiên constructor injection vì dependency rõ ràng, cho phép final field, dễ test và phát hiện circular dependency sớm. Field injection khó test và che giấu dependency.",
+    "options": [
+      {
+        "content": "Ưu tiên constructor injection vì dependency rõ ràng, cho phép final field, dễ test và phát hiện circular dependency sớm. Field injection khó test và che giấu dependency.",
+        "is_correct": true
+      },
+      {
+        "content": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng Bean Validation annotation như @NotNull, @Size, @Email trên DTO và @Valid/@Validated tại controller/service; xử lý lỗi tập trung bằng @ControllerAdvice.",
+        "is_correct": false
+      },
+      {
+        "content": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "@RestController khác @Controller thế nào?",
+    "explanation": "@RestController tương đương @Controller + @ResponseBody, mặc định serialize giá trị trả về thành JSON/XML. @Controller thường dùng với view MVC.",
+    "options": [
+      {
+        "content": "@RestController tương đương @Controller + @ResponseBody, mặc định serialize giá trị trả về thành JSON/XML. @Controller thường dùng với view MVC.",
+        "is_correct": true
+      },
+      {
+        "content": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+        "is_correct": false
+      },
+      {
+        "content": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Các HTTP method chính nên dùng ra sao?",
+    "explanation": "GET đọc dữ liệu; POST tạo hoặc thực hiện command; PUT thay thế toàn bộ resource và thường idempotent; PATCH cập nhật một phần; DELETE xóa và nên idempotent về trạng thái cuối.",
+    "options": [
+      {
+        "content": "GET đọc dữ liệu; POST tạo hoặc thực hiện command; PUT thay thế toàn bộ resource và thường idempotent; PATCH cập nhật một phần; DELETE xóa và nên idempotent về trạng thái cuối.",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng Bean Validation annotation như @NotNull, @Size, @Email trên DTO và @Valid/@Validated tại controller/service; xử lý lỗi tập trung bằng @ControllerAdvice.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Entity và DTO khác nhau thế nào?",
+    "explanation": "Entity ánh xạ persistence/domain; DTO dùng trao đổi dữ liệu qua boundary. Không nên trả entity trực tiếp vì coupling schema, lazy loading và rò rỉ field nhạy cảm.",
+    "options": [
+      {
+        "content": "Entity ánh xạ persistence/domain; DTO dùng trao đổi dữ liệu qua boundary. Không nên trả entity trực tiếp vì coupling schema, lazy loading và rò rỉ field nhạy cảm.",
+        "is_correct": true
+      },
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "JPA lazy và eager loading khác nhau thế nào?",
+    "explanation": "Lazy tải quan hệ khi truy cập; eager tải ngay. Eager dễ lấy thừa dữ liệu; lazy dễ gặp LazyInitializationException hoặc N+1 nếu không quản lý transaction/query tốt.",
+    "options": [
+      {
+        "content": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      },
+      {
+        "content": "Lazy tải quan hệ khi truy cập; eager tải ngay. Eager dễ lấy thừa dữ liệu; lazy dễ gặp LazyInitializationException hoặc N+1 nếu không quản lý transaction/query tốt.",
+        "is_correct": true
+      },
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "N+1 query là gì?",
+    "explanation": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+    "options": [
+      {
+        "content": "Một query lấy danh sách cha rồi mỗi phần tử phát sinh thêm query lấy quan hệ, tổng N+1. Khắc phục bằng fetch join, entity graph, batch fetching hoặc query DTO phù hợp.",
+        "is_correct": true
+      },
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": false
+      },
+      {
+        "content": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "@Transactional hoạt động thế nào?",
+    "explanation": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+    "options": [
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": false
+      },
+      {
+        "content": "Spring tạo proxy quản lý bắt đầu/commit/rollback transaction quanh method. Self-invocation có thể bỏ qua proxy; rollback mặc định thường áp dụng cho unchecked exception.",
+        "is_correct": true
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      },
+      {
+        "content": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Validation request trong Spring làm thế nào?",
+    "explanation": "Dùng Bean Validation annotation như @NotNull, @Size, @Email trên DTO và @Valid/@Validated tại controller/service; xử lý lỗi tập trung bằng @ControllerAdvice.",
+    "options": [
+      {
+        "content": "Ưu tiên constructor injection vì dependency rõ ràng, cho phép final field, dễ test và phát hiện circular dependency sớm. Field injection khó test và che giấu dependency.",
+        "is_correct": false
+      },
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      },
+      {
+        "content": "Đều tạo bean qua component scanning. @Service diễn đạt tầng nghiệp vụ; @Repository diễn đạt tầng truy cập dữ liệu và hỗ trợ exception translation; @Component là stereotype chung.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng Bean Validation annotation như @NotNull, @Size, @Email trên DTO và @Valid/@Validated tại controller/service; xử lý lỗi tập trung bằng @ControllerAdvice.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Làm thế nào xử lý exception API thống nhất?",
+    "explanation": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+    "options": [
+      {
+        "content": "Đối tượng nhận dependency từ bên ngoài thay vì tự new. Lợi ích: giảm coupling, dễ thay implementation và dễ unit test.",
+        "is_correct": false
+      },
+      {
+        "content": "Object được Spring IoC container khởi tạo, cấu hình và quản lý vòng đời. Bean có thể khai báo bằng stereotype annotation hoặc @Bean.",
+        "is_correct": false
+      },
+      {
+        "content": "Ưu tiên constructor injection vì dependency rõ ràng, cho phép final field, dễ test và phát hiện circular dependency sớm. Field injection khó test và che giấu dependency.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng global exception handler, ánh xạ exception sang status code và error body có cấu trúc như code, message, field errors, timestamp/correlation ID; không lộ stack trace nội bộ.",
+        "is_correct": true
+      }
+    ]
+  }
+]

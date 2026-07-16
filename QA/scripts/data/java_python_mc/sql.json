@@ -1,0 +1,178 @@
+[
+  {
+    "content": "Primary key và foreign key là gì?",
+    "explanation": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+    "options": [
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Primary key định danh duy nhất mỗi row và không null. Foreign key tham chiếu key của bảng khác để đảm bảo toàn vẹn quan hệ.",
+        "is_correct": true
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      },
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "INNER JOIN và LEFT JOIN khác nhau thế nào?",
+    "explanation": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+    "options": [
+      {
+        "content": "INNER JOIN chỉ trả row khớp hai phía. LEFT JOIN giữ toàn bộ row bên trái và trả null cho bên phải khi không khớp.",
+        "is_correct": true
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": false
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "WHERE và HAVING khác nhau thế nào?",
+    "explanation": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+    "options": [
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": false
+      },
+      {
+        "content": "WHERE lọc row trước GROUP BY; HAVING lọc group sau aggregate. Điều kiện không phụ thuộc aggregate nên đặt ở WHERE để giảm dữ liệu sớm.",
+        "is_correct": true
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Index giúp gì và có chi phí gì?",
+    "explanation": "Index tăng tốc tìm kiếm/join/order theo cấu trúc dữ liệu nhưng tốn dung lượng và làm insert/update/delete chậm hơn. Index cần dựa trên query thực tế và thứ tự cột.",
+    "options": [
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Index tăng tốc tìm kiếm/join/order theo cấu trúc dữ liệu nhưng tốn dung lượng và làm insert/update/delete chậm hơn. Index cần dựa trên query thực tế và thứ tự cột.",
+        "is_correct": true
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Transaction và ACID là gì?",
+    "explanation": "Atomicity: tất cả hoặc không; Consistency: giữ invariant; Isolation: giao dịch đồng thời không gây kết quả sai theo mức isolation; Durability: commit được lưu bền.",
+    "options": [
+      {
+        "content": "Unit test cô lập đơn vị nhỏ và chạy nhanh; integration test kiểm tra nhiều thành phần/DB/framework; E2E kiểm tra luồng gần thực tế qua toàn hệ thống, chậm và dễ biến động hơn.",
+        "is_correct": false
+      },
+      {
+        "content": "Nhanh, độc lập, lặp lại được, dễ hiểu, kiểm tra hành vi quan trọng và có tên mô tả. Nên theo Arrange–Act–Assert và bao phủ happy path, edge case, error path.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng để cô lập dependency chậm/không ổn định hoặc kiểm tra interaction. Mock quá nhiều khiến test bám implementation và vẫn xanh dù integration thật hỏng.",
+        "is_correct": false
+      },
+      {
+        "content": "Atomicity: tất cả hoặc không; Consistency: giữ invariant; Isolation: giao dịch đồng thời không gây kết quả sai theo mức isolation; Durability: commit được lưu bền.",
+        "is_correct": true
+      }
+    ]
+  },
+  {
+    "content": "Cách đúng để lấy 3 nhân viên lương cao nhất trong từng phòng ban là gì?",
+    "explanation": "Dùng hàm cửa sổ ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC), sau đó lọc rn <= 3; có thể dùng DENSE_RANK nếu muốn giữ đồng hạng.",
+    "options": [
+      {
+        "content": "Dùng hàm cửa sổ ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC), sau đó lọc rn <= 3; có thể dùng DENSE_RANK nếu muốn giữ đồng hạng.",
+        "is_correct": true
+      },
+      {
+        "content": "GROUP BY department_id rồi chọn trực tiếp ba dòng bất kỳ không cần hàm cửa sổ.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ ORDER BY department_id và không cần sắp xếp theo salary.",
+        "is_correct": false
+      },
+      {
+        "content": "Dùng LIMIT 3 cho toàn bộ bảng, vì LIMIT tự động áp dụng riêng cho từng phòng ban.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Truy vấn nào tìm được các email xuất hiện nhiều hơn một lần?",
+    "explanation": "SELECT email, COUNT(*) FROM users GROUP BY email HAVING COUNT(*) > 1;",
+    "options": [
+      {
+        "content": "SELECT DISTINCT email FROM users; vì DISTINCT chỉ trả các email bị trùng.",
+        "is_correct": false
+      },
+      {
+        "content": "DELETE FROM users GROUP BY email; vì xóa dữ liệu sẽ cho biết email nào trùng.",
+        "is_correct": false
+      },
+      {
+        "content": "SELECT email, COUNT(*) FROM users GROUP BY email HAVING COUNT(*) > 1;",
+        "is_correct": true
+      },
+      {
+        "content": "SELECT email FROM users WHERE COUNT(*) > 1; không cần GROUP BY.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "content": "Để đếm số đơn hàng và doanh thu theo mọi khách hàng, kể cả khách chưa có đơn, nên dùng cách nào?",
+    "explanation": "LEFT JOIN customers với orders, COUNT(o.id), COALESCE(SUM(o.total_amount), 0) và GROUP BY thông tin khách hàng.",
+    "options": [
+      {
+        "content": "CROSS JOIN hai bảng rồi SUM toàn bộ doanh thu cho từng khách.",
+        "is_correct": false
+      },
+      {
+        "content": "LEFT JOIN customers với orders, COUNT(o.id), COALESCE(SUM(o.total_amount), 0) và GROUP BY thông tin khách hàng.",
+        "is_correct": true
+      },
+      {
+        "content": "INNER JOIN và bỏ GROUP BY; khách chưa có đơn vẫn tự động xuất hiện.",
+        "is_correct": false
+      },
+      {
+        "content": "Chỉ truy vấn bảng orders vì bảng customers không cần thiết để giữ khách chưa có đơn.",
+        "is_correct": false
+      }
+    ]
+  }
+]
