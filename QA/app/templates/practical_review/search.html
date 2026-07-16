@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Tìm kiếm - Ôn lý thuyết thực chiến{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/practical_review.css" />
+{% endblock %}
+{% block content %}
+<div class="pr-app" data-pr-page="search">
+    <p class="pr-breadcrumb"><a href="/practical-review">Ôn lý thuyết thực chiến</a> / Tìm kiếm</p>
+    <div class="pr-header">
+        <h1>Tìm kiếm kiến thức thực chiến</h1>
+        <div class="pr-header-actions">
+            <div class="pr-search-box">
+                <span aria-hidden="true">🔍</span>
+                <input type="search" id="pr-search-input" placeholder="Nhập từ khóa (có dấu hoặc không dấu)..." aria-label="Từ khóa tìm kiếm" autofocus />
+            </div>
+            <select id="pr-search-topic-filter" aria-label="Lọc theo chủ đề">
+                <option value="">Tất cả chủ đề</option>
+                {% for topic in topics %}
+                <option value="{{ topic.slug }}">{{ topic.display_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <p class="pr-subtitle" id="pr-search-result-count" aria-live="polite"></p>
+    <div class="pr-qa-list" id="pr-search-results"></div>
+    <div class="pr-empty-state" id="pr-search-empty-state">
+        <p>Nhập từ khóa để tìm trong 240 câu hỏi, đáp án và giải thích.</p>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/practical_review.js"></script>
+{% endblock %}

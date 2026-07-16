@@ -6,3 +6,8 @@ htmlcov/
 .coverage
 *.docx
 !tests/fixtures/**/*.docx
+!scripts/data/bo_cau_hoi_thuc_chien_java_python.docx
+
+# practical-review: derived from the DOCX above; the app parses the DOCX directly at
+# startup and never depends on this file existing, so it's not committed.
+app/practical_review/generated/

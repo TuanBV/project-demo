@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Kiến thức thực chiến Java & Python{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/practical_review.css" />
+{% endblock %}
+{% block content %}
+<div class="pr-app" data-pr-page="overview">
+    <div class="pr-header">
+        <h1>Kiến thức thực chiến Java &amp; Python</h1>
+        <p class="pr-subtitle">{{ question_count }} câu hỏi theo tình huống dự án, debug, kiểm thử, triển khai và production</p>
+        <div class="pr-header-actions">
+            <div class="pr-search-box">
+                <span aria-hidden="true">🔍</span>
+                <input type="search" id="pr-overview-search-input" placeholder="Tìm kiếm trong 240 câu hỏi..." aria-label="Tìm kiếm kiến thức thực chiến" />
+            </div>
+            <button class="pr-btn" id="pr-continue-btn" type="button">Học tiếp</button>
+            <button class="pr-btn pr-btn-outline" id="pr-review-btn" type="button">Ôn câu cần xem lại</button>
+        </div>
+    </div>
+
+    <div class="pr-stats" id="pr-overview-stats">
+        <div class="pr-stat"><div class="pr-stat-value">12</div><div class="pr-stat-label">Chủ đề</div></div>
+        <div class="pr-stat"><div class="pr-stat-value">{{ question_count }}</div><div class="pr-stat-label">Câu hỏi</div></div>
+        <div class="pr-stat"><div class="pr-stat-value" id="pr-stat-seen">0</div><div class="pr-stat-label">Đã xem</div></div>
+        <div class="pr-stat"><div class="pr-stat-value" id="pr-stat-mastered">0</div><div class="pr-stat-label">Đã nắm</div></div>
+        <div class="pr-stat"><div class="pr-stat-value" id="pr-stat-review">0</div><div class="pr-stat-label">Cần xem lại</div></div>
+    </div>
+
+    {% for group_name in ["Java", "Python", "Backend nền tảng", "Thực chiến"] %}
+    <div class="pr-group" data-group="{{ group_name }}">
+        <h2>{{ group_name }}</h2>
+        <div class="pr-topic-grid">
+            {% for topic in topics if topic.group == group_name %}
+            <div class="pr-topic-card" data-topic-slug="{{ topic.slug }}" data-question-count="{{ topic.question_count }}">
+                <span class="pr-topic-order">Chủ đề {{ "%02d"|format(topic.order) }}</span>
+                <h3>{{ topic.display_name }}</h3>
+                <p class="pr-topic-desc">{{ topic.question_count }} câu hỏi tình huống dự án, debug và production</p>
+                <div class="pr-topic-meta">
+                    <span class="pr-topic-learned-count" data-role="learned-count">0</span>/{{ topic.question_count }} đã học
+                </div>
+                <div class="pr-progress-bar"><div data-role="progress-fill" style="width:0%;"></div></div>
+                <div class="pr-topic-card-actions">
+                    <a class="pr-btn pr-btn-outline" href="/practical-review/topics/{{ topic.slug }}">Xem câu hỏi</a>
+                    <a class="pr-btn" href="/practical-review/topics/{{ topic.slug }}/study">Bắt đầu học</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/practical_review.js"></script>
+{% endblock %}

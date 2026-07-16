@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Học flashcard - {{ topic.display_name }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/practical_review.css" />
+{% endblock %}
+{% block content %}
+<div class="pr-app" data-pr-page="study" data-topic-slug="{{ topic.slug }}">
+    <p class="pr-breadcrumb">
+        <a href="/practical-review">Ôn lý thuyết thực chiến</a> /
+        <a href="/practical-review/topics/{{ topic.slug }}">{{ topic.display_name }}</a> / Học flashcard
+    </p>
+
+    <div class="pr-order-select">
+        <label for="pr-order-mode">Thứ tự:</label>
+        <select id="pr-order-mode">
+            <option value="sequential">Theo thứ tự DOCX</option>
+            <option value="random">Ngẫu nhiên</option>
+            <option value="review">Chỉ câu cần xem lại</option>
+        </select>
+    </div>
+
+    <div class="pr-flashcard-shell">
+        <div class="pr-flashcard-progress">
+            <span id="pr-flashcard-position">Câu 1 / {{ topic.question_count }}</span>
+            <span>{{ topic.display_name }}</span>
+        </div>
+        <div class="pr-progress-bar"><div id="pr-flashcard-progress-fill" style="width:0%;"></div></div>
+
+        <div class="pr-flashcard" id="pr-flashcard" aria-live="polite">
+            <p class="pr-flashcard-question" id="pr-flashcard-question"></p>
+            <p class="pr-flashcard-hint">Hãy tự suy nghĩ câu trả lời trước khi xem đáp án.</p>
+
+            <div class="pr-flashcard-actions" id="pr-flashcard-reveal-actions">
+                <button class="pr-btn" id="pr-reveal-btn" type="button">Xem đáp án <span class="pr-sr-only">(phím Space hoặc Enter)</span></button>
+            </div>
+
+            <div class="hidden" id="pr-flashcard-answer-area">
+                <div class="pr-qa-answer-block">
+                    <span class="pr-qa-label">Đáp án tham khảo</span>
+                    <p id="pr-flashcard-answer"></p>
+                </div>
+                <div class="pr-qa-explanation-block">
+                    <span class="pr-qa-label">Giải thích</span>
+                    <p id="pr-flashcard-explanation"></p>
+                </div>
+                <div class="pr-flashcard-rate-actions">
+                    <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-unseen" data-rate="learning" type="button">Chưa nhớ <span class="pr-sr-only">(phím 1)</span></button>
+                    <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-review" data-rate="review" type="button">Cần xem lại <span class="pr-sr-only">(phím 2)</span></button>
+                    <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-mastered" data-rate="mastered" type="button">Đã nắm <span class="pr-sr-only">(phím 3)</span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pr-flashcard-nav">
+            <button class="pr-btn pr-btn-outline" id="pr-prev-btn" type="button">&larr; Câu trước</button>
+            <button class="pr-btn pr-btn-outline" id="pr-next-btn" type="button">Câu tiếp theo &rarr;</button>
+        </div>
+        <p class="pr-flashcard-hint" style="text-align:center; margin-top:12px;">
+            Phím tắt: Space/Enter xem đáp án &middot; 1/2/3 đánh giá &middot; &larr;/&rarr; chuyển câu
+        </p>
+    </div>
+
+    <div class="pr-empty-state hidden" id="pr-flashcard-empty-state">
+        <p>Không có câu hỏi nào trong bộ lọc này (ví dụ: chưa có câu nào được đánh dấu "cần xem lại").</p>
+        <a class="pr-btn" href="/practical-review/topics/{{ topic.slug }}">Quay lại danh sách câu hỏi</a>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/practical_review.js"></script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.display_name }} - Ôn lý thuyết thực chiến{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/practical_review.css" />
+{% endblock %}
+{% block content %}
+<div class="pr-app" data-pr-page="topic" data-topic-slug="{{ topic.slug }}" data-question-count="{{ topic.question_count }}">
+    <p class="pr-breadcrumb"><a href="/practical-review">Ôn lý thuyết thực chiến</a> / {{ topic.display_name }}</p>
+    <div class="pr-header">
+        <h1>{{ topic.display_name }}</h1>
+        <p class="pr-subtitle"><span id="pr-topic-total">{{ topic.question_count }}</span> câu hỏi &middot; <span id="pr-topic-progress-text">0 đã học</span></p>
+        <div class="pr-progress-bar"><div id="pr-topic-progress-fill" style="width:0%;"></div></div>
+        <div class="pr-header-actions" style="margin-top:16px;">
+            <div class="pr-search-box">
+                <span aria-hidden="true">🔍</span>
+                <input type="search" id="pr-topic-search-input" placeholder="Tìm trong chủ đề này..." aria-label="Tìm kiếm trong chủ đề" />
+            </div>
+            <a class="pr-btn" href="/practical-review/topics/{{ topic.slug }}/study?order=sequential&amp;start=0">Học từ đầu</a>
+            <a class="pr-btn pr-btn-secondary" href="/practical-review/topics/{{ topic.slug }}/study">Tiếp tục học</a>
+            <a class="pr-btn pr-btn-outline" href="/practical-review/topics/{{ topic.slug }}/study?order=review">Học câu cần xem lại</a>
+        </div>
+    </div>
+
+    <div class="pr-filter-bar" role="group" aria-label="Lọc theo trạng thái học">
+        <button class="pr-filter-btn" data-filter="all" aria-pressed="true" type="button">Tất cả</button>
+        <button class="pr-filter-btn" data-filter="unseen" aria-pressed="false" type="button">Chưa học</button>
+        <button class="pr-filter-btn" data-filter="mastered" aria-pressed="false" type="button">Đã nắm</button>
+        <button class="pr-filter-btn" data-filter="review" aria-pressed="false" type="button">Cần xem lại</button>
+    </div>
+
+    <div class="pr-qa-list" id="pr-qa-list" aria-live="polite"></div>
+    <div class="pr-empty-state hidden" id="pr-topic-empty-state">
+        <p>Không có câu hỏi nào phù hợp với bộ lọc/tìm kiếm hiện tại.</p>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="/static/js/practical_review.js"></script>
+{% endblock %}
