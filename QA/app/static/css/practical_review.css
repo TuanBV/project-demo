@@ -242,6 +242,27 @@ mark.pr-highlight { background: #fde68a; color: inherit; border-radius: 3px; pad
     white-space: nowrap;
 }
 
+.pr-terms-box {
+    background: var(--pr-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: var(--pr-radius);
+    padding: 10px 14px;
+    margin-top: 10px;
+}
+.pr-terms-box .pr-qa-label { font-weight: 700; display: block; margin-bottom: 6px; color: #374151; }
+.pr-terms-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: #374151;
+}
+.pr-term-name { font-weight: 700; color: var(--pr-primary-dark); }
+.pr-term-def { color: #374151; }
+
 @media (max-width: 900px) {
     .pr-topic-grid { grid-template-columns: repeat(2, 1fr); }
 }

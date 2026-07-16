@@ -7,7 +7,9 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Query
 
 from app.core.exceptions import NotFoundError
+from app.practical_review.glossary import GLOSSARY
 from app.practical_review.schemas import (
+    GlossaryTermSchema,
     QuestionSchema,
     SearchResultSchema,
     SourceInfoSchema,
@@ -72,3 +74,9 @@ def source_info(store: PracticalReviewStore = Depends(get_store)) -> SourceInfoS
         question_count=store.question_count,
         topics=[TopicSummarySchema.from_topic(t) for t in store.list_topics()],
     )
+
+
+@router.get("/glossary", response_model=list[GlossaryTermSchema])
+def glossary() -> list[GlossaryTermSchema]:
+    """Supplementary jargon glossary for the UI -- not DOCX content, see glossary.py."""
+    return [GlossaryTermSchema.from_entry(entry) for entry in GLOSSARY]

@@ -99,6 +99,19 @@ def test_source_info_points_to_docx(pr_client: TestClient) -> None:
     assert body["question_count"] == 240
 
 
+# --- API: glossary -----------------------------------------------------------------------
+
+
+def test_glossary_returns_terms_with_definitions(pr_client: TestClient) -> None:
+    response = pr_client.get("/api/practical-review/glossary")
+    assert response.status_code == 200
+    body = response.json()
+    assert len(body) > 0
+    assert all(entry["term"] and entry["definition"] for entry in body)
+    terms = {entry["term"].lower() for entry in body}
+    assert "encapsulation" in terms
+
+
 # --- Web pages ---------------------------------------------------------------------------
 
 

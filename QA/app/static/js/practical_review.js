@@ -158,6 +158,10 @@
         return `<span class="pr-badge pr-badge-${status}">${escapeHtml(label)}</span>`;
     }
 
+    function escapeRegExp(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
     // ---------------------------------------------------------------------
     // TopicFilter -- pure filtering helper shared by the topic question list page.
     // ---------------------------------------------------------------------
@@ -191,10 +195,6 @@
             return haystack.includes(normalizedQuery);
         }
 
-        function escapeRegExp(value) {
-            return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        }
-
         function highlight(text, query) {
             const escapedText = escapeHtml(text);
             const trimmedQuery = (query || "").trim();
@@ -218,6 +218,88 @@
         }
 
         return { normalize, matches, highlight, debounce };
+    })();
+
+    // ---------------------------------------------------------------------
+    // Glossary -- surfaces recognized technical jargon as an always-visible list beneath a
+    // question, instead of a hover tooltip (tooltips don't work well on touch/smartphone).
+    // Supplementary UI metadata only (see app/practical_review/glossary.py); never treated
+    // as DOCX content. Fetched once and cached for the lifetime of the page.
+    // ---------------------------------------------------------------------
+    const Glossary = (function () {
+        let terms = [];
+        let pattern = null;
+        let loadPromise = null;
+
+        function fetchTerms() {
+            if (!loadPromise) {
+                loadPromise = api
+                    .get(`${API_BASE}/glossary`)
+                    .then((data) => {
+                        terms = Array.isArray(data) ? data : [];
+                        if (terms.length) {
+                            const sorted = [...terms].sort((a, b) => b.term.length - a.term.length);
+                            const alternation = sorted.map((t) => escapeRegExp(t.term)).join("|");
+                            pattern = new RegExp(`\\b(${alternation})\\b`, "gi");
+                        }
+                    })
+                    .catch(() => {
+                        terms = [];
+                        pattern = null;
+                    });
+            }
+            return loadPromise;
+        }
+
+        function definitionFor(matchedText) {
+            const found = terms.find((t) => t.term.toLowerCase() === matchedText.toLowerCase());
+            return found ? found.definition : "";
+        }
+
+        // Scans RAW (unescaped) text for recognized jargon and returns the distinct terms
+        // found, each with its definition, in first-seen order.
+        function findIn(...rawTexts) {
+            if (!pattern) return [];
+            const seen = new Set();
+            const found = [];
+            const re = new RegExp(pattern.source, pattern.flags);
+            for (const text of rawTexts) {
+                if (!text) continue;
+                re.lastIndex = 0;
+                let m;
+                while ((m = re.exec(text)) !== null) {
+                    const key = m[1].toLowerCase();
+                    if (seen.has(key)) continue;
+                    const definition = definitionFor(m[1]);
+                    if (!definition) continue;
+                    seen.add(key);
+                    found.push({ term: m[1], definition });
+                }
+            }
+            return found;
+        }
+
+        // Renders an always-visible "Thuật ngữ" box listing every jargon term recognized in
+        // the given raw texts, or "" when none are found.
+        function renderBox(...rawTexts) {
+            const found = findIn(...rawTexts);
+            if (!found.length) return "";
+            const items = found
+                .map(
+                    (t) =>
+                        `<li><span class="pr-term-name">${escapeHtml(t.term)}</span>: ` +
+                        `<span class="pr-term-def">${escapeHtml(t.definition)}</span></li>`,
+                )
+                .join("");
+            return `
+                <div class="pr-terms-box">
+                    <span class="pr-qa-label">Thuật ngữ</span>
+                    <ul class="pr-terms-list">${items}</ul>
+                </div>
+            `;
+        }
+
+        return { fetchTerms, renderBox };
     })();
 
     // ---------------------------------------------------------------------
@@ -334,7 +416,10 @@
 
         let questions = [];
         try {
-            const detail = await api.get(`${API_BASE}/topics/${slug}`);
+            const [detail] = await Promise.all([
+                api.get(`${API_BASE}/topics/${slug}`),
+                Glossary.fetchTerms(),
+            ]);
             questions = detail.questions;
         } catch (err) {
             listEl.innerHTML = `<p class="muted">Không tải được câu hỏi: ${escapeHtml(err.message)}</p>`;
@@ -402,6 +487,7 @@
                     <span class="pr-qa-label">Giải thích</span>
                     <p>${Search.highlight(question.explanation, query)}</p>
                 </div>
+                ${Glossary.renderBox(question.question, question.answer, question.explanation)}
                 <div class="pr-status-actions">
                     <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-mastered" data-rate="mastered" type="button">Đã nắm</button>
                     <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-review" data-rate="review" type="button">Cần xem lại</button>
@@ -590,6 +676,7 @@
         const questionEl = document.getElementById("pr-flashcard-question");
         const answerEl = document.getElementById("pr-flashcard-answer");
         const explanationEl = document.getElementById("pr-flashcard-explanation");
+        const termsEl = document.getElementById("pr-flashcard-terms");
         const positionEl = document.getElementById("pr-flashcard-position");
         const progressFillEl = document.getElementById("pr-flashcard-progress-fill");
         const emptyEl = document.getElementById("pr-flashcard-empty-state");
@@ -599,7 +686,10 @@
 
         let questions = [];
         try {
-            const detail = await api.get(`${API_BASE}/topics/${slug}`);
+            const [detail] = await Promise.all([
+                api.get(`${API_BASE}/topics/${slug}`),
+                Glossary.fetchTerms(),
+            ]);
             questions = detail.questions;
         } catch (err) {
             questionEl.textContent = `Không tải được câu hỏi: ${err.message}`;
@@ -629,6 +719,11 @@
             questionEl.textContent = question.question;
             answerEl.textContent = question.answer;
             explanationEl.textContent = question.explanation;
+            termsEl.innerHTML = Glossary.renderBox(
+                question.question,
+                question.answer,
+                question.explanation,
+            );
             prevBtn.disabled = position <= 0;
             nextBtn.disabled = position >= total - 1;
         }

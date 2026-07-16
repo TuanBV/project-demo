@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
+from app.practical_review.glossary import GlossaryTerm
 from app.practical_review.models import PracticalQuestion, PracticalTopic
 
 
@@ -63,3 +64,12 @@ class SourceInfoSchema(BaseModel):
     topic_count: int
     question_count: int
     topics: list[TopicSummarySchema]
+
+
+class GlossaryTermSchema(BaseModel):
+    term: str
+    definition: str
+
+    @classmethod
+    def from_entry(cls, entry: GlossaryTerm) -> GlossaryTermSchema:
+        return cls(term=entry.term, definition=entry.definition)
