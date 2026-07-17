@@ -3,18 +3,19 @@ handbook viewer. Must never import or read anything under scripts/data/java_pyth
 scripts/data/extended_topics/, and must not depend on app/practical_review/*.
 
 Expected structure (verified against the actual file before writing this parser):
-  - Exactly 11 "Heading 1" paragraphs matching "CHỦ ĐỀ <n> — <name>" (one per topic, in
+  - Exactly 12 "Heading 1" paragraphs matching "CHỦ ĐỀ <n> — <name>" (one per topic, in
     document order), followed by a final "Heading 1" appendix
-    "PHỤ LỤC A — TỪ ĐIỂN THUẬT NGỮ" containing one large (term, definition) table.
+    "PHỤ LỤC A — TỪ ĐIỂN THUẬT NGỮ ..." containing one large (term, definition) table.
   - Within each topic, in order: a "Phạm vi câu hỏi: ..." paragraph, a "Mục tiêu: ..."
     paragraph, a small (term, definition) table ("1. Thuật ngữ / Khái niệm"), zero or more
     "List Bullet" paragraphs ("2. Sai lầm thường gặp"), zero or more "Code Block" paragraphs
-    ("3. Ví dụ cốt lõi" -- each may carry a leading "[Text]" line to strip), and finally
-    20 (or fewer, for the two Python topics) "Memory Card"-styled Q&A triples:
-    "CÂU <n>  |  <question>", "TRẢ LỜI CỐT LÕI:  <core answer>", and optionally
-    "GIẢI THÍCH:  <explanation>" (not always present -- explanation may be "").
-  - Question numbers are globally unique but not contiguous (same underlying 207-question
-    bank as practical_review, reordered by priority topic).
+    ("3. Ví dụ cốt lõi" -- each may carry a leading "[Text]" line to strip), an optional plain
+    "Normal" practice-instruction paragraph before the cards (ignored -- not modeled), and
+    finally up to 20 "Memory Card"-styled Q&A triples: "CÂU <n>  |  <question>",
+    "TRẢ LỜI CỐT LÕI:  <core answer>", and optionally "GIẢI THÍCH:  <explanation>" (not
+    always present -- explanation may be "").
+  - Question numbers are globally unique. As of the current source file they are also fully
+    contiguous 1..240, but the parser does not assume/require contiguity.
 
 Pure Python + python-docx only -- no FastAPI, no SQLAlchemy, importable standalone.
 """
@@ -32,7 +33,7 @@ from docx.text.paragraph import Paragraph
 
 from app.handbook.models import HandbookQuestion, HandbookTerm, HandbookTopic, ParsedHandbook
 
-# Positional (slug) for the 11 topics, in the exact order they appear in the DOCX. The
+# Positional (slug) for the 12 topics, in the exact order they appear in the DOCX. The
 # display name itself is taken from the DOCX heading text, never hardcoded here.
 _TOPIC_SLUGS: list[str] = [
     "ai-coding",
@@ -44,8 +45,9 @@ _TOPIC_SLUGS: list[str] = [
     "thuat-toan",
     "rest-api",
     "sql-database",
-    "python-core",
-    "python-backend",
+    "jvm-performance",
+    "microservices",
+    "cau-hoi-ntd",
 ]
 
 _TOPIC_HEADING_RE = re.compile(r"^CHỦ ĐỀ\s+\d+\s*—\s*(.*)$")

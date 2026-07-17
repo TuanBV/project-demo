@@ -24,10 +24,10 @@ def test_get_store_is_cached_singleton(store) -> None:  # type: ignore[no-untype
     assert get_store() is store
 
 
-def test_list_topics_returns_11_in_order(store) -> None:  # type: ignore[no-untyped-def]
+def test_list_topics_returns_12_in_order(store) -> None:  # type: ignore[no-untyped-def]
     topics = store.list_topics()
-    assert len(topics) == 11
-    assert [t.order for t in topics] == list(range(1, 12))
+    assert len(topics) == 12
+    assert [t.order for t in topics] == list(range(1, 13))
 
 
 def test_get_topic_unknown_slug_returns_none(store) -> None:  # type: ignore[no-untyped-def]
@@ -49,8 +49,8 @@ def test_list_glossary_returns_appendix_terms(store) -> None:  # type: ignore[no
 
 
 def test_question_and_topic_counts(store) -> None:  # type: ignore[no-untyped-def]
-    assert store.topic_count == 11
-    assert store.question_count == 207
+    assert store.topic_count == 12
+    assert store.question_count == 240
 
 
 def test_source_display_path_is_relative_to_docx(store) -> None:  # type: ignore[no-untyped-def]

@@ -20,8 +20,8 @@ pytestmark = pytest.mark.skipif(
     not DOCX_PATH.exists(), reason="scripts/data/so_tay_on_tap_de_doc_noi_bat.docx missing"
 )
 
-_TOPIC_COUNT = 11
-_QUESTION_COUNT = 207
+_TOPIC_COUNT = 12
+_QUESTION_COUNT = 240
 
 
 def _ensure_style(document: Document, name: str) -> None:
@@ -78,11 +78,11 @@ def _build_minimal_valid_docx(
 
 
 class TestRealDocx:
-    def test_parses_exactly_11_topics(self) -> None:
+    def test_parses_exactly_12_topics(self) -> None:
         parsed = parse_docx(DOCX_PATH)
         assert len(parsed.topics) == _TOPIC_COUNT
 
-    def test_parses_exactly_207_questions(self) -> None:
+    def test_parses_exactly_240_questions(self) -> None:
         parsed = parse_docx(DOCX_PATH)
         assert sum(t.question_count for t in parsed.topics) == _QUESTION_COUNT
 
@@ -130,8 +130,9 @@ class TestRealDocx:
             "thuat-toan",
             "rest-api",
             "sql-database",
-            "python-core",
-            "python-backend",
+            "jvm-performance",
+            "microservices",
+            "cau-hoi-ntd",
         ]
 
     def test_appendix_glossary_is_parsed(self) -> None:
