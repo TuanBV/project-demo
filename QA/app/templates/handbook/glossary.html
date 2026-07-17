@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Từ điển thuật ngữ - Sổ tay ôn tập{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/handbook.css" />
+{% endblock %}
+{% block content %}
+<div class="hb-app">
+    <p class="hb-breadcrumb"><a href="/handbook">Sổ tay ôn tập</a> / Từ điển thuật ngữ</p>
+    <div class="hb-header">
+        <h1>Từ điển thuật ngữ</h1>
+        <p class="hb-subtitle">{{ terms|length }} thuật ngữ, sắp xếp theo bảng chữ cái.</p>
+    </div>
+    <div class="hb-terms-table-wrap">
+        <table class="hb-terms-table">
+            <thead>
+                <tr><th>Thuật ngữ</th><th>Giải thích dễ nhớ</th></tr>
+            </thead>
+            <tbody>
+                {% for term in terms %}
+                <tr><td>{{ term.term }}</td><td>{{ term.definition }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

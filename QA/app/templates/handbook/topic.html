@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.display_name }} - Sổ tay ôn tập{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/handbook.css" />
+{% endblock %}
+{% block content %}
+<div class="hb-app">
+    <p class="hb-breadcrumb"><a href="/handbook">Sổ tay ôn tập</a> / {{ topic.display_name }}</p>
+
+    <div class="hb-header">
+        <span class="hb-topic-order">Chủ đề {{ "%02d"|format(topic.order) }}</span>
+        <h1>{{ topic.display_name }}</h1>
+        <p class="hb-subtitle">
+            {{ topic.question_count }} câu hỏi
+            {% if topic.question_range %}&middot; Phạm vi: {{ topic.question_range }}{% endif %}
+        </p>
+    </div>
+
+    {% if topic.goal %}
+    <section class="hb-section hb-goal-box">
+        <h2>Mục tiêu</h2>
+        <p>{{ topic.goal }}</p>
+    </section>
+    {% endif %}
+
+    {% if topic.terms %}
+    <section class="hb-section">
+        <h2>1. Thuật ngữ / Khái niệm</h2>
+        <div class="hb-terms-table-wrap">
+            <table class="hb-terms-table">
+                <thead>
+                    <tr><th>Thuật ngữ</th><th>Giải thích dễ nhớ</th></tr>
+                </thead>
+                <tbody>
+                    {% for term in topic.terms %}
+                    <tr><td>{{ term.term }}</td><td>{{ term.definition }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if topic.common_mistakes %}
+    <section class="hb-section hb-mistakes-box">
+        <h2>2. Sai lầm thường gặp</h2>
+        <ul class="hb-mistakes-list">
+            {% for mistake in topic.common_mistakes %}
+            <li>{{ mistake }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if topic.core_examples %}
+    <section class="hb-section">
+        <h2>3. Ví dụ cốt lõi</h2>
+        {% for example in topic.core_examples %}
+        <pre class="hb-example-block">{{ example }}</pre>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if topic.questions %}
+    <section class="hb-section">
+        <h2>4. Thẻ câu hỏi thực chiến</h2>
+        <div class="hb-qa-list">
+            {% for q in topic.questions %}
+            <article class="hb-qa-card" id="cau-{{ q.number }}">
+                <p class="hb-qa-question"><span class="hb-qa-number">Câu {{ q.number }}</span> {{ q.question }}</p>
+                <div class="hb-qa-core">
+                    <span class="hb-qa-label">Trả lời cốt lõi</span>
+                    <p>{{ q.core }}</p>
+                </div>
+                {% if q.explanation %}
+                <div class="hb-qa-explanation">
+                    <span class="hb-qa-label">Giải thích</span>
+                    <p>{{ q.explanation }}</p>
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

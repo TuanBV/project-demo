@@ -8,6 +8,7 @@ htmlcov/
 !tests/fixtures/**/*.docx
 !scripts/data/bo_cau_hoi_thuc_chien_java_python.docx
 !scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx
+!scripts/data/so_tay_on_tap_de_doc_noi_bat.docx
 
 # practical-review: derived from the DOCX above; the app parses the DOCX directly at
 # startup and never depends on this file existing, so it's not committed.

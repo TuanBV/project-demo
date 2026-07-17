@@ -1,0 +1,152 @@
+/* Handbook ("Sổ tay ôn tập") -- scoped entirely under .hb-app so it never bleeds into the
+   quiz, admin, or practical-review pages, which don't use this class. Independent design
+   system from practical_review.css by design (this feature is intentionally standalone). */
+
+.hb-app {
+    --hb-primary: #0f766e;
+    --hb-primary-dark: #0d5f59;
+    --hb-goal-bg: #ecfdf5;
+    --hb-goal-border: #34d399;
+    --hb-mistake-bg: #fff7ed;
+    --hb-mistake-border: #fb923c;
+    --hb-core-bg: #eff6ff;
+    --hb-core-color: #1d4ed8;
+    --hb-explain-color: #374151;
+    --hb-border: #e3e5ec;
+    --hb-surface: #ffffff;
+    --hb-bg: #f7f8fc;
+    --hb-radius: 12px;
+    color: #1f2430;
+}
+
+.hb-app a:not(.hb-btn) { color: var(--hb-primary); }
+
+.hb-header { margin-bottom: 24px; }
+.hb-header h1 { margin: 6px 0; font-size: 1.9rem; }
+.hb-subtitle { color: #5b6070; margin: 0 0 14px 0; }
+
+.hb-breadcrumb { font-size: 0.85rem; color: #5b6070; margin-bottom: 8px; }
+
+.hb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: var(--hb-radius);
+    border: 1px solid var(--hb-primary);
+    background: var(--hb-primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+.hb-btn:hover { background: var(--hb-primary-dark); }
+.hb-btn.hb-btn-outline { background: transparent; color: var(--hb-primary); }
+
+.hb-topic-order {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--hb-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.hb-topic-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+.hb-topic-card {
+    background: var(--hb-surface);
+    border: 1px solid var(--hb-border);
+    border-radius: var(--hb-radius);
+}
+.hb-topic-link {
+    display: block;
+    padding: 18px;
+    text-decoration: none;
+    color: inherit;
+}
+.hb-topic-link h2 { margin: 6px 0; font-size: 1.1rem; color: #1f2430; }
+.hb-topic-goal { font-size: 0.88rem; color: #5b6070; margin: 0 0 10px 0; }
+.hb-topic-meta { display: flex; gap: 14px; font-size: 0.8rem; color: #5b6070; }
+
+.hb-section { margin: 28px 0; }
+.hb-section h2 { font-size: 1.15rem; margin-bottom: 12px; color: #1f2430; }
+
+.hb-goal-box {
+    background: var(--hb-goal-bg);
+    border-left: 4px solid var(--hb-goal-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+.hb-goal-box p { margin: 0; }
+
+.hb-terms-table-wrap { overflow-x: auto; }
+.hb-terms-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--hb-surface);
+    border: 1px solid var(--hb-border);
+    border-radius: var(--hb-radius);
+    overflow: hidden;
+}
+.hb-terms-table th, .hb-terms-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--hb-border);
+    vertical-align: top;
+}
+.hb-terms-table th { background: var(--hb-bg); font-size: 0.85rem; }
+.hb-terms-table td:first-child { font-weight: 700; white-space: nowrap; }
+.hb-terms-table tr:last-child td { border-bottom: none; }
+
+.hb-mistakes-box {
+    background: var(--hb-mistake-bg);
+    border-left: 4px solid var(--hb-mistake-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+.hb-mistakes-list { margin: 0; padding-left: 20px; }
+.hb-mistakes-list li { margin-bottom: 6px; }
+
+.hb-example-block {
+    background: #1f2430;
+    color: #e2e8f0;
+    border-radius: var(--hb-radius);
+    padding: 14px 16px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.88rem;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin: 0 0 12px 0;
+}
+
+.hb-qa-list { display: flex; flex-direction: column; gap: 14px; }
+.hb-qa-card {
+    background: var(--hb-surface);
+    border: 1px solid var(--hb-border);
+    border-radius: var(--hb-radius);
+    padding: 16px 18px;
+}
+.hb-qa-question { font-weight: 600; margin: 0 0 12px 0; }
+.hb-qa-number { color: var(--hb-primary); font-weight: 700; margin-right: 6px; }
+.hb-qa-label { font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; display: block; margin-bottom: 4px; }
+.hb-qa-core {
+    background: var(--hb-core-bg);
+    color: var(--hb-core-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+}
+.hb-qa-core p { margin: 0; color: #1f2430; }
+.hb-qa-explanation { padding: 0 14px; color: var(--hb-explain-color); }
+.hb-qa-explanation p { margin: 0; }
+
+@media (max-width: 640px) {
+    .hb-topic-list { grid-template-columns: 1fr; }
+}

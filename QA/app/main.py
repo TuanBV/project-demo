@@ -23,6 +23,7 @@ from app.api.routes import (
 from app.core.config import get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import configure_logging, get_logger, request_id_ctx
+from app.handbook.routes_web import router as handbook_web_router
 from app.practical_review.routes_api import router as practical_review_api_router
 from app.practical_review.routes_web import router as practical_review_web_router
 from app.web import router as web_router
@@ -68,4 +69,5 @@ app.include_router(study_sessions.router)
 app.include_router(progress.router)
 app.include_router(practical_review_api_router)
 app.include_router(practical_review_web_router)
+app.include_router(handbook_web_router)
 app.include_router(web_router)

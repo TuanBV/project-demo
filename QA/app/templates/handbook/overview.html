@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Sổ tay ôn tập{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/handbook.css" />
+{% endblock %}
+{% block content %}
+<div class="hb-app">
+    <div class="hb-header">
+        <h1>Sổ tay ôn tập</h1>
+        <p class="hb-subtitle">
+            {{ topic_count }} chủ đề &middot; {{ question_count }} câu hỏi &middot;
+            mỗi chủ đề gồm mục tiêu, thuật ngữ, sai lầm thường gặp, ví dụ cốt lõi và các thẻ câu hỏi.
+        </p>
+        <a class="hb-btn hb-btn-outline" href="/handbook/glossary">Xem từ điển thuật ngữ đầy đủ</a>
+    </div>
+
+    <ol class="hb-topic-list">
+        {% for topic in topics %}
+        <li class="hb-topic-card">
+            <a class="hb-topic-link" href="/handbook/topics/{{ topic.slug }}">
+                <span class="hb-topic-order">Chủ đề {{ "%02d"|format(topic.order) }}</span>
+                <h2>{{ topic.display_name }}</h2>
+                <p class="hb-topic-goal">{{ topic.goal }}</p>
+                <div class="hb-topic-meta">
+                    <span>{{ topic.question_count }} câu hỏi</span>
+                    {% if topic.question_range %}<span>Phạm vi: {{ topic.question_range }}</span>{% endif %}
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}
