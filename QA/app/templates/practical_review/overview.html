@@ -11,7 +11,7 @@
         <div class="pr-header-actions">
             <div class="pr-search-box">
                 <span aria-hidden="true">🔍</span>
-                <input type="search" id="pr-overview-search-input" placeholder="Tìm kiếm trong 240 câu hỏi..." aria-label="Tìm kiếm kiến thức thực chiến" />
+                <input type="search" id="pr-overview-search-input" placeholder="Tìm kiếm trong {{ question_count }} câu hỏi..." aria-label="Tìm kiếm kiến thức thực chiến" />
             </div>
             <button class="pr-btn" id="pr-continue-btn" type="button">Học tiếp</button>
             <button class="pr-btn pr-btn-outline" id="pr-review-btn" type="button">Ôn câu cần xem lại</button>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="pr-stats" id="pr-overview-stats">
-        <div class="pr-stat"><div class="pr-stat-value">12</div><div class="pr-stat-label">Chủ đề</div></div>
+        <div class="pr-stat"><div class="pr-stat-value">{{ topic_count }}</div><div class="pr-stat-label">Chủ đề</div></div>
         <div class="pr-stat"><div class="pr-stat-value">{{ question_count }}</div><div class="pr-stat-label">Câu hỏi</div></div>
         <div class="pr-stat"><div class="pr-stat-value" id="pr-stat-seen">0</div><div class="pr-stat-label">Đã xem</div></div>
         <div class="pr-stat"><div class="pr-stat-value" id="pr-stat-mastered">0</div><div class="pr-stat-label">Đã nắm</div></div>

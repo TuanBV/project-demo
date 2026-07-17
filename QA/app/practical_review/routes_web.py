@@ -27,14 +27,20 @@ def overview_page(
     return templates.TemplateResponse(
         request,
         "practical_review/overview.html",
-        {"topics": store.list_topics(), "question_count": store.question_count},
+        {
+            "topics": store.list_topics(),
+            "question_count": store.question_count,
+            "topic_count": store.topic_count,
+        },
     )
 
 
 @router.get("/practical-review/search", response_class=HTMLResponse)
 def search_page(request: Request, store: PracticalReviewStore = Depends(get_store)) -> HTMLResponse:
     return templates.TemplateResponse(
-        request, "practical_review/search.html", {"topics": store.list_topics()}
+        request,
+        "practical_review/search.html",
+        {"topics": store.list_topics(), "question_count": store.question_count},
     )
 
 

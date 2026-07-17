@@ -14,7 +14,8 @@ from app.main import app
 from app.practical_review.store import DOCX_PATH
 
 pytestmark = pytest.mark.skipif(
-    not DOCX_PATH.exists(), reason="scripts/data/bo_cau_hoi_thuc_chien_java_python.docx missing"
+    not DOCX_PATH.exists(),
+    reason="scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx missing",
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -63,14 +64,14 @@ def test_overview_page_has_key_elements(pr_client: TestClient) -> None:
         'id="pr-overview-search-input"',
         'id="pr-continue-btn"',
         'id="pr-review-btn"',
-        'data-topic-slug="oop"',
+        'data-topic-slug="oop-solid"',
         'data-role="progress-fill"',
     ):
         assert expected in html
 
 
 def test_topic_page_has_key_elements(pr_client: TestClient) -> None:
-    html = pr_client.get("/practical-review/topics/oop").text
+    html = pr_client.get("/practical-review/topics/oop-solid").text
     for expected in (
         'id="pr-qa-list"',
         'id="pr-topic-search-input"',
@@ -83,7 +84,7 @@ def test_topic_page_has_key_elements(pr_client: TestClient) -> None:
 
 
 def test_study_page_has_key_elements(pr_client: TestClient) -> None:
-    html = pr_client.get("/practical-review/topics/oop/study").text
+    html = pr_client.get("/practical-review/topics/oop-solid/study").text
     for expected in (
         'id="pr-flashcard"',
         'id="pr-flashcard-answer-area"',
@@ -111,8 +112,8 @@ def test_search_page_has_key_elements(pr_client: TestClient) -> None:
 def test_practical_review_pages_do_not_include_study_js(pr_client: TestClient) -> None:
     for path in (
         "/practical-review",
-        "/practical-review/topics/oop",
-        "/practical-review/topics/oop/study",
+        "/practical-review/topics/oop-solid",
+        "/practical-review/topics/oop-solid/study",
         "/practical-review/search",
     ):
         html = pr_client.get(path).text

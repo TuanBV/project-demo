@@ -11,7 +11,8 @@ from app.main import app
 from app.practical_review.store import DOCX_PATH
 
 pytestmark = pytest.mark.skipif(
-    not DOCX_PATH.exists(), reason="scripts/data/bo_cau_hoi_thuc_chien_java_python.docx missing"
+    not DOCX_PATH.exists(),
+    reason="scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx missing",
 )
 
 
@@ -23,19 +24,19 @@ def pr_client() -> TestClient:
 # --- API: topics -----------------------------------------------------------------------
 
 
-def test_list_topics_returns_12(pr_client: TestClient) -> None:
+def test_list_topics_returns_11(pr_client: TestClient) -> None:
     response = pr_client.get("/api/practical-review/topics")
     assert response.status_code == 200
     body = response.json()
-    assert len(body) == 12
-    assert all(t["question_count"] == 20 for t in body)
+    assert len(body) == 11
+    assert sum(t["question_count"] for t in body) == 207
 
 
 def test_get_valid_topic_returns_200_with_20_questions(pr_client: TestClient) -> None:
-    response = pr_client.get("/api/practical-review/topics/oop")
+    response = pr_client.get("/api/practical-review/topics/oop-solid")
     assert response.status_code == 200
     body = response.json()
-    assert body["topic"]["slug"] == "oop"
+    assert body["topic"]["slug"] == "oop-solid"
     assert len(body["questions"]) == 20
 
 
@@ -94,9 +95,9 @@ def test_source_info_points_to_docx(pr_client: TestClient) -> None:
     response = pr_client.get("/api/practical-review/source-info")
     assert response.status_code == 200
     body = response.json()
-    assert body["source"] == "scripts/data/bo_cau_hoi_thuc_chien_java_python.docx"
-    assert body["topic_count"] == 12
-    assert body["question_count"] == 240
+    assert body["source"] == "scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx"
+    assert body["topic_count"] == 11
+    assert body["question_count"] == 207
 
 
 # --- API: glossary -----------------------------------------------------------------------
@@ -122,7 +123,7 @@ def test_overview_page_returns_200(pr_client: TestClient) -> None:
 
 
 def test_topic_page_returns_200_for_valid_slug(pr_client: TestClient) -> None:
-    response = pr_client.get("/practical-review/topics/oop")
+    response = pr_client.get("/practical-review/topics/oop-solid")
     assert response.status_code == 200
     assert 'data-pr-page="topic"' in response.text
 
@@ -133,7 +134,7 @@ def test_topic_page_returns_404_for_invalid_slug(pr_client: TestClient) -> None:
 
 
 def test_study_page_returns_200_for_valid_slug(pr_client: TestClient) -> None:
-    response = pr_client.get("/practical-review/topics/oop/study")
+    response = pr_client.get("/practical-review/topics/oop-solid/study")
     assert response.status_code == 200
     assert 'data-pr-page="study"' in response.text
 

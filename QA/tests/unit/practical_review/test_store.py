@@ -11,7 +11,8 @@ import pytest
 from app.practical_review.store import DOCX_PATH, get_store
 
 pytestmark = pytest.mark.skipif(
-    not DOCX_PATH.exists(), reason="scripts/data/bo_cau_hoi_thuc_chien_java_python.docx missing"
+    not DOCX_PATH.exists(),
+    reason="scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx missing",
 )
 
 
@@ -24,10 +25,10 @@ def test_get_store_is_cached_singleton(store) -> None:  # type: ignore[no-untype
     assert get_store() is store
 
 
-def test_list_topics_returns_12_in_order(store) -> None:  # type: ignore[no-untyped-def]
+def test_list_topics_returns_11_in_order(store) -> None:  # type: ignore[no-untyped-def]
     topics = store.list_topics()
-    assert len(topics) == 12
-    assert [t.order for t in topics] == list(range(1, 13))
+    assert len(topics) == 11
+    assert [t.order for t in topics] == list(range(1, 12))
 
 
 def test_get_topic_unknown_slug_returns_none(store) -> None:  # type: ignore[no-untyped-def]
@@ -35,7 +36,7 @@ def test_get_topic_unknown_slug_returns_none(store) -> None:  # type: ignore[no-
 
 
 def test_list_questions_for_topic_returns_20_sorted(store) -> None:  # type: ignore[no-untyped-def]
-    questions = store.list_questions("oop")
+    questions = store.list_questions("oop-solid")
     assert len(questions) == 20
     assert [q.number for q in questions] == sorted(q.number for q in questions)
 
@@ -44,7 +45,7 @@ def test_get_question_by_number(store) -> None:  # type: ignore[no-untyped-def]
     question = store.get_question(1)
     assert question is not None
     assert question.number == 1
-    assert question.topic_slug == "oop"
+    assert question.topic_slug == "oop-solid"
 
 
 def test_get_question_unknown_number_returns_none(store) -> None:  # type: ignore[no-untyped-def]
@@ -71,9 +72,9 @@ def test_search_finds_vietnamese_without_diacritics(store) -> None:  # type: ign
 
 def test_search_scoped_to_topic(store) -> None:  # type: ignore[no-untyped-def]
     all_results = store.search("là gì")
-    scoped_results = store.search("là gì", topic_slug="oop")
+    scoped_results = store.search("là gì", topic_slug="oop-solid")
     assert len(scoped_results) <= len(all_results)
-    assert all(r.topic_slug == "oop" for r in scoped_results)
+    assert all(r.topic_slug == "oop-solid" for r in scoped_results)
 
 
 def test_search_empty_query_returns_nothing(store) -> None:  # type: ignore[no-untyped-def]
@@ -82,7 +83,9 @@ def test_search_empty_query_returns_nothing(store) -> None:  # type: ignore[no-u
 
 
 def test_source_display_path_is_relative_to_docx(store) -> None:  # type: ignore[no-untyped-def]
-    assert store.source_display_path == "scripts/data/bo_cau_hoi_thuc_chien_java_python.docx"
+    assert (
+        store.source_display_path == "scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx"
+    )
 
 
 class TestIsolationGuard:

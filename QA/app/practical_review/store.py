@@ -12,7 +12,7 @@ from app.practical_review.models import ParsedDocument, PracticalQuestion, Pract
 from app.practical_review.text_utils import normalize_for_search
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-DOCX_PATH = PROJECT_ROOT / "scripts" / "data" / "bo_cau_hoi_thuc_chien_java_python.docx"
+DOCX_PATH = PROJECT_ROOT / "scripts" / "data" / "so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx"
 
 
 class PracticalReviewStore:

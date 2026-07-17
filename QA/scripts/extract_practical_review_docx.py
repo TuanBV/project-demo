@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""Extract + validate scripts/data/bo_cau_hoi_thuc_chien_java_python.docx and print a report.
+"""Extract + validate scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx and print a
+report.
 
 This script is a standalone diagnostic/regeneration tool for the practical-review area --
 the running FastAPI app does NOT depend on its output; it parses the DOCX directly at

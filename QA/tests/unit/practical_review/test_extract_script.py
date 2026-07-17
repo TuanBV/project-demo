@@ -13,7 +13,8 @@ import pytest
 from app.practical_review.store import DOCX_PATH
 
 pytestmark = pytest.mark.skipif(
-    not DOCX_PATH.exists(), reason="scripts/data/bo_cau_hoi_thuc_chien_java_python.docx missing"
+    not DOCX_PATH.exists(),
+    reason="scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx missing",
 )
 
 _MODULE_PATH = Path(__file__).resolve().parents[3] / "scripts" / "extract_practical_review_docx.py"
@@ -23,14 +24,14 @@ extract_script = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(extract_script)
 
 
-def test_build_report_mentions_all_12_topics() -> None:
+def test_build_report_mentions_all_11_topics() -> None:
     from app.practical_review.docx_parser import parse_docx
 
     document = parse_docx(DOCX_PATH)
     report = extract_script.build_report(document)
     report_text = "\n".join(report)
-    assert "Tổng số chủ đề: 12" in report_text
-    assert "Tổng số câu hỏi: 240" in report_text
+    assert "Tổng số chủ đề: 11" in report_text
+    assert "Tổng số câu hỏi: 207" in report_text
     for topic in document.topics:
         assert topic.display_name in report_text
 
@@ -40,11 +41,11 @@ def test_generated_payload_has_required_metadata_header() -> None:
 
     document = parse_docx(DOCX_PATH)
     payload = extract_script.to_generated_payload(document)
-    assert payload["source"] == "scripts/data/bo_cau_hoi_thuc_chien_java_python.docx"
-    assert payload["topic_count"] == 12
-    assert payload["question_count"] == 240
-    assert len(payload["topics"]) == 12
-    assert len(payload["questions"]) == 240
+    assert payload["source"] == "scripts/data/so_tay_on_tap_sap_xep_theo_chu_de_uu_tien.docx"
+    assert payload["topic_count"] == 11
+    assert payload["question_count"] == 207
+    assert len(payload["topics"]) == 11
+    assert len(payload["questions"]) == 207
     assert "generated_at" in payload
 
 
@@ -68,7 +69,11 @@ def test_payload_is_json_serializable_with_vietnamese_text(tmp_path: Path) -> No
     out_path = tmp_path / "questions.json"
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     reloaded = json.loads(out_path.read_text(encoding="utf-8"))
-    assert reloaded["questions"][0]["question"] == document.questions[0].question
+    # payload["questions"] is sorted by number (see to_generated_payload), while
+    # document.questions is in DOCX/topic order -- compare by number, not by position.
+    first_number = reloaded["questions"][0]["number"]
+    original = next(q for q in document.questions if q.number == first_number)
+    assert reloaded["questions"][0]["question"] == original.question
 
 
 def test_main_check_only_does_not_write_generated_file(
@@ -95,4 +100,4 @@ def test_main_writes_generated_file_by_default(
     assert exit_code == 0
     assert fake_generated_path.exists()
     payload = json.loads(fake_generated_path.read_text(encoding="utf-8"))
-    assert payload["question_count"] == 240
+    assert payload["question_count"] == 207

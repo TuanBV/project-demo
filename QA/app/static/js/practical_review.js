@@ -483,10 +483,14 @@
                     <span class="pr-qa-label">Đáp án</span>
                     <p>${Search.highlight(question.answer, query)}</p>
                 </div>
-                <div class="pr-qa-explanation-block">
-                    <span class="pr-qa-label">Giải thích</span>
-                    <p>${Search.highlight(question.explanation, query)}</p>
-                </div>
+                ${
+                    question.explanation
+                        ? `<div class="pr-qa-explanation-block">
+                            <span class="pr-qa-label">Giải thích</span>
+                            <p>${Search.highlight(question.explanation, query)}</p>
+                        </div>`
+                        : ""
+                }
                 ${Glossary.renderBox(question.question, question.answer, question.explanation)}
                 <div class="pr-status-actions">
                     <button class="pr-btn pr-btn-outline pr-rate-btn pr-rate-mastered" data-rate="mastered" type="button">Đã nắm</button>
@@ -676,6 +680,7 @@
         const questionEl = document.getElementById("pr-flashcard-question");
         const answerEl = document.getElementById("pr-flashcard-answer");
         const explanationEl = document.getElementById("pr-flashcard-explanation");
+        const explanationBlockEl = document.getElementById("pr-flashcard-explanation-block");
         const termsEl = document.getElementById("pr-flashcard-terms");
         const positionEl = document.getElementById("pr-flashcard-position");
         const progressFillEl = document.getElementById("pr-flashcard-progress-fill");
@@ -719,6 +724,7 @@
             questionEl.textContent = question.question;
             answerEl.textContent = question.answer;
             explanationEl.textContent = question.explanation;
+            explanationBlockEl.classList.toggle("hidden", !question.explanation);
             termsEl.innerHTML = Glossary.renderBox(
                 question.question,
                 question.answer,
@@ -785,7 +791,7 @@
                 countEl.textContent = "";
                 emptyEl.classList.remove("hidden");
                 emptyEl.querySelector("p").textContent =
-                    "Nhập từ khóa để tìm trong 240 câu hỏi, đáp án và giải thích.";
+                    "Nhập từ khóa để tìm trong câu hỏi, đáp án và giải thích.";
                 return;
             }
 
