@@ -1,0 +1,16 @@
+# Activated with @ActiveProfiles("test"). The datasource itself is overridden
+# at runtime by each Testcontainers base test class via @DynamicPropertySource.
+app:
+  jwt:
+    cookie-secure: false
+    secret: test-secret-test-secret-test-secret-test-secret
+  rate-limit:
+    # Disabled for controller ITs, which legitimately fire many requests per
+    # test class in quick succession. RateLimiterTest exercises the limiter
+    # itself in isolation instead.
+    enabled: false
+
+logging:
+  level:
+    org.testcontainers: INFO
+    com.cvplatform: DEBUG

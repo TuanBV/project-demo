@@ -1,0 +1,9 @@
+# Activated with SPRING_PROFILES_ACTIVE=local (see docker-compose.yml / README).
+# Relaxes cookie security for plain-HTTP localhost and turns on verbose app logging.
+app:
+  jwt:
+    cookie-secure: false
+
+logging:
+  level:
+    com.cvplatform: DEBUG
